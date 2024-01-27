@@ -1,0 +1,15 @@
+ul {
+    list-style: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+li {
+    margin-bottom: 5px; 
+}
+
+#checkboxContainer label {
+    display: none;
+}

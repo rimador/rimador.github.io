@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimador</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+
+<body>
+    <div class="container">
+        <h1>Rimador</h1>
+        <div class="search-container">
+            <label for="paraulaCercada">Cerca la paraula:</label>
+            <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula">
+            <button id="cercaButton">Cerca</button>
+
+            
+        </div>
+        <hr />
+        <div class="dropdown-container">
+            <label for="rimaSelector">Selecciona la rima:</label>
+            <select id="rimaSelector">
+              <option value="Consonant">Consonant</option>
+              <option value="assonant">Assonant</option>
+            </select>
+
+            <label for="categoriaSelector">Comença per:</label>
+            <select id="categoriaSelector">
+              <option value="indiferent">Indiferent</option>
+              <option value="vocal+h">Vocal + H</option>
+              <option value="consonant">Consonant</option>
+            </select>
+          
+            <label for="numeroSelector">Número de síl·labes:</label>
+            <select id="numeroSelector">
+              <option value="0">Indiferent</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5+</option>
+            </select>
+          
+
+        </div>
+        <div>
+            <h4>Resultats:</h4>
+            <p id="nombre"></p>
+            <p id="rimes"></p><br>
+            <div id="resultats"></div>
+
+        </div>
+
+        <hr/> 
+
+    </div>
+    <div id="checkboxContainer">
+        <!-- Secció "Noms" -->
+        <label>
+            <input type="checkbox" class="clickable-checkbox" id="checkbox1" onchange="toggleList('nomsList', 'checkbox1')" onclick="handleCheckboxClick(event, CriterisNoms)"> Noms
+        </label>
+        
+        <ul id="nomsList" style="display: none" onclick="handleCheckboxClick(event, CriterisNoms)">
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Propis</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Comuns</li>
+        </ul>
+        <br>
+
+        <!-- Secció "Verbs" -->
+        <label>
+            <input type="checkbox" class="clickable-checkbox" id="checkbox2" onchange="toggleList('verbsList', 'checkbox2')" onclick="handleCheckboxClick(event, CriterisVerbs)"> Verbs
+        </label>
+        
+        <ul id="verbsList" style="display: none" onclick="handleCheckboxClick(event, CriterisVerbs)">
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indicatiu</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Subjuntiu</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Imperatiu</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Gerundis</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Participis</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Infinitius</li>
+        </ul>
+        <br>
+
+         <!-- Secció "Pronoms" -->
+         <label>
+            <input type="checkbox" class="clickable-checkbox" id="checkbox5" onchange="toggleList('pronomsList', 'checkbox5')" onclick="handleCheckboxClick(event, CriterisPronoms)"> Pronoms
+        </label>
+
+        <ul id="pronomsList"  style="display: none" onclick="handleCheckboxClick(event, CriterisPronoms)">
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius / Exclamatius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Personals (forts i febles)</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
+
+        </ul><br>
+    </div>
+    
+</body>
+
+</html>

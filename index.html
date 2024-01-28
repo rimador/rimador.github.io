@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
@@ -9,8 +9,6 @@
 </head>
 
 <body>
-
-<body>
     <div class="container">
         <h1>Rimador</h1>
         <div class="search-container">
@@ -18,9 +16,9 @@
             <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula">
             <button id="cercaButton">Cerca</button>
 
-            
         </div>
-        <hr />
+
+        <hr/>
         <div class="dropdown-container">
             <label for="rimaSelector">Selecciona la rima:</label>
             <select id="rimaSelector">
@@ -44,14 +42,12 @@
               <option value="4">4</option>
               <option value="5">5+</option>
             </select>
-          
-
         </div>
+
         <div>
             <h4>Resultats:</h4>
             <p id="nombre"></p>
             <p id="rimes"></p><br>
-            <div id="resultats"></div>
 
         </div>
 
@@ -61,10 +57,10 @@
     <div id="checkboxContainer">
         <!-- Secció "Noms" -->
         <label>
-            <input type="checkbox" class="clickable-checkbox" id="checkbox1" onchange="toggleList('nomsList', 'checkbox1')" onclick="handleCheckboxClick(event, CriterisNoms)"> Noms
+            <input type="checkbox" class="clickable-checkbox" id="checkbox1"> Noms
         </label>
         
-        <ul id="nomsList" style="display: none" onclick="handleCheckboxClick(event, CriterisNoms)">
+        <ul id="nomsList" style="display: none">
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Propis</li>
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Comuns</li>
         </ul>
@@ -72,10 +68,10 @@
 
         <!-- Secció "Verbs" -->
         <label>
-            <input type="checkbox" class="clickable-checkbox" id="checkbox2" onchange="toggleList('verbsList', 'checkbox2')" onclick="handleCheckboxClick(event, CriterisVerbs)"> Verbs
+            <input type="checkbox" class="clickable-checkbox" id="checkbox2"> Verbs
         </label>
         
-        <ul id="verbsList" style="display: none" onclick="handleCheckboxClick(event, CriterisVerbs)">
+        <ul id="verbsList" style="display: none">
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indicatiu</li>
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Subjuntiu</li>
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Imperatiu</li>
@@ -87,10 +83,10 @@
 
          <!-- Secció "Pronoms" -->
          <label>
-            <input type="checkbox" class="clickable-checkbox" id="checkbox5" onchange="toggleList('pronomsList', 'checkbox5')" onclick="handleCheckboxClick(event, CriterisPronoms)"> Pronoms
+            <input type="checkbox" class="clickable-checkbox" id="checkbox5"> Pronoms
         </label>
 
-        <ul id="pronomsList"  style="display: none" onclick="handleCheckboxClick(event, CriterisPronoms)">
+        <ul id="pronomsList"  style="display: none">
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius / Exclamatius</li>

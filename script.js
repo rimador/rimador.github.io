@@ -201,13 +201,13 @@ function handleCheckboxClick(event, checkboxCriteria) {
 function crearCriteris(nom, prefix) {
   return {
       [`${nom}`]: {
-          filterFunction: item => item.split('$')[2].startsWith(`${prefix}`),},};
+          filterFunction: item => item.[2].startsWith(`${prefix}`),},};
 }
 
 function crearCriterisDobles(nom, prefix1, prefix2) {
   return {
       [`${nom}`]: {
-          filterFunction: item => item.split('$')[2].startsWith(prefix1) || item.split('$')[2].startsWith(prefix2),},};
+          filterFunction: item => item.split[2].startsWith(prefix1) || item.split[2].startsWith(prefix2),},};
 }
 
 const CriterisVerbs = {
@@ -255,7 +255,7 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
   var resultatsAltres = [];
 
   for (var i = 0; i < matches.length; i++) {
-      var terceraColumna = matches[i].split('$')[2];
+      var terceraColumna = matches[i][2];
       var primerCaracter = terceraColumna.charAt(0);
       var segonCaracter = terceraColumna.charAt(1);
       var tercerCaracter = terceraColumna.charAt(2);
@@ -326,7 +326,7 @@ function actualitzarRimes() {
 
   var rimes = "Rimes:<br><br>";
   for (var i = 0; i < matches_provisionals.length; i++) {
-      var parts = matches_provisionals[i].split("$");
+      var parts = matches_provisionals[i];
       rimes += parts[0] + "<br>";
   }
 

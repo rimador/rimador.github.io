@@ -201,13 +201,13 @@ function handleCheckboxClick(event, checkboxCriteria) {
 function crearCriteris(nom, prefix) {
   return {
       [`${nom}`]: {
-          filterFunction: item => item.[2].startsWith(`${prefix}`),},};
+          filterFunction: item => item[2].startsWith(`${prefix}`),},};
 }
 
 function crearCriterisDobles(nom, prefix1, prefix2) {
   return {
       [`${nom}`]: {
-          filterFunction: item => item.split[2].startsWith(prefix1) || item.split[2].startsWith(prefix2),},};
+          filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2),},};
 }
 
 const CriterisVerbs = {

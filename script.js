@@ -204,6 +204,10 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
     console.log('Comparant:', item[0].toLowerCase(), paraulaCercada);
     return item[0].toLowerCase() === paraulaCercada;
   });
+  // si no troba la paraula
+  if (!llistaParaulaCerca) {
+    llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0]; // Assignem el valor per defecte
+}
   
   for (var i = 0; i < llistaDeLlistes.length; i++) {
     console.log('Comença bucle for');

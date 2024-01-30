@@ -18,14 +18,8 @@ checkbox5.addEventListener('change', function(event) {
   handleCheckboxClick(event, CriterisPronoms);
 });
 
-
 //Variables:
-var matches = [];
 
-var resultats = obtenirValorsSegonsPrimerCaracter(matches);
-var elementsAMostrarPronoms = resultats.resultatsP;
-var elementsAMostrarVerbs = resultats.resultatsV;
-var elementsAMostrarNoms = resultats.resultatsN;
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
   var resultatsP = [];
@@ -36,6 +30,7 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
       var terceraColumna = matches[i][2];
       var primerCaracter = terceraColumna.charAt(0);
       var segonCaracter = terceraColumna.charAt(1);
+      var tercerCaracter = terceraColumna.charAt(2);
 
       switch (primerCaracter) {
           case "P": // Pronoms
@@ -49,7 +44,7 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
               }
               break;
           case "V": // Verbs
-              switch (segonCaracter) {
+              switch (tercerCaracter) {
                   case "I": resultatsV.push(2); break; // Indicatiu
                   case "S": resultatsV.push(2); break; // Subjuntiu
                   case "M": resultatsV.push(2); break; // Imperatiu
@@ -142,7 +137,7 @@ function realitzarCerca() {
       // Buscar la paraula i obtenir les coincidències
 
       buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima);
-      var matches = buscaparaula[0]
+      matches = buscaparaula[0]
       paraulacerca = buscaparaula[1]
       
       // Mostrar els resultats
@@ -289,11 +284,11 @@ function actualitzarRimes() {
 
 
 function mostrarTotesLesLlistes() {
-  obtenirValorsSegonsPrimerCaracter(matches)
+  var resultats = obtenirValorsSegonsPrimerCaracter(matches)
 
-  mostrarLlista('pronoms', elementsAMostrarPronoms, 'checkbox5');
-  mostrarLlista('verbs', elementsAMostrarVerbs, 'checkbox2');
-  mostrarLlista('noms', elementsAMostrarNoms, 'checkbox1');
+  mostrarLlista('pronoms', resultats.resultatsP, 'checkbox5');
+  mostrarLlista('verbs', resultats.resultatsV, 'checkbox2');
+  mostrarLlista('noms', resultats.resultatsN, 'checkbox1');
 }
 
 function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
@@ -398,3 +393,4 @@ function handleCheckboxClick(event, checkboxCriteria) {
           console.log(matches_provisionals);
   }   }
 }
+

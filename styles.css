@@ -11,5 +11,5 @@ li {
 }
 
 #checkboxContainer label {
-    display: none;
+    display: block;
 }

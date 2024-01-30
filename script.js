@@ -154,8 +154,11 @@ function realitzarCerca() {
       var llistaDeLlistes = processarFitxerDeText(data);
 
       // Buscar la paraula i obtenir les coincidències
-      matches = buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima);
 
+      buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima);
+      var matches = buscaparaula[0]
+      paraulacerca = buscaparaula[1]
+      
       // Mostrar els resultats
       console.log("Seguim")
 
@@ -204,6 +207,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
     console.log('Comparant:', item[0].toLowerCase(), paraulaCercada);
     return item[0].toLowerCase() === paraulaCercada;
   });
+
   // si no troba la paraula
   if (!llistaParaulaCerca) {
     llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0]; // Assignem el valor per defecte
@@ -269,12 +273,12 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
     }
   }
 
-  return matches;
+  return [matches, llistaParaulaCerca];
 }
 
 
 function actualitzarRimes() {
-  matches_provisionals.sort();
+  //matches_provisionals.sort();
   var numerorimes = "Nombre de rimes: " + matches_provisionals.length;
       document.getElementById("nombre").innerHTML = numerorimes;
 
@@ -285,8 +289,12 @@ function actualitzarRimes() {
         rimes += parts[0] + "<br>";
   }
   } else {
-    var rimes = "No s\'ha trobat la paraula cercada.";
-
+    if (paraulacerca[0] === 0){
+      var rimes = "No s\'ha trobat la paraula al diccionari."
+    }
+    else{
+      var rimes = "No s\'han trobat rimes amb aquestes condicions. Ets massa exigent!";
+    }
   }
   document.getElementById("rimes").innerHTML = rimes;
   

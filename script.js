@@ -6,31 +6,17 @@ cercaButton.addEventListener('click', realitzarCerca);
 
 //Checkboxes:
 //Noms
-checkbox1.addEventListener('click', function(event) {
+checkbox1.addEventListener('change', function(event) {
   handleCheckboxClick(event, CriterisNoms);
 });
-nomsList.addEventListener('click', function(event) {
-  handleCheckboxClick(event, CriterisNoms);
-});
-checkbox1.addEventListener('change', toggleList('nomsList', 'checkbox1'))
 
-//Verbs
-checkbox2.addEventListener('click', function(event) {
+checkbox2.addEventListener('change', function(event) {
   handleCheckboxClick(event, CriterisVerbs);
 });
-verbsList.addEventListener('click', function(event) {
-  handleCheckboxClick(event, CriterisVerbs);
-});
-checkbox2.addEventListener('change', toggleList('verbsList', 'checkbox2'))
 
-//Pronoms
-checkbox5.addEventListener('click', function(event) {
+checkbox5.addEventListener('change', function(event) {
   handleCheckboxClick(event, CriterisPronoms);
 });
-pronomsList.addEventListener('click', function(event) {
-  handleCheckboxClick(event, CriterisPronoms);
-});
-checkbox5.addEventListener('change', toggleList('pronomsList', 'checkbox5'))
 
 
 //Variables:

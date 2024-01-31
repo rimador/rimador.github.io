@@ -18,8 +18,6 @@ checkbox5.addEventListener('change', function(event) {
   handleCheckboxClick(event, CriterisPronoms);
 });
 
-//Variables:
-
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
   var resultatsP = [];
@@ -112,7 +110,6 @@ function crearCriterisDobles(nom, prefix1, prefix2) {
 
 
 
-
 //FUNCIONS
 function realitzarCerca() {
   matches = [];
@@ -167,7 +164,6 @@ function realitzarCerca() {
 }
 
 
-
 function processarFitxerDeText(contingut) {
   var linies = contingut.split('\n');
   var llistaDeLlistes = [];
@@ -179,6 +175,7 @@ function processarFitxerDeText(contingut) {
 
   return llistaDeLlistes;
 }
+
 
 function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima) {
   console.log('Comença buscarParaula');
@@ -204,31 +201,17 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
         break;
       }
 
-      console.log('1/6');
-
       if (paraula.length > 7 && numeroSeleccionat === "5" && parseInt(paraula[7]) < 5) {
         break;
       }
-
-      console.log('2/6');
-
 
       if (comença === "vocal+h" && !'haeiou'.includes(paraula[0][0])) {
         break;
       }
 
-      console.log('3/6');
-
-
       if (comença === "consonant" && 'haeiou'.includes(paraula[0][0])) {
         break;
       }
-
-      console.log('4/6');
-      console.log(paraula);
-      console.log(llistaParaulaCerca);
-
-
 
       if (tipusRima === 'Consonant') {
         if (paraula[5] !== llistaParaulaCerca[5]) {
@@ -236,24 +219,17 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
         }
       }
 
-      console.log('5/6');
-
-
       if (tipusRima === 'assonant') {
         if (paraula[6] !== llistaParaulaCerca[6]) {
           break;
         }
       }
 
-      console.log('6/6');
-
-
       matches.push(paraula);
       console.log('paraula afegida, tornem a començar o saltem de funció');
       bona = 0;
     }
   }
-
   return [matches, llistaParaulaCerca];
 }
 
@@ -298,10 +274,6 @@ function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
   var listTitle = document.querySelector(titleSelector);
   var list = document.querySelector(listSelector);
 
-  console.log('List Title:', listTitle);
-  console.log('List:', list);
-  console.log('Elements de la llista:', elementsDeLlista);    
-
   if (listTitle && list) {
       console.log('Entrant a la condició principal');
 
@@ -331,7 +303,6 @@ function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
 
 
 
-
 function toggleList(listID, checkboxID) {
   var list = document.getElementById(listID);
   var checkboxTitle = document.getElementById(checkboxID);
@@ -351,6 +322,7 @@ function toggleList(listID, checkboxID) {
     });
   }
 }
+
 
 function handleCheckboxClick(event, checkboxCriteria) {
   // Comprova si l'esdeveniment està associat a una casella de verificació

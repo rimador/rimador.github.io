@@ -1,23 +1,5 @@
-//Esdeveniments:
-
 //Botó:
 cercaButton.addEventListener('click', realitzarCerca);
-
-
-//Checkboxes:
-//Noms
-checkbox1.addEventListener('change', function(event) {
-  handleCheckboxClick(event, CriterisNoms);
-});
-
-checkbox2.addEventListener('change', function(event) {
-  handleCheckboxClick(event, CriterisVerbs);
-});
-
-checkbox5.addEventListener('change', function(event) {
-  handleCheckboxClick(event, CriterisPronoms);
-});
-
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
   var resultatsP = [];

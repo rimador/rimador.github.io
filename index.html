@@ -67,9 +67,21 @@
         </ul>
         <br>
 
+        <!-- Secció "Adjectius" -->
+        <label>
+            <input type="checkbox" class="clickable-checkbox" id="checkbox2" onchange="toggleList('adjectiusList', 'checkbox2')" onclick="handleCheckboxClick(event, CriterisAdjectius)"> Noms
+        </label>
+        
+        <ul id="adjectiusList" style="display: none" onclick="handleCheckboxClick(event, CriterisAdjectius)">
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Qualificatius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Superlatius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Ordinals</li>
+        </ul>
+        <br>
+
         <!-- Secció "Verbs" -->
         <label>
-            <input type="checkbox" class="clickable-checkbox" id="checkbox2" onchange="toggleList('verbsList', 'checkbox2')" onclick="handleCheckboxClick(event, CriterisVerbs)"> Verbs
+            <input type="checkbox" class="clickable-checkbox" id="checkbox3" onchange="toggleList('verbsList', 'checkbox3')" onclick="handleCheckboxClick(event, CriterisVerbs)"> Verbs
         </label>
         
         <ul id="verbsList" style="display: none" onclick="handleCheckboxClick(event, CriterisVerbs)">

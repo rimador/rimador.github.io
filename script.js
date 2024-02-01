@@ -2,9 +2,11 @@
 cercaButton.addEventListener('click', realitzarCerca);
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
-  var resultatsP = [];
-  var resultatsV = [];
   var resultatsN = [];
+  var resultatsV = [];
+  var resultatsA = [];
+  var resultatsP = [];
+
 
   for (var i = 0; i < matches.length; i++) {
       var terceraColumna = matches[i][2];
@@ -12,7 +14,37 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
       var segonCaracter = terceraColumna.charAt(1);
       var tercerCaracter = terceraColumna.charAt(2);
 
-      switch (primerCaracter) {
+      switch (primerCaracter) {   
+          
+          case "N": // Noms
+              switch (segonCaracter) {
+                  case "P": resultatsN.push(0); break; // Propis
+                  case "C": resultatsN.push(1); break; // Comuns
+              }
+              break;
+
+          case "A": // Adjectius
+              switch (segonCaracter) {
+                  case "Q": // Adjectius
+                    switch (tercerCaracter) {
+                        case "0": resultatsA.push(0); break; // Qualificatius
+                        case "A": resultatsA.push(1); break; // Superlatius
+                    }
+                  case "O": resultatsA.push(2); break; // Ordinals
+              }
+              break;
+          
+          case "V": // Verbs
+              switch (tercerCaracter) {
+                  case "I": resultatsV.push(0); break; // Indicatiu
+                  case "S": resultatsV.push(1); break; // Subjuntiu
+                  case "M": resultatsV.push(2); break; // Imperatiu
+                  case "G": resultatsV.push(3); break; // Gerundi
+                  case "P": resultatsV.push(4); break; // Participi
+                  case "N": resultatsV.push(5); break; // Infinitiu
+              }
+              break; 
+          
           case "P": // Pronoms
               switch (segonCaracter) {
                   case "D": resultatsP.push(0); break; // Demostratius
@@ -23,31 +55,16 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
                   case "R": resultatsP.push(5); break; // Relatius
               }
               break;
-          case "V": // Verbs
-              switch (tercerCaracter) {
-                  case "I": resultatsV.push(2); break; // Indicatiu
-                  case "S": resultatsV.push(2); break; // Subjuntiu
-                  case "M": resultatsV.push(2); break; // Imperatiu
-                  case "G": resultatsV.push(3); break; // Gerundi
-                  case "P": resultatsV.push(4); break; // Participi
-                  case "N": resultatsV.push(5); break; // Infinitiu
-              }
-              break;    
-          case "N": // Noms
-              switch (segonCaracter) {
-                  case "P": resultatsN.push(0); break; // Propis
-                  case "C": resultatsN.push(1); break; // Comuns
-              }
-
-              break;
       }
   }
 
   // Retornar les variables amb els resultats
   return {
-      resultatsP: resultatsP,
-      resultatsV: resultatsV,
       resultatsN: resultatsN,
+      resultatsA: resultatsA,
+      resultatsV: resultatsV,
+      resultatsP: resultatsP,
+
   };
 }
 
@@ -65,6 +82,14 @@ const CriterisVerbs = {
   ...crearCriterisTriples('Gerundis', 'VAG', 'VSG', 'VMG'),
   ...crearCriterisTriples('Participis', 'VAP', 'VSP', 'VMP'),
   ...crearCriterisTriples('Infinitius', 'VAN', 'VSN', 'VMN'),
+};
+
+const CriterisAdjectius = {
+  ...crearCriteris('Adjectius', 'A'),
+  ...crearCriteris('Qualificatius', 'AQ0'),
+  ...crearCriteris('Superlatius', 'AQA'),
+  ...crearCriteris('Ordinals', 'AO'),
+
 };
 
 const CriterisPronoms = {
@@ -250,9 +275,13 @@ function actualitzarRimes() {
 function mostrarTotesLesLlistes() {
   var resultats = obtenirValorsSegonsPrimerCaracter(matches)
 
-  mostrarLlista('pronoms', resultats.resultatsP, 'checkbox5');
-  mostrarLlista('verbs', resultats.resultatsV, 'checkbox2');
   mostrarLlista('noms', resultats.resultatsN, 'checkbox1');
+  mostrarLlista('adjectius', resultats.resultatsA, 'checkbox2');
+  mostrarLlista('verbs', resultats.resultatsV, 'checkbox3');
+  mostrarLlista('pronoms', resultats.resultatsP, 'checkbox5');
+
+
+
 }
 
 function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {

@@ -30,6 +30,7 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
                         case "0": resultatsA.push(0); break; // Qualificatius
                         case "A": resultatsA.push(1); break; // Superlatius
                     }
+                    break;
                   case "O": resultatsA.push(2); break; // Ordinals
               }
               break;

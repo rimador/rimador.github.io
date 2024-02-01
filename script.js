@@ -3,8 +3,9 @@ cercaButton.addEventListener('click', realitzarCerca);
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
   var resultatsN = [];
-  var resultatsV = [];
   var resultatsA = [];
+  var resultatsV = [];
+  var resultatsD = [];
   var resultatsP = [];
 
 
@@ -46,6 +47,19 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
               }
               break; 
           
+          case "D": // Determinants
+              switch (segonCaracter) {
+                  case "N": resultatsP.push(0); break; // Números
+                  case "A": resultatsP.push(1); break; // Articles
+                  case "R": resultatsP.push(2); break; // Relatius
+                  case "T": resultatsP.push(3); break; // Interrogatius
+                  case "D": resultatsP.push(4); break; // Demostratius
+                  case "E": resultatsP.push(5); break; // Exclamatius
+                  case "I": resultatsP.push(5); break; // Indefinits
+                  case "P": resultatsP.push(5); break; // Possessius
+              }
+              break;
+
           case "P": // Pronoms
               switch (segonCaracter) {
                   case "D": resultatsP.push(0); break; // Demostratius
@@ -64,6 +78,7 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
       resultatsN: resultatsN,
       resultatsA: resultatsA,
       resultatsV: resultatsV,
+      resultatsD: resultatsD,
       resultatsP: resultatsP,
 
   };
@@ -101,6 +116,18 @@ const CriterisPronoms = {
   ...crearCriterisDobles('Personals (forts i febles)', 'PP', 'P0'),
   ...crearCriteris('Possessius', 'PX'),
   ...crearCriteris('Relatius', 'PR'),
+};
+
+const CriterisDeterminants = {
+  ...crearCriteris('Determinants', 'D'),
+  ...crearCriteris('Números', 'DN'),
+  ...crearCriteris('Articles', 'DA'),  
+  ...crearCriteris('Relatius', 'DR'),
+  ...crearCriteris('Interrogatius', 'DT'),
+  ...crearCriteris('Demostratius', 'DD'),
+  ...crearCriteris('Exclamatius', 'DE'),
+  ...crearCriteris('Indefinits', 'DI'),
+  ...crearCriteris('Possessius', 'DP'),
 };
 
 function crearCriteris(nom, prefix) {
@@ -279,10 +306,8 @@ function mostrarTotesLesLlistes() {
   mostrarLlista('noms', resultats.resultatsN, 'checkbox1');
   mostrarLlista('adjectius', resultats.resultatsA, 'checkbox2');
   mostrarLlista('verbs', resultats.resultatsV, 'checkbox3');
+  mostrarLlista('determinants', resultats.resultatsD, 'checkbox4');
   mostrarLlista('pronoms', resultats.resultatsP, 'checkbox5');
-
-
-
 }
 
 function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {

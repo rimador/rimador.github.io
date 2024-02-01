@@ -94,6 +94,25 @@
         </ul>
         <br>
 
+        <!-- Secció "Determinants" -->
+        <label>
+            <input type="checkbox" class="clickable-checkbox" id="checkbox4" onchange="toggleList('determinantsList', 'checkbox4')" onclick="handleCheckboxClick(event, CriterisDeterminants)"> Determinants
+        </label>
+        
+        <ul id="determinantsList" style="display: none" onclick="handleCheckboxClick(event, CriterisDeterminants)">
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Números</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Articles</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Exclamatius</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
+
+        </ul>
+        <br>
+
+        
          <!-- Secció "Pronoms" -->
          <label>
             <input type="checkbox" class="clickable-checkbox" id="checkbox5" onchange="toggleList('pronomsList', 'checkbox5')" onclick="handleCheckboxClick(event, CriterisPronoms)"> Pronoms

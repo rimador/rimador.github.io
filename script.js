@@ -59,12 +59,12 @@ const CriterisNoms = {
 
 const CriterisVerbs = {
   ...crearCriteris('Verbs', 'V'),
-  ...crearCriteris('Indicatiu', 'VI'),
-  ...crearCriteris('Subjuntiu', 'VS'),
-  ...crearCriteris('Imperatiu', 'VM'),
-  ...crearCriteris('Gerundis', 'VG'),
-  ...crearCriteris('Participis', 'VP'),
-  ...crearCriteris('Infinitius', 'VN'),
+  ...crearCriteris('Indicatiu', 'VMI'),
+  ...crearCriteris('Subjuntiu', 'VMS'),
+  ...crearCriteris('Imperatiu', 'VMM'),
+  ...crearCriteris('Gerundis', 'VMG'),
+  ...crearCriteris('Participis', 'VMP'),
+  ...crearCriteris('Infinitius', 'VMN'),
 };
 
 const CriterisPronoms = {
@@ -87,6 +87,12 @@ function crearCriterisDobles(nom, prefix1, prefix2) {
   return {
       [`${nom}`]: {
           filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2),},};
+}
+
+function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
+  return {
+      [`${nom}`]: {
+          filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2) || item[2].startsWith(prefix3),},};
 }
 
 

@@ -59,12 +59,12 @@ const CriterisNoms = {
 
 const CriterisVerbs = {
   ...crearCriteris('Verbs', 'V'),
-  ...crearCriteris('Indicatiu', 'VMI'),
-  ...crearCriteris('Subjuntiu', 'VMS'),
-  ...crearCriteris('Imperatiu', 'VMM'),
-  ...crearCriteris('Gerundis', 'VMG'),
-  ...crearCriteris('Participis', 'VMP'),
-  ...crearCriteris('Infinitius', 'VMN'),
+  ...crearCriterisTriples('Indicatiu', 'VAI', 'VSI', 'VMI' ),
+  ...crearCriterisTriples('Subjuntiu', 'VAS', 'VSS', 'VMS'),
+  ...crearCriterisTriples('Imperatiu', 'VAM', 'VSM', 'VMM'),
+  ...crearCriterisTriples('Gerundis', 'VAG', 'VSG', 'VMG'),
+  ...crearCriterisTriples('Participis', 'VAP', 'VSP', 'VMP'),
+  ...crearCriterisTriples('Infinitius', 'VAN', 'VSN', 'VMN'),
 };
 
 const CriterisPronoms = {

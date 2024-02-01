@@ -112,7 +112,6 @@
         </ul>
         <br>
 
-        
          <!-- Secció "Pronoms" -->
          <label>
             <input type="checkbox" class="clickable-checkbox" id="checkbox5" onchange="toggleList('pronomsList', 'checkbox5')" onclick="handleCheckboxClick(event, CriterisPronoms)"> Pronoms
@@ -126,7 +125,25 @@
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
             <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
 
-        </ul><br>
+        </ul>
+        <br>
+
+        <!-- Secció "Altres categories" -->
+         <label>
+            <input type="checkbox" class="clickable-checkbox" id="checkbox6" onchange="toggleList('altresList', 'checkbox6')" onclick="handleCheckboxClick(event, CriterisAltres)"> Altres categories
+        </label>
+
+        <ul id="altresList"  style="display: none" onclick="handleCheckboxClick(event, CriterisAltres)">
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Adverbis</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Conjuncions</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interjeccions</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Preposicions</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Contraccions</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Abreviacions</li>
+            <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Etcètera</li>
+
+        </ul>
+        <br>
     </div>
     
 </body>

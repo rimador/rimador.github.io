@@ -161,16 +161,16 @@ function realitzarCerca() {
   var comença = document.getElementById('categoriaSelector').value;
 
   // Obtenir la llista de llistes des del fitxer de text
-  fetch('data.txt')
+  fetch('dicambsilabes.txt')
     .then(response => {
       if (!response.ok) {
         throw new Error(`Error de xarxa: ${response.status} ${response.statusText}`);
       }
       return response.text();
     })
-    .then(data => {
+    .then(dicambsilabes => {
       // Processar el contingut del fitxer de text per construir la llista de llistes
-      var llistaDeLlistes = processarFitxerDeText(data);
+      var llistaDeLlistes = processarFitxerDeText(dicambsilabes);
 
       // Buscar la paraula i obtenir les coincidències
 

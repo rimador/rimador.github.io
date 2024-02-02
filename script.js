@@ -223,7 +223,6 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
 
   // Cerca prèvia per trobar la llista que conté la paraula cercada
   var llistaParaulaCerca = llistaDeLlistes.find(item => {
-    console.log('Comparant:', item[0].toLowerCase(), paraulaCercada);
     return item[0].toLowerCase() === paraulaCercada;
   });
 
@@ -233,11 +232,9 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
 }
   
   for (var i = 0; i < llistaDeLlistes.length; i++) {
-    console.log('Comença bucle for');
     let paraula = llistaDeLlistes[i]
     let bona = 1;
     while (bona === 1) {
-      console.log('Comença while');
       if (paraula.length > 7 && paraula[7] !== numeroSeleccionat && numeroSeleccionat !== "0" && numeroSeleccionat !== "5") {
         break;
       }

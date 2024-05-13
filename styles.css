@@ -13,3 +13,222 @@ li {
 #checkboxContainer label {
     display: none;
 }
+
+
+
+
+.loader {
+    background: #000;
+    background: radial-gradient(#222, #000);
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99999;
+}
+
+.loader-inner {
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+
+.loader-line-wrap {
+    animation: 
+		spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite
+	;
+    box-sizing: border-box;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+    width: 100px;
+}
+.loader-line {
+    border: 4px solid transparent;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: 100px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+.loader-line-wrap:nth-child(1) { animation-delay: -50ms; }
+.loader-line-wrap:nth-child(2) { animation-delay: -100ms; }
+.loader-line-wrap:nth-child(3) { animation-delay: -150ms; }
+.loader-line-wrap:nth-child(4) { animation-delay: -200ms; }
+.loader-line-wrap:nth-child(5) { animation-delay: -250ms; }
+
+.loader-line-wrap:nth-child(1) .loader-line {
+    border-color: #ff91ff;
+    height: 90px;
+    width: 90px;
+    top: 7px;
+}
+.loader-line-wrap:nth-child(2) .loader-line {
+    border-color: #00ffff;
+    height: 76px;
+    width: 76px;
+    top: 14px;
+}
+.loader-line-wrap:nth-child(3) .loader-line {
+    border-color: #d30505;
+    height: 62px;
+    width: 62px;
+    top: 21px;
+}
+.loader-line-wrap:nth-child(4) .loader-line {
+    border-color: #fff;
+    height: 48px;
+    width: 48px;
+    top: 28px;
+}
+.loader-line-wrap:nth-child(5) .loader-line {
+    border-color: #ff7300;
+    height: 34px;
+    width: 34px;
+    top: 35px;
+}
+
+@keyframes spin {
+    0%, 15% {
+		transform: rotate(0);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FF91FF; /* Color de fons de la pàgina */
+    margin-top: 30px; /* Ajusta la marge superior per afegir píxels del color de fons a dalt */
+}
+
+header {
+    background: url("./assets/bubbles.png") repeat; /* Utilitza la textura com a fons i repeteix-la */
+    background-size: 119px 119px; /* Amplada i alçada de la textura */
+    background-color: #d30505; /* Color de la franja a dalt */
+    padding: 10px;
+    color: #fff; /* Color del text a la franja */
+    display: flex; /* Afegeix flexbox per alineació dels elements dins del header */
+    justify-content: space-between; /* Espai entre els elements a l'esquerra i a la dreta */
+    align-items: center; /* Centra verticalment els elements dins del header */
+    height: 100px;
+}
+
+.peixet{
+    margin-right: 150px;
+    width: 90px;
+    height: 90px;
+    vertical-align: top;
+}
+
+.rimador {
+    width: 480px; /* Ajusta l'amplada de la imatge segons la teva preferència */
+    height: auto; /* Manté l'altura proporcional a l'amplada */
+    margin-left: 70px;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.search-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.container {
+    background-color: #00ffff;
+    padding: 10px;
+    text-align: left;
+    margin: 40px;
+    border-radius: 10px;
+    display: block;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#paraulaCercada {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px; /* Manté l'espai a l'esquerra que ja tenies */
+    margin-right: 15px;
+    height: 40px;
+    width:400px; /* Ajusta l'amplada segons la teva preferència */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    border: 2px solid #3498db;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    transition: border-color 0.3s ease-in-out;
+    padding-left: 10px; /* Ajusta a la quantitat d'espai que desitgis a l'esquerra */
+}
+
+#cerca:focus {
+    border-color: #d975d9;
+    outline: none; /* Elimina l'contorn de l'enfocament predeterminat del navegador */
+}
+
+.boto {
+    flex-shrink: 0;
+    align-items: center;
+    background-image: linear-gradient(144deg, #ff0000, #ff7300 11.11%, #fffb00 22.22%, #48ff00 33.33%, #00ffd5 44.44%, #002bff 55.55%, #7a00ff 66.66%, #ff00c8 77.77%, #ff0000);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    padding: 3px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.boto span {
+    background-color: rgb(5, 6, 45);
+    padding: 10px 16px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: 150ms;
+}
+
+.boto:hover span {
+    background: none;
+    color: rgb(5, 6, 45);
+    font-family: 'Comic Sans MS';
+    font-weight: bold;
+}
+
+.impressio{
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+}

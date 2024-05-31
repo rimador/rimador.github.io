@@ -15,7 +15,9 @@ li {
 }
 
 
-
+#loader {
+    display: block;
+}
 
 .loader {
     background: #000;

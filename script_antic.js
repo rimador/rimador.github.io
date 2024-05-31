@@ -66,7 +66,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
           filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2) || item[2].startsWith(prefix3),},};
 }
 
-const dades_processades = llegirFitxerDeText('noudiccionari2.txt')
+const dades_processades = llegirFitxerDeText('diccionaris/noudiccionari2.2.txt')
   .then(llistaDeLlistes => {
     console.log('Llista de llistes processada');
     document.getElementById("loader").style.display = "none";
@@ -159,6 +159,10 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
   var llistaParaulaCerca = llistaDeLlistes.find(item => {
     return item[0].toLowerCase() === paraulaCercada;
   });
+  
+
+  console.log(llistaParaulaCerca)
+  console.log(paraulaCercada)
 
   if (!llistaParaulaCerca) {
     llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0]; // Assignem el valor per defecte
@@ -204,7 +208,6 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
       }
 
       matches.push(paraula);
-      console.log(matches)
       bona = 0;
     }
   }

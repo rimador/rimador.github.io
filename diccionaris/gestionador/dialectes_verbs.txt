@@ -1,0 +1,17 @@
+0 = normal
+1 = regular;
+2 = regular;
+3 = valencià
+4 = bal;
+5 = dialecte;
+6 = val, bal (1);
+7 = bal;
+
+Y = regular;
+X = regular;
+C = regular;
+
+Z = 1apsg incoatius
+
+
+3,4,5,6,7,Z,B,V

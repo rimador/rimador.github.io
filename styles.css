@@ -78,13 +78,13 @@ li {
     top: 7px;
 }
 .loader-line-wrap:nth-child(2) .loader-line {
-    border-color: #00ffff;
+    border-color: #ff7300;
     height: 76px;
     width: 76px;
     top: 14px;
 }
 .loader-line-wrap:nth-child(3) .loader-line {
-    border-color: #d30505;
+    border-color: #00ffff;
     height: 62px;
     width: 62px;
     top: 21px;
@@ -96,8 +96,8 @@ li {
     top: 28px;
 }
 .loader-line-wrap:nth-child(5) .loader-line {
-    border-color: #ff7300;
-    height: 34px;
+    border-color: #d30505;
+    height: 34px; 
     width: 34px;
     top: 35px;
 }

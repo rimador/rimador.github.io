@@ -1,3 +1,136 @@
+//Llista de llistes
+
+
+
+
+
+
+const dades_processades0 = llegirFitxerDeText('diccionaris/separat/col_0.txt')
+  .then(columna0 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna0;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 0:', error);
+});
+
+const dades_processades1 = llegirFitxerDeText('diccionaris/separat/col_1.txt')
+  .then(columna1 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna1;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 1:', error);
+});
+
+const dades_processades2 = llegirFitxerDeText('diccionaris/separat/col_2.txt')
+  .then(columna2 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna2;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 2:', error);
+});
+
+const dades_processades3 = llegirFitxerDeText('diccionaris/separat/col_3.txt')
+  .then(columna3 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna3;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 3:', error);
+});
+
+const dades_processades4 = llegirFitxerDeText('diccionaris/separat/col_4.txt')
+  .then(columna4 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna4;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 4:', error);
+});
+
+const dades_processades5 = llegirFitxerDeText('diccionaris/separat/col_5.txt')
+  .then(columna5 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna5;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 5:', error);
+});
+
+const dades_processades6 = llegirFitxerDeText('diccionaris/separat/col_6.txt')
+  .then(columna6 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna6;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 6:', error);
+});
+
+const dades_processades7 = llegirFitxerDeText('diccionaris/separat/col_7.txt')
+  .then(columna7 => {
+    console.log('Llista de llistes processada');
+    document.getElementById("loader").style.display = "none";
+    return columna7;
+  })
+  .catch(error => {
+    console.error('Error en processar el fitxer 7:', error);
+});
+
+
+
+
+function llegirFitxerDeText(url) {
+  document.getElementById("loader").style.display = "block";
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error en llegir el fitxer');
+      }
+      return response.text();
+    })
+    .then(contingut => {
+      return processarFitxerDeText(contingut);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+function processarFitxerDeText(contingut) {
+  console.time('processarFitxerDeText');
+  var linies = contingut.split('\n');
+
+  console.timeEnd('processarFitxerDeText');
+  return linies;
+}
+
+
+
+
+
+//Agafar els 8 arxius
+//separar cada un per salt de línia
+//Posar el contingut de cada un en una llista diferent
+//Des de la sintaxi del rimador, enlloc d'accedir a una posició concreta de llistadellistes, accedim a la llista individual en qüestió
+
+
+
+
+
+
+
+
+
+
 //Botó:
 cercaButton.addEventListener('click', realitzarCerca);
 
@@ -66,47 +199,8 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
           filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2) || item[2].startsWith(prefix3),},};
 }
 
-const dades_processades = llegirFitxerDeText('noudiccionari2.txt')
-  .then(llistaDeLlistes => {
-    console.log('Llista de llistes processada');
-    document.getElementById("loader").style.display = "none";
-    return llistaDeLlistes;
-  })
-  .catch(error => {
-    console.error('Error en processar el fitxer:', error);
-});
 
 
-function llegirFitxerDeText(url) {
-  document.getElementById("loader").style.display = "block";
-  return fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error en llegir el fitxer');
-      }
-      return response.text();
-    })
-    .then(contingut => {
-      return processarFitxerDeText(contingut);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-}
-
-function processarFitxerDeText(contingut) {
-  console.time('processarFitxerDeText');
-  var linies = contingut.split('\n');
-  var llistaDeLlistes = [];
-
-  linies.forEach(function (linia) {
-    var elements = linia.split('$');
-    llistaDeLlistes.push(elements);
-  });
-
-  console.timeEnd('processarFitxerDeText');
-  return llistaDeLlistes;
-}
 
 
 
@@ -128,11 +222,13 @@ async function realitzarCerca() {
     var tipusRima = document.getElementById('rimaSelector').value;
     var comença = document.getElementById('categoriaSelector').value;
     var inclourePropis = document.getElementById('nomsPropis').value;
+    var inclourePlurals = document.getElementById('plurals').value;
+
 
 
     const llistaDeLlistes = await dades_processades;
 
-    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima,  inclourePropis);
+    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima,  inclourePropis, inclourePlurals);
     matches = buscaparaula[0];
     paraulacerca = buscaparaula[1];
       
@@ -152,7 +248,7 @@ async function realitzarCerca() {
   }
 }
 
-function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima, inclourePropis) {
+function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comença, tipusRima, inclourePropis, inclourePlurals) {
   console.time('buscarParaula');
   console.log("Funció buscarParaula")
 
@@ -203,8 +299,17 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, llistaDeLlistes, comen
         }
       }
 
+      //if (inclourePlurals === 'no') {
+        //if (paraula[2][0] === "D" && paraula[2][4] === "P") { //Determinants
+        //if (paraula[2][0] === "A" && paraula[2][4] === "P") { //Adjectius
+        //if (paraula[2][0] === "N" && paraula[2][3] === "P") { //Noms
+        //if (paraula[2][0] === "P" && paraula[2][4] === "P") { //Pronoms
+
+          //break;
+        //}
+      //}
+
       matches.push(paraula);
-      console.log(matches)
       bona = 0;
     }
   }

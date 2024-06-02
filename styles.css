@@ -164,7 +164,10 @@ main {
     border-radius: 10px;
     display: block;
     justify-content: flex-start;
-    align-items: center;
+    align-items: center;    
+    position: sticky;
+    top: 5px;
+    font-weight: bold;
 }
 
 #paraulaCercada {
@@ -233,4 +236,15 @@ main {
     display: flex;
     justify-content: center; 
     align-items: flex-start; 
+}
+
+#checkboxContainer {
+    background-color: #d30505;
+    padding: 10px;
+    text-align: left;
+    margin: 40px;
+    border-radius: 10px;
+    align-items: center;
+    position: sticky;
+    top: 160px;
 }

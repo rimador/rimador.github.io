@@ -1,5 +1,6 @@
 //Llista de llistes
 let array0, array1, array2, array3, array4, array5, array6, array7;
+console.time('Temps de càrrega')
 
 document.addEventListener('DOMContentLoaded', () => {
   const nombresDeFitxers = 8;
@@ -12,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   Promise.all(camins.map(llegirIProcessarFitxer))
     .then(resultats => {
       console.log('Tots els fitxers s\'han processat correctament');
+      console.timeEnd('Temps de càrrega')
       document.getElementById("loader").style.display = "none";
 
-      // Assigna els resultats a les variables corresponents
-      resultats = [array0, array1, array2, array3, array4, array5, array6, array7];
+      [array0, array1, array2, array3, array4, array5, array6, array7] = resultats;
     })
 
     .catch(error => {
@@ -46,8 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return linies;
   }
 });
-
-
 
 //Botó:
 cercaButton.addEventListener('click', realitzarCerca);
@@ -98,6 +97,16 @@ const CriterisDeterminants = {
   ...crearCriteris('Possessius', 'DP'),
 };
 
+const CriterisAltres = {
+  ...crearCriteris('Altres categories', 'Z'),
+  ...crearCriteris('Adverbis', 'ZR'),
+  ...crearCriteris('Conjuncions', 'ZC'),
+  ...crearCriteris('Interjeccions', 'ZI'),
+  ...crearCriteris('Preposicions', 'ZSPS'),
+  ...crearCriteris('Contraccions', 'ZSP+'),
+  ...crearCriteris('"etcètera"', 'ZF'),
+};
+
 function crearCriteris(nom, prefix) {  
   return {
       [`${nom}`]: {
@@ -122,7 +131,6 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 //FUNCIONS
 async function realitzarCerca() {
   console.time('realitzarCerca');
-  console.log("Funció realitzarCerca");
 
   try {
     matches = [];
@@ -156,15 +164,6 @@ async function realitzarCerca() {
 
 function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7) {
   console.time('buscarParaula');
-  console.log("Funció buscarParaula")
-  console.log(array0)
-  console.log(array1)
-  console.log(array2)
-  console.log(array3)
-  console.log(array4)
-  console.log(array5)
-  console.log(array6)
-  console.log(array7)
 
   var indexparaula = array0.findIndex(item => {
     return item.toLowerCase() === paraulaCercada.toLowerCase();
@@ -197,7 +196,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       }
 
       if (tipusRima === 'r.consonant') {
-        if (array[i] !== llistaParaulaCerca[5]) {
+        if (array5[i] !== llistaParaulaCerca[5]) {
           break;
         }
       }
@@ -209,7 +208,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       }
 
       if (inclourePropis === 'no') {
-        if (array2[i][0] === "N" && array2[1] === "P") {
+        if (array2[i][0] === "N" && array2[i][1] === "P") {
           break;
         }
       }
@@ -229,7 +228,8 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         }
       }
       
-      matches.push(array0[i], array1[i], array2[i]);
+      let paraula = [array0[i], array1[i], array2[i]]
+      matches.push(paraula);
       bona = 0;
     }
   }
@@ -239,7 +239,6 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
 
 function actualitzarRimes() {
   console.time('actualitzarRimes');
-  console.log("Funció actualitzarRimes")
 
   var numerorimes = "Nombre de rimes: " + matches_provisionals.length;
       document.getElementById("nombre").innerHTML = numerorimes;
@@ -248,7 +247,7 @@ function actualitzarRimes() {
     var rimes = "Rimes:<br>";
     for (var i = 0; i < matches_provisionals.length; i++) {
         var parts = matches_provisionals[i];
-        rimes += parts[0] + "<br>";
+        rimes += parts[0] + ", " + parts[2] + "<br>";
   }
   } else {
     if (paraulacerca[0] === 0){
@@ -264,7 +263,6 @@ function actualitzarRimes() {
 
 function mostrarTotesLesLlistes() {
   console.time('mostrarTotesLesLlistes');
-  console.log("Funció mostrarTotesLesLlistes")
 
   var resultats = obtenirValorsSegonsPrimerCaracter(matches)
 
@@ -273,6 +271,8 @@ function mostrarTotesLesLlistes() {
   mostrarLlista('verbs', resultats.resultatsV, 'checkbox3');
   mostrarLlista('determinants', resultats.resultatsD, 'checkbox4');
   mostrarLlista('pronoms', resultats.resultatsP, 'checkbox5');
+  mostrarLlista('altres', resultats.resultatsAlt, 'checkbox6');
+
 
   console.timeEnd('mostrarTotesLesLlistes');
 
@@ -280,7 +280,6 @@ function mostrarTotesLesLlistes() {
 
 function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
   console.time('mostrarLlista');
-  console.log("Funció mostrarLlista")
 
   var titleSelector = '#' + checkboxId;
   var listSelector = '#' + tipusLlista + 'List';
@@ -312,21 +311,17 @@ function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
 
 function toggleList(listID, checkboxID) {
   console.time('toggleList');
-  console.log("Funció toggleList")
 
   var list = document.getElementById(listID);
   var checkboxTitle = document.getElementById(checkboxID);
 
-  // Obtenim totes les checkboxes dins de la llista
   var checkboxes = list.querySelectorAll('input[type="checkbox"]');
 
   if (checkboxTitle.checked) {
-    // Si el checkbox de títol està marcat, iterem sobre totes les checkboxes i les marquem
     checkboxes.forEach(function (checkbox) {
       checkbox.checked = true;
     });
   } else {
-    // Si el checkbox de títol està desmarcat, iterem sobre totes les checkboxes i les desmarquem
     checkboxes.forEach(function (checkbox) {
       checkbox.checked = false;
     });
@@ -337,7 +332,6 @@ function toggleList(listID, checkboxID) {
 
 function handleCheckboxClick(event, checkboxCriteria) {
   console.time('handleCheckboxClick');
-  console.log("Funció handleCheckboxClick")
 
   if (event.target.type === 'checkbox') {
       const checkboxLabel = event.target.parentNode.innerText.trim();
@@ -353,7 +347,6 @@ function handleCheckboxClick(event, checkboxCriteria) {
               matches_provisionals = matches_provisionals.concat(uniqueLinesToAdd);
 
               console.log(`Checkbox "${checkboxLabel}" marcada`);
-              console.log('Línies afegides:', uniqueLinesToAdd);
           
           } else {
               console.log(`Checkbox "${checkboxLabel}" desclicat`);
@@ -366,16 +359,16 @@ function handleCheckboxClick(event, checkboxCriteria) {
 
 }
 
+
 function obtenirValorsSegonsPrimerCaracter(matches) {
   console.time('obtenirValorsSegonsPrimerCaracter');
-  console.log("Funció obtenirValorsSegonsPrimerCaracter")
 
   var resultatsN = [];
   var resultatsA = [];
   var resultatsV = [];
   var resultatsD = [];
   var resultatsP = [];
-
+  var resultatsAlt = [];
 
   for (var i = 0; i < matches.length; i++) {
       var terceraColumna = matches[i][2];
@@ -417,14 +410,14 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
           
           case "D": // Determinants
               switch (segonCaracter) {
-                  case "N": resultatsP.push(0); break; // Números
-                  case "A": resultatsP.push(1); break; // Articles
-                  case "R": resultatsP.push(2); break; // Relatius
-                  case "T": resultatsP.push(3); break; // Interrogatius
-                  case "D": resultatsP.push(4); break; // Demostratius
-                  case "E": resultatsP.push(5); break; // Exclamatius
-                  case "I": resultatsP.push(5); break; // Indefinits
-                  case "P": resultatsP.push(5); break; // Possessius
+                  case "N": resultatsD.push(0); break; // Números
+                  case "A": resultatsD.push(1); break; // Articles
+                  case "R": resultatsD.push(2); break; // Relatius
+                  case "T": resultatsD.push(3); break; // Interrogatius
+                  case "D": resultatsD.push(4); break; // Demostratius
+                  case "E": resultatsD.push(5); break; // Exclamatius
+                  case "I": resultatsD.push(6); break; // Indefinits
+                  case "P": resultatsD.push(7); break; // Possessius
               }
               break;
 
@@ -438,6 +431,19 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
                   case "R": resultatsP.push(5); break; // Relatius
               }
               break;
+
+          case "Z": // Altres
+              switch (segonCaracter) {
+                  case "R": resultatsAlt.push(0); break; // Adverbis
+                  case "C": resultatsAlt.push(1); break; // Conjuncions
+                  case "I": resultatsAlt.push(2); break; // Interjeccions
+                  case "F": resultatsAlt.push(5); break; // "etcètera"
+              }
+              switch (tercerCaracter) {
+                  case "S": resultatsAlt.push(3); break; // Preposicions
+                  case "+": resultatsAlt.push(4); break; // Contraccions
+              }
+              break;
       }
   }
 
@@ -449,6 +455,6 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
       resultatsV: resultatsV,
       resultatsD: resultatsD,
       resultatsP: resultatsP,
-
+      resultatsAlt: resultatsAlt,
   };
 }

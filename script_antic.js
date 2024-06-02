@@ -66,7 +66,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
           filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2) || item[2].startsWith(prefix3),},};
 }
 
-const dades_processades = llegirFitxerDeText('diccionaris/noudiccionari2.2.txt')
+const dades_processades = llegirFitxerDeText('diccionaris/noudiccionari2.3.txt')
   .then(llistaDeLlistes => {
     console.log('Llista de llistes processada');
     document.getElementById("loader").style.display = "none";

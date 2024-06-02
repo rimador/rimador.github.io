@@ -250,6 +250,7 @@ main {
 
 .column-container {
     column-count: 5; 
+    column-width: 247px; 
     column-gap: 20px; 
 }
 

@@ -233,7 +233,7 @@ main {
 }
 
 .impressio{
-    display: flex;
+    display: none;
     align-items: flex-start; 
 }
 
@@ -246,11 +246,15 @@ main {
     align-items: center;
     position: sticky;
     top: 160px;
-    display: none;
 }
 
-#checkboxContainer:not(:empty) {
-    display: block;
+.column-container {
+    column-count: 5; 
+    column-gap: 20px; 
+}
+
+.column-container p {
+    margin-bottom: 10px;
 }
 
 

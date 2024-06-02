@@ -238,6 +238,14 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
   return [matches, llistaParaulaCerca];
 }
 
+function crearEnllacViccionari(paraula) {
+  var enllac = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '">';
+  enllac += '<img src="./assets/logowiki.png" alt="Logo" width="18px" height="18px">';
+  enllac += '</a>';
+  return enllac;
+}
+
+
 function actualitzarRimes() {
   console.time('actualitzarRimes');
 
@@ -245,10 +253,15 @@ function actualitzarRimes() {
       document.getElementById("nombre").innerHTML = numerorimes;
 
   if (matches_provisionals.length > 0) {
-    var rimes = "Rimes:<br>";
+    var rimesHTML = "<ul>";
+    var enllacos = "<ul>";
+    var rima_enllac = "<ul>";
     for (var i = 0; i < matches_provisionals.length; i++) {
         var parts = matches_provisionals[i];
-        rimes += parts[0] + ", " + parts[2] + "<br>";
+        var enllac = crearEnllacViccionari(parts[1]);
+        rimesHTML += "<li>" + parts[0] + "</li>";
+        enllacos += "<li>" + enllac + "</li>";
+        rima_enllac += "<li>" + parts[0] + " " + enllac + "</li>";
   }
   } else {
     if (paraulacerca[0] === 0){

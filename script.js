@@ -271,7 +271,10 @@ function actualitzarRimes() {
       var rimes = "No s\'han trobat rimes amb aquestes condicions. Ets massa exigent!";
     }
   }
-  document.getElementById("rimes").innerHTML = rimes;
+  rimesHTML += "</ul>"
+  enllacos += "</ul>"
+  rima_enllac += "</ul>"
+  document.getElementById("rima_enllac").innerHTML = rima_enllac;
   console.timeEnd('actualitzarRimes');
 }
 

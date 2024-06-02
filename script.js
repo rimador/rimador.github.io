@@ -156,6 +156,7 @@ async function realitzarCerca() {
     });
 
     mostrarTotesLesLlistes();
+    document.querySelector('.impressio').style.display = 'flex';
     console.timeEnd('realitzarCerca');
   } catch (error) {
     console.error('Error en realitzar la cerca:', error);

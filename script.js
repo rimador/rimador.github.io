@@ -1,14 +1,18 @@
 //Llista de llistes
 let array0, array1, array2, array3, array4, array5, array6, array7;
-console.time('Temps de càrrega')
+let fitxersLlegits = 0;
+let nombresDeFitxers = 8;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const nombresDeFitxers = 8;
+  console.time('Temps de càrrega')
+  console.log("Lectura de fitxers iniciada")
+  
   const camins = [];
 
   for (let i = 0; i < nombresDeFitxers; i++) {
     camins.push(`diccionaris/separat/col_${i}.txt`);
   }
+  
 
   Promise.all(camins.map(llegirIProcessarFitxer))
     .then(resultats => {
@@ -18,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       [array0, array1, array2, array3, array4, array5, array6, array7] = resultats;
     })
-
     .catch(error => {
       console.error('Error en processar els fitxers:', error);
       document.getElementById("loader").style.display = "none";
@@ -34,6 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .then(contingut => {
         const resultats = processarFitxerDeText(contingut);
+
+        fitxersLlegits++;
+        console.log(`Fitxers llegits: ${fitxersLlegits}/${nombresDeFitxers}`);
+        
         return resultats;
       })
       .catch(error => {

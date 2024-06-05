@@ -31,6 +31,15 @@ li {
     z-index: 99999;
 }
 
+#loader-text {
+    color: #fff; /* Color del text */
+    margin-bottom: 20px; /* Espai entre el text i les línies del loader */
+    font-size: 18px; /* Mida de la font */
+    font-family: Arial, sans-serif; /* Tipus de font */
+    text-align: center;
+}
+
+
 .loader-inner {
     bottom: 0;
     height: 60px;
@@ -41,6 +50,7 @@ li {
     top: 0;
     width: 100px;
 }
+
 
 .loader-line-wrap {
     animation: 

@@ -6,6 +6,7 @@ let nombresDeFitxers = 8;
 document.addEventListener('DOMContentLoaded', () => {
   console.time('Temps de càrrega')
   console.log("Lectura de fitxers iniciada")
+  document.getElementById('loader-text').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
   
   const camins = [];
 
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultats = processarFitxerDeText(contingut);
 
         fitxersLlegits++;
+        document.getElementById('loader-text').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
         console.log(`Fitxers llegits: ${fitxersLlegits}/${nombresDeFitxers}`);
         
         return resultats;

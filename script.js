@@ -55,9 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const linies = contingut.split('\n');
     return linies;
   }
+  
+  // Afegir event listener per la tecla Enter
+  const inputParaula = document.getElementById('paraulaCercada');
+  inputParaula.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Evitar la recàrrega de la pàgina
+      realitzarCerca();
+    }
+  });
 });
 
+
 //Botó:
+const cercaButton = document.getElementById('cercaButton');
 cercaButton.addEventListener('click', realitzarCerca);
 
 const CriterisNoms = {
@@ -248,7 +259,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
 }
 
 function crearEnllacViccionari(paraula) {
-  var enllac = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '">';
+  var enllac = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
   enllac += '<img src="./assets/logowiki.png" alt="Logo" width="18px" height="18px">';
   enllac += '</a>';
   return enllac;

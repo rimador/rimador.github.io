@@ -147,7 +147,6 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 }
 
 
-
 //FUNCIONS
 async function realitzarCerca() {
   console.time('realitzarCerca');
@@ -249,7 +248,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         }
       }
       
-      let paraula = [array0[i], array1[i], array2[i]]
+      let paraula = [array0[i], array1[i], array2[i], array7[i]]
       matches.push(paraula);
       bona = 0;
     }
@@ -270,33 +269,52 @@ function actualitzarRimes() {
   console.time('actualitzarRimes');
 
   var numerorimes = "Nombre de rimes: " + matches_provisionals.length;
-      document.getElementById("nombre").innerHTML = numerorimes;
+  document.getElementById("nombre").innerHTML = numerorimes;
+
+  var rimesPerSilabes = {};
+  var rima_enllac = "";
 
   if (matches_provisionals.length > 0) {
-    var rimesHTML = "<ul>";
-    var enllacos = "<ul>";
-    var rima_enllac = "<ul>";
     for (var i = 0; i < matches_provisionals.length; i++) {
-        var parts = matches_provisionals[i];
-        var enllac = crearEnllacViccionari(parts[1]);
-        rimesHTML += "<li>" + parts[0] + "</li>";
-        enllacos += "<li>" + enllac + "</li>";
-        rima_enllac += "<li>" + parts[0] + " " + enllac + "</li>";
-  }
+      var parts = matches_provisionals[i];
+      var paraula = parts[0];
+      var enllac = crearEnllacViccionari(parts[1]);
+      var numsilabes = parts[3];
+
+      if (!rimesPerSilabes[numsilabes]) {
+        rimesPerSilabes[numsilabes] = [];
+      }
+
+      rimesPerSilabes[numsilabes].push({ paraula: paraula, enllac: enllac });
+    }
+
+    for (var silabes in rimesPerSilabes) {
+      rima_enllac += "<h3>" + silabes + " síl·lab" + (silabes > 1 ? "es" : "a") + ":</h3><ul>";
+      for (var j = 0; j < rimesPerSilabes[silabes].length; j++) {
+        var item = rimesPerSilabes[silabes][j];
+        rima_enllac += "<li>" + item.paraula + " " + item.enllac + "</li>";
+      }
+      rima_enllac += "</ul>";
+    }
+    
   } else {
-    if (paraulacerca[0] === 0){
-      var rimes = "No s\'ha trobat la paraula al diccionari."
+    var rimes;
+    if (paraulacerca[0] === 0) {
+      rimes = "No s'ha trobat la paraula al diccionari.";
+    } else {
+      rimes = "No s'han trobat rimes amb aquestes condicions. Ets massa exigent!";
     }
-    else{
-      var rimes = "No s\'han trobat rimes amb aquestes condicions. Ets massa exigent!";
-    }
+    
+    rima_enllac = "<ul><li>" + rimes + "</li></ul>";
   }
-  rimesHTML += "</ul>"
-  enllacos += "</ul>"
-  rima_enllac += "</ul>"
+
   document.getElementById("rima_enllac").innerHTML = rima_enllac;
+
   console.timeEnd('actualitzarRimes');
 }
+
+
+
 
 function mostrarTotesLesLlistes() {
   console.time('mostrarTotesLesLlistes');
@@ -395,7 +413,6 @@ function handleCheckboxClick(event, checkboxCriteria) {
   console.timeEnd('handleCheckboxClick');
 
 }
-
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
   console.time('obtenirValorsSegonsPrimerCaracter');

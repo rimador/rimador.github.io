@@ -289,7 +289,7 @@ function actualitzarRimes() {
     }
 
     for (var silabes in rimesPerSilabes) {
-      rima_enllac += "<h3>" + silabes + " síl·lab" + (silabes > 1 ? "es" : "a") + ":</h3><ul>";
+      rima_enllac += "<h3><br>" + silabes + " síl·lab" + (silabes > 1 ? "es" : "a") + ":</h3><ul>";
       for (var j = 0; j < rimesPerSilabes[silabes].length; j++) {
         var item = rimesPerSilabes[silabes][j];
         rima_enllac += "<li>" + item.paraula + " " + item.enllac + "</li>";

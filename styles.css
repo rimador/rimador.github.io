@@ -1,3 +1,17 @@
+/* Per pantalles més petites */
+@media (max-width: 600px) {
+}
+
+/* Per pantalles més grans */
+@media (min-width: 1200px) {
+}
+
+
+
+
+
+
+
 ul {
     list-style: none;
 }
@@ -15,10 +29,6 @@ li {
 }
 
 
-#loader {
-    display: block;
-}
-
 .loader {
     background: #000;
     background: radial-gradient(#222, #000);
@@ -29,16 +39,22 @@ li {
     right: 0;
     top: 0;
     z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #loader-text {
-    color: #fff; /* Color del text */
-    margin-bottom: 20px; /* Espai entre el text i les línies del loader */
-    font-size: 18px; /* Mida de la font */
-    font-family: Arial, sans-serif; /* Tipus de font */
+    color: #555555; /* Color del text */
+    margin-bottom: 40px; /* Espai entre el text i les línies del loader */
+    font-size: 16px; /* Mida de la font */
+    font-family: Phantomsans, sans-serif;
     text-align: center;
+    position: absolute; /* Afegit per situar el text */
+    bottom: 0; /* Posar el text al fons de la pàgina */
+    width: 100%; /* Ample del text per centrar-lo */
 }
-
 
 .loader-inner {
     bottom: 0;
@@ -51,11 +67,10 @@ li {
     width: 100px;
 }
 
-
 .loader-line-wrap {
     animation: 
-		spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite
-	;
+        spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite
+    ;
     box-sizing: border-box;
     height: 50px;
     left: 0;
@@ -114,14 +129,13 @@ li {
     top: 35px;
 }
 
-
 @keyframes spin {
     0%, 15% {
-		transform: rotate(0);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 
@@ -162,14 +176,9 @@ main {
     text-align: center;
 }
 
-.search-container {
-    display: inline-flex;
-    align-items: center;
-}
-
 .container {
     background-color: #00ffff;
-    padding: 10px;
+    padding: 20px;
     text-align: left;
     margin: 40px;
     border-radius: 10px;
@@ -181,13 +190,17 @@ main {
     font-weight: bold;
 }
 
+.search-container {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
 #paraulaCercada {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px; /* Manté l'espai a l'esquerra que ja tenies */
     margin-right: 15px;
-    height: 40px;
-    width:400px; /* Ajusta l'amplada segons la teva preferència */
+    height: 38px;
+    width: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: #f2f2f2;
@@ -195,12 +208,14 @@ main {
     font-family: 'Arial', sans-serif;
     color: #333;
     transition: border-color 0.3s ease-in-out;
-    padding-left: 10px; /* Ajusta a la quantitat d'espai que desitgis a l'esquerra */
+    padding-left: 12px;
+
 }
 
-#cerca:focus {
+
+#paraulaCercada:focus {
     border-color: #d975d9;
-    outline: none; /* Elimina l'contorn de l'enfocament predeterminat del navegador */
+    outline: none;
 }
 
 .boto {
@@ -270,3 +285,18 @@ main {
 }
 
 
+.dropdown-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 11px;
+}
+
+.dropdown-container label {
+    flex: 1 1 150px;
+    margin-right: 0px;
+}
+
+.dropdown-container select {
+    flex: 1 1 200px;
+    max-width: 100%;
+}

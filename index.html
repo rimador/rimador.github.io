@@ -6,7 +6,6 @@
     <title>Rimador</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="../script.js"></script>
-
 </head>
 
 <body>
@@ -28,7 +27,7 @@
                 <div class="loader-line"></div>
             </div>
         </div>
-        <p id="loader-text"></p>
+        <p class = "loader-text" id="loader-text"></p>
     </div>     
 
     <header>
@@ -38,55 +37,59 @@
 
     <div class="container">
         <div class="search-container">
-            <label for="paraulaCercada">Cerca la paraula:</label>
-            <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula">
+            <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula que vols cercar">
             <button class="boto" role="button" id="cercaButton"><span class="text">Cercar</span></button>
         </div>
 
         <div class="dropdown-container">
-            <label for="rimaSelector">Selecciona la rima:</label>
-            <select id="rimaSelector">
-              <option value="r.consonant">Consonant</option>
-              <option value="r.assonant">Assonant</option>
-            </select>
+            <div>
+                <label for="rimaSelector">Tipus de rima:</label>
+                <select id="rimaSelector">
+                    <option value="r.consonant">Consonant</option>
+                    <option value="r.assonant">Assonant</option>
+                </select>
+            </div>
 
-            <label for="categoriaSelector">Comença per:</label>
-            <select id="categoriaSelector">
-              <option value="indiferent">Indiferent</option>
-              <option value="vocal+h">Vocal + H</option>
-              <option value="consonant">Consonant</option>
-            </select>
-          
-            <label for="numeroSelector">Número de síl·labes:</label>
-            <select id="numeroSelector">
-              <option value="0">Indiferent</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5+</option>
-            </select>
+            <div>
+                <label for="numeroSelector">Número de síl·labes:</label>
+                <select id="numeroSelector">
+                    <option value="0">Indiferent</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="categoriaSelector">Comença per:</label>
+                <select id="categoriaSelector">
+                    <option value="indiferent">Indiferent</option>
+                    <option value="vocal+h">Vocal + H</option>
+                    <option value="consonant">Consonant</option>
+                </select>
+            </div>
 
-            <label for="plurals">Incloure plurals:</label>
-            <select id="plurals">
-              <option value="si">Sí</option>
-              <option value="no">No</option>
-            </select>
+            <div>
+                <label for="plurals">Incloure plurals:</label>
+                <select id="plurals">
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
 
-            <label for="nomsPropis">Incloure noms propis:</label>
-            <select id="nomsPropis">
-              <option value="no">No</option>
-              <option value="si">Sí</option>
-            </select>
-
-
+            <div>
+                <label for="nomsPropis">Incloure noms propis:</label>
+                <select id="nomsPropis">
+                    <option value="no">No</option>
+                    <option value="si">Sí</option>
+                </select>
+            </div>
         </div>
-
-
     </div>
 
     <div class="impressio">
-        
         
         <div id="checkboxContainer">
             <!-- Secció "Noms" -->

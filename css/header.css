@@ -1,0 +1,24 @@
+header {
+    background: url("../assets/bubbles.png") repeat;
+    background-size: 119px 119px; 
+    background-color: #d30505; 
+    padding: 10px;
+    color: #fff; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    height: 100px;
+}
+
+.peixet{
+    margin-right: 150px;
+    width: 90px;
+    height: 90px;
+    vertical-align: top;
+}
+
+.rimador {
+    width: 480px;
+    height: auto; 
+    margin-left: 70px;
+}

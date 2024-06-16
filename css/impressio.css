@@ -1,0 +1,45 @@
+
+
+
+
+.impressio{
+    display: none;
+    align-items: flex-start; 
+}
+
+#checkboxContainer {
+    background-color: #d30505;
+    padding: 10px;
+    text-align: left;
+    margin: 40px;
+    border-radius: 10px;
+    align-items: center;
+    position: sticky;
+    top: 160px;
+}
+
+.column-container {
+    column-count: 5; 
+    column-width: 247px; 
+    column-gap: 20px; 
+}
+
+.column-container p {
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    list-style: none;
+}
+
+li {
+    margin-bottom: 5px; 
+}
+
+#checkboxContainer label {
+    display: none;
+}

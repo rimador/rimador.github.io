@@ -1,17 +1,3 @@
-/* Per pantalles més petites */
-@media (max-width: 600px) {
-}
-
-/* Per pantalles més grans */
-@media (min-width: 1200px) {
-}
-
-
-
-
-
-
-
 ul {
     list-style: none;
 }

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(resultats => {
       console.log('Tots els fitxers s\'han processat correctament');
       console.timeEnd('Temps de càrrega')
-      document.getElementById("loader").style.display = "block";
+      document.getElementById("loader").style.display = "none";
 
       [array0, array1, array2, array3, array4, array5, array6, array7] = resultats;
     })

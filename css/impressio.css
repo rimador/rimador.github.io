@@ -1,7 +1,3 @@
-
-
-
-
 .impressio{
     display: none;
     align-items: flex-start; 
@@ -42,4 +38,8 @@ li {
 
 #checkboxContainer label {
     display: none;
+}
+
+.resultats {
+    max-width: 100%;
 }

@@ -5,19 +5,19 @@ body {
 
 /* amplada */
 ::-webkit-scrollbar {
-    width: 11px;
+    width: 13px;
 }
   
 /* color de fons */
 ::-webkit-scrollbar-track:vertical {
-    background: green;
+    background: rgba(0, 128, 0, 0);
 }
   
 /* maneta */
 ::-webkit-scrollbar-thumb:vertical {
     background: yellow;
     border-radius: 6px;
-    border: 1.5px solid purple;
+    border: 2px solid rgb(159, 0, 159);
 }
   
 /* maneta:hover */

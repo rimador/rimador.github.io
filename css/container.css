@@ -1,14 +1,22 @@
+.separador_rosa{
+    background-color: #FF91FF;
+    height: 40px;
+    position: sticky;
+    top: 0px
+}
+
 .container {
     background-color: #00ffff;
     padding: 20px;
     text-align: left;
     margin: 40px;
+    margin-top: 0px;
     border-radius: 10px;
     display: block;
     justify-content: flex-start;
     align-items: center;    
     position: sticky;
-    top: 5px;
+    top: 40px;
     font-weight: bold;
 }
 
@@ -110,11 +118,17 @@
     .dropdown-container {
         font-size: 12px;
     }
+    #paraulaCercada {
+        height: 33px;
+    }
 }
 
 @media screen and (max-width: 550px) {
     .dropdown-container {
         font-size: 10px;
+    }
+    #paraulaCercada {
+        height: 29px;
     }
     
 }

@@ -512,3 +512,22 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
       resultatsAlt: resultatsAlt,
   };
 }
+
+
+
+
+
+//CSS
+window.addEventListener('scroll', function() {
+  var container = document.getElementById('container');
+  var checkboxContainer = document.getElementById('checkboxContainer');
+  
+  var targetRect = container.getBoundingClientRect();
+  var checkboxRect = checkboxContainer.getBoundingClientRect();
+  
+  if (checkboxRect.top < targetRect.bottom + 160) {
+      checkboxContainer.style.top = (targetRect.bottom + 40) + 'px';
+  } else {
+      checkboxContainer.style.top = '160px';
+  }
+});

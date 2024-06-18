@@ -3,17 +3,6 @@
     align-items: flex-start; 
 }
 
-#checkboxContainer {
-    background-color: #d30505;
-    padding: 10px;
-    text-align: left;
-    margin: 40px;
-    border-radius: 10px;
-    align-items: center;
-    position: sticky;
-    top: 160px;
-}
-
 .column-container {
     column-count: 5; 
     column-width: 247px; 
@@ -36,10 +25,18 @@ li {
     margin-bottom: 5px; 
 }
 
-#checkboxContainer label {
-    display: none;
-}
-
 .resultats {
     max-width: 100%;
+}
+
+@media screen and (max-width: 750px) {
+    .resultats {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .resultats {
+        font-size: 10px;
+    }
 }

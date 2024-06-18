@@ -4,8 +4,3 @@ body {
     background-color: #FF91FF; /* Color de fons de la pàgina */
     margin-top: 30px; /* Ajusta la marge superior per afegir píxels del color de fons a dalt */
 }
-
-main {
-    padding: 20px;
-    text-align: center;
-}

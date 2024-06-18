@@ -526,9 +526,11 @@ window.addEventListener('scroll', function() {
   var dades_container = container.getBoundingClientRect();
   
   if (dades_container.height > 120) {
-    checkboxContainer.style.top = '160px';
-    separador_rosa2.style.top = '120px';
     checkboxContainer.style.top = (40 + dades_container.height + 40) + 'px';
     separador_rosa2.style.top = (40 + dades_container.height) + 'px';
+  }
+  else {
+    checkboxContainer.style.top = '200px';
+    separador_rosa2.style.top = '160px';
   }
 });

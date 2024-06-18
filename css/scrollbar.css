@@ -1,0 +1,27 @@
+body {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* amplada */
+::-webkit-scrollbar {
+    width: 11px;
+}
+  
+/* color de fons */
+::-webkit-scrollbar-track:vertical {
+    background: green;
+}
+  
+/* maneta */
+::-webkit-scrollbar-thumb:vertical {
+    background: yellow;
+    border-radius: 6px;
+    border: 1.5px solid purple;
+}
+  
+/* maneta:hover */
+::-webkit-scrollbar-thumb:hover:vertical {
+    background: rgb(255, 128, 0);
+}
+

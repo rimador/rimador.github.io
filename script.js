@@ -521,13 +521,14 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
 window.addEventListener('scroll', function() {
   var container = document.getElementById('container');
   var checkboxContainer = document.getElementById('checkboxContainer');
+  var separador_rosa2 = document.getElementById('separador_rosa2')
   
-  var targetRect = container.getBoundingClientRect();
-  var checkboxRect = checkboxContainer.getBoundingClientRect();
+  var dades_container = container.getBoundingClientRect();
   
-  if (checkboxRect.top < targetRect.bottom + 160) {
-      checkboxContainer.style.top = (targetRect.bottom + 40) + 'px';
-  } else {
-      checkboxContainer.style.top = '160px';
+  if (dades_container.height > 120) {
+    checkboxContainer.style.top = '160px';
+    separador_rosa2.style.top = '120px';
+    checkboxContainer.style.top = (40 + dades_container.height + 40) + 'px';
+    separador_rosa2.style.top = (40 + dades_container.height) + 'px';
   }
 });

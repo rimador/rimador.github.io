@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rimador</title>
     <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/container.css">
@@ -15,7 +16,7 @@
 
 <body>
     <div class="loader" id="loader">
-        <p class = "loader-text1" id="loader-text1">CANVIIS</p>
+        <p class = "loader-text1" id="loader-text1"></p>
         <div class="loader-inner">
             <div class="loader-line-wrap">
                 <div class="loader-line"></div>
@@ -41,7 +42,7 @@
         <img class="peixet" src="./assets/peixet.gif"/>
     </header>
 
-    <div class="separador_rosa"></div>
+    <div id="separador_rosa1"></div>
     <div class="container" id="container">
         <div class="search-container">
             <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula que vols cercar">
@@ -188,7 +189,9 @@
             <br>
         </div>
         <div class="resultats">
-            <p id="nombre"></p>
+            <div id="separador_rosa2">
+                <p id="nombre"></p>
+            </div>
             <p id="rima_enllac" class="column-container"></p>
 
         </div>

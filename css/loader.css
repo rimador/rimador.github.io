@@ -1,6 +1,6 @@
 .loader {
-    background: #000;
-    background: radial-gradient(#222, #000);
+    background: #000000bc;
+    background: radial-gradient(#313131bc, #000000cd);
     bottom: 0;
     left: 0;
     overflow: hidden;
@@ -25,7 +25,7 @@
 }
 
 #loader-text2 {
-    color: #555555;
+    color: #ffffffbc;
     margin-bottom: 40px; 
     font-size: 16px; 
     font-family: Phantomsans, sans-serif;

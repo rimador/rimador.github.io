@@ -61,7 +61,10 @@
     touch-action: manipulation;
     white-space: nowrap;
     cursor: pointer;
-    min-width: 120px;
+}
+
+#cercaButton {
+    width: 120px;
 }
 
 .boto span {
@@ -80,10 +83,14 @@
     font-weight: bold;
 }
 
+
+
 .dropdown-container {
     display: flex;
     flex-wrap: wrap;
     gap: 11px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
 }
 
 .dropdown-container label {
@@ -94,4 +101,20 @@
 .dropdown-container select {
     flex: 1 1 200px;
     max-width: 100%;
+}
+
+
+
+
+@media screen and (max-width: 750px) {
+    .dropdown-container {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .dropdown-container {
+        font-size: 10px;
+    }
+    
 }

@@ -259,7 +259,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
 
 function crearEnllacViccionari(paraula) {
   var enllac = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
-  enllac += '<img src="./assets/logowiki.png" alt="Logo" width="18px" height="18px">';
+  enllac += '<img src="./assets/logovicc.png" alt="Logo" width="18px" height="18px">';
   enllac += '</a>';
   return enllac;
 }

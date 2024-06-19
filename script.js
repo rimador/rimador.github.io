@@ -1,7 +1,7 @@
 //Llista de llistes
-let array0, array1, array2, array3, array4, array5, array6, array7;
+let array0, array1, array2, array3, array4, array5, array6, array7, array8;
 let fitxersLlegits = 0;
-let nombresDeFitxers = 8;
+let nombresDeFitxers = 9;
 
 document.addEventListener('DOMContentLoaded', () => {
   console.time('Temps de càrrega')
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.timeEnd('Temps de càrrega')
       document.getElementById("loader").style.display = "none";
 
-      [array0, array1, array2, array3, array4, array5, array6, array7] = resultats;
+      [array0, array1, array2, array3, array4, array5, array6, array7, array8] = resultats;
     })
     .catch(error => {
       console.error('Error en processar els fitxers:', error);
@@ -161,7 +161,7 @@ async function realitzarCerca() {
     var inclourePropis = document.getElementById('nomsPropis').value;
     var inclourePlurals = document.getElementById('plurals').value;
     
-    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7);
+    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8);
     matches = buscaparaula[0];
     paraulacerca = buscaparaula[1];
       
@@ -182,7 +182,7 @@ async function realitzarCerca() {
   }
 }
 
-function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7) {
+function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8) {
   console.time('buscarParaula');
 
   var indexparaula = array0.findIndex(item => {
@@ -248,7 +248,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         }
       }
       
-      let paraula = [array0[i], array1[i], array2[i], array7[i]]
+      let paraula = [array0[i], array1[i], array2[i], array7[i], array8[i]]
       matches.push(paraula);
       bona = 0;
     }
@@ -278,7 +278,12 @@ function actualitzarRimes() {
     for (var i = 0; i < matches_provisionals.length; i++) {
       var parts = matches_provisionals[i];
       var paraula = parts[0];
-      var enllac = crearEnllacViccionari(parts[1]);
+      var enllac = '';
+
+      if (parts[4] === "Vicc") {
+        enllac = crearEnllacViccionari(parts[1]);
+      }
+
       var numsilabes = parts[3];
 
       if (!rimesPerSilabes[numsilabes]) {

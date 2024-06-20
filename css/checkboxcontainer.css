@@ -13,6 +13,7 @@
     min-width: 140px;
     max-width: 200px;
     height: auto;
+    overflow: auto;
 }
 
 #checkboxContainer label {

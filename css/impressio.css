@@ -29,7 +29,10 @@ li {
     max-width: 100%;
     margin: 40px;
     margin-top: 0px ;
-    font-size: 16px;
+}
+
+.classeParaulaMare {
+    color: rgb(92, 92, 92);
 }
 
 .logo {

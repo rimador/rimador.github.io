@@ -293,6 +293,11 @@ function actualitzarRimes() {
     for (var i = 0; i < matches_provisionals.length; i++) {
       var parts = matches_provisionals[i];
       var paraula = parts[0];
+      var paraula_mare = "";
+
+      if (parts[2][0] === "V") {
+        paraula_mare = " (" + parts[1] + ") ";
+      }      
       var enllac_vicc = "";
       var enllac_viq = "";
       var enllac_diec = "";
@@ -315,7 +320,7 @@ function actualitzarRimes() {
         rimesPerSilabes[numsilabes] = [];
       }
 
-      rimesPerSilabes[numsilabes].push({ paraula: paraula, enllac_vicc: enllac_vicc, enllac_viq: enllac_viq, enllac_diec: enllac_diec });
+      rimesPerSilabes[numsilabes].push({ paraula: paraula, paraula_mare: paraula_mare, enllac_vicc: enllac_vicc, enllac_viq: enllac_viq, enllac_diec: enllac_diec });
     }
 
     for (var silabes in rimesPerSilabes) {
@@ -323,6 +328,7 @@ function actualitzarRimes() {
       for (var j = 0; j < rimesPerSilabes[silabes].length; j++) {
         var item = rimesPerSilabes[silabes][j];
         var enllacText = "";
+        
         if (item.enllac_vicc) {
           enllacText += item.enllac_vicc + " ";
         }
@@ -333,7 +339,7 @@ function actualitzarRimes() {
           enllacText += item.enllac_diec + " ";
         }
 
-        rima_enllac += "<li>" + item.paraula + " " + enllacText.trim() + "</li>";
+        rima_enllac += "<li><span class='classeParaula'>" + item.paraula + "</span><span class='classeParaulaMare'>" + item.paraula_mare + "</span> " + enllacText.trim() + "</li>";
       }
       rima_enllac += "</ul>";
     }

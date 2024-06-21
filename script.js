@@ -1,19 +1,19 @@
 //Llista de llistes
-let array0, array1, array2, array3, array4, array5, array6, array7, array8, array9;
+let array0, array1, array2, array5, array6, array7, array8, array9, array10;
 let fitxersLlegits = 0;
-let nombresDeFitxers = 10;
+let nombresDeFitxers = 9;
 
 document.addEventListener('DOMContentLoaded', () => {
   console.time('Temps de càrrega')
   console.log("Lectura de fitxers iniciada")
   document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
   
-  const camins = [];
+let camins = [];
+let nombresSeleccionats = [0,1,2,5,6,7,8,9,10]; // Modifica aquesta llista amb els índexs que necessitis
 
-  for (let i = 0; i < nombresDeFitxers; i++) {
-    camins.push(`diccionaris/separat/col_${i}.txt`);
-  }
-  
+for (let i of nombresSeleccionats) {
+  camins.push(`diccionaris/separat/col_${i}.txt`);
+}
 
   Promise.all(camins.map(llegirIProcessarFitxer))
     .then(resultats => {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.timeEnd('Temps de càrrega')
       document.getElementById("loader").style.display = "none";
 
-      [array0, array1, array2, array3, array4, array5, array6, array7, array8, array9] = resultats;
+      [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultats;
     })
     .catch(error => {
       console.error('Error en processar els fitxers:', error);
@@ -161,7 +161,7 @@ async function realitzarCerca() {
     var inclourePropis = document.getElementById('nomsPropis').value;
     var inclourePlurals = document.getElementById('plurals').value;
     
-    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9);
+    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array5, array6, array7, array8, array9, array10);
     matches = buscaparaula[0];
     paraulacerca = buscaparaula[1];
       
@@ -182,7 +182,7 @@ async function realitzarCerca() {
   }
 }
 
-function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9) {
+function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array5, array6, array7, array8, array9, array10) {
   console.time('buscarParaula');
 
   var indexparaula = array0.findIndex(item => {
@@ -190,10 +190,10 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
   });
   
 
-  llistaParaulaCerca = [array0[indexparaula], array1[indexparaula], array2[indexparaula], array3[indexparaula], array4[indexparaula], array5[indexparaula], array6[indexparaula], array7[indexparaula]]
+  llistaParaulaCerca = [array0[indexparaula], array1[indexparaula], array2[indexparaula], array5[indexparaula], array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula], array10[indexparaula]]
 
   if (indexparaula == -1) {
-    llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0];
+    llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 }
   
   for (var i = 0; i < array0.length; i++) {
@@ -216,13 +216,13 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       }
 
       if (tipusRima === 'r.consonant') {
-        if (array5[i] !== llistaParaulaCerca[5]) {
+        if (array5[i] !== llistaParaulaCerca[3]) {
           break;
         }
       }
 
       if (tipusRima === 'r.assonant') {
-        if (array6[i] !== llistaParaulaCerca[6]) {
+        if (array6[i] !== llistaParaulaCerca[4]) {
           break;
         }
       }
@@ -248,7 +248,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         }
       }
       
-      let paraula = [array0[i], array1[i], array2[i], array7[i], array8[i], array9[i]]
+      let paraula = [array0[i], array1[i], array2[i], array7[i], array8[i], array9[i], array10[i]]
       matches.push(paraula);
       bona = 0;
     }
@@ -271,6 +271,13 @@ function crearEnllacViquipedia(paraula) {
   return enllac_viq;
 }
 
+function crearEnllacDiec(paraula) {
+  var enllac_diec = '<a href="https://dlc.iec.cat/Results?DecEntradaText=' + paraula + '&AllInfoMorf=False&OperEntrada=0&OperDef=0&OperEx=0&OperSubEntrada=0&OperAreaTematica=0&InfoMorfType=0&OperCatGram=False&AccentSen=False&CurrentPage=0&refineSearch=0&Actualitzacions=False" target="_blank">';
+  enllac_diec += '<img src="./assets/logodiec.png" loading="lazy" alt="Logo" class="logo">';
+  enllac_diec += '</a>';
+  return enllac_diec;
+}
+
 
 
 function actualitzarRimes() {
@@ -288,6 +295,7 @@ function actualitzarRimes() {
       var paraula = parts[0];
       var enllac_vicc = "";
       var enllac_viq = "";
+      var enllac_diec = "";
 
       if (parts[4] === "Vicc") {
         enllac_vicc = crearEnllacViccionari(parts[1]);
@@ -297,13 +305,17 @@ function actualitzarRimes() {
         enllac_viq = crearEnllacViquipedia(parts[1]);
       }
       
+      if (parts[6] === "Diec") {
+        enllac_diec = crearEnllacDiec(parts[1]);
+      }
+
       var numsilabes = parts[3];
 
       if (!rimesPerSilabes[numsilabes]) {
         rimesPerSilabes[numsilabes] = [];
       }
 
-      rimesPerSilabes[numsilabes].push({ paraula: paraula, enllac_vicc: enllac_vicc, enllac_viq: enllac_viq });
+      rimesPerSilabes[numsilabes].push({ paraula: paraula, enllac_vicc: enllac_vicc, enllac_viq: enllac_viq, enllac_diec: enllac_diec });
     }
 
     for (var silabes in rimesPerSilabes) {
@@ -317,6 +329,10 @@ function actualitzarRimes() {
         if (item.enllac_viq) {
           enllacText += item.enllac_viq + " ";
         }
+        if (item.enllac_diec) {
+          enllacText += item.enllac_diec + " ";
+        }
+
         rima_enllac += "<li>" + item.paraula + " " + enllacText.trim() + "</li>";
       }
       rima_enllac += "</ul>";

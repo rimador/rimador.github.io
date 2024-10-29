@@ -10,12 +10,13 @@
 // Botó GoatCounter
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cercaButton').addEventListener('click', function() {
-        console.log("Botó clicat!"); // Depuració
+        // Verificació de depuració
+        console.log("Botó clicat! Enviant esdeveniment a GoatCounter...");
+        
         window.goatcounter.count({
-            path: 'Botó_cerca',
-            title: 'Boto clicat',
-            event: true
-        console.log("Botó clicat!"); // Depuració
+            path: 'Botó_cerca',  // Identificador únic per a l'esdeveniment
+            title: 'Boto clicat', // Nom llegible per a l'esdeveniment
+            event: true           // Assegura que es marqui com a esdeveniment
         });
     });
 });

@@ -1,27 +1,3 @@
-// GoatCounter 
-(function() {
-    var gc = document.createElement('script');
-    gc.setAttribute('data-goatcounter', 'https://rimador.goatcounter.com/count'); 
-    gc.async = true;
-    gc.src = '//gc.zgo.at/count.js';
-    document.head.appendChild(gc);
-})();
-
-// Botó GoatCounter
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('cercaButton').addEventListener('click', function() {
-        // Verificació de depuració
-        console.log("Botó clicat! Enviant esdeveniment a GoatCounter...");
-        
-        window.goatcounter.count({
-            path: 'Botó_cerca',  // Identificador únic per a l'esdeveniment
-            title: 'Boto clicat', // Nom llegible per a l'esdeveniment
-            event: true           // Assegura que es marqui com a esdeveniment
-        });
-    });
-});
-
-
 //Llista de llistes
 let array0, array1, array2, array5, array6, array7, array8, array9, array10;
 let fitxersLlegits = 0;

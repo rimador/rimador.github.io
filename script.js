@@ -10,10 +10,12 @@
 // Botó GoatCounter
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('cercaButton').addEventListener('click', function() {
+        console.log("Botó clicat!"); // Depuració
         window.goatcounter.count({
             path: 'Botó_cerca',
             title: 'Boto clicat',
             event: true
+        console.log("Botó clicat!"); // Depuració
         });
     });
 });

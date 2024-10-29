@@ -1,3 +1,22 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Seleccionar el botó
+    const cercaButton = document.getElementById('cercaButton');
+
+    // Afegir un event listener al botó
+    cercaButton.addEventListener('click', function(e) {
+        // Comprovar si GoatCounter està disponible
+        if (window.goatcounter) {
+            window.goatcounter.count({
+                path: 'click-boto_cerca', // o qualsevol nom que desitgis
+                title: 'Cercar Botó',
+                event: true,
+            });
+        } else {
+            console.error("GoatCounter no està disponible.");
+        }
+    });
+});
+
 //Llista de llistes
 let array0, array1, array2, array5, array6, array7, array8, array9, array10;
 let fitxersLlegits = 0;

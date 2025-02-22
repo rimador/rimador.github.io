@@ -4,3 +4,15 @@ body {
     background-color: #FF91FF; /* Color de fons de la pàgina */
     margin-top: 30px; /* Ajusta la marge superior per afegir píxels del color de fons a dalt */
 }
+
+#footer {
+    color: black;
+    text-align: center;
+    padding: 15px;
+    bottom: 0;
+    width: 100%;
+}
+
+#espai_inicial {
+    color: #FF91FF;
+}

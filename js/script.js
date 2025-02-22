@@ -1,5 +1,3 @@
-document.getElementById("year").textContent = new Date().getFullYear();
-
 document.addEventListener("DOMContentLoaded", function() {
     // Seleccionar el botó
     const cercaButton = document.getElementById('cercaButton');
@@ -171,6 +169,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 //FUNCIONS
 async function realitzarCerca() {
   console.time('realitzarCerca');
+  document.getElementById("espai_inicial").style.display = "none";
 
   try {
     matches = [];
@@ -280,21 +279,21 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
 
 function crearEnllacViccionari(paraula) {
   var enllac_vicc = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
-  enllac_vicc += '<img src="./assets/logovicc.png" loading="lazy" alt="Logo" class="logo">';
+  enllac_vicc += '<img src="./assets/logovicc (240x240).png" loading="lazy" alt="Logo" class="logo">';
   enllac_vicc += '</a>';
   return enllac_vicc;
 }
 
 function crearEnllacViquipedia(paraula) {
   var enllac_viq = '<a href="https://ca.wikipedia.org/wiki/' + paraula + '" target="_blank">';
-  enllac_viq += '<img src="./assets/logowiki2.png" loading="lazy" alt="Logo" class="logo">';
+  enllac_viq += '<img src="./assets/logowiki (263x240).png" loading="lazy" alt="Logo" class="logo">';
   enllac_viq += '</a>';
   return enllac_viq;
 }
 
 function crearEnllacDiec(paraula) {
   var enllac_diec = '<a href="https://dlc.iec.cat/Results?DecEntradaText=' + paraula + '&AllInfoMorf=False&OperEntrada=0&OperDef=0&OperEx=0&OperSubEntrada=0&OperAreaTematica=0&InfoMorfType=0&OperCatGram=False&AccentSen=False&CurrentPage=0&refineSearch=0&Actualitzacions=False" target="_blank">';
-  enllac_diec += '<img src="./assets/logodiec.png" loading="lazy" alt="Logo" class="logo">';
+  enllac_diec += '<img src="./assets/logodiec (200x200).png" loading="lazy" alt="Logo" class="logo">';
   enllac_diec += '</a>';
   return enllac_diec;
 }

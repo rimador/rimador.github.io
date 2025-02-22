@@ -189,17 +189,19 @@ body {
     margin-top: 30px; /* Ajusta la marge superior per afegir píxels del color de fons a dalt */
 }
 
-footer {
+#footer {
+    color: black;
     text-align: center;
-    padding: 10px;
-    background-color: #FF91FF;
-    position: fixed;
+    padding: 15px;
     bottom: 0;
     width: 100%;
 }
 
+#espai_inicial {
+    color: #FF91FF;
+}
 header {
-    background: url("../assets/bubbles.png") repeat;
+    background: url("../../assets/bubbles.png") repeat;
     background-size: 120px 120px; 
     background-color: #d30505; 
     padding: 10px;

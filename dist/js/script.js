@@ -1,10 +1,12 @@
-const debugLevel = 3; // 0 = Off, 1 = Errors, 2 = Logs, 3 = Temps
+const debugLevel = 4; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
 const Debug = {
-    log: debugLevel >= 2 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},
-    logError: debugLevel >= 1 ? (...args) => console.error('[ERROR]', ...args) : () => {},
-    logTime: debugLevel >= 3 ? (label) => console.time(`[TIMER] ${label}`) : () => {},
-    logTimeEnd: debugLevel >= 3 ? (label) => console.timeEnd(`[TIMER] ${label}`) : () => {},
+    log: debugLevel >= 3 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},
+    logError: debugLevel >= 2 ? (...args) => console.error('[ERROR]', ...args) : () => {},
+    logTime: debugLevel >= 4 ? (label) => console.time(`[TIMER] ${label}`) : () => {},
+    logTimeEnd: debugLevel >= 4 ? (label) => console.timeEnd(`[TIMER] ${label}`) : () => {},
+    contador: debugLevel >= 1 ? (label) => console.log(`[COUNTER] ${label}`) : () => {},
+
 };
 
 
@@ -17,13 +19,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     cercaButton.addEventListener('click', function(e) {
-        console.log("Botó clicat!"); // Per comprovar que funciona
         if (window.goatcounter) {
             window.goatcounter.count({
                 path: 'click-boto_cerca',
                 title: 'Cercar Botó',
                 event: true,
             });
+            Debug.contador("Botó clicat, +1 GoatCounter")
         } else {
           Debug.logError("GoatCounter no està disponible.");
         }
@@ -180,6 +182,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 
 //FUNCIONS
 async function realitzarCerca() {
+  Debug.log("Botó clicat!");
   Debug.logTime('realitzarCerca');
   document.getElementById("espai_inicial").style.display = "none";
 

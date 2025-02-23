@@ -12,7 +12,6 @@ const Debug = {
 const cercaButton = document.getElementById('cercaButton');
 
 Debug.contador("Botó clicat, +1 GoatCounter")
-
             
 //Llista de llistes.
 let array0, array1, array2, array5, array6, array7, array8, array9, array10;

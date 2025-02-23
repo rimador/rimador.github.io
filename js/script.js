@@ -1,18 +1,31 @@
+const debugLevel = 3; // 0 = Off, 1 = Errors, 2 = Logs, 3 = Temps
+
+const Debug = {
+    log: debugLevel >= 2 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},
+    logError: debugLevel >= 1 ? (...args) => console.error('[ERROR]', ...args) : () => {},
+    logTime: debugLevel >= 3 ? (label) => console.time(`[TIMER] ${label}`) : () => {},
+    logTimeEnd: debugLevel >= 3 ? (label) => console.timeEnd(`[TIMER] ${label}`) : () => {},
+};
+
+
 document.addEventListener("DOMContentLoaded", function() {
     // Seleccionar el botó
     const cercaButton = document.getElementById('cercaButton');
+    if (!cercaButton) {
+        Debug.logError("El botó cercaButton no existeix!");
+        return;
+    }
 
-    // Afegir un event listener al botó
     cercaButton.addEventListener('click', function(e) {
-        // Comprovar si GoatCounter està disponible
+        console.log("Botó clicat!"); // Per comprovar que funciona
         if (window.goatcounter) {
             window.goatcounter.count({
-                path: 'click-boto_cerca', // o qualsevol nom que desitgis
+                path: 'click-boto_cerca',
                 title: 'Cercar Botó',
                 event: true,
             });
         } else {
-            console.error("GoatCounter no està disponible.");
+          Debug.logError("GoatCounter no està disponible.");
         }
     });
 });
@@ -23,8 +36,8 @@ let fitxersLlegits = 0;
 let nombresDeFitxers = 9;
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.time('Temps de càrrega')
-  console.log("Lectura de fitxers iniciada")
+  Debug.logTime('Temps de càrrega')
+  Debug.log("Lectura de fitxers iniciada")
   document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
   
 let camins = [];
@@ -36,14 +49,14 @@ for (let i of nombresSeleccionats) {
 
   Promise.all(camins.map(llegirIProcessarFitxer))
     .then(resultats => {
-      console.log('Tots els fitxers s\'han processat correctament');
-      console.timeEnd('Temps de càrrega')
+      Debug.log('Tots els fitxers s\'han processat correctament');
+      Debug.logTimeEnd('Temps de càrrega')
       document.getElementById("loader").style.display = "none";
 
       [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultats;
     })
     .catch(error => {
-      console.error('Error en processar els fitxers:', error);
+      Debug.logError('Error en processar els fitxers:', error);
       document.getElementById("loader").style.display = "none";
     });
 
@@ -60,12 +73,12 @@ for (let i of nombresSeleccionats) {
 
         fitxersLlegits++;
         document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
-        console.log(`Fitxers llegits: ${fitxersLlegits}/${nombresDeFitxers}`);
+        Debug.log(`Fitxers llegits: ${fitxersLlegits}/${nombresDeFitxers}`);
         
         return resultats;
       })
       .catch(error => {
-        console.error(`Error en processar el fitxer ${url}:`, error);
+        Debug.logError(`Error en processar el fitxer ${url}:`, error);
         throw error; // Propaga l'error per a que Promise.all pugui gestionar-lo
       });
   }
@@ -87,7 +100,6 @@ for (let i of nombresSeleccionats) {
 
 
 //Botó:
-const cercaButton = document.getElementById('cercaButton');
 cercaButton.addEventListener('click', realitzarCerca);
 
 const CriterisNoms = {
@@ -168,7 +180,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 
 //FUNCIONS
 async function realitzarCerca() {
-  console.time('realitzarCerca');
+  Debug.logTime('realitzarCerca');
   document.getElementById("espai_inicial").style.display = "none";
 
   try {
@@ -196,14 +208,14 @@ async function realitzarCerca() {
 
     mostrarTotesLesLlistes();
     document.querySelector('.impressio').style.display = 'flex';
-    console.timeEnd('realitzarCerca');
+    Debug.logTimeEnd('realitzarCerca');
   } catch (error) {
-    console.error('Error en realitzar la cerca:', error);
+    Debug.logError('Error en realitzar la cerca:', error);
   }
 }
 
 function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array5, array6, array7, array8, array9, array10) {
-  console.time('buscarParaula');
+  Debug.logTime('buscarParaula');
 
   var indexparaula = array0.findIndex(item => {
     return item.toLowerCase() === paraulaCercada.toLowerCase();
@@ -273,7 +285,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       bona = 0;
     }
   }
-  console.timeEnd('buscarParaula');
+  Debug.logTimeEnd('buscarParaula');
   return [matches, llistaParaulaCerca];
 }
 
@@ -301,7 +313,7 @@ function crearEnllacDiec(paraula) {
 
 
 function actualitzarRimes() {
-  console.time('actualitzarRimes');
+  Debug.logTime('actualitzarRimes');
 
   var numerorimes = "Nombre de rimes: " + matches_provisionals.length;
   document.getElementById("nombre").innerHTML = numerorimes;
@@ -377,13 +389,13 @@ function actualitzarRimes() {
 
   document.getElementById("rima_enllac").innerHTML = rima_enllac;
 
-  console.timeEnd('actualitzarRimes');
+  Debug.logTimeEnd('actualitzarRimes');
 }
 
 
 
 function mostrarTotesLesLlistes() {
-  console.time('mostrarTotesLesLlistes');
+  Debug.logTime('mostrarTotesLesLlistes');
 
   var resultats = obtenirValorsSegonsPrimerCaracter(matches)
 
@@ -395,12 +407,12 @@ function mostrarTotesLesLlistes() {
   mostrarLlista('altres', resultats.resultatsAlt, 'checkbox6');
 
 
-  console.timeEnd('mostrarTotesLesLlistes');
+  Debug.logTimeEnd('mostrarTotesLesLlistes');
 
 }
 
 function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
-  console.time('mostrarLlista');
+  Debug.logTime('mostrarLlista');
 
   var titleSelector = '#' + checkboxId;
   var listSelector = '#' + tipusLlista + 'List';
@@ -425,13 +437,13 @@ function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
       });
 
   } else {
-      console.log('No es compleixen les condicions per entrar a la lògica principal');
+      Debug.log('No es compleixen les condicions per entrar a la lògica principal');
   }
-  console.timeEnd('mostrarLlista');
+  Debug.logTimeEnd('mostrarLlista');
 }
 
 function toggleList(listID, checkboxID) {
-  console.time('toggleList');
+  Debug.logTime('toggleList');
 
   var list = document.getElementById(listID);
   var checkboxTitle = document.getElementById(checkboxID);
@@ -447,12 +459,12 @@ function toggleList(listID, checkboxID) {
       checkbox.checked = false;
     });
   }
-  console.timeEnd('toggleList');
+  Debug.logTimeEnd('toggleList');
 
 }
 
 function handleCheckboxClick(event, checkboxCriteria) {
-  console.time('handleCheckboxClick');
+  Debug.logTime('handleCheckboxClick');
 
   if (event.target.type === 'checkbox') {
       const checkboxLabel = event.target.parentNode.innerText.trim();
@@ -467,21 +479,21 @@ function handleCheckboxClick(event, checkboxCriteria) {
 
               matches_provisionals = matches_provisionals.concat(uniqueLinesToAdd);
 
-              console.log(`Checkbox "${checkboxLabel}" marcada`);
+              Debug.log(`Checkbox "${checkboxLabel}" marcada`);
           
           } else {
-              console.log(`Checkbox "${checkboxLabel}" desclicat`);
+              Debug.log(`Checkbox "${checkboxLabel}" desclicat`);
               matches_provisionals = matches_provisionals.filter(item => !filterFunction(item));
           }
 
           actualitzarRimes();
   }   }
-  console.timeEnd('handleCheckboxClick');
+  Debug.logTimeEnd('handleCheckboxClick');
 
 }
 
 function obtenirValorsSegonsPrimerCaracter(matches) {
-  console.time('obtenirValorsSegonsPrimerCaracter');
+  Debug.logTime('obtenirValorsSegonsPrimerCaracter');
 
   var resultatsN = [];
   var resultatsA = [];
@@ -568,7 +580,7 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
   }
 
   // Retornar les variables amb els resultats
-  console.timeEnd('obtenirValorsSegonsPrimerCaracter');
+  Debug.logTimeEnd('obtenirValorsSegonsPrimerCaracter');
   return {
       resultatsN: resultatsN,
       resultatsA: resultatsA,

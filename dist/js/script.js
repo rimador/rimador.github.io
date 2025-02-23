@@ -9,29 +9,11 @@ const Debug = {
 
 };
 
+const cercaButton = document.getElementById('cercaButton');
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Seleccionar el botó
-    const cercaButton = document.getElementById('cercaButton');
-    if (!cercaButton) {
-        Debug.logError("El botó cercaButton no existeix!");
-        return;
-    }
+Debug.contador("Botó clicat, +1 GoatCounter")
 
-    cercaButton.addEventListener('click', function(e) {
-        if (window.goatcounter) {
-            window.goatcounter.count({
-                path: 'click-boto_cerca',
-                title: 'Cercar Botó',
-                event: true,
-            });
-            Debug.contador("Botó clicat, +1 GoatCounter")
-        } else {
-          Debug.logError("GoatCounter no està disponible.");
-        }
-    });
-});
-
+            
 //Llista de llistes.
 let array0, array1, array2, array5, array6, array7, array8, array9, array10;
 let fitxersLlegits = 0;

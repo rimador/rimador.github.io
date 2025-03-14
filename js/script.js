@@ -1,4 +1,4 @@
-const debugLevel = 4; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
+const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
 const Debug = {
     log: debugLevel >= 3 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},

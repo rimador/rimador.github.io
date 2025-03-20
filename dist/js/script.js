@@ -1,4 +1,4 @@
-const debugLevel = 4; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
+const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
 const Debug = {
     log: debugLevel >= 3 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
   
 let camins = [];
-let nombresSeleccionats = [0,1,2,5,6,7,8,9,10]; // Modifica aquesta llista amb els índexs que necessitis
+let nombresSeleccionats = [0,1,2,5,6,7,8,9,10];
 
 for (let i of nombresSeleccionats) {
   camins.push(`diccionaris/separat/col_${i}.txt`);

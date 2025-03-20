@@ -1,159 +1,53 @@
-AAA$AAA$NCCN000$ə . ˈa . ə$əˈaə$a . ə$aə$3$NO$Viq$NO
-AAT$AAT$NCMN000$ə . ˈa t$əˈa$a t$a$2$NO$Viq$NO
 ABC$ABC$NPMSO00$ə_b ˈe_s ˈe$əˈeˈe$e$e$1$NO$Viq$NO
-ABS$ABS$AQ0CN0$ˈa b s$ˈa$a b s$a$1$NO$Viq$NO
-ABS$ABS$NCCN000$ˈa b s$ˈa$a b s$a$1$NO$Viq$NO
 ACA$ACA$NPFSO00$ˈa . k ə$ˈaə$a . k ə$aə$2$NO$Viq$NO
 ACB$ACB$NPFSO00$ə_s ˈe_b ˈe$əˈeˈe$e$e$1$NO$Viq$NO
 ACIS$ACIS$NPCNO00$ˈa . s i s$ˈai$a . s i s$ai$2$NO$Viq$NO
 ACN$ACN$NPFSO00$ə_s ˈe_ˈe . n ə$əˈeˈeə$e . n ə$eə$1$NO$Viq$NO
 ACNUR$ACNUR$NPMSO00$ə k . n ˈu$əˈu$u$u$2$NO$Viq$NO
 ACPV$ACPV$NPFSO00$ə_s ˈe_p ˈe_b ˈe_b ˈa ʃ ə$əˈeˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-ACTP$ACTP$NCMN000$ə_s ˈe_t ˈe_p ˈe$əˈeˈeˈe$e$e$1$NO$Viq$NO
-ADN$ADN$NCMN000$ə_d ˈe_ˈe . n ə$əˈeˈeə$e . n ə$eə$1$Vicc$Viq$NO
-ADSL$ADSL$NCCN000$ə_d ˈe_ˈe . s ə_ˈe . l ə$əˈeˈeəˈeə$e . l ə$eə$1$Vicc$Viq$NO
 AEAT$AEAT$NPFSO00$ə . e . ˈa t$əeˈa$a t$a$3$NO$Viq$NO
 AEMET$AEMET$NPFSO00$ə . e . m ˈɛ t$əeˈɛ$ɛ t$ɛ$3$NO$Viq$NO
 AENA$AENA$NPFSO00$ə . ˈɛ . n ə$əˈɛə$ɛ . n ə$ɛə$3$NO$Viq$NO
-AFA$AFA$NCCN000$ˈa . f ə$ˈaə$a . f ə$aə$2$NO$Viq$NO
 AGPL$AGPL$NPCNO00$ə_ʒ ˈe_p ˈe_ˈe . l ə$əˈeˈeˈeə$e . l ə$eə$1$NO$Viq$NO
-AIS$AIS$NCFN000$ˈa j s$ˈa$a j s$a$1$NO$Viq$NO
-AM$AM$NCFN000$ə_ˈe . m ə$əˈeə$e . m ə$eə$1$Vicc$Viq$NO
-AMPA$AMPA$NCFN000$ˈa m . p ə$ˈaə$a m . p ə$aə$2$Vicc$Viq$NO
-AMS$AMS$NCFN000$ˈa m s$ˈa$a m s$a$1$NO$Viq$NO
-ANOVA$ANOVA$NCFN000$ə . n ˈɔ . b ə$əˈɔə$ɔ . b ə$ɔə$3$Vicc$Viq$NO
 ANSI$ANSI$NPMSO00$ˈa n . s i$ˈai$a n . s i$ai$2$NO$Viq$NO
-APC$APC$NCFN000$ə_p ˈe_s ˈe$əˈeˈe$e$e$1$NO$Viq$NO
-API$API$NCFN000$ˈa . p i$ˈai$a . p i$ai$2$Vicc$Viq$NO
-ARN$ARN$NCMN000$ˈa ɾ n$ˈa$a ɾ n$a$1$Vicc$Viq$NO
-ARNm$ARNm$NCMN000$ə ɾ . n ˈɛ . m ə_$əˈɛə$ɛ . m ə_$ɛə$1$NO$Viq$NO
 ARRO$ARRO$NPCNO00$ˈa . r u$ˈau$a . r u$au$2$NO$Viq$NO
-AT$AT$NCMS000$ə_t ˈe$əˈe$e$e$1$Vicc$Viq$NO
 ATC$ATC$NPFSO00$ə_t ˈe_s ˈe$əˈeˈe$e$e$1$NO$Viq$NO
 ATM$ATM$NPFSO00$ə_t ˈe_ˈe . m ə$əˈeˈeə$e . m ə$eə$1$NO$Viq$NO
 ATP$ATP$NPFSO00$ə_t ˈe_p ˈe$əˈeˈe$e$e$1$Vicc$Viq$NO
-ATS$ATS$NCCN000$ˈa t s$ˈa$a t s$a$1$Vicc$NO$NO
 AVE$AVE$NPMNO00$ˈa . b e$ˈae$a . b e$ae$2$NO$Viq$NO
 AVL$AVL$NPFSO00$ə_b ˈe_b ˈa ʃ ə_ˈe . l ə$əˈeˈaəˈeə$e . l ə$eə$1$NO$Viq$NO
-AZT$AZT$NCFN000$ə_z ˈɛ . t ə_t ˈe$əˈɛəˈe$e$e$1$NO$Viq$NO
-AbiWord$AbiWord$NPMSO00$ə . β i . w ˈɔ ɾ t$əiˈɔ$ɔ ɾ t$ɔ$3$NO$Viq$NO
-Abstraction-Création$Abstraction-Création$NPCSG00$ə b s . t ɾ ə k . t i . ˈo n_k ɾ ˈe . ə . t i . u n$əəiˈoˈeəiu$e . ə . t i . u n$eəiu$8$NO$Viq$NO
-AdWords$AdWords$NPMSO00$ə . d w ˈɔ ɾ s$əˈɔ$ɔ ɾ s$ɔ$2$NO$Viq$NO
-Ado-Ekiti$Ado-Ekiti$NPCSG00$ˈa . ð u_ə . k ˈi . t i$ˈauəˈii$i . t i$ii$5$NO$Viq$NO
-AfD$AfD$NPFSO00$ə f . d ˈe_$əˈe$e_$e$1$NO$Viq$NO
-Aix-les-Bains$Aix-les-Bains$NPCSG00$ˈa ʃ_l ə s_b ˈa j n s$ˈaəˈa$a j n s$a$3$NO$Viq$NO
-Al-Aaiun$Al-Aaiun$NPCSG00$ə l_ə . ə . ˈi w n$əəəˈi$i w n$i$4$NO$Viq$NO
-Al-Arid$Al-Arid$NPCSG00$ə l_ə . ɾ ˈi t$əəˈi$i t$i$3$NO$Viq$NO
-Al-Azhar$Al-Azhar$NPCSG00$ə l_ə z ˈa$əəˈa$a$a$3$NO$Viq$NO
-Al-Bayda$Al-Bayda$NPCSG00$ə l_b ˈa . i . d ə$əˈaiə$a . i . d ə$aiə$3$NO$Viq$NO
-Al-Fatah$Al-Fatah$NPCSO00$ə l_f ə . t ˈa$əəˈa$a$a$3$NO$Viq$NO
-Al-Hilal$Al-Hilal$NPMSO00$ə l_i . l ˈa l$əiˈa$a l$a$3$NO$Viq$NO
-Al-Hilla$Al-Hilla$NPCSG00$ˈa l i . ʎ ə$ˈaiə$a l i . ʎ ə$aiə$3$NO$Viq$NO
-Al-Hoceima$Al-Hoceima$NPCSG00$ə l_u . s ˈɛ j . m ə$əuˈɛə$ɛ j . m ə$ɛə$4$NO$Viq$NO
-Al-Hàkam$Al-Hàkam$NPMSSP0$ə l_ˈa . k ə m$əˈaə$a . k ə m$aə$3$NO$Viq$NO
-Al-Jawf$Al-Jawf$NPCSG00$ə l_ʒ ə . w ˈe . f ə_$əəˈeə$e . f ə_$eə$2$NO$Viq$NO
-Al-Kufra$Al-Kufra$NPCSG00$ə l_k ˈu . f ɾ ə$əˈuə$u . f ɾ ə$uə$3$NO$Viq$NO
-Al-Qaeda$Al-Qaeda$NPMSO00$ə l_k ə . ˈe . d ə$əəˈeə$e . d ə$eə$4$NO$Viq$NO
-Al-Qaida$Al-Qaida$NPMSO00$ə l_k ˈa j . d ə$əˈaə$a j . d ə$aə$3$NO$Viq$NO
-Al-Quds$Al-Quds$NPFPO00$ə l_k ˈu t s$əˈu$u t s$u$2$NO$Viq$NO
-Al-Raqqa$Al-Raqqa$NPCSG00$ə l_r ˈa . k u_k ˈa$əˈauˈa$a$a$2$NO$Viq$NO
-Al-Àndalus$Al-Àndalus$NPCSG00$ə l_ˈa n . d ə . l u s$əˈaəu$a n . d ə . l u s$aəu$4$NO$Viq$NO
-Al-Àqaba$Al-Àqaba$NPCSG00$ə l_ˈa . k ə . β ə$əˈaəə$a . k ə . β ə$aəə$3$NO$Viq$NO
-Aleksàndrovsk-Sakhalinski$Aleksàndrovsk-Sakhalinski$NPCSG00$ə . l ə k . s ˈa n . d ɾ u . β ə . s ə_k ˈa__s ə k ə . l ˈi n s . k i$əəˈauəəˈaəəˈii$i n s . k i$ii$8$NO$Viq$NO
-All-Star$All-Star$NPMSO00$ˈa ʎ_s t ˈa$ˈaˈa$a$a$2$NO$Viq$NO
-Alsàcia-Lorena$Alsàcia-Lorena$NPCSG00$ə l . s ˈa . s i . ə_l u . ɾ ˈɛ . n ə$əˈaiəuˈɛə$ɛ . n ə$ɛə$7$NO$Viq$NO
-Amat-Piniella$Amat-Piniella$NPCNSP0$ə . m ˈa t p i . n i . ə . ʎ ə$əˈaiiəə$a t p i . n i . ə . ʎ ə$aiiəə$6$NO$Viq$NO
-Amorebieta-Etxano$Amorebieta-Etxano$NPCSG00$ə . m u . ɾ ə . β i . ˈɛ . t ə_ə t . ʃ ˈa . n u$əuəiˈɛəəˈau$a . n u$au$9$NO$Viq$NO
-Arc-et-Senans$Arc-et-Senans$NPCSG00$ˈa ɾ k_ə d_s ə . n ˈa n s$ˈaəəˈa$a n s$a$4$NO$Viq$NO
-Asnières-sur-Seine$Asnières-sur-Seine$NPCSG00$ə s . n i . ˈɛ . ɾ ə s s u ɾ s ə j . n ə$əiˈɛəuəə$ɛ . ɾ ə s s u ɾ s ə j . n ə$ɛəuəə$7$NO$Viq$NO
-AutoCAD$AutoCAD$NPCNO00$ə w . t u . k ˈa t$əuˈa$a t$a$3$NO$Viq$NO
 BBC$BBC$NPFSO00$b ˈe_b ˈe_s ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 BBVA$BBVA$NPMSO00$b ˈe_b ˈe_b ˈe_b ˈa ʃ ə_ə$ˈeˈeˈeˈaəə$a ʃ ə_ə$aəə$2$NO$Viq$NO
 BCE$BCE$NPMSO00$b ˈe_s ˈe_ˈɛ$ˈeˈeˈɛ$ɛ$ɛ$1$NO$Viq$NO
-BCG$BCG$NCMN000$b ˈe_s ˈe_ʒ ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
-BCIN$BCIN$NCMN000$b ˈe_s ˈe_i_ˈe . n ə$ˈeˈeiˈeə$e . n ə$eə$1$NO$Viq$NO
 BCN$BCN$NPFSG00$b ˈe_s ˈe_ˈe . n ə$ˈeˈeˈeə$e . n ə$eə$1$NO$Viq$NO
-BCR$BCR$NCMN000$b ˈe_s ˈe_ˈɛ . r ə$ˈeˈeˈɛə$ɛ . r ə$ɛə$1$NO$Viq$NO
-BD$BD$NCFN000$b ˈe_d ˈe$ˈeˈe$e$e$1$Vicc$Viq$NO
 BEA$BEA$NPMSO00$b ˈe . ə$ˈeə$e . ə$eə$2$NO$Viq$NO
-BIC$BIC$NCMN000$b ˈi k$ˈi$i k$i$1$NO$Viq$NO
-BLOB$BLOB$NCMN000$b l ˈo p$ˈo$o p$o$1$NO$Viq$NO
 BMW$BMW$NPCNO00$b ˈe_ˈe . m ə_b ˈe_d ˈo . b l ə$ˈeˈeəˈeˈoə$o . b l ə$oə$1$NO$Viq$NO
 BNG$BNG$NPMSO00$b ˈe_ˈe . n ə_ʒ ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
 BOE$BOE$NPMSO00$b ˈo . e$ˈoe$o . e$oe$2$NO$Viq$NO
 BRIMO$BRIMO$NPCNO00$b ɾ ˈi . m u$ˈiu$i . m u$iu$2$NO$Viq$NO
 BSC$BSC$NPMSO00$b ˈe_ˈe . s ə_s ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
 BTS$BTS$NPMPO00$b ˈe_t ˈe_ˈe . s ə$ˈeˈeˈeə$e . s ə$eə$1$NO$Viq$NO
-BTT$BTT$NCCN000$b ˈe_t ˈe_t ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 BTV$BTV$NPCNO00$b ˈe_t ˈe_b ˈe_b ˈa ʃ ə$ˈeˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
 BUP$BUP$NPMSO00$b ˈu p$ˈu$u p$u$1$NO$Viq$NO
-Baader-Meinhof$Baader-Meinhof$NPCNO00$b ə . ə . d ˈe_m ə j n ˈɔ f$əəˈeəˈɔ$ɔ f$ɔ$5$NO$Viq$NO
-Baden-Baden$Baden-Baden$NPCNSP0$b ˈa . ð ə n_b ˈa . ð ə n$ˈaəˈaə$a . ð ə n$aə$4$NO$Viq$NO
-Baden-Baden$Baden-Baden$NPMSG00$b ˈa . ð ə n_b ˈa . ð ə n$ˈaəˈaə$a . ð ə n$aə$4$NO$Viq$NO
-Baden-Württemberg$Baden-Württemberg$NPCNSP0$b ˈa . ð ə n_w ˈu ɾ . t ə m . b ˈe ɾ k$ˈaəˈuəˈe$e ɾ k$e$5$NO$Viq$NO
-Baden-Württemberg$Baden-Württemberg$NPCSG00$b ˈa . ð ə n_w ˈu ɾ . t ə m . b ˈe ɾ k$ˈaəˈuəˈe$e ɾ k$e$5$NO$Viq$NO
-Bagnères-de-Bigorre$Bagnères-de-Bigorre$NPCSG00$b ə g . n ˈɛ . ɾ ə s_d ə_b i . g ˈo . r ə$əˈɛəəiˈoə$o . r ə$oə$7$NO$Viq$NO
-Bagnères-de-Luchon$Bagnères-de-Luchon$NPCSG00$b ə g . n ˈɛ . ɾ ə s_d ə_l u . ʃ ˈɔ n$əˈɛəəuˈɔ$ɔ n$ɔ$6$NO$Viq$NO
-Bar-le-Duc$Bar-le-Duc$NPCSG00$b ˈa ɾ_l ˈe_d ˈu k$ˈaˈeˈu$u k$u$3$NO$Viq$NO
-Basilea-Camp$Basilea-Camp$NPCSG00$b ə . z i . l ˈe . ə_k ˈa m$əiˈeəˈa$a m$a$5$NO$Viq$NO
-Basilea-Ciutat$Basilea-Ciutat$NPCSG00$b ə . z i . l ˈe . ə_s i w . t ˈa t$əiˈeəiˈa$a t$a$6$NO$Viq$NO
-Basse-Terre$Basse-Terre$NPCSG00$b ˈa . s ə_t ˈɛ . r ə$ˈaəˈɛə$ɛ . r ə$ɛə$4$NO$Viq$NO
-Beaulieu-lès-Loches$Beaulieu-lès-Loches$NPCSG00$b e . ə w . l i . ˈɛ w_l ˈɛ s_l ˈɔ . ʃ ə s$eəiˈɛˈɛˈɔə$ɔ . ʃ ə s$ɔə$7$NO$Viq$NO
-Bellegarde-sur-Valserine$Bellegarde-sur-Valserine$NPCSG00$b ə . ʎ ə . ɣ ˈa ɾ . d ə s u ɾ b ə l . s ə . ɾ i . n ə$əəˈaəuəəiə$a ɾ . d ə s u ɾ b ə l . s ə . ɾ i . n ə$aəuəəiə$9$NO$Viq$NO
-Ben-Gurion$Ben-Gurion$NPCNSP0$b ˈe n_g u . ɾ i . ˈo n$ˈeuiˈo$o n$o$4$NO$Viq$NO
-Berzé-la-Ville$Berzé-la-Ville$NPCSG00$b ə ɾ . z ˈe_l ə_b ˈi . ʎ ə$əˈeəˈiə$i . ʎ ə$iə$5$NO$Viq$NO
-BitTorrent$BitTorrent$NPMNO00$b i . t u . r ˈe n$iuˈe$e n$e$3$NO$Viq$NO
-BlaBlaCar$BlaBlaCar$NPCNO00$b l ə . β l ə . k ˈa$əəˈa$a$a$3$NO$Viq$NO
-BlackBerry$BlackBerry$NPCNO00$b l ə k . b ˈɛ . r j$əˈɛ$ɛ . r j$ɛ$2$NO$Viq$NO
-Blaye-les-Mines$Blaye-les-Mines$NPCSG00$b l ˈa . j ə_l ə s_m ˈi . n ə s$ˈaəəˈiə$i . n ə s$iə$5$NO$Viq$NO
-Bobo-Dioulasso$Bobo-Dioulasso$NPCSG00$b ˈo . b u_d i . ɔ w . l ˈa . s u$ˈouiɔˈau$a . s u$au$6$NO$Viq$NO
-Bois-Colombes$Bois-Colombes$NPCSG00$b ˈɔ j s_k u . l ˈo m . b ə s$ˈɔuˈoə$o m . b ə s$oə$4$NO$Viq$NO
-Bolama-Bijagós$Bolama-Bijagós$NPCSG00$b u . l ˈa . m ə_b i . ʒ ə . ɣ ˈo s$uˈaəiəˈo$o s$o$6$NO$Viq$NO
-Boulogne-Billancourt$Boulogne-Billancourt$NPCSG00$b ɔ w . l ˈɔ g . n ə_b i . ʎ ə n . k ɔ w ɾ . t ˈe_$ɔˈɔəiəɔˈe$e_$e$6$NO$Viq$NO
-Boulogne-sur-Mer$Boulogne-sur-Mer$NPFSG00$b ɔ w . l ˈɔ g . n ə_s ˈu_m ˈe ɾ$ɔˈɔəˈuˈe$e ɾ$e$5$NO$Viq$NO
-Bourg-Saint-Maurice$Bourg-Saint-Maurice$NPCSG00$b ˈɔ w ɾ . ʒ ə__s ə . ˈi n _m ə w . ɾ ˈi . s ə$ˈɔəəˈiəˈiə$i . s ə$iə$6$NO$Viq$NO
-Bourg-de-Péage$Bourg-de-Péage$NPCSG00$b ˈɔ w ɾ . ʒ ə__d ə_p ˈe . ə . ʒ ə$ˈɔəəˈeəə$e . ə . ʒ ə$eəə$5$NO$Viq$NO
-Bourg-en-Bresse$Bourg-en-Bresse$NPCSG00$b ˈɔ w ɾ g ə n b . ɾ ə . s ə$ˈɔəəə$ɔ w ɾ g ə n b . ɾ ə . s ə$ɔəəə$4$NO$Viq$NO
-Bourg-lès-Valence$Bourg-lès-Valence$NPCSG00$b ˈɔ w ɾ . ʒ ə__l ˈɛ s_b ə . l ˈɛ n . s ə$ˈɔəˈɛəˈɛə$ɛ n . s ə$ɛə$5$NO$Viq$NO
-Bourgoin-Jallieu$Bourgoin-Jallieu$NPCSG00$b ɔ w ɾ . g ˈɔ j n_ʒ ə . ʎ i . ˈɛ w$ɔˈɔəiˈɛ$ɛ w$ɛ$5$NO$Viq$NO
-Brive-la-Gaillarde$Brive-la-Gaillarde$NPCSG00$b ɾ ˈi . β ə_l ə_g ə j . ʎ ˈa ɾ . d ə$ˈiəəəˈaə$a ɾ . d ə$aə$6$NO$Viq$NO
-Bruay-la-Buissière$Bruay-la-Buissière$NPCSG00$b ɾ u . ˈa j_l ə_b u j . s i . ˈɛ . ɾ ə$uˈaəuiˈɛə$ɛ . ɾ ə$ɛə$7$NO$Viq$NO
-BusyBox$BusyBox$NPMSO00$b u . s i . b ˈɔ k s$uiˈɔ$ɔ k s$ɔ$2$NO$Viq$NO
-CA$CA$NCFS000$s ˈe_ə$ˈeə$e_ə$eə$1$Vicc$Viq$NO
 CAM$CAM$NPFSO00$k ˈa m$ˈa$a m$a$1$NO$Viq$NO
-CB$CB$NCMN000$s ˈe_b ˈe$ˈeˈe$e$e$1$NO$Viq$NO
 CBC$CBC$NPCNO00$s ˈe_b ˈe_s ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
-CCAA$CA$NCFP000$s ˈe_s ˈe_ə_ə$ˈeˈeəə$e_ə_ə$eəə$2$NO$Viq$NO
+CBD$CBD$NPCN000$$$$$$NO$Viq$NO
 CCCB$CCCB$NPMSO00$s ˈe_s ˈe_s ˈe_b ˈe$ˈeˈeˈeˈe$e$e$1$NO$Viq$NO
 CCMA$CCMA$NPFSO00$s ˈe_s ˈe_ˈe . m ə_ə$ˈeˈeˈeəə$e . m ə_ə$eəə$2$NO$Viq$NO
 CCOO$CCOO$NPFPO00$k u . m i . s i . ˈo n s_u . β ɾ ˈe . ɾ ə s$uiiˈouˈeə$e . ɾ ə s$eə$2$Vicc$Viq$NO
-CCleaner$CCleaner$NPCNO00$s ˈe_k l e . ə . n ˈe$ˈeeəˈe$e$e$3$NO$Viq$NO
 CD$CD$NPMN000$s ˈe_d ˈe$ˈeˈe$e$e$1$Vicc$Viq$NO
-CD-ROM$CD-ROM$NCMN000$s ˈe_d ˈe_r ˈo m$ˈeˈeˈo$o m$o$2$NO$Viq$NO
 CDC$CDC$NPFSO00$s ˈe_d ˈe_s ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 CDR$CDR$NPMNO00$s ˈe_d ˈe_ˈɛ . r ə$ˈeˈeˈɛə$ɛ . r ə$ɛə$1$Vicc$Viq$NO
 CDS$CDS$NPMSO00$s ˈe_d ˈe_ˈe . s ə$ˈeˈeˈeə$e . s ə$eə$1$NO$Viq$NO
 CDU$CDU$NPFSO00$s ˈe_d ˈe_ˈu$ˈeˈeˈu$u$u$1$NO$Viq$NO
-CE$CE$NCMN000$s ˈe_ˈɛ$ˈeˈɛ$ɛ$ɛ$1$Vicc$Viq$NO
 CEE$CEE$NPFSO00$s ˈe_ˈɛ_ˈɛ$ˈeˈɛˈɛ$ɛ$ɛ$2$NO$Viq$NO
-CEIP$CEIP$NCMN000$s ˈɛ j p$ˈɛ$ɛ j p$ɛ$1$Vicc$Viq$NO
 CEO$CEO$NPCNO00$s ˈe . u$ˈeu$e . u$eu$2$Vicc$Viq$NO
 CEOE$CEOE$NPFSO00$s ə . ˈo . ə$əˈoə$o . ə$oə$3$NO$Viq$NO
 CERN$CERN$NPMSO00$s ˈɛ ɾ n$ˈɛ$ɛ ɾ n$ɛ$1$NO$Viq$NO
-CF$CF$NCMN000$s ˈe_ˈe . f ə$ˈeˈeə$e . f ə$eə$1$Vicc$Viq$NO
-CFA$CFA$NCMN000$s ˈe_ˈe . f ə_ə$ˈeˈeəə$e . f ə_ə$eəə$1$NO$Viq$NO
-CFC$CFC$NCCN000$s ˈe_ˈe . f ə_s ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
-CFGM$CFGM$NCMN000$s ˈe_ˈe . f ə_ʒ ˈe_ˈe . m ə$ˈeˈeəˈeˈeə$e . m ə$eə$1$Vicc$NO$NO
-CFGS$CFGS$NCMN000$s ˈe_ˈe . f ə_ʒ ˈe_ˈe . s ə$ˈeˈeəˈeˈeə$e . s ə$eə$1$Vicc$NO$NO
 CGPJ$CGPJ$NPMSO00$s ˈe_ʒ ˈe_p ˈe_ʒ ˈɔ . t ə$ˈeˈeˈeˈɔə$ɔ . t ə$ɔə$1$NO$Viq$NO
 CGT$CGT$NPFSO00$s ˈe_ʒ ˈe_t ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 CIDOB$CIDOB$NPMSO00$s i . d ˈo p$iˈo$o p$o$2$NO$Viq$NO
-CIE$CIE$NCMN000$s ˈi . ə$ˈiə$i . ə$iə$2$NO$Viq$NO
-CIF$CIF$NCMN000$s ˈi f$ˈi$i f$i$1$NO$Viq$NO
 CIS$CIS$NPMSO00$s ˈi s$ˈi$i s$i$1$NO$Viq$NO
-CMC$CMC$NCFN000$s ˈe_ˈe . m ə_s ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
-CMOS$CMOS$NCMN000$s ˈe_ˈe . m ə_ˈɔ_ˈe . s ə$ˈeˈeəˈɔˈeə$e . s ə$eə$1$NO$Viq$NO
-CMYK$CMYK$AQ0CN0$s ˈe_ˈe . m ə_i_g ɾ ˈe . g ə_k ˈa$ˈeˈeəiˈeəˈa$a$a$1$NO$Viq$NO
 CNI$CNI$NPMSO00$s ˈe_ˈe . n ə_i$ˈeˈeəi$e . n ə_i$eəi$1$NO$Viq$NO
 CNN$CNN$NPFSO00$s ˈe_ˈe . n ə_ˈe . n ə$ˈeˈeəˈeə$e . n ə$eə$1$NO$Viq$NO
 CNP$CNP$NPMSO00$s ˈe_ˈe . n ə_p ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
@@ -161,114 +55,37 @@ CNT$CNT$NPFSO00$s ˈe_ˈe . n ə_t ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
 COI$COI$NPMSO00$k ˈo j$ˈo$o j$o$1$NO$Viq$NO
 COPE$COPE$NPFSO00$k ˈo . p e$ˈoe$o . p e$oe$2$NO$Viq$NO
 COU$COU$NPMSO00$k ˈɔ w$ˈɔ$ɔ w$ɔ$1$NO$Viq$NO
-COVID$COVID$NCFS000$k u . β ˈi t$uˈi$i t$i$2$NO$Viq$NO
 CPNL$CPNL$NPMNO00$s ˈe_p ˈe_ˈe . n ə_ˈe . l ə$ˈeˈeˈeəˈeə$e . l ə$eə$1$NO$Viq$NO
-CPU$CPU$NCFN000$s ˈe_p ˈe_ˈu$ˈeˈeˈu$u$u$1$NO$Viq$NO
-CRAE$CRAE$NCMN000$k ɾ ˈa . e$ˈae$a . e$ae$2$Vicc$Viq$NO
-CRS$CRS$NCMN000$s ˈe_ˈɛ . r ə_ˈe . s ə$ˈeˈɛəˈeə$e . s ə$eə$1$NO$Viq$NO
 CSIC$CSIC$NPMSO00$s ˈe_ˈe . s ə_i_s ˈe$ˈeˈeəiˈe$e$e$1$NO$Viq$NO
-CSS$CSS$NCMN000$s ˈe_ˈe . s ə_ˈe . s ə$ˈeˈeəˈeə$e . s ə$eə$1$Vicc$Viq$NO
 CSU$CSU$NPFSO00$s ˈe_ˈe . s ə_ˈu$ˈeˈeəˈu$u$u$1$NO$Viq$NO
 CUP$CUP$NPFSO00$k ˈu p$ˈu$u p$u$1$Vicc$Viq$NO
-CV$CV$NCMN000$s ˈe n _s ˈi n k$ˈeˈi$i n k$i$1$Vicc$Viq$NO
-CVV$CVV$NCMN000$s ˈe_b ˈe_b ˈa ʃ ə_b ˈe_b ˈa ʃ ə$ˈeˈeˈaəˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-CaixaBank$CaixaBank$NPCNO00$k ə ʃ ə . β ˈa n k$əəˈa$a n k$a$3$NO$Viq$NO
-CaixaForum$CaixaForum$NPMNO00$k ə ʃ ə . f u . ɾ ˈu m$əəuˈu$u m$u$4$NO$Viq$NO
-Caluire-et-Cuire$Caluire-et-Cuire$NPCSG00$k ə . l ˈu j . ɾ ə_ə d_k ˈu j . ɾ ə$əˈuəəˈuə$u j . ɾ ə$uə$6$NO$Viq$NO
-Cambo-les-Bains$Cambo-les-Bains$NPCSG00$k ˈa m . b u_l ə s_b ˈa j n s$ˈauəˈa$a j n s$a$4$NO$Viq$NO
-Caro-Kann$Caro-Kann$NPCNSP0$k ˈa . ɾ u_k ə . n ˈɛ . n ə_$ˈauəˈɛə$ɛ . n ə_$ɛə$3$NO$Viq$NO
-Carod-Rovira$Carod-Rovira$NPCNSP0$k ə . ɾ ˈɔ t_r u . β ˈi . ɾ ə$əˈɔuˈiə$i . ɾ ə$iə$5$NO$Viq$NO
-CatSalut$CatSalut$NPMSO00$k ə t . s ə . l ˈu t$əəˈu$u t$u$3$NO$Viq$NO
-Chalon-sur-Saône$Chalon-sur-Saône$NPCSG00$ʃ ə . l ˈo n s u ɾ s ə . o . n ə$əˈouəoə$o n s u ɾ s ə . o . n ə$ouəoə$5$NO$Viq$NO
-Chamonix-Mont-Blanc$Chamonix-Mont-Blanc$NPCSG00$ʃ ə . m u . n ˈi ʃ_m ˈo n _b l ˈa n k$əuˈiˈoˈa$a n k$a$5$NO$Viq$NO
-Champigny-sur-Marne$Champigny-sur-Marne$NPCSG00$ʃ ə m . p ˈi g ɲ s u ɾ m ə ɾ . n ə$əˈiuəə$i g ɲ s u ɾ m ə ɾ . n ə$iuəə$5$NO$Viq$NO
-Charenton-le-Pont$Charenton-le-Pont$NPCSG00$ʃ ə . ɾ ə n . t ˈo n_l ˈe_p ˈɔ n$əəˈoˈeˈɔ$ɔ n$ɔ$5$NO$Viq$NO
-Charleville-Mézières$Charleville-Mézières$NPCSG00$ʃ ə ɾ . l ə . β ˈi . ʎ ə_m ˈe . z i . ˈɛ . ɾ ə s$əəˈiəˈeiˈɛə$ɛ . ɾ ə s$ɛə$8$NO$Viq$NO
-ChatGPT$ChatGPT$NPMSO00$ʃ ˈa d . ʒ ə_p ˈe_t ˈe_$ˈaəˈeˈe$e_$e$1$NO$Viq$NO
-Chaumont-sur-Loire$Chaumont-sur-Loire$NPCSG00$ʃ ə w . m ˈo n _s ˈu_l ˈɔ j . ɾ ə$əˈoˈuˈɔə$ɔ j . ɾ ə$ɔə$5$NO$Viq$NO
-Choisy-le-Roi$Choisy-le-Roi$NPCSG00$ʃ ˈɔ j . s j_l ˈe_r ˈɔ j$ˈɔˈeˈɔ$ɔ j$ɔ$3$NO$Viq$NO
-Châlons-en-Champagne$Châlons-en-Champagne$NPCSG00$ʃ a . l ˈo n z ə n ʃ ə m . p ə g . n ə$aˈoəəəə$o n z ə n ʃ ə m . p ə g . n ə$oəəəə$6$NO$Viq$NO
-Châtenay-Malabry$Châtenay-Malabry$NPCSG00$ʃ a . t ə . n ˈa j_m ə . l ˈa . β ɾ j$aəˈaəˈa$a . β ɾ j$a$5$NO$Viq$NO
-CiU$CiU$NPFSO00$s ˈi w$ˈi$i w$i$1$NO$Viq$NO
-Clermont-Ferrand$Clermont-Ferrand$NPCSG00$k l ə ɾ . m ˈo n _f ə . r ˈa n$əˈoəˈa$a n$a$4$NO$Viq$NO
-Clichy-sous-Bois$Clichy-sous-Bois$NPCSG00$k l ˈi . ʃ j_s ˈɔ w s_b ˈɔ j s$ˈiˈɔˈɔ$ɔ j s$ɔ$3$NO$Viq$NO
-Cluj-Napoca$Cluj-Napoca$NPCSG00$k l ˈu ʒ_n ə . p ˈɔ . k ə$ˈuəˈɔə$ɔ . k ə$ɔə$4$NO$Viq$NO
-CoNCA$CoNCA$NPMSO00$k ˈo n . k ə$ˈoə$o n . k ə$oə$2$NO$Viq$NO
-Coca-Cola$Coca-Cola$NPFSO00$k ˈɔ . k ə k u . l ə$ˈɔəuə$ɔ . k ə k u . l ə$ɔəuə$4$NO$Viq$NO
-Conflans-Sainte-Honorine$Conflans-Sainte-Honorine$NPCSG00$k u m . f l ˈa n s s ə j n . t ə u . n u . ɾ i . n ə$uˈaəəuuiə$a n s s ə j n . t ə u . n u . ɾ i . n ə$aəəuuiə$8$NO$Viq$NO
-Corbeil-Essonnes$Corbeil-Essonnes$NPCSG00$k u ɾ . b ˈɛ j l_ə . s ˈo . n ə s$uˈɛəˈoə$o . n ə s$oə$5$NO$Viq$NO
-CosmoCaixa$CosmoCaixa$NPMSO00$k u s . m u . k ˈa ʃ ə$uuˈaə$a ʃ ə$aə$4$NO$Viq$NO
-Coudekerque-Branche$Coudekerque-Branche$NPCSG00$k ɔ w . ð ə . k ˈe ɾ . k ə_b ɾ ˈa n . ʃ ə$ɔəˈeəˈaə$a n . ʃ ə$aə$6$NO$Viq$NO
-D'Artagnan$D'Artagnan$NPMSSP0$d ə ɾ . t ə g . n ˈa n$əəˈa$a n$a$3$NO$Viq$NO
-DAFO$DAFO$NCFN000$d ˈa . f u$ˈau$a . f u$au$2$NO$Viq$NO
 DCVB$DCVB$NPMSO00$d ˈe_s ˈe_b ˈe_b ˈa ʃ ə_b ˈe$ˈeˈeˈeˈaəˈe$e$e$1$NO$Viq$NO
-DDT$DDT$NCMN000$d ˈe_d ˈe_t ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
-DG$DG$NCFN000$d ˈe_ʒ ˈe$ˈeˈe$e$e$1$NO$Viq$NO
 DGAIA$DGAIA$NPFSO00$d ˈe_ʒ ˈe_ə_i_ə$ˈeˈeəiə$e_ə_i_ə$eəiə$2$NO$Viq$NO
 DGT$DGT$NPFSO00$d ˈe_ʒ ˈe_t ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 DIEC$DIEC$NPMSO00$d i . ˈɛ k$iˈɛ$ɛ k$ɛ$2$NO$Viq$NO
 DIN$DIN$NPCNO00$d ˈi n$ˈi$i n$i$1$NO$Viq$NO
-DJ$DJ$NCCN000$d ˈe_ʒ ˈɔ . t ə$ˈeˈɔə$ɔ . t ə$ɔə$1$Vicc$Viq$NO
-DNA$DNA$NCMN000$d ˈe_ˈe . n ə_ə$ˈeˈeəə$e . n ə_ə$eəə$1$Vicc$Viq$NO
-DNI$DNI$NCMN000$d ˈe_ˈe . n ə_i$ˈeˈeəi$e . n ə_i$eəi$1$NO$Viq$NO
 DNV$DNV$NPMSO00$d ˈe_ˈe . n ə_b ˈe_b ˈa ʃ ə$ˈeˈeəˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-DO$DO$NCFN000$d ə . n u . m i . n ə . s i . ˈo_d u . ɾ ˈi . ʒ ə n$əuiəiˈouˈiə$i . ʒ ə n$iə$1$Vicc$Viq$NO
-DOGC$DOGC$NCMS000$d ˈe_ˈɔ_ʒ ˈe_s ˈe$ˈeˈɔˈeˈe$e$e$1$NO$Viq$NO
-DOGV$DOGV$NCMS000$d ˈe_ˈɔ_ʒ ˈe_b ˈe_b ˈa ʃ ə$ˈeˈɔˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-DOP$DOP$NCFN000$d ˈo p$ˈo$o p$o$1$Vicc$Viq$NO
-DRM$DRM$NCMN000$d ˈe_ˈɛ . r ə_ˈe . m ə$ˈeˈɛəˈeə$e . m ə$eə$1$NO$Viq$NO
-DUI$DUI$NCFN000$d ˈu j$ˈu$u j$u$1$NO$Viq$NO
 DVD$DVD$NPMN000$d ˈe_b ˈe_d ˈe$ˈeˈeˈe$e$e$1$Vicc$Viq$NO
-Dalap-Uliga-Darrit$Dalap-Uliga-Darrit$NPCSG00$d ə . l ˈa p_u . l ˈi . ɣ ə_d ə . r ˈi t$əˈauˈiəəˈi$i t$i$7$NO$Viq$NO
-Dammarie-les-Lys$Dammarie-les-Lys$NPCSG00$d ə m . m ə . ɾ ˈi . ə_l ə s_l i s$əəˈiəəi$i . ə_l ə s_l i s$iəəi$6$NO$Viq$NO
-Deux-Sèvres$Deux-Sèvres$NPCSG00$d ˈe w k s_s ˈɛ . b ɾ ə s$ˈeˈɛə$ɛ . b ɾ ə s$ɛə$3$NO$Viq$NO
-Digne-les-Bains$Digne-les-Bains$NPCSG00$d ˈi g . n ə_l ə s_b ˈa j n s$ˈiəəˈa$a j n s$a$4$NO$Viq$NO
-Décines-Charpieu$Décines-Charpieu$NPCSG00$d ˈe . s i . n ə s_ʃ ə ɾ . p i . ˈɛ w$ˈeiəəiˈɛ$ɛ w$ɛ$6$NO$Viq$NO
-EAP$EAP$NCMN000$e . ˈa p$eˈa$a p$a$2$Vicc$Viq$NO
 EAU$EAU$NPMPG00$e . ˈa w$eˈa$a w$a$2$NO$Viq$NO
-ECG$ECG$NCMN000$ˈɛ_s ˈe_ʒ ˈe$ˈɛˈeˈe$e$e$1$NO$Viq$NO
-ECP$ECP$NCFN000$ˈɛ_s ˈe_p ˈe$ˈɛˈeˈe$e$e$1$NO$Viq$NO
 ECTS$ECTS$NPCNO00$ˈɛ_s ˈe_t ˈe_ˈe . s ə$ˈɛˈeˈeˈeə$e . s ə$eə$1$Vicc$Viq$NO
-EDAR$EDAR$NCFN000$ə . ð ˈa$əˈa$a$a$2$NO$Viq$NO
-EDTA$EDTA$NCMN000$ˈe d . t ə$ˈeə$e d . t ə$eə$2$NO$Viq$NO
-EEG$EEG$NCMN000$ə . ˈɛ k$əˈɛ$ɛ k$ɛ$2$NO$Viq$NO
-EEM$EEM$NCMN000$ə . ˈɛ m$əˈɛ$ɛ m$ɛ$2$NO$Viq$NO
 EGB$EGB$NPFSO00$ˈɛ_ʒ ˈe_b ˈe$ˈɛˈeˈe$e$e$1$NO$Viq$NO
 EGM$EGM$NPMSO00$ˈɛ_ʒ ˈe_ˈe . m ə$ˈɛˈeˈeə$e . m ə$eə$1$NO$Viq$NO
 EI$EI$NPMSO00$ˈɛ_i$ˈɛi$ɛ_i$ɛi$1$Vicc$Viq$NO
-EMD$EMD$NCFN000$ˈɛ_ˈe . m ə_d ˈe$ˈɛˈeəˈe$e$e$1$NO$Viq$NO
-EMG$EMG$NCMN000$ˈɛ_ˈe . m ə_ʒ ˈe$ˈɛˈeəˈe$e$e$1$NO$Viq$NO
 ENAIRE$ENAIRE$NPCSO00$ə . n ˈa j . ɾ ə$əˈaə$a j . ɾ ə$aə$3$NO$Viq$NO
-EOI$EOI$NCFN000$ə . ˈɔ j$əˈɔ$ɔ j$ɔ$2$Vicc$Viq$NO
-EPA$EPA$NCCN000$ˈe . p ə$ˈeə$e . p ə$eə$2$NO$Viq$NO
-EPI$EPI$NCMN000$ˈe . p i$ˈei$e . p i$ei$2$NO$Viq$NO
-EPO$EPO$NCFN000$ˈe . p u$ˈeu$e . p u$eu$2$NO$Viq$NO
-EPUB$EPUB$NCMN000$ə . p ˈu p$əˈu$u p$u$2$NO$Viq$NO
 ERC$ERC$NPFSO00$ˈɛ ɾ k$ˈɛ$ɛ ɾ k$ɛ$1$Vicc$Viq$NO
-ERO$ERO$NCMN000$ˈe . ɾ o$ˈeo$e . ɾ o$eo$2$NO$Viq$NO
 ERPV$ERPV$NPFSO00$ˈɛ_ˈɛ . r ə_p ˈe_b ˈe_b ˈa ʃ ə$ˈɛˈɛəˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-ERTO$ERTO$NCMN000$ˈɛ ɾ . t u$ˈɛu$ɛ ɾ . t u$ɛu$2$NO$Viq$NO
 ESA$ESA$NPFSO00$ˈɛ . z ə$ˈɛə$ɛ . z ə$ɛə$2$NO$Viq$NO
 ESMUC$ESMUC$NPFSO00$ə s . m ˈu k$əˈu$u k$u$2$NO$Viq$NO
 ESO$ESO$NPFSO00$ˈe . s o$ˈeo$e . s o$eo$2$Vicc$Viq$NO
-ESS$ESS$NCCN000$ˈe s$ˈe$e s$e$1$NO$Viq$NO
 ETA$ETA$NPFSO00$ˈɛ . t ə$ˈɛə$ɛ . t ə$ɛə$2$NO$Viq$NO
-ETT$ETT$NCFN000$ˈɛ_t ˈe_t ˈe$ˈɛˈeˈe$e$e$1$NO$Viq$NO
 EUA$EUA$NPMPG00$ˈe . w ə$ˈeə$e . w ə$eə$2$Vicc$Viq$NO
 EUPV$EUPV$NPFSO00$ˈɛ_ˈu_p ˈe_b ˈe_b ˈa ʃ ə$ˈɛˈuˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-EUR$EUR$NCMN000$ˈe w$ˈe$e w$e$1$Vicc$Viq$NO
-EUiA$EUiA$NPFSO00$ˈe w j ə$ˈeə$e w j ə$eə$2$NO$Viq$NO
-Emília-Romanya$Emília-Romanya$NPFSG00$ə . m ˈi . l i . ə_r u . m ˈa . ɲ ə$əˈiiəuˈaə$a . ɲ ə$aə$7$NO$Viq$NO
-Enghien-les-Bains$Enghien-les-Bains$NPCSG00$ə n g ˈi . ə n_l ə s_b ˈa j n s$əˈiəəˈa$a j n s$a$5$NO$Viq$NO
-Esch-sur-Alzette$Esch-sur-Alzette$NPCSG00$ˈɛ s ʃ s u ɾ ə l . z ə . t ə$ˈɛuəəə$ɛ s ʃ s u ɾ ə l . z ə . t ə$ɛuəəə$5$NO$Viq$NO
-Estella-Lizarra$Estella-Lizarra$NPCSG00$ə s . t ˈe . ʎ ə_l i . z ˈa . r ə$əˈeəiˈaə$a . r ə$aə$6$NO$Viq$NO
 FAD$FAD$NPMSO00$f ˈa t$ˈa$a t$a$1$NO$Viq$NO
 FAES$FAES$NPFSO00$f ˈa . e s$ˈae$a . e s$ae$2$NO$Viq$NO
 FAI$FAI$NPFSO00$f ˈa j$ˈa$a j$a$1$NO$Viq$NO
 FAO$FAO$NPFSO00$f ˈa . u$ˈau$a . u$au$2$NO$Viq$NO
 FARC$FARC$NPFPO00$f ˈa ɾ k$ˈa$a ɾ k$a$1$NO$Viq$NO
 FBI$FBI$NPMSO00$ˈe . f ə_b ˈe_i$ˈeəˈei$e_i$ei$1$NO$Viq$NO
-FC$FC$NCMN000$f u d . b ˈɔ l_k l ˈu p$uˈɔˈu$u p$u$1$NO$Viq$NO
 FCB$FCB$NPMSO00$ˈe . f ə_s ˈe_b ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
 FCC$FCC$NPCSO00$ˈe . f ə_s ˈe_s ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
 FDP$FDP$NPMSO00$ˈe . f ə_d ˈe_p ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
@@ -278,88 +95,34 @@ FEP$FEP$NPFSO00$f ˈe p$ˈe$e p$e$1$NO$Viq$NO
 FGC$FGC$NPMPO00$ˈe . f ə_ʒ ˈe_s ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
 FIAT$FIAT$NPFSO00$f i . ˈa t$iˈa$a t$a$2$NO$Viq$NO
 FIBA$FIBA$NPFSO00$f ˈi . β ə$ˈiə$i . β ə$iə$2$NO$Viq$NO
-FIC$FIC$NCCN000$f ˈi k$ˈi$i k$i$1$NO$Viq$NO
 FIDE$FIDE$NPFSO00$f ˈi . ð ə$ˈiə$i . ð ə$iə$2$NO$Viq$NO
 FIFA$FIFA$NPFSO00$f ˈi . f ə$ˈiə$i . f ə$iə$2$NO$Viq$NO
-FM$FM$NCFN000$ˈe . f ə_ˈe . m ə$ˈeəˈeə$e . m ə$eə$1$Vicc$Viq$NO
 FMI$FMI$NPMSO00$ˈe . f ə_ˈe . m ə_i$ˈeəˈeəi$e . m ə_i$eəi$1$NO$Viq$NO
 FNAC$FNAC$NPFSO00$ˈe . f ə_ˈe . n ə_ə_s ˈe$ˈeəˈeəəˈe$e$e$1$NO$Viq$NO
-FP$FP$NCFS000$ˈe . f ə_p ˈe$ˈeəˈe$e$e$1$Vicc$Viq$NO
 FSE$FSE$NPCNO00$ˈe . f ə_ˈe . s ə_ˈɛ$ˈeəˈeəˈɛ$ɛ$ɛ$1$NO$Viq$NO
-FTP$FTP$NCMN000$ˈe . f ə_t ˈe_p ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
-Faches-Thumesnil$Faches-Thumesnil$NPCSG00$f ˈa . ʃ ə s_t u . m ə s . n ˈi l$ˈaəuəˈi$i l$i$5$NO$Viq$NO
-Figaró-Montmany$Figaró-Montmany$NPMSG00$f i . ɣ ə . ɾ ˈo_m u n d . m ˈa ɲ$iəˈouˈa$a ɲ$a$5$NO$Viq$NO
-FileZilla$FileZilla$NPCNO00$f i . l ə . z ˈi . ʎ ə$iəˈiə$i . ʎ ə$iə$4$NO$Viq$NO
-FilminCAT$FilminCAT$NPCNO00$f i l . m i n . k ˈa t$iiˈa$a t$a$3$NO$Viq$NO
-Fischer-Dieskau$Fischer-Dieskau$NPCNSP0$f i s . ʃ ˈe_d i . ə s . k ˈa w$iˈeiəˈa$a w$a$5$NO$Viq$NO
-Fleury-les-Aubrais$Fleury-les-Aubrais$NPCSG00$f l ˈe w . ɾ j_l ə s_ə w . b ɾ ˈa j s$ˈeəəˈa$a j s$a$4$NO$Viq$NO
-Font-Rabiosa$Font-Rabiosa$NPFSG00$f ˈɔ n_r ə . β i . ˈo . z ə$ˈɔəiˈoə$o . z ə$oə$5$NO$Viq$NO
-Font-Rubí$Font-Rubí$NPCSG00$f ˈɔ n_r u . β ˈi$ˈɔuˈi$i$i$3$NO$Viq$NO
-Fontenay-aux-Roses$Fontenay-aux-Roses$NPCSG00$f u n . t ə . n ˈa j_ˈa w k s_r ˈɔ . z ə s$uəˈaˈaˈɔə$ɔ . z ə s$ɔə$6$NO$Viq$NO
-Fontenay-le-Comte$Fontenay-le-Comte$NPCSG00$f u n . t ə . n ˈa . i l ə k u m . t ə$uəˈaiəuə$a . i l ə k u m . t ə$aiəuə$6$NO$Viq$NO
-Forlì-Cesena$Forlì-Cesena$NPCSG00$f ˈɔ ɾ l_s ə . z ˈɛ . n ə$ˈɔəˈɛə$ɛ . n ə$ɛə$4$NO$Viq$NO
-Fort-de-France$Fort-de-France$NPCSG00$f ˈɔ ɾ t_d ə_f ɾ ˈa n s$ˈɔəˈa$a n s$a$4$NO$Viq$NO
-Fort-de-l'Eau$Fort-de-l'Eau$NPCSG00$f ˈɔ ɾ t_d ə_l e . ˈa w$ˈɔəeˈa$a w$a$4$NO$Viq$NO
 GAL$GAL$NPMPO00$g ˈa l$ˈa$a l$a$1$NO$Viq$NO
-GB$GB$NCMN000$ʒ ˈe_b ˈe$ˈeˈe$e$e$1$Vicc$Viq$NO
 GDLC$GDLC$NPMSO00$ʒ ˈe_d ˈe_ˈe . l ə_s ˈe$ˈeˈeˈeəˈe$e$e$1$NO$Viq$NO
 GDPR$GDPR$NPMSO00$ʒ ˈe_d ˈe_p ˈe_ˈɛ . r ə$ˈeˈeˈeˈɛə$ɛ . r ə$ɛə$1$NO$Viq$NO
-GHz$GHz$NCMN000$ʒ ˈe_ˈa g_z ˈɛ . t ə_$ˈeˈaˈɛə$ɛ . t ə_$ɛə$1$NO$Viq$NO
 GIMP$GIMP$NPMSO00$ʒ ˈi m$ˈi$i m$i$1$NO$Viq$NO
 GNOME$GNOME$NPMSO00$n ˈo . m ə$ˈoə$o . m ə$oə$2$NO$Viq$NO
 GNU$GNU$NPMSO00$n ˈu$ˈu$u$u$1$NO$Viq$NO
 GOB$GOB$NPMSO00$g ˈo p$ˈo$o p$o$1$NO$Viq$NO
 GPL$GPL$NPCNO00$ʒ ˈe_p ˈe_ˈe . l ə$ˈeˈeˈeə$e . l ə$eə$1$NO$Viq$NO
-GPS$GPS$NCMN000$ʒ ˈe_p ˈe_ˈe . s ə$ˈeˈeˈeə$e . s ə$eə$1$Vicc$Viq$NO
-GR$GR$NCMN000$ʒ ˈe_ˈɛ . r ə$ˈeˈɛə$ɛ . r ə$ɛə$1$Vicc$Viq$NO
 GSM$GSM$NPCNO00$ʒ ˈe_ˈe . s ə_ˈe . m ə$ˈeˈeəˈeə$e . m ə$eə$1$NO$Viq$NO
 GSMA$GSMA$NPFSO00$ʒ ˈe_ˈe . s ə_ˈe . m ə_ə$ˈeˈeəˈeəə$e . m ə_ə$eəə$2$NO$Viq$NO
-Garges-lès-Gonesse$Garges-lès-Gonesse$NPCSG00$g ˈa ɾ . ʒ ə s l ˈɛ s g u . n ə . s ə$ˈaəˈɛuəə$ɛ s g u . n ə . s ə$ɛuəə$6$NO$Viq$NO
-GeoGebra$GeoGebra$NPMSO00$ʒ ə . u . ʒ ˈɛ . b ɾ ə$əuˈɛə$ɛ . b ɾ ə$ɛə$4$NO$Viq$NO
-Gernika-Lumo$Gernika-Lumo$NPCSG00$ʒ ə ɾ . n ˈi . k ə_l ˈu . m u$əˈiəˈuu$u . m u$uu$5$NO$Viq$NO
-GitHub$GitHub$NPMSO00$ʒ i t ˈu p$iˈu$u p$u$2$NO$Viq$NO
-Gore-Tex$Gore-Tex$NPCNO00$g ˈo . ɾ ə_t ˈe k s$ˈoəˈe$e k s$e$3$NO$Viq$NO
-Grand-Place$Grand-Place$NPFSG00$g ɾ ˈa n _p l ˈa . s ə$ˈaˈaə$a . s ə$aə$3$NO$Viq$NO
-Grande-Terre$Grande-Terre$NPCSG00$g ɾ ˈa n . d ə_t ˈɛ . r ə$ˈaəˈɛə$ɛ . r ə$ɛə$4$NO$Viq$NO
 H&S$H&S$NPCNO00$ˈa g__ˈe . s ə$ˈaˈeə$e . s ə$eə$2$NO$Viq$NO
-HCH$HCH$NCMN000$ˈa g_s ˈe_ˈa g$ˈaˈeˈa$a g$a$1$NO$Viq$NO
-HD$HD$AQ0CN0$ˈa g_d ˈe$ˈaˈe$e$e$1$NO$Viq$NO
-HFC$HFC$NCMN000$ˈa g_ˈe . f ə_s ˈe$ˈaˈeəˈe$e$e$1$NO$Viq$NO
 HTML$HTML$NPMN000$ˈa g_t ˈe_ˈe . m ə_ˈe . l ə$ˈaˈeˈeəˈeə$e . l ə$eə$1$NO$Viq$NO
-HTTP$HTTP$NCMN000$ˈa g_t ˈe_t ˈe_p ˈe$ˈaˈeˈeˈe$e$e$1$NO$Viq$NO
-HTTPS$HTTPS$NCMN000$ˈa g_t ˈe_t ˈe_p ˈe_ˈe . s ə$ˈaˈeˈeˈeˈeə$e . s ə$eə$1$NO$Viq$NO
-Hardy-Weinberg$Hardy-Weinberg$NPCNSP0$ˈa ɾ . d j_w ə j m . b ˈe ɾ k$ˈaəˈe$e ɾ k$e$3$NO$Viq$NO
-Hewlett-Packard$Hewlett-Packard$NPCNO00$ə w . l ə . t ˈe__p ə k ˈa ɾ t$əəˈeəˈa$a ɾ t$a$4$NO$Viq$NO
-Hohenstein-Ernstthal$Hohenstein-Ernstthal$NPCSG00$u ə n s . t ˈɛ j n_ə ɾ n s . t ˈe_t ˈa l$uəˈɛəˈeˈa$a l$a$5$NO$Viq$NO
-Hong-Kong$Hong-Kong$NPCSG00$ˈɔ ŋ_k ˈɔ ŋ$ˈɔˈɔ$ɔ ŋ$ɔ$2$NO$Viq$NO
-Huércal-Overa$Huércal-Overa$NPCSG00$u . ˈe ɾ . k ə l_u . b ˈe . ɾ ə$uˈeəuˈeə$e . ɾ ə$eə$5$NO$Viq$NO
-Häagen-Dazs$Häagen-Dazs$NPCNO00$a . ˈa . ʒ ə n_d ə . z ˈɛ . s ə_$aˈaəəˈɛə$ɛ . s ə_$ɛə$3$NO$Viq$NO
-Hénin-Beaumont$Hénin-Beaumont$NPCSG00$ˈe . n i n_b e . ə w . m ˈo n$ˈeieəˈo$o n$o$5$NO$Viq$NO
-IA$IA$NCFN000$i_ə$iə$i_ə$iə$1$Vicc$Viq$NO
-IAE$IAE$NCMS000$ˈi_ˈa_ˈɛ$ˈiˈaˈɛ$ɛ$ɛ$2$NO$Viq$NO
-IBAN$IBAN$NCMN000$i . β ˈa n$iˈa$a n$a$2$NO$Viq$NO
 IBM$IBM$NPCNO00$i_b ˈe_ˈe . m ə$iˈeˈeə$e . m ə$eə$1$NO$Viq$NO
-IC$IC$NCFN000$i_s ˈe$iˈe$e$e$1$NO$Viq$NO
 ICAB$ICAB$NPMSO00$i . k ˈa p$iˈa$a p$a$2$NO$Viq$NO
 ICE$ICE$NPMSO00$ˈi . s e$ˈie$i . s e$ie$2$NO$Viq$NO
 ICF$ICF$NPCSO00$i_s ˈe_ˈe . f ə$iˈeˈeə$e . f ə$eə$1$NO$Viq$NO
 ICO$ICO$NPMSO00$ˈi . k u$ˈiu$i . k u$iu$2$NO$Viq$NO
 ICV$ICV$NPFSO00$i_s ˈe_b ˈe_b ˈa ʃ ə$iˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-IDH$IDH$NCMN000$i_d ˈe_ˈa g$iˈeˈa$a g$a$1$NO$Viq$NO
 IEC$IEC$NPMSO00$j ˈɛ k$ˈɛ$ɛ k$ɛ$1$NO$Viq$NO
-IED$IED$NCFN000$j ˈe t$ˈe$e t$e$1$NO$Viq$NO
-IES$IES$NCMN000$j ˈɛ s$ˈɛ$ɛ s$ɛ$1$Vicc$Viq$NO
 IFS$IFS$NPCNO00$ˈi f s$ˈi$i f s$i$1$NO$Viq$NO
-IJssel$IJssel$NPCSG00$i . ʒ ˈɛ . s ə_s ˈɛ l$iˈɛəˈɛ$ɛ l$ɛ$2$NO$Viq$NO
-ILP$ILP$NCFN000$i_ˈe . l ə_p ˈe$iˈeəˈe$e$e$1$NO$Viq$NO
-IMC$IMC$NCMN000$i_ˈe . m ə_s ˈe$iˈeəˈe$e$e$1$Vicc$Viq$NO
 INE$INE$NPMSO00$ˈi . n ə$ˈiə$i . n ə$iə$2$NO$Viq$NO
-INS$INS$NCMN000$ˈi n s$ˈi$i n s$i$1$NO$Viq$NO
 IOC$IOC$NPMSO00$j ˈɔ k$ˈɔ$ɔ k$ɔ$1$NO$Viq$NO
-IP$IP$NCFN000$i_p ˈe$iˈe$e$e$1$NO$Viq$NO
-IPC$IPC$NCMN000$i_p ˈe_s ˈe$iˈeˈe$e$e$1$Vicc$Viq$NO
 IPCC$IPCC$NPCNO00$i_p ˈe_s ˈe_s ˈe$iˈeˈeˈe$e$e$1$NO$Viq$NO
-IRPF$IRPF$NCMN000$i_ˈɛ . r ə_p ˈe_ˈe . f ə$iˈɛəˈeˈeə$e . f ə$eə$1$NO$Viq$NO
 IRTA$IRTA$NPMSO00$ˈi ɾ . t ə$ˈiə$i ɾ . t ə$iə$2$NO$Viq$NO
 IS$IS$NPCNO00$i_ˈe . s ə$iˈeə$e . s ə$eə$1$Vicc$Viq$NO
 ISBN$ISBN$NPMNO00$i_ˈe . s ə_b ˈe_ˈe . n ə$iˈeəˈeˈeə$e . n ə$eə$1$Vicc$Viq$NO
@@ -368,417 +131,101 @@ ISIS$ISIS$NPMSO00$ˈi . z i s$ˈii$i . z i s$ii$2$NO$Viq$NO
 ISO$ISO$NPFSO00$ˈi . s o$ˈio$i . s o$io$2$NO$Viq$NO
 ISSN$ISSN$NPMNO00$i_ˈe . s ə_ˈe . s ə_ˈe . n ə$iˈeəˈeəˈeə$e . n ə$eə$1$NO$Viq$NO
 ITC$ITC$NPCNO00$i_t ˈe_s ˈe$iˈeˈe$e$e$1$NO$Viq$NO
-ITS$ITS$NCFN000$ˈi t s$ˈi$i t s$i$1$Vicc$Viq$NO
-ITV$ITV$NCFN000$i_t ˈe_b ˈe_b ˈa ʃ ə$iˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-IVA$IVA$NCMN000$ˈi . β ə$ˈiə$i . β ə$iə$2$Vicc$Viq$NO
 IVAM$IVAM$NPMSO00$i . b ˈa m$iˈa$a m$a$2$NO$Viq$NO
-Iang-Tsé$Iang-Tsé$NPCSG00$j ˈa ŋ_t ˈe_s ˈe$ˈaˈeˈe$e$e$2$NO$Viq$NO
-IgA$IgA$NCFN000$ˈi . ɣ ə$ˈiə$i . ɣ ə$iə$2$NO$Viq$NO
-IgE$IgE$NCFN000$ˈi . ʒ ə$ˈiə$i . ʒ ə$iə$2$NO$Viq$NO
-IgG$IgG$NCFN000$ˈi ʒ . ʒ ə_$ˈiə$i ʒ . ʒ ə_$iə$1$NO$Viq$NO
-IgM$IgM$NCFN000$i . ʒ ˈɛ . m ə_$iˈɛə$ɛ . m ə_$ɛə$1$NO$Viq$NO
-InDesign$InDesign$NPMSO00$i n . d ə . z i . ʒ ˈɛ . n ə_$iəiˈɛə$ɛ . n ə_$ɛə$3$NO$Viq$NO
-InfoK$InfoK$NPMNO00$i m . f ˈo k$iˈo$o k$o$2$NO$Viq$NO
-IrfanView$IrfanView$NPCNO00$i ɾ . f ə m . b i . ˈe w$iəiˈe$e w$e$4$NO$Viq$NO
-Issy-les-Moulineaux$Issy-les-Moulineaux$NPCSG00$ˈi . s j_l ə s_m ɔ w . l i . n e . ˈa w k s$ˈiəɔieˈa$a w k s$a$6$NO$Viq$NO
-Ivano-Frankivsk$Ivano-Frankivsk$NPCSG00$i . b ˈa . n u_f ɾ ə n . k i . b ˈɛ . s ə_k ˈa_$iˈauəiˈɛəˈa$a_$a$5$NO$Viq$NO
-Ivry-sur-Seine$Ivry-sur-Seine$NPCSG00$ˈi . β ɾ i s u ɾ s ə j . n ə$ˈiiuəə$i . β ɾ i s u ɾ s ə j . n ə$iiuəə$4$NO$Viq$NO
-JJOO$JJOO$NCMP000$ʒ ˈɔ . t ə_ʒ ˈɔ . t ə_ˈɔ_ˈɔ$ˈɔəˈɔəˈɔˈɔ$ɔ$ɔ$2$Vicc$Viq$NO
 JOC$JOC$NPCSO00$ʒ ˈɔ k$ˈɔ$ɔ k$ɔ$1$NO$Viq$NO
 JONC$JONC$NPFSO00$ʒ ˈo n k$ˈo$o n k$o$1$NO$Viq$NO
 JQCV$JQCV$NPFSO00$ʒ ˈɔ . t ə_k ˈu_s ˈe_b ˈe_b ˈa ʃ ə$ˈɔəˈuˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-JavaScript$JavaScript$NPMSO00$ʒ ə . β ə s . k ɾ i p . t ˈe_$əəiˈe$e_$e$3$NO$Viq$NO
-Jean-Claude$Jean-Claude$NPMSSP0$ʒ e . ˈa n_k l ˈa w . ð ə$eˈaˈaə$a w . ð ə$aə$4$NO$Viq$NO
-Joux-Plane$Joux-Plane$NPCSG00$ʒ ˈɔ w k s p . l ə . n ə$ˈɔəə$ɔ w k s p . l ə . n ə$ɔəə$3$NO$Viq$NO
-JuntsxCat$JuntsxCat$NPCNO00$ʒ u n s ˈi k s_k ˈa t$uˈiˈa$a t$a$2$NO$Viq$NO
-JxCat$JxCat$NPCNO00$ʒ ˈɔ . t ə_ˈi k s_k ˈa t$ˈɔəˈiˈa$a t$a$2$NO$Viq$NO
 KGB$KGB$NPMSO00$k ˈa_ʒ ˈe_b ˈe$ˈaˈeˈe$e$e$1$NO$Viq$NO
-KMPlayer$KMPlayer$NPCNO00$k ˈa_ˈe . m ə_p l ə . i . ˈe$ˈaˈeəəiˈe$e$e$3$NO$Viq$NO
-KO$KO$NCMN000$k ˈa_ˈɔ$ˈaˈɔ$ɔ$ɔ$1$Vicc$Viq$NO
-Kohtla-Järve$Kohtla-Järve$NPCSG00$k ˈo t . l ə_ʒ ˈa ɾ . b ə$ˈoəˈaə$a ɾ . b ə$aə$4$NO$Viq$NO
-L'Aquila$L'Aquila$NPCSG00$l ə . k ˈi . l ə$əˈiə$i . l ə$iə$3$NO$Viq$NO
-LCD$LCD$NCCN000$ˈe . l ə_s ˈe_d ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
 LEC$LEC$NPFSO00$l ˈɛ k$ˈɛ$ɛ k$ɛ$1$NO$Viq$NO
-LGBT$LGBT$AQ0CN0$ˈe . l ə_ʒ ˈe_b ˈe_t ˈe$ˈeəˈeˈeˈe$e$e$1$Vicc$Viq$NO
-LGBTI$LGBTI$AQ0CN0$ˈe . l ə_ʒ ˈe_b ˈe_t ˈe_i$ˈeəˈeˈeˈei$e_i$ei$2$NO$Viq$NO
-LGBTIQ$LGBTIQ$AQ0CN0$ˈe . l ə_ʒ ˈe_b ˈe_t ˈe_i_k ˈu$ˈeəˈeˈeˈeiˈu$u$u$2$NO$Viq$NO
-LGBTQ$LGBTQ$AQ0CN0$ˈe . l ə_ʒ ˈe_b ˈe_t ˈe_k ˈu$ˈeəˈeˈeˈeˈu$u$u$1$Vicc$Viq$NO
 LGPL$LGPL$NPCNO00$ˈe . l ə_ʒ ˈe_p ˈe_ˈe . l ə$ˈeəˈeˈeˈeə$e . l ə$eə$1$NO$Viq$NO
 LGTB$LGTB$NPCN000$ˈe . l ə_ʒ ˈe_t ˈe_b ˈe$ˈeəˈeˈeˈe$e$e$1$NO$Viq$NO
-CBD$CBD$NPCN000$$$$$$NO$Viq$NO
 LGTBI$LGTBI$NPCN000$ˈe . l ə_ʒ ˈe_t ˈe_b ˈe_i$ˈeəˈeˈeˈei$e_i$ei$2$NO$Viq$NO
 LGTBIQ$LGTBIQ$NPCN000$ˈe . l ə_ʒ ˈe_t ˈe_b ˈe_i_k ˈu$ˈeəˈeˈeˈeiˈu$u$u$2$NO$Viq$NO
 LOGSE$LOGSE$NPFSO00$l ˈo k . s e$ˈoe$o k . s e$oe$2$NO$Viq$NO
 LOMCE$LMOCE$NPFSO00$l ˈo m . s ə$ˈoə$o m . s ə$oə$2$NO$Viq$NO
-LP$LP$NCMN000$ˈe . l ə_p ˈe$ˈeəˈe$e$e$1$NO$Viq$NO
-LSC$LSC$NCFS000$ˈe . l ə_ˈe . s ə_s ˈe$ˈeəˈeəˈe$e$e$1$Vicc$Viq$NO
-LSD$LSD$NCMN000$ˈe . l ə_ˈe . s ə_d ˈe$ˈeəˈeəˈe$e$e$1$NO$Viq$NO
-LUEV$LUEV$NCFN000$l u . ˈe b$uˈe$e b$e$2$NO$Viq$NO
-Lagny-sur-Marne$Lagny-sur-Marne$NPCSG00$l ˈa g ɲ s u ɾ m ə ɾ . n ə$ˈauəə$a g ɲ s u ɾ m ə ɾ . n ə$auəə$4$NO$Viq$NO
-LanguageTool$LanguageTool$NPMSO00$l ə n . g w ə . ʒ ə . t u . ˈɔ l$əəəuˈɔ$ɔ l$ɔ$5$NO$Viq$NO
-Levallois-Perret$Levallois-Perret$NPCSG00$l ə . β ə . ʎ ˈɔ j s_p ə . r ˈɛ t$əəˈɔəˈɛ$ɛ t$ɛ$5$NO$Viq$NO
-Levante-EMV$Levante-EMV$NPMSO00$l ə . b ˈa n . t ə_ˈɛ_ˈe . m ə_b ˈe_b ˈa ʃ ə$əˈaəˈɛˈeəˈeˈaə$a ʃ ə$aə$4$NO$Viq$NO
-LibreCAD$LibreCAD$NPCNO00$l i . β ɾ ə . k ˈa t$iəˈa$a t$a$3$NO$Viq$NO
-LibreOffice$LibreOffice$NPMSO00$l i . β ɾ ə . u . f ˈi . s ə$iəuˈiə$i . s ə$iə$5$NO$Viq$NO
-LinkedIn$LinkedIn$NPCNO00$l i n . k ˈe . d i n$iˈei$e . d i n$ei$3$NO$Viq$NO
-Livry-Gargan$Livry-Gargan$NPCSG00$l ˈi . β ɾ j_g ə ɾ . g ˈa n$ˈiəˈa$a n$a$3$NO$Viq$NO
-Llenguadoc-Rosselló$Llenguadoc-Rosselló$NPCSG00$ʎ ə n . g w ə . d ˈɔ k_r u . s ə . ʎ ˈo$əəˈɔuəˈo$o$o$6$NO$Viq$NO
-LliureX$LliureX$NPMSO00$ʎ i w . ɾ ˈɛ k s$iˈɛ$ɛ k s$ɛ$2$NO$Viq$NO
-Lons-le-Saunier$Lons-le-Saunier$NPCSG00$l ˈo n s_l ˈe_s ə w . n i . ˈe$ˈoˈeəiˈe$e$e$5$NO$Viq$NO
-Lucq-de-Béarn$Lucq-de-Béarn$NPCSG00$l ˈu . k u__d ə_b ˈe . ə ɾ n$ˈuuəˈeə$e . ə ɾ n$eə$4$NO$Viq$NO
-Lévi-Strauss$Lévi-Strauss$NPCNSP0$l ˈe . β i_s t ɾ ə w . z ˈɛ . s ə_$ˈeiəˈɛə$ɛ . s ə_$ɛə$3$NO$Viq$NO
 MACBA$MACBA$NPMSO00$m ˈa k . b ə$ˈaə$a k . b ə$aə$2$Vicc$Viq$NO
-MB$MB$NCMN000$ˈe . m ə_b ˈe$ˈeəˈe$e$e$1$NO$Viq$NO
-MBA$MBA$NCMN000$ˈe . m ə_b ˈe_ə$ˈeəˈeə$e_ə$eə$1$NO$Viq$NO
-MERS$MERS$NCFS000$m ˈe ɾ s$ˈe$e ɾ s$e$1$NO$Viq$NO
-MERS-CoV$MERS-CoV$NCMS000$m ˈe ɾ s_k ˈo b$ˈeˈo$o b$o$2$NO$Viq$NO
-MHz$MHz$NCMN000$ˈe . m ə_ˈa g_z ˈɛ . t ə_$ˈeəˈaˈɛə$ɛ . t ə_$ɛə$1$NO$Viq$NO
 MIDI$MIDI$NPMSO00$m ˈi . ð i$ˈii$i . ð i$ii$2$NO$Viq$NO
 MIME$MIME$NPMNO00$m ˈi . m ə$ˈiə$i . m ə$iə$2$NO$Viq$NO
 MIR$MIR$NPCNO00$m ˈi ɾ$ˈi$i ɾ$i$1$NO$Viq$NO
 MNAC$MNAC$NPMSO00$ˈe . m ə_ˈe . n ə_ə_s ˈe$ˈeəˈeəəˈe$e$e$1$NO$Viq$NO
-MPOC$MPOC$NCFN000$ˈe . m ə_p ˈe_ˈɔ_s ˈe$ˈeəˈeˈɔˈe$e$e$1$NO$Viq$NO
-MRI$MRI$NCMN000$ˈe . m ə_ˈɛ . r ə_i$ˈeəˈɛəi$ɛ . r ə_i$ɛəi$1$NO$Viq$NO
-MRSA$MRSA$NCMN000$ˈe . m ə_ˈɛ . r ə_ˈe . s ə_ə$ˈeəˈɛəˈeəə$e . s ə_ə$eəə$2$NO$Viq$NO
-MTS$MTS$NCCN000$ˈe . m ə_t ˈe_ˈe . s ə$ˈeəˈeˈeə$e . s ə$eə$1$NO$Viq$NO
 MWC$MWC$NPMSO00$ˈe . m ə_b ˈe_d ˈo . b l ə_s ˈe$ˈeəˈeˈoəˈe$e$e$1$NO$Viq$NO
-MWh$MWh$NCMN000$ˈe . m ə_b ˈe_d ˈo . b l ə_ˈa g_$ˈeəˈeˈoəˈa$a g_$a$1$NO$Viq$NO
-MacGuffin$MacGuffin$NCMS000$m ə k . g ˈu . f i n$əˈui$u . f i n$ui$3$NO$Viq$NO
-MacLeod$MacLeod$NPCNSP0$m ə . k l ə . ˈɔ t$əəˈɔ$ɔ t$ɔ$3$NO$Viq$NO
-Magny-Cours$Magny-Cours$NPCSG00$m ə . ʒ ˈɛ . n ə_i_g ɾ ˈe . g ə__k ˈɔ w s$əˈɛəiˈeəˈɔ$ɔ w s$ɔ$2$NO$Viq$NO
-Maisons-Alfort$Maisons-Alfort$NPCSG00$m ə j . z ˈo n s_ə l . f ˈɔ ɾ t$əˈoəˈɔ$ɔ ɾ t$ɔ$4$NO$Viq$NO
-Malo-les-Bains$Malo-les-Bains$NPCSG00$m ˈa . l u_l ə s_b ˈa j n s$ˈauəˈa$a j n s$a$4$NO$Viq$NO
-Mantes-la-Jolie$Mantes-la-Jolie$NPCSG00$m ˈa n . t ə s_l ə_ʒ u . l ˈi . ə$ˈaəəuˈiə$i . ə$iə$6$NO$Viq$NO
-Mantes-la-Ville$Mantes-la-Ville$NPCSG00$m ˈa n . t ə s_l ə_b ˈi . ʎ ə$ˈaəəˈiə$i . ʎ ə$iə$5$NO$Viq$NO
-Marcq-en-Baroeul$Marcq-en-Baroeul$NPCSG00$m ˈa ɾ . k u__ə n_b ə . ɾ u . ˈe w l$ˈauəəuˈe$e w l$e$5$NO$Viq$NO
-MariaDB$MariaDB$NPCNO00$m ə . ɾ i . ˈa d . b ə_$əiˈaə$a d . b ə_$aə$3$NO$Viq$NO
-Marie-Galante$Marie-Galante$NPCSG00$m ə . ɾ ˈi . ə g ə . l ə n . t ə$əˈiəəəə$i . ə g ə . l ə n . t ə$iəəəə$6$NO$Viq$NO
-Marly-le-Roi$Marly-le-Roi$NPCSG00$m ˈa ɾ . l j_l ˈe_r ˈɔ j$ˈaˈeˈɔ$ɔ j$ɔ$3$NO$Viq$NO
-MasterChef$MasterChef$NPCNO00$m ə s . t ə ɾ . ʃ ˈe f$əəˈe$e f$e$3$NO$Viq$NO
-McCarthy$McCarthy$NPCNSP0$ˈe . m ə_s ˈe_k ˈa ɾ t j$ˈeəˈeˈa$a ɾ t j$a$2$NO$Viq$NO
-McDonald's$McDonald's$NPCNO00$m g d u . n ˈa l d s$uˈa$a l d s$a$3$NO$Viq$NO
-McGraw-Hill$McGraw-Hill$NPCNO00$ˈe . m ə_s ˈe_g ɾ ˈa w_ˈi ʎ$ˈeəˈeˈaˈi$i ʎ$i$3$NO$Viq$NO
-McKinley$McKinley$NPCSG00$ˈe . m ə_s ˈe_k i n . l ˈe j$ˈeəˈeiˈe$e j$e$3$NO$Viq$NO
-McLaren$McLaren$NPCNO00$ˈe . m ə_k l ˈa . ɾ ə n$ˈeəˈaə$a . ɾ ə n$aə$2$NO$Viq$NO
-McNamara$McNamara$NPCNSP0$ˈe . m ə_s ˈe_n ə . m ˈa . ɾ ə$ˈeəˈeəˈaə$a . ɾ ə$aə$4$NO$Viq$NO
-MediaMarkt$MediaMarkt$NPCNO00$m ə . ð i . ə . m ə ɾ k . t ˈe_$əiəəˈe$e_$e$4$NO$Viq$NO
-Metro-Goldwyn-Mayer$Metro-Goldwyn-Mayer$NPFSO00$m ˈɛ . t ɾ u_g u l . d w i n_m ə . i . ˈe$ˈɛuuiəiˈe$e$e$5$NO$Viq$NO
-Migdia-Pirineus$Migdia-Pirineus$NPCSG00$m i d ʒ . d ˈi . ə_p i . ɾ i . n ˈɛ w s$iˈiəiiˈɛ$ɛ w s$ɛ$6$NO$Viq$NO
-Mitry-Mory$Mitry-Mory$NPCSG00$m ˈi . t ɾ j_m ˈo . ɾ j$ˈiˈo$o . ɾ j$o$2$NO$Viq$NO
-MoMA$MoMA$NPMSO00$m ˈo . m ə$ˈoə$o . m ə$oə$2$NO$Viq$NO
-MongoDB$MongoDB$NPCNO00$m u n . g ˈɔ d . b ə_$uˈɔə$ɔ d . b ə_$ɔə$2$NO$Viq$NO
-Mons-en-Baroeul$Mons-en-Baroeul$NPCSG00$m ˈo n s_ə n_b ə . ɾ u . ˈe w l$ˈoəəuˈe$e w l$e$5$NO$Viq$NO
-Mont-Saint-Aignan$Mont-Saint-Aignan$NPCSG00$m ˈo n _s ə . ˈi n _ə j g . n ˈa n$ˈoəˈiəˈa$a n$a$5$NO$Viq$NO
-Mont-de-Marsan$Mont-de-Marsan$NPCSG00$m ˈo n _d ə_m ə ɾ . s ˈa n$ˈoəəˈa$a n$a$4$NO$Viq$NO
-Montceau-les-Mines$Montceau-les-Mines$NPCSG00$m u n t . s e . ˈa w_l ə s_m ˈi . n ə s$ueˈaəˈiə$i . n ə s$iə$6$NO$Viq$NO
-Montereau-Fault-Yonne$Montereau-Fault-Yonne$NPCSG00$m u n . t ə . ɾ e . ˈa w f ə w l t j u . n ə$uəeˈaəuə$a w f ə w l t j u . n ə$aəuə$7$NO$Viq$NO
-Montigny-lès-Metz$Montigny-lès-Metz$NPCSG00$m u n . t i . ʒ ˈɛ . n ə_i_g ɾ ˈe . g ə__l ˈɛ s_m ˈɛ t s$uiˈɛəiˈeəˈɛˈɛ$ɛ t s$ɛ$4$NO$Viq$NO
-Morsang-sur-Orge$Morsang-sur-Orge$NPCSG00$m u ɾ . s ˈa ŋ_s ˈu_ˈɔ ɾ . ʒ ə$uˈaˈuˈɔə$ɔ ɾ . ʒ ə$ɔə$5$NO$Viq$NO
-MotoGP$MotoGP$NPCNO00$m u . t ˈɔ g . p ə_$uˈɔə$ɔ g . p ə_$ɔə$2$NO$Viq$NO
-Moyeuvre-Grande$Moyeuvre-Grande$NPCSG00$m u . i . ˈe w . b ɾ ə_g ɾ ˈa n . d ə$uiˈeəˈaə$a n . d ə$aə$5$NO$Viq$NO
-MuVIM$MuVIM$NPMSO00$m u . b ˈi m$uˈi$i m$i$2$NO$Viq$NO
-MySQL$MySQL$NPCNO00$m i s . k u_ˈe . l ə_$iuˈeə$e . l ə_$eə$1$NO$Viq$NO
-MySpace$MySpace$NPMSO00$m a . i s . p ˈe . i s$aiˈei$e . i s$ei$3$NO$Viq$NO
-Mûr-de-Bretagne$Mûr-de-Bretagne$NPCSG00$m ˈu ɾ d ə b . ɾ ə . t ə g . n ə$ˈuəəəə$u ɾ d ə b . ɾ ə . t ə g . n ə$uəəəə$5$NO$Viq$NO
-N'Djamena$N'Djamena$NPCSG00$n d ʒ ə . m ˈɛ . n ə$əˈɛə$ɛ . n ə$ɛə$4$NO$Viq$NO
-NAS$NAS$NCMN000$n ˈa s$ˈa$a s$a$1$Vicc$Viq$NO
 NASA$NASA$NPFSO00$n ˈa . z ə$ˈaə$a . z ə$aə$2$Vicc$Viq$NO
 NBA$NBA$NPFSO00$ˈe . n ə_b ˈe_ə$ˈeəˈeə$e_ə$eə$1$NO$Viq$NO
-NEE$NEE$NCFP000$n ˈe . ə$ˈeə$e . ə$eə$2$Vicc$Viq$NO
-NFT$NFT$NCMN000$ˈe . n ə_ˈe . f ə_t ˈe$ˈeəˈeəˈe$e$e$1$NO$Viq$NO
-NIE$NIE$NCMN000$n ˈi . ə$ˈiə$i . ə$iə$2$NO$Viq$NO
-NIF$NIF$NCMN000$n ˈi f$ˈi$i f$i$1$NO$Viq$NO
-NP-complet$NP-complet$AQ0MS0$ˈe . n ə_p ˈe_k u m . p l ˈɛ t$ˈeəˈeuˈɛ$ɛ t$ɛ$3$NO$Viq$NO
-NPA$NPA$NCMN000$ˈe . n ə_p ˈe_ə$ˈeəˈeə$e_ə$eə$1$NO$Viq$NO
-Neuilly-sur-Marne$Neuilly-sur-Marne$NPCSG00$n ˈe w j . ʎ i s u ɾ m ə ɾ . n ə$ˈeiuəə$e w j . ʎ i s u ɾ m ə ɾ . n ə$eiuəə$5$NO$Viq$NO
-Neuilly-sur-Seine$Neuilly-sur-Seine$NPCSG00$n ˈe w j . ʎ i s u ɾ s ə j . n ə$ˈeiuəə$e w j . ʎ i s u ɾ s ə j . n ə$eiuəə$5$NO$Viq$NO
-Nogent-sur-Marne$Nogent-sur-Marne$NPCSG00$n u . ʒ ˈe n s u ɾ m ə ɾ . n ə$uˈeuəə$e n s u ɾ m ə ɾ . n ə$euəə$5$NO$Viq$NO
-Noisy-le-Grand$Noisy-le-Grand$NPCSG00$n ˈɔ j . s j_l ˈe_g ɾ ˈa n$ˈɔˈeˈa$a n$a$3$NO$Viq$NO
-Noisy-le-Sec$Noisy-le-Sec$NPCSG00$n ˈɔ j . s j_l ˈe_s ˈɛ k$ˈɔˈeˈɛ$ɛ k$ɛ$3$NO$Viq$NO
-Nord-Pas-de-Calais$Nord-Pas-de-Calais$NPCSG00$n ˈɔ ɾ t_p ˈa s_d ə_k ə . l ˈa j s$ˈɔˈaəəˈa$a j s$a$5$NO$Viq$NO
-Notre-Dame$Notre-Dame$NPCSG00$n ˈɔ . t ɾ ə d ə . m ə$ˈɔəəə$ɔ . t ɾ ə d ə . m ə$ɔəəə$4$NO$Viq$NO
-Nur-Sultan$Nur-Sultan$NPCSG00$n ˈu_s u l . t ˈa n$ˈuuˈa$a n$a$3$NO$Viq$NO
-O'Brien$O'Brien$NPCNSP0$u b . ɾ ˈi . ə n$uˈiə$i . ə n$iə$2$NO$Viq$NO
-O'Donnell$O'Donnell$NPCNSP0$u d u . n ˈe ʎ$uuˈe$e ʎ$e$2$NO$Viq$NO
-O'Neill$O'Neill$NPCNSP0$u n ˈɛ j ʎ$uˈɛ$ɛ j ʎ$ɛ$1$NO$Viq$NO
-O'Sullivan$O'Sullivan$NPCNSP0$u s u . ʎ i . b ˈa n$uuiˈa$a n$a$3$NO$Viq$NO
 OAP$OAP$NPFSO00$u . ˈa p$uˈa$a p$a$2$NO$Viq$NO
 OCDE$OCDE$NPFSO00$ˈɔ g . d ə$ˈɔə$ɔ g . d ə$ɔə$2$NO$Viq$NO
 OCU$OCU$NPFSO00$ˈɔ . k u$ˈɔu$ɔ . k u$ɔu$2$NO$Viq$NO
-ODS$ODS$NCMN000$ˈɔ t s$ˈɔ$ɔ t s$ɔ$1$NO$Viq$NO
 OECD$OECD$NPFSO00$ˈɔ_ˈɛ_s ˈe_d ˈe$ˈɔˈɛˈeˈe$e$e$2$NO$Viq$NO
 OIT$OIT$NPFSO00$ˈɔ j t$ˈɔ$ɔ j t$ɔ$1$NO$Viq$NO
 OMC$OMC$NPFSO00$ˈɔ_ˈe . m ə_s ˈe$ˈɔˈeəˈe$e$e$1$NO$Viq$NO
 OMS$OMS$NPFSO00$ˈo m s$ˈo$o m s$o$1$NO$Viq$NO
 ONCE$ONCE$NPFSO00$ˈo n . s e$ˈoe$o n . s e$oe$2$NO$Viq$NO
-ONG$ONG$NCFN000$ˈɔ_ˈe . n ə_ʒ ˈe$ˈɔˈeəˈe$e$e$1$NO$Viq$NO
 ONU$ONU$NPFSO00$ˈo . n u$ˈou$o . n u$ou$2$Vicc$Viq$NO
 OPEP$OPEP$NPFSO00$u . p ˈe p$uˈe$e p$e$2$NO$Viq$NO
-OSAL$OSAL$NCFN000$u . z ˈa l$uˈa$a l$a$2$NO$Viq$NO
 OTAN$OTAN$NPFSO00$o . t ˈa n$oˈa$a n$a$2$Vicc$Viq$NO
-Objective-C$Objective-C$NPMSO00$u b . ʒ ə k . t ˈi . β ə_s ˈe$uəˈiəˈe$e$e$5$NO$Viq$NO
-Ogooué-Ivindo$Ogooué-Ivindo$NPCSG00$u . ɣ u . ɔ . w ˈe_i . β ˈi n . d u$uuɔˈeiˈiu$i n . d u$iu$7$NO$Viq$NO
-Ogooué-Lolo$Ogooué-Lolo$NPCSG00$u . ɣ u . ɔ . w ˈe l u . l u$uuɔˈeuu$e l u . l u$euu$6$NO$Viq$NO
-Olonne-sur-Mer$Olonne-sur-Mer$NPCSG00$u . l ˈo . n ə_s ˈu_m ˈe ɾ$uˈoəˈuˈe$e ɾ$e$5$NO$Viq$NO
-OmegaT$OmegaT$NPMSO00$u . m ə . ɣ ˈa t$uəˈa$a t$a$3$NO$Viq$NO
-OpenOffice$OpenOffice$NPMSO00$u . p ə . n u . f ˈi . s ə$uəuˈiə$i . s ə$iə$5$NO$Viq$NO
-OpenStreetMap$OpenStreetMap$NPMSO00$u . p ə n s . t ɾ ə . ə d . m ˈa p$uəəəˈa$a p$a$5$NO$Viq$NO
-OpenType$OpenType$NPCNO00$u . p ə n . t i . p ə$uəiə$u . p ə n . t i . p ə$uəiə$3$NO$Viq$NO
 PAC$PAC$NPFNO00$p ˈa k$ˈa$a k$a$1$NO$Viq$NO
 PAH$PAH$NPFSO00$p ˈa$ˈa$a$a$1$NO$Viq$NO
-PAU$PAU$NCCN000$p ˈa w$ˈa$a w$a$1$Vicc$Viq$NO
-PBB$PBB$NCMN000$p ˈe_b ˈe_b ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
-PC$PC$NCMN000$p ˈe_s ˈe$ˈeˈe$e$e$1$Vicc$Viq$NO
-PCB$PCB$NCFN000$p ˈe_s ˈe_b ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 PCE$PCE$NPFNO00$p ˈe_s ˈe_ˈɛ$ˈeˈeˈɛ$ɛ$ɛ$2$NO$Viq$NO
 PCE$PCE$NPMSO00$p ˈe_s ˈe_ˈɛ$ˈeˈeˈɛ$ɛ$ɛ$2$NO$Viq$NO
 PCI$PCI$NPMSO00$p ˈe_s ˈe_i$ˈeˈei$e_i$ei$2$NO$Viq$NO
-PCP$PCP$NCFN000$p ˈe_s ˈe_p ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
 PCR$PCR$NPFNO00$p ˈe_s ˈe_ˈɛ . r ə$ˈeˈeˈɛə$ɛ . r ə$ɛə$1$Vicc$Viq$NO
 PCR$PCR$NPMSO00$p ˈe_s ˈe_ˈɛ . r ə$ˈeˈeˈɛə$ɛ . r ə$ɛə$1$Vicc$Viq$NO
 PCUS$PCUS$NPMSO00$p ˈe_s ˈe_ˈu_ˈe . s ə$ˈeˈeˈuˈeə$e . s ə$eə$2$NO$Viq$NO
-PD$PD$NCCN000$p ˈɔ s t_d ˈa . t ə$ˈɔˈaə$a . t ə$aə$1$Vicc$Viq$NO
-PDA$PDA$NCCN000$p ˈe_d ˈe_ə$ˈeˈeə$e_ə$eə$2$NO$Viq$NO
-PDECat$PDECat$NPMSO00$p ˈe_d ə . k ˈa t$ˈeəˈa$a t$a$3$NO$Viq$NO
-PDF$PDF$NCMN000$p ˈe_d ˈe_ˈe . f ə$ˈeˈeˈeə$e . f ə$eə$1$NO$Viq$NO
-PDI$PDI$NCMS000$p ˈe_d ˈe_i$ˈeˈei$e_i$ei$2$NO$Viq$NO
 PDS$PDS$NPMSO00$p ˈe_d ˈe_ˈe . s ə$ˈeˈeˈeə$e . s ə$eə$1$NO$Viq$NO
-PDeCAT$PDeCAT$NPMSO00$p ˈe_d ə . k ˈa t$ˈeəˈa$a t$a$3$NO$Viq$NO
 PEN$PEN$NPMNO00$p ˈɛ n$ˈɛ$ɛ n$ɛ$1$Vicc$Viq$NO
-PEV$PEV$NCFN000$p ˈe b$ˈe$e b$e$1$NO$Viq$NO
-PFI$PFI$NCMN000$p ˈe_ˈe . f ə_i$ˈeˈeəi$e . f ə_i$eəi$2$NO$Viq$NO
-PIB$PIB$NCMN000$p ˈi p$ˈi$i p$i$1$Vicc$Viq$NO
-PIME$PIME$NCFN000$p ˈi . m e$ˈie$i . m e$ie$2$Vicc$Viq$NO
 PISA$PISA$NPCNO00$p ˈi . z ə$ˈiə$i . z ə$iə$2$Vicc$Viq$NO
-PLC$PLC$NCMN000$p ˈe_ˈe . l ə_s ˈe$ˈeˈeəˈe$e$e$1$Vicc$Viq$NO
-PMF$PMF$NCFP000$p ˈe_ˈe . m ə_ˈe . f ə$ˈeˈeəˈeə$e . f ə$eə$1$Vicc$Viq$NO
-PMMA$PMMA$NCMN000$p ˈe_ˈe . m ə_ˈe . m ə_ə$ˈeˈeəˈeəə$e . m ə_ə$eəə$2$NO$Viq$NO
 PNB$PNB$NPMSO00$p ˈe_ˈe . n ə_b ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
-PNR$PNR$NCMS000$p ˈe_ˈe . n ə_ˈɛ . r ə$ˈeˈeəˈɛə$ɛ . r ə$ɛə$1$NO$Viq$NO
 POUM$POUM$NPMSO00$p ˈɔ w m$ˈɔ$ɔ w m$ɔ$2$NO$Viq$NO
 PP$PP$NPMSO00$p ˈe_p ˈe$ˈeˈe$e$e$1$Vicc$Viq$NO
 PPCC$PPCC$NPMPG00$p ˈe_p ˈe_s ˈe_s ˈe$ˈeˈeˈeˈe$e$e$1$Vicc$Viq$NO
-PPD$PPD$NCMN000$p ˈe_p ˈe_d ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
-PPE$PPE$NCFN000$p ˈe_p ˈe_ˈɛ$ˈeˈeˈɛ$ɛ$ɛ$2$NO$Viq$NO
 PPE$PPE$NPMSO00$p ˈe_p ˈe_ˈɛ$ˈeˈeˈɛ$ɛ$ɛ$2$NO$Viq$NO
-PS$PS$NCCN000$p ˈɔ s t_ə s . k ɾ ˈi p . t u m$ˈɔəˈiu$i p . t u m$iu$1$Vicc$Viq$NO
-PSA$PSA$NCMN000$s ˈa$ˈa$a$a$1$Vicc$Viq$NO
 PSAN$PSAN$NPMSO00$s ˈa n$ˈa$a n$a$1$NO$Viq$NO
 PSC$PSC$NPMSO00$p ˈe_ˈe . s ə_s ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
 PSG$PSG$NPMSO00$p ˈe_ˈe . s ə_ʒ ˈe$ˈeˈeəˈe$e$e$1$Vicc$Viq$NO
 PSI$PSI$NPMSO00$s ˈi$ˈi$i$i$1$NO$Viq$NO
 PSOE$PSOE$NPMSO00$s ˈo . e$ˈoe$o . e$oe$2$Vicc$Viq$NO
-PSP$PSP$NCMN000$p ˈe_ˈe . s ə_p ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
 PSPV$PSPV$NPMSO00$p ˈe_ˈe . s ə_p ˈe_b ˈe_b ˈa ʃ ə$ˈeˈeəˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
 PSUC$PSUC$NPMSO00$s ˈu k$ˈu$u k$u$1$Vicc$Viq$NO
-PTFE$PTFE$NCMN000$p ˈe_t ˈe_ˈe . f ə_ˈɛ$ˈeˈeˈeəˈɛ$ɛ$ɛ$1$NO$Viq$NO
 PURA$PURA$NPMSO00$p ˈu . ɾ ə$ˈuə$u . ɾ ə$uə$2$NO$Viq$NO
-PVC$PVC$NCMN000$p ˈe_b ˈe_b ˈa ʃ ə_s ˈe$ˈeˈeˈaəˈe$e$e$1$NO$Viq$NO
-PVP$PVP$NCMN000$p ˈe_b ˈe_b ˈa ʃ ə_p ˈe$ˈeˈeˈaəˈe$e$e$1$NO$Viq$NO
-Pac-Man$Pac-Man$NPCNSP0$p ˈa k_m ˈa n$ˈaˈa$a n$a$2$NO$Viq$NO
-Palais-Royal$Palais-Royal$NPMSG00$p ə . l ˈa j s_r u . j ˈa l$əˈauˈa$a l$a$4$NO$Viq$NO
-Palau-Sator$Palau-Sator$NPCSG00$p ə . l ˈa w_s ə . t ˈo$əˈaəˈo$o$o$4$NO$Viq$NO
-Palau-Saverdera$Palau-Saverdera$NPFSG00$p ə . l ˈa w_s ə . β ə ɾ . d ˈe . ɾ ə$əˈaəəˈeə$e . ɾ ə$eə$6$NO$Viq$NO
-Palau-Solità$Palau-Solità$NPCSG00$p ə . l ˈa w_s u . l i . t ˈa$əˈauiˈa$a$a$5$NO$Viq$NO
-Paray-le-Monial$Paray-le-Monial$NPCSG00$p ə . ɾ ˈa j_l ˈe_m u . n i . ˈa l$əˈaˈeuiˈa$a l$a$6$NO$Viq$NO
-Pas-de-Calais$Pas-de-Calais$NPCSG00$p ˈa s_d ə_k ə . l ˈa j s$ˈaəəˈa$a j s$a$4$NO$Viq$NO
-Pena-Roja$Pena-Roja$NPFSG00$p ˈɛ . n ə_r ˈɔ . ʒ ə$ˈɛəˈɔə$ɔ . ʒ ə$ɔə$4$NO$Viq$NO
-Peñarroya-Pueblonuevo$Peñarroya-Pueblonuevo$NPCSG00$p ə . ɲ ə . r ˈo . j ə_p u . ə . β l u . n u . ˈe . b u$əəˈoəuəuuˈeu$e . b u$eu$10$NO$Viq$NO
-PlayStation$PlayStation$NPFNO00$p l ə . i s . t ə . t i . ˈo n$əiəiˈo$o n$o$4$NO$Viq$NO
-Pointe-Noire$Pointe-Noire$NPCSG00$p ˈɔ j n . t ə_n ˈɔ j . ɾ ə$ˈɔəˈɔə$ɔ j . ɾ ə$ɔə$4$NO$Viq$NO
-Pointe-à-Pitre$Pointe-à-Pitre$NPCSG00$p ˈɔ j n . t ə_ˈa_p ˈi . t ɾ ə$ˈɔəˈaˈiə$i . t ɾ ə$iə$5$NO$Viq$NO
-Poitou-Charentes$Poitou-Charentes$NPCSG00$p u j . t ˈɔ w_ʃ ə . ɾ ˈe n . t ə s$uˈɔəˈeə$e n . t ə s$eə$5$NO$Viq$NO
-Port-au-Prince$Port-au-Prince$NPCSG00$p ˈɔ ɾ t_ˈa w_p ɾ ˈi n . s ə$ˈɔˈaˈiə$i n . s ə$iə$4$NO$Viq$NO
-Port-de-Bouc$Port-de-Bouc$NPCSG00$p ˈɔ ɾ t_d ə_b ˈɔ w k$ˈɔəˈɔ$ɔ w k$ɔ$3$NO$Viq$NO
-Port-of-Spain$Port-of-Spain$NPCSG00$p ˈɔ ɾ t_ˈɔ f_ˈe . s ə_p ˈa j n$ˈɔˈɔˈeəˈa$a j n$a$3$NO$Viq$NO
-PortAventura$PortAventura$NPMSO00$p ˌɔ ɾ . t ə . β ə n . t ˈu . ɾ ə$ɔəəˈuə$u . ɾ ə$uə$5$NO$Viq$NO
-Porto-Novo$Porto-Novo$NPCSG00$p ˈɔ ɾ . t u_n ˈo . b u$ˈɔuˈou$o . b u$ou$4$NO$Viq$NO
-PostgreSQL$PostgreSQL$NPCNO00$p ˌɔ s t . g ɾ ˈɛ s . k u_ˈe . l ə_$ɔˈɛuˈeə$e . l ə_$eə$2$NO$Viq$NO
-PowerPoint$PowerPoint$NPMNO00$p u . w ə ɾ . p u . ˈi n$uəuˈi$i n$i$4$NO$Viq$NO
-Puig-Oriol$Puig-Oriol$NPCSG00$p ˈu t ʃ_u . ɾ i . ˈɔ l$ˈuuiˈɔ$ɔ l$ɔ$4$NO$Viq$NO
-Puig-Reig$Puig-Reig$NPCSG00$p ˈu t ʃ_r ˈɛ t ʃ$ˈuˈɛ$ɛ t ʃ$ɛ$2$NO$Viq$NO
-Puy-de-Dôme$Puy-de-Dôme$NPCSG00$p ˈu . i d ə d o . m ə$ˈuiəoə$u . i d ə d o . m ə$uiəoə$4$NO$Viq$NO
-QI$QI$NCMN000$k ˈu_i$ˈui$u_i$ui$1$Vicc$Viq$NO
-QR$QR$AQ0CN0$k ˈu_ˈɛ . r ə$ˈuˈɛə$ɛ . r ə$ɛə$1$NO$Viq$NO
-R+D$R+D$NCFS000$ˈɛ . r ə__d ˈe$ˈɛəˈe$e$e$2$Vicc$Viq$NO
-R+D+I$R+D+I$NCFS000$ˈɛ . r ə__d ˈe__i$ˈɛəˈei$e__i$ei$3$Vicc$Viq$NO
 RAC$RAC$NPCSO00$r ˈa k$ˈa$a k$a$1$NO$Viq$NO
 RACC$RACC$NPMSO00$r ˈa k$ˈa$a k$a$1$NO$Viq$NO
-RACCTel$RACCTel$NPCNO00$r ˈa k . s ə_t ˈɛ l$ˈaəˈɛ$ɛ l$ɛ$2$NO$Viq$NO
 RAE$RAE$NPFSO00$r ˈa . e$ˈae$a . e$ae$2$NO$Viq$NO
 RAI$RAI$NPFSO00$r ˈa j$ˈa$a j$a$1$NO$Viq$NO
-RAM$RAM$NCFN000$r ˈa m$ˈa$a m$a$1$NO$Viq$NO
 RCDE$RCDE$NPMSO00$ˈɛ . r ə_s ˈe_d ˈe_ˈɛ$ˈɛəˈeˈeˈɛ$ɛ$ɛ$2$NO$Viq$NO
-RCP$RCP$NCFN000$ˈɛ . r ə_s ˈe_p ˈe$ˈɛəˈeˈe$e$e$1$Vicc$Viq$NO
 RDA$RDA$NPFSG00$ˈɛ . r ə_d ˈe_ə$ˈɛəˈeə$e_ə$eə$1$Vicc$Viq$NO
-RF$RF$NCFN000$ˈɛ . r ə_ˈe . f ə$ˈɛəˈeə$e . f ə$eə$1$NO$Viq$NO
 RFA$RFA$NPFSG00$ˈɛ . r ə_ˈe . f ə_ə$ˈɛəˈeəə$e . f ə_ə$eəə$1$NO$Viq$NO
 RFEF$RFEF$NPFSO00$ˈɛ . r ə_ˈe . f ə_ˈɛ_ˈe . f ə$ˈɛəˈeəˈɛˈeə$e . f ə$eə$1$NO$Viq$NO
-RGB$RGB$AQ0CN0$ˈɛ . r ə_ʒ ˈe_b ˈe$ˈɛəˈeˈe$e$e$1$NO$Viq$NO
 RGPD$RGPD$NPMSO00$ˈɛ . r ə_ʒ ˈe_p ˈe_d ˈe$ˈɛəˈeˈeˈe$e$e$1$NO$Viq$NO
-RH$RH$NCMP000$ˈɛ . r ə_ˈa g$ˈɛəˈa$a g$a$1$NO$Viq$NO
-RM$RM$NCFN000$ˈɛ . r ə_ˈe . m ə$ˈɛəˈeə$e . m ə$eə$1$NO$Viq$NO
-RNA$RNA$NCMN000$ˈɛ . r ə_ˈe . n ə_ə$ˈɛəˈeəə$e . n ə_ə$eəə$1$Vicc$Viq$NO
-ROM$ROM$NCFN000$r ˈo m$ˈo$o m$o$1$Vicc$Viq$NO
-RSC$RSC$NCFS000$ˈɛ . r ə_ˈe . s ə_s ˈe$ˈɛəˈeəˈe$e$e$1$NO$Viq$NO
 RTVE$RTVE$NPFSO00$ˈɛ . r ə_t ˈe_b ˈe_b ˈa ʃ ə_ˈɛ$ˈɛəˈeˈeˈaəˈɛ$ɛ$ɛ$2$NO$Viq$NO
 RTVV$RTVV$NPFSO00$ˈɛ . r ə_t ˈe_b ˈe_b ˈa ʃ ə_b ˈe_b ˈa ʃ ə$ˈɛəˈeˈeˈaəˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
 RUMASA$RUMASA$NPFSO00$r u . m ˈa . z ə$uˈaə$a . z ə$aə$3$NO$Viq$NO
-Rillieux-la-Pape$Rillieux-la-Pape$NPCSG00$r i . ʎ i . ˈe w k s_l ə_p ˈa . p ə$iiˈeəˈaə$a . p ə$aə$6$NO$Viq$NO
-Rimski-Kórsakov$Rimski-Kórsakov$NPCNSP0$r ˈi m s . k i_k ˈo ɾ . s ə . k u f$ˈiiˈoəu$o ɾ . s ə . k u f$oəu$5$NO$Viq$NO
-Ris-Orangis$Ris-Orangis$NPCSG00$r ˈi s_u . ɾ ˈa n . ʒ i s$ˈiuˈai$a n . ʒ i s$ai$4$NO$Viq$NO
-RodaMots$RodaMots$NPMNO00$r u . ð ə . m ˈɔ t s$uəˈɔ$ɔ t s$ɔ$3$NO$Viq$NO
-Roine-Alps$Roine-Alps$NPCSG00$r ˈɔ j . n ə_ˈa l . p ə_ˈe . s ə_$ˈɔəˈaəˈeə$e . s ə_$eə$3$NO$Viq$NO
-Rolls-Royce$Rolls-Royce$NPCNO00$r ˈɔ ʎ s_r ˈo . i . s ə$ˈɔˈoiə$o . i . s ə$oiə$3$NO$Viq$NO
-Romans-sur-Isère$Romans-sur-Isère$NPCSG00$r u . m ˈa n s_s ˈu_i . z ˈɛ . ɾ ə$uˈaˈuiˈɛə$ɛ . ɾ ə$ɛə$6$NO$Viq$NO
-Rosny-sous-Bois$Rosny-sous-Bois$NPCSG00$r u . z ˈɛ . n ə_i_g ɾ ˈe . g ə__s ˈɔ w s_b ˈɔ j s$uˈɛəiˈeəˈɔˈɔ$ɔ j s$ɔ$3$NO$Viq$NO
-Rueil-Malmaison$Rueil-Malmaison$NPCSG00$r u . ˈɛ j l_m ə l . m ə j . z ˈo n$uˈɛəəˈo$o n$o$5$NO$Viq$NO
 S&P$S&P$NPCNO00$ˈe . s ə__p ˈe$ˈeəˈe$e$e$2$NO$Viq$NO
-S'Agaró$S'Agaró$NPCSG00$s ə . ɣ ə . ɾ ˈo$əəˈo$o$o$3$NO$Viq$NO
-SA$SA$NCFN000$s u . s i . ə . t ˈa t_ə . n ˈɔ . n i . m ə$uiəˈaəˈɔiə$ɔ . n i . m ə$ɔiə$1$Vicc$Viq$NO
 SA$SA$NPCNO00$s u . s i . ə . t ˈa t_ə . n ˈɔ . n i . m ə$uiəˈaəˈɔiə$ɔ . n i . m ə$ɔiə$1$Vicc$Viq$NO
-SAI$SAI$NCMN000$s ˈa j$ˈa$a j$a$1$NO$Viq$NO
-SAP$SAP$NCCN000$s ˈa p$ˈa$a p$a$1$NO$Viq$NO
-SARS$SARS$NCFS000$s ˈa s$ˈa$a s$a$1$NO$Viq$NO
-SARS-CoV$SARS-CoV$NCMS000$s ˈa s_k ˈo b$ˈaˈo$o b$o$2$NO$Viq$NO
-SD$SD$NCMN000$ˈe . s ə_d ˈe$ˈeəˈe$e$e$1$Vicc$Viq$NO
 SEPA$SEPA$NPMSO00$s ˈe . p ə$ˈeə$e . p ə$eə$2$NO$Viq$NO
 SER$SER$NPCSO00$s ˈe$ˈe$e$e$1$NO$Viq$NO
 SGAE$SGAE$NPFSO00$ə s . g ˈa . e$əˈae$a . e$ae$2$NO$Viq$NO
-SL$SL$NCFN000$s u . s i . ə . t ˈa t_l i . m i . t ˈa . ð ə$uiəˈaiiˈaə$a . ð ə$aə$1$Vicc$Viq$NO
-SMI$SMI$NCMS000$ˈe . s ə_ˈe . m ə_i$ˈeəˈeəi$e . m ə_i$eəi$1$NO$Viq$NO
-SMS$SMS$NCMN000$ˈe . s ə_ˈe . m ə_ˈe . s ə$ˈeəˈeəˈeə$e . s ə$eə$1$NO$Viq$NO
-SMTP$SMTP$NCMN000$ˈe . s ə_ˈe . m ə_t ˈe_p ˈe$ˈeəˈeəˈeˈe$e$e$1$NO$Viq$NO
-SNC$SNC$NCMS000$ˈe . s ə_ˈe . n ə_s ˈe$ˈeəˈeəˈe$e$e$1$NO$Viq$NO
 SNP$SNP$NPMSO00$ˈe . s ə_ˈe . n ə_p ˈe$ˈeəˈeəˈe$e$e$1$NO$Viq$NO
-SOS$SOS$NCMN000$s u s$u$s u s$u$1$Vicc$Viq$NO
 SPD$SPD$NPMSO00$ˈe . s ə_p ˈe_d ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
-SQLite$SQLite$NPCNO00$ˈe . s ə_k ˈu_l ˈi . t ə$ˈeəˈuˈiə$i . t ə$iə$3$NO$Viq$NO
 SS$SS$NPCNO00$ˈe . s ə_ˈe . s ə$ˈeəˈeə$e . s ə$eə$1$Vicc$Viq$NO
-SSD$SSD$AQ0CN0$ˈe . s ə_ˈe . s ə_d ˈe$ˈeəˈeəˈe$e$e$1$NO$Viq$NO
-STC$STC$NCFN000$ˈe . s ə_t ˈe_s ˈe$ˈeəˈeˈe$e$e$1$NO$Viq$NO
 STEPV$STEPV$NPMSO00$ˈe . s ə_t ˈe_ˈɛ_p ˈe_b ˈe_b ˈa ʃ ə$ˈeəˈeˈɛˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-Saint-Acheul$Saint-Acheul$NPCSG00$s ə . ˈi n _ə . ʃ ˈe w l$əˈiəˈe$e w l$e$4$NO$Viq$NO
-Saint-Amand-Montrond$Saint-Amand-Montrond$NPCSG00$s ə . ˈi n _ə . m ˈa n _m u n . t ɾ ˈo n$əˈiəˈauˈo$o n$o$6$NO$Viq$NO
-Saint-Avold$Saint-Avold$NPCSG00$s ə . ˈi n _ə . b ˈɔ l$əˈiəˈɔ$ɔ l$ɔ$4$NO$Viq$NO
-Saint-Brieuc$Saint-Brieuc$NPCSG00$s ə . ˈi n _b ɾ i . ˈe w k$əˈiiˈe$e w k$e$4$NO$Viq$NO
-Saint-Chamond$Saint-Chamond$NPCSG00$s ə . ˈi n _ʃ ə . m ˈo n$əˈiəˈo$o n$o$4$NO$Viq$NO
-Saint-Cloud$Saint-Cloud$NPCSG00$s ə . ˈi n _k l ˈɔ w t$əˈiˈɔ$ɔ w t$ɔ$3$NO$Viq$NO
-Saint-Cyr$Saint-Cyr$NPCSG00$s ə . ˈi n _k i$əˈii$i n _k i$ii$3$NO$Viq$NO
-Saint-Denis$Saint-Denis$NPCSG00$s ə . ˈi n _d ˈɛ . n i s$əˈiˈɛi$ɛ . n i s$ɛi$4$NO$Viq$NO
-Saint-Didier$Saint-Didier$NPMSG00$s ə . ˈi n _d i . ð i . ˈe$əˈiiiˈe$e$e$5$NO$Viq$NO
-Saint-Dizier$Saint-Dizier$NPCSG00$s ə . ˈi n _d i . z i . ˈe$əˈiiiˈe$e$e$5$NO$Viq$NO
-Saint-Exupéry$Saint-Exupéry$NPCNSP0$s ə . ˈi n _ˌɛ g . z u . p ˈe . ɾ j$əˈiɛuˈe$e . ɾ j$e$5$NO$Viq$NO
-Saint-Fargeau$Saint-Fargeau$NPCSG00$s ə . ˈi n _f ə ɾ . ʒ e . ˈa w$əˈiəeˈa$a w$a$5$NO$Viq$NO
-Saint-Flour$Saint-Flour$NPCSG00$s ə . ˈi n _f l ˈɔ w$əˈiˈɔ$ɔ w$ɔ$3$NO$Viq$NO
-Saint-Fons$Saint-Fons$NPCSG00$s ə . ˈi n _f ˈo n s$əˈiˈo$o n s$o$3$NO$Viq$NO
-Saint-Gaudens$Saint-Gaudens$NPCSG00$s ə . ˈi n _g ə w . d ˈɛ n s$əˈiəˈɛ$ɛ n s$ɛ$4$NO$Viq$NO
-Saint-Germain$Saint-Germain$NPCSG00$s ə . ˈi n _ʒ ə ɾ . m ˈa j n$əˈiəˈa$a j n$a$4$NO$Viq$NO
-Saint-Germain-des-Prés$Saint-Germain-des-Prés$NPCSG00$s ə . ˈi n _ʒ ə ɾ . m ˈa j n_d ˈe s_p ɾ ˈe s$əˈiəˈaˈeˈe$e s$e$6$NO$Viq$NO
-Saint-Germain-en-Laye$Saint-Germain-en-Laye$NPCSG00$s ə . ˈi n _ʒ ə ɾ . m ˈa j n_ə n_l ˈa . j ə$əˈiəˈaəˈaə$a . j ə$aə$7$NO$Viq$NO
-Saint-Grégoire$Saint-Grégoire$NPCSG00$s ə . ˈi n _g ɾ ˈe . ɣ u j . ɾ ə$əˈiˈeuə$e . ɣ u j . ɾ ə$euə$5$NO$Viq$NO
-Saint-Herblain$Saint-Herblain$NPCSG00$s ə . ˈi n _ə ɾ . b l ˈa j n$əˈiəˈa$a j n$a$4$NO$Viq$NO
-Saint-Jacques$Saint-Jacques$NPCSG00$s ə . ˈi n _ʒ ˈa k ə s$əˈiˈaə$a k ə s$aə$4$NO$Viq$NO
-Saint-Jean$Saint-Jean$NPMSSP0$s ə . ˈi n _ʒ e . ˈa n$əˈieˈa$a n$a$4$NO$Viq$NO
-Saint-Jean-de-Maurienne$Saint-Jean-de-Maurienne$NPCSG00$s ə . ˈi n ʒ e . ə n d ə m ə w . ɾ i . ə . n ə$əˈieəəəiəə$i n ʒ e . ə n d ə m ə w . ɾ i . ə . n ə$ieəəəiəə$9$NO$Viq$NO
-Saint-Louis$Saint-Louis$NPCSG00$s ə . ˈi n _l ɔ w j ˈɛ . s ə_$əˈiɔˈɛə$ɛ . s ə_$ɛə$4$NO$Viq$NO
-Saint-Léger$Saint-Léger$NPCSG00$s ə . ˈi n _l ˈe . ʒ ə$əˈiˈeə$e . ʒ ə$eə$4$NO$Viq$NO
-Saint-Lô$Saint-Lô$NPCSG00$s ə . ˈi n _l ˈo$əˈiˈo$o$o$3$NO$Viq$NO
-Saint-Malo$Saint-Malo$NPCSG00$s ə . ˈi n m ə . l u$əˈiəu$i n m ə . l u$iəu$4$NO$Viq$NO
-Saint-Martin$Saint-Martin$NPCSG00$s ə . ˈi n _m ˈa ɾ . t i n$əˈiˈai$a ɾ . t i n$ai$4$Vicc$Viq$NO
-Saint-Martin-d'Hères$Saint-Martin-d'Hères$NPCSG00$s ə . ˈi n _m ˈa ɾ . t i n_d ˈɛ . ɾ ə s$əˈiˈaiˈɛə$ɛ . ɾ ə s$ɛə$6$NO$Viq$NO
-Saint-Maur-des-Fossés$Saint-Maur-des-Fossés$NPCSG00$s ə . ˈi n _m ˈa w_d ˈe s_f u . s ˈe s$əˈiˈaˈeuˈe$e s$e$6$NO$Viq$NO
-Saint-Maurice$Saint-Maurice$NPMSG00$s ə . ˈi n _m ə w . ɾ ˈi . s ə$əˈiəˈiə$i . s ə$iə$5$NO$Viq$NO
-Saint-Michel$Saint-Michel$NPCSG00$s ə . ˈi n _m i . ʃ ˈɛ l$əˈiiˈɛ$ɛ l$ɛ$4$NO$Viq$NO
-Saint-Moritz$Saint-Moritz$NPCSG00$s ə . ˈi n _m u . ɾ ˈi t s$əˈiuˈi$i t s$i$4$NO$Viq$NO
-Saint-Méen-le-Grand$Saint-Méen-le-Grand$NPCSG00$s ə . ˈi n _m ˈe . ə n_l ˈe_g ɾ ˈa n$əˈiˈeəˈeˈa$a n$a$6$NO$Viq$NO
-Saint-Nazaire$Saint-Nazaire$NPCSG00$s ə . ˈi n _n ə . z ˈa j . ɾ ə$əˈiəˈaə$a j . ɾ ə$aə$5$NO$Viq$NO
-Saint-Omer$Saint-Omer$NPCSG00$s ə . ˈi n _u . m ˈe$əˈiuˈe$e$e$4$NO$Viq$NO
-Saint-Ouen$Saint-Ouen$NPCSG00$s ə . ˈi n _ˈɔ . w ə n$əˈiˈɔə$ɔ . w ə n$ɔə$4$NO$Viq$NO
-Saint-Paul-Trois-Châteaux$Saint-Paul-Trois-Châteaux$NPCSG00$s ə . ˈi n _p ˈa w l_t ɾ ˈɔ j s_ʃ a . t e . ˈa w k s$əˈiˈaˈɔaeˈa$a w k s$a$7$NO$Viq$NO
-Saint-Pierre-des-Corps$Saint-Pierre-des-Corps$NPCSG00$s ə . ˈi n _p i . ˈɛ . r ə_d ˈe s_k ˈo ɾ p s$əˈiiˈɛəˈeˈo$o ɾ p s$o$7$NO$Viq$NO
-Saint-Pierre-et-Miquelon$Saint-Pierre-et-Miquelon$NPCSG00$s ə . ˈi n _p i . ˈɛ . r ə_ə d_m i . k ə . l ˈo n$əˈiiˈɛəəiəˈo$o n$o$9$Vicc$Viq$NO
-Saint-Pol-sur-Mer$Saint-Pol-sur-Mer$NPCSG00$s ə . ˈi n _p ˈɔ l_s ˈu_m ˈe ɾ$əˈiˈɔˈuˈe$e ɾ$e$5$NO$Viq$NO
-Saint-Priest$Saint-Priest$NPCSG00$s ə . ˈi n _p ɾ i . ˈe s t$əˈiiˈe$e s t$e$4$NO$Viq$NO
-Saint-Quentin$Saint-Quentin$NPCSG00$s ə . ˈi n _k ˈe n . t i n$əˈiˈei$e n . t i n$ei$4$NO$Viq$NO
-Saint-Saëns$Saint-Saëns$NPCNSP0$s ə . ˈi n _s ə . ˈɛ n s$əˈiəˈɛ$ɛ n s$ɛ$3$NO$Viq$NO
-Saint-Simon$Saint-Simon$NPCNSP0$s ə . ˈi n _s i . m ˈo n$əˈiiˈo$o n$o$4$NO$Viq$NO
-Saint-Simon$Saint-Simon$NPCSG00$s ə . ˈi n _s i . m ˈo n$əˈiiˈo$o n$o$4$NO$Viq$NO
-Saint-Étienne$Saint-Étienne$NPCSG00$s ə . ˈi n t ˈe . t i . ə . n ə$əˈiˈeiəə$e . t i . ə . n ə$eiəə$6$NO$Viq$NO
-Saint-Étienne-du-Rouvray$Saint-Étienne-du-Rouvray$NPCSG00$s ə . ˈi n _ˈe . t i . ə . n ə_d ˈu_r ɔ w . b ɾ ˈa j$əˈiˈeiəəˈuɔˈa$a j$a$9$NO$Viq$NO
-Sainte-Croix$Sainte-Croix$NPFSG00$s ˈa j n . t ə_k ɾ ˈo ʃ$ˈaəˈo$o ʃ$o$3$NO$Viq$NO
-Sainte-Enimie$Sainte-Enimie$NPCSG00$s ˈa j n . t ə_ə . n i . m ˈi . ə$ˈaəəiˈiə$i . ə$iə$6$NO$Viq$NO
-Sainte-Geneviève-des-Bois$Sainte-Geneviève-des-Bois$NPCSG00$s ˈa j n . t ə_ʒ ə . n ə . β i . ˈɛ . b ə_d ˈe s_b ˈɔ j s$ˈaəəəiˈɛəˈeˈɔ$ɔ j s$ɔ$9$NO$Viq$NO
-Sainte-Marie$Sainte-Marie$NPFSG00$s ˈa j n . t ə_m ə . ɾ ˈi . ə$ˈaəəˈiə$i . ə$iə$5$NO$Viq$NO
-Salies-de-Béarn$Salies-de-Béarn$NPCSG00$s ə . l ˈi . ə s_d ə_b ˈe . ə ɾ n$əˈiəəˈeə$e . ə ɾ n$eə$6$NO$Viq$NO
-Sant'Antimo$Sant'Antimo$NPCSG00$s ˈa n t ə n . t i . m u$ˈaəiu$a n t ə n . t i . m u$aəiu$3$NO$Viq$NO
-Sant'Antioco$Sant'Antioco$NPCSG00$s ˈa n t ə n . t i . u . k u$ˈaəiuu$a n t ə n . t i . u . k u$aəiuu$4$NO$Viq$NO
-Savigny-sur-Orge$Savigny-sur-Orge$NPCSG00$s ə . β i . ʒ ˈɛ . n ə_i_g ɾ ˈe . g ə__s ˈu_ˈɔ ɾ . ʒ ə$əiˈɛəiˈeəˈuˈɔə$ɔ ɾ . ʒ ə$ɔə$5$NO$Viq$NO
-Saxònia-Anhalt$Saxònia-Anhalt$NPCSG00$s ə k . s ˈɔ . n i . ə_ə n ˈa l$əˈɔiəəˈa$a l$a$6$NO$Viq$NO
-Schleswig-Holstein$Schleswig-Holstein$NPCSG00$s ʃ l ə . s w ˈi t ʃ_u l s . t ˈɛ j n$əˈiuˈɛ$ɛ j n$ɛ$4$NO$Viq$NO
-Semur-en-Auxois$Semur-en-Auxois$NPCSG00$s ə . m ˈu_ə n_ə w . ʃ ˈɔ j s$əˈuəəˈɔ$ɔ j s$ɔ$5$NO$Viq$NO
-Sint-Jans-Molenbeek$Sint-Jans-Molenbeek$NPCSG00$s ˈi n _ʒ ˈa n s_m u . l ə m . b ə . ˈe k$ˈiˈauəəˈe$e k$e$6$NO$Viq$NO
-Slesvig-Holstein$Slesvig-Holstein$NPCSG00$s l ə s . b ˈi t ʃ_u l s . t ˈɛ j n$əˈiuˈɛ$ɛ j n$ɛ$4$NO$Viq$NO
-Sotteville-lès-Rouen$Sotteville-lès-Rouen$NPCSG00$s u . t ə . β ˈi . ʎ ə_l ˈɛ s_r ˈɔ . w ə n$uəˈiəˈɛˈɔə$ɔ . w ə n$ɔə$7$NO$Viq$NO
-Southend-on-Sea$Southend-on-Sea$NPCSG00$s ɔ w t ˈɛ n _ˈo n_s ˈe . ə$ɔˈɛˈoˈeə$e . ə$eə$5$NO$Viq$NO
-SpaceX$SpaceX$NPCNO00$ˈe . s ə_p ə . s ˈɛ k s$ˈeəəˈɛ$ɛ k s$ɛ$2$NO$Viq$NO
-StarCraft$StarCraft$NPMNO00$s t ə ɾ . k ɾ ˈa f t$əˈa$a f t$a$2$NO$Viq$NO
-Stoke-on-Trent$Stoke-on-Trent$NPCSG00$s t ˈo . k ə_ˈo n_t ɾ ˈe n$ˈoəˈoˈe$e n$e$4$NO$Viq$NO
-Stratford-on-Avon$Stratford-on-Avon$NPCSG00$s t ɾ ə t . f ˈɔ ɾ t_ˈo n_ə . b ˈo n$əˈɔˈoəˈo$o n$o$5$NO$Viq$NO
 TAC$TAC$NPCNO00$t ˈa k$ˈa$a k$a$1$Vicc$Viq$NO
-TAE$TAE$NCFN000$t ˈa . e$ˈae$a . e$ae$2$Vicc$Viq$NO
-TB$TB$NCMN000$t ˈe_b ˈe$ˈeˈe$e$e$1$NO$Viq$NO
 TC$TC$NPMSO00$t ˈe_s ˈe$ˈeˈe$e$e$1$Vicc$Viq$NO
-TCA$TCA$NCMN000$t ˈe_s ˈe_ə$ˈeˈeə$e_ə$eə$1$NO$Viq$NO
-TCDD$TCDD$NCFN000$t ˈe_s ˈe_d ˈe_d ˈe$ˈeˈeˈeˈe$e$e$1$NO$Viq$NO
-TDA$TDA$NCMS000$t ˈe_d ˈe_ə$ˈeˈeə$e_ə$eə$1$Vicc$NO$NO
-TDAH$TDAH$NCMS000$t ˈe_d ˈe_ə_ˈa g$ˈeˈeəˈa$a g$a$1$Vicc$Viq$NO
-TDR$TDR$NCCN000$t ˈe_d ˈe_ˈɛ . r ə$ˈeˈeˈɛə$ɛ . r ə$ɛə$1$NO$Viq$NO
-TDT$TDT$NCFN000$t ˈe_d ˈe_t ˈe$ˈeˈeˈe$e$e$1$NO$Viq$NO
-TEA$TEA$NCMN000$t ˈe . ə$ˈeə$e . ə$eə$2$Vicc$Viq$NO
-TFG$TFG$NCMN000$t ˈe_ˈe . f ə_ʒ ˈe$ˈeˈeəˈe$e$e$1$Vicc$NO$NO
-TFM$TFM$NCMN000$t ˈe_ˈe . f ə_ˈe . m ə$ˈeˈeəˈeə$e . m ə$eə$1$NO$Viq$NO
-THC$THC$NCMN000$t ˈe_ˈa g_s ˈe$ˈeˈaˈe$e$e$1$NO$Viq$NO
-TIC$TIC$NCFP000$t ˈi k$ˈi$i k$i$1$Vicc$Viq$NO
-TIR$TIR$NCFN000$t ˈi ɾ$ˈi$i ɾ$i$1$NO$Viq$NO
 TJUE$TJUE$NPMSO00$t ˈe_ʒ ˈɔ . t ə_ˈu_ˈɛ$ˈeˈɔəˈuˈɛ$ɛ$ɛ$2$NO$Viq$NO
 TMB$TMB$NPMPO00$t ˈe_ˈe . m ə_b ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
 TNC$TNC$NPMSO00$t ˈe_ˈe . n ə_s ˈe$ˈeˈeəˈe$e$e$1$NO$Viq$NO
-TPV$TPV$NCMN000$t ˈe_p ˈe_b ˈe_b ˈa ʃ ə$ˈeˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-TRC$TRC$NCFN000$t ˈe_ˈɛ . r ə_s ˈe$ˈeˈɛəˈe$e$e$1$NO$Viq$NO
-TS$TS$NCCN000$t ˈe_ˈe . s ə$ˈeˈeə$e . s ə$eə$1$NO$Viq$NO
 TSJC$TSJC$NPMSO00$t ˈe_ˈe . s ə_ʒ ˈɔ . t ə_s ˈe$ˈeˈeəˈɔəˈe$e$e$1$NO$Viq$NO
 TSJCV$TSJCV$NPMSO00$t ˈe_ˈe . s ə_ʒ ˈɔ . t ə_s ˈe_b ˈe_b ˈa ʃ ə$ˈeˈeəˈɔəˈeˈeˈaə$a ʃ ə$aə$1$NO$Viq$NO
-TV$TV$NCFN000$t ə . l ə . β i . z i . ˈo$əəiiˈo$o$o$1$Vicc$Viq$NO
 TVE$TVE$NPFSO00$t ˈe_b ˈe_b ˈa ʃ ə_ˈɛ$ˈeˈeˈaəˈɛ$ɛ$ɛ$1$NO$Viq$NO
-Tan-Tan$Tan-Tan$NPCSG00$t ˈa n_t ˈa n$ˈaˈa$a n$a$2$NO$Viq$NO
-Tarascon-sur-Ariège$Tarascon-sur-Ariège$NPCSG00$t ə . ɾ ə s . k ˈo n_s ˈu_ə . ɾ i . ˈɛ . ʒ ə$əəˈoˈuəiˈɛə$ɛ . ʒ ə$ɛə$8$NO$Viq$NO
-TdR$TdR$NCMN000$t ˈe_d ˈe_ˈɛ . r ə_$ˈeˈeˈɛə$ɛ . r ə_$ɛə$1$NO$Viq$NO
-TecnoCampus$TecnoCampus$NPMSO00$t ə k . n u . k ˈa m . p u s$əuˈau$a m . p u s$au$4$NO$Viq$NO
-Tel-Aviv$Tel-Aviv$NPCSG00$t ə . l ˈɛ . f u n_ə . β ˈi b$əˈɛuəˈi$i b$i$3$NO$Viq$NO
-Thonon-les-Bains$Thonon-les-Bains$NPCSG00$t u . n ˈo n_l ə s_b ˈa j n s$uˈoəˈa$a j n s$a$4$NO$Viq$NO
-Thyssen-Bornemisza$Thyssen-Bornemisza$NPCNSP0$t i . s ə n_b u ɾ . n ə . m ˈi s . z ə$iəuəˈiə$i s . z ə$iə$6$NO$Viq$NO
-TikTok$TikTok$NPMSO00$t i k . t ˈo k$iˈo$o k$o$2$NO$Viq$NO
-Torre-Pacheco$Torre-Pacheco$NPCSG00$t ˈo . r ə_p ə t . ʃ ˈe . k o$ˈoəəˈeo$e . k o$eo$5$NO$Viq$NO
-Torre-Serona$Torre-Serona$NPFSG00$t ˈo . r ə_s ə . ɾ ˈo . n ə$ˈoəəˈoə$o . n ə$oə$5$NO$Viq$NO
-Toulouse-Lautrec$Toulouse-Lautrec$NPMSSP0$t ɔ w . l ˈɔ w . z ə_l ə w . t ɾ ˈɛ k$ɔˈɔəəˈɛ$ɛ k$ɛ$5$NO$Viq$NO
-Tremblay-en-France$Tremblay-en-France$NPCSG00$t ɾ ə m . b l ˈa j_ə n_f ɾ ˈa n s$əˈaəˈa$a n s$a$5$NO$Viq$NO
-TrueType$TrueType$NPCNO00$t ɾ u . ə . t i . p ə$uəiə$t ɾ u . ə . t i . p ə$uəiə$3$NO$Viq$NO
 UA$UA$NPFSO00$ˈu_ə$ˈuə$u_ə$uə$1$Vicc$Viq$NO
 UAB$UAB$NPFSO00$w ˈa p$ˈa$a p$a$1$Vicc$Viq$NO
 UB$UB$NPFSO00$ˈu_b ˈe$ˈuˈe$e$e$1$Vicc$Viq$NO
-UC$UC$NCFN000$ˈu_s ˈe$ˈuˈe$e$e$1$NO$Viq$NO
 UCD$UCD$NPFSO00$ˈu_s ˈe_d ˈe$ˈuˈeˈe$e$e$1$Vicc$Viq$NO
 UCE$UCE$NPFSO00$ˈu . s e$ˈue$u . s e$ue$2$NO$Viq$NO
-UCI$UCI$NCFN000$ˈu . s i$ˈui$u . s i$ui$2$Vicc$Viq$NO
 UDC$UDC$NPFSO00$ˈu_d ˈe_s ˈe$ˈuˈeˈe$e$e$1$NO$Viq$NO
 UDEF$UDEF$NPFSO00$u . d ˈe f$uˈe$e f$e$2$NO$Viq$NO
 UE$UE$NPFSG00$ˈu_ˈɛ$ˈuˈɛ$ɛ$ɛ$1$Vicc$Viq$NO
-UEC$UEC$NCFN000$w ˈɛ k$ˈɛ$ɛ k$ɛ$1$Vicc$Viq$NO
 UEFA$UEFA$NPFSO00$w ˈe . f ə$ˈeə$e . f ə$eə$2$Vicc$Viq$NO
 UER$UER$NPFSO00$w ˈe$ˈe$e$e$1$NO$Viq$NO
 UGT$UGT$NPFSO00$ˈu_ʒ ˈe_t ˈe$ˈuˈeˈe$e$e$1$NO$Viq$NO
-UHT$UHT$AQ0CN0$ˈu_ˈa g_t ˈe$ˈuˈaˈe$e$e$1$NO$Viq$NO
 UIB$UIB$NPFSO00$ˈu j p$ˈu$u j p$u$1$Vicc$Viq$NO
 UIC$UIC$NPFSO00$ˈu j k$ˈu$u j k$u$1$NO$Viq$NO
 UJI$UJI$NPFSO00$ˈu . ʒ i$ˈui$u . ʒ i$ui$2$Vicc$Viq$NO
@@ -790,77 +237,10 @@ UNIX$Unix$NPMSO00$u . n ˈi ʃ$uˈi$i ʃ$i$2$NO$Viq$NO
 UOC$UOC$NPFSO00$w ˈɔ k$ˈɔ$ɔ k$ɔ$1$Vicc$Viq$NO
 UPC$UPC$NPFSO00$ˈu_p ˈe_s ˈe$ˈuˈeˈe$e$e$1$Vicc$Viq$NO
 UPF$UPF$NPFSO00$ˈu_p ˈe_ˈe . f ə$ˈuˈeˈeə$e . f ə$eə$1$Vicc$Viq$NO
-UPU$UPU$NCFN000$ˈu . p u$ˈuu$u . p u$uu$2$NO$Viq$NO
 UPV$UPV$NPFSO00$ˈu_p ˈe_b ˈe_b ˈa ʃ ə$ˈuˈeˈeˈaə$a ʃ ə$aə$1$Vicc$Viq$NO
 UPVD$UPVD$NPFSO00$ˈu_p ˈe_b ˈe_b ˈa ʃ ə_d ˈe$ˈuˈeˈeˈaəˈe$e$e$1$Vicc$Viq$NO
-UPyD$UPyD$NPFSO00$u . p i t$ui$u . p i t$ui$1$NO$Viq$NO
-URI$URI$NCMN000$ˈu . ɾ i$ˈui$u . ɾ i$ui$2$NO$Viq$NO
-URL$URL$NCMN000$ˈu ɾ l$ˈu$u ɾ l$u$1$Vicc$Viq$NO
 URSS$URSS$NPFSG00$ˈu_ˈɛ . r ə_ˈe . s ə_ˈe . s ə$ˈuˈɛəˈeəˈeə$e . s ə$eə$1$Vicc$Viq$NO
 URV$URV$NPFSO00$ˈu_ˈɛ . r ə_b ˈe_b ˈa ʃ ə$ˈuˈɛəˈeˈaə$a ʃ ə$aə$1$Vicc$Viq$NO
-USB$USB$NCMN000$ˈu_ˈe . s ə_b ˈe$ˈuˈeəˈe$e$e$1$NO$Viq$NO
-UTE$UTE$NCFN000$ˈu . t ə$ˈuə$u . t ə$uə$2$NO$Viq$NO
 UV$UV$NPFSO00$ˈu_b ˈe_b ˈa ʃ ə$ˈuˈeˈaə$a ʃ ə$aə$1$Vicc$Viq$NO
-UVI$UVI$NCFS000$ˈu . β i$ˈui$u . β i$ui$2$NO$Viq$NO
-UVic$UVic$NPFSO00$u . b ˈi k$uˈi$i k$i$2$Vicc$Viq$NO
-UdA$UdA$NPFSO00$ˈu . ð ə$ˈuə$u . ð ə$uə$2$Vicc$Viq$NO
-UdG$UdG$NPFSO00$ˈu d . ʒ ə_$ˈuə$u d . ʒ ə_$uə$1$Vicc$Viq$NO
-UdL$UdL$NPFSO00$u . d ˈɛ . l ə_$uˈɛə$ɛ . l ə_$ɛə$1$Vicc$Viq$NO
-Ulan-Ude$Ulan-Ude$NPCSG00$u . l ˈa n_ˈu . ð ə$uˈaˈuə$u . ð ə$uə$4$NO$Viq$NO
-VAB$VAB$NCMN000$b ˈa p$ˈa$a p$a$1$NO$Viq$NO
-VAR$VAR$NCMS000$b ˈa$ˈa$a$a$1$NO$Viq$NO
-VIH$VIH$NCMS000$b ˈi . ɾ u s_d i m . m u . n u . ð ə . f i . s i . ˈɛ n . s i . ə_u . m ˈa . n ə$ˈiuiuuəiiˈɛiəuˈaə$a . n ə$aə$1$NO$Viq$NO
-VLAN$VLAN$NCFN000$b ˈe_b ˈa ʃ ə_ˈe . l ə_ə_ˈe . n ə$ˈeˈaəˈeəəˈeə$e . n ə$eə$1$NO$Viq$NO
 VLC$VLC$NPFSG00$b ˈe_b ˈa ʃ ə_ˈe . l ə_s ˈe$ˈeˈaəˈeəˈe$e$e$1$NO$Viq$NO
 VLC$VLC$NPMSO00$b ˈe_b ˈa ʃ ə_ˈe . l ə_s ˈe$ˈeˈaəˈeəˈe$e$e$1$NO$Viq$NO
-VO$VO$NCFN000$b ˈe_b ˈa ʃ ə_ˈɔ$ˈeˈaəˈɔ$ɔ$ɔ$1$NO$Viq$NO
-VOS$VOS$NCFN000$b u s$u$b u s$u$1$Vicc$NO$NO
-VPH$VPH$NCMN000$b ˈe_b ˈa ʃ ə_p ˈe_ˈa g$ˈeˈaəˈeˈa$a g$a$1$NO$Viq$NO
-VPN$VPN$NCFN000$b ˈe_b ˈa ʃ ə_p ˈe_ˈe . n ə$ˈeˈaəˈeˈeə$e . n ə$eə$1$NO$Viq$NO
-VTC$VTC$NCCN000$b ˈe_b ˈa ʃ ə_t ˈe_s ˈe$ˈeˈaəˈeˈe$e$e$1$NO$Viq$NO
-Val-d'Isère$Val-d'Isère$NPCSG00$b ˈa l_d i . z ˈɛ . ɾ ə$ˈaiˈɛə$ɛ . ɾ ə$ɛə$4$NO$Viq$NO
-Val-d'Oise$Val-d'Oise$NPCSG00$b ˈa l d u j . z ə$ˈauə$a l d u j . z ə$auə$3$NO$Viq$NO
-Val-de-Marne$Val-de-Marne$NPCSG00$b ˈa l d ə m ə ɾ . n ə$ˈaəəə$a l d ə m ə ɾ . n ə$aəəə$4$NO$Viq$NO
-Vall-Llobrega$Vall-Llobrega$NPFSG00$b ˈa ʎ_ʎ u . β ɾ ˈɛ . g ə$ˈauˈɛə$ɛ . g ə$ɛə$4$NO$Viq$NO
-Vaulx-en-Velin$Vaulx-en-Velin$NPCSG00$b ə w . l ˈi k s__ə n_b ˈɛ . l i n$əˈiəˈɛi$ɛ . l i n$ɛi$4$NO$Viq$NO
-VideoLAN$VideoLAN$NPMSO00$b i . ð ə . u . l ˈa n$iəuˈa$a n$a$4$NO$Viq$NO
-Vigneux-sur-Seine$Vigneux-sur-Seine$NPCSG00$b i g . n ˈe w k s s u ɾ s ə j . n ə$iˈeuəə$e w k s s u ɾ s ə j . n ə$euəə$5$NO$Viq$NO
-VilaWeb$VilaWeb$NPCSO00$b i . l ə . w ˈɛ p$iəˈɛ$ɛ p$ɛ$3$NO$Viq$NO
-Vilanuèva-d'Òlt$Vilanuèva-d'Òlt$NPCSG00$b i . l ə . n u . ˈɛ . b ə_d ˈɔ l$iəuˈɛəˈɔ$ɔ l$ɔ$6$NO$Viq$NO
-Villa-Lobos$Villa-Lobos$NPCNSP0$b ˈi . ʎ ə_l ˈo . b u s$ˈiəˈou$o . b u s$ou$4$NO$Viq$NO
-Villeneuve-Saint-Georges$Villeneuve-Saint-Georges$NPCSG00$b i . ʎ ə . n ˈe w . b ə_s ə . ˈi n _ʒ ə . ˈɔ ɾ . ʒ ə s$iəˈeəəˈiəˈɔə$ɔ ɾ . ʒ ə s$ɔə$9$NO$Viq$NO
-Villeneuve-d'Ascq$Villeneuve-d'Ascq$NPCSG00$b i . ʎ ə . n ˈe w . b ə_d ˈa s k$iəˈeəˈa$a s k$a$5$NO$Viq$NO
-Villeneuve-la-Garenne$Villeneuve-la-Garenne$NPCSG00$b i . ʎ ə . n ˈe w . b ə l ə g ə . ɾ ə . n ə$iəˈeəəəəə$e w . b ə l ə g ə . ɾ ə . n ə$eəəəəə$8$NO$Viq$NO
-Villeneuve-le-Roi$Villeneuve-le-Roi$NPCSG00$b i . ʎ ə . n ˈe w . b ə_l ˈe_r ˈɔ j$iəˈeəˈeˈɔ$ɔ j$ɔ$6$NO$Viq$NO
-Villers-Cotterêts$Villers-Cotterêts$NPCSG00$b i . ʎ ˈe s_k u . t ə . ɾ ˈɛ t s$iˈeuəˈɛ$ɛ t s$ɛ$4$NO$Viq$NO
-Villiers-le-Bel$Villiers-le-Bel$NPCSG00$b i . ʎ i . ˈe s_l ˈe_b ˈɛ l$iiˈeˈeˈɛ$ɛ l$ɛ$5$NO$Viq$NO
-Villiers-sur-Marne$Villiers-sur-Marne$NPCSG00$b i . ʎ i . ˈe ɾ s s u ɾ m ə ɾ . n ə$iiˈeuəə$e ɾ s s u ɾ m ə ɾ . n ə$euəə$6$NO$Viq$NO
-Viollet-le-Duc$Viollet-le-Duc$NPCNSP0$b i . u . ʎ ˈɛ t_l ˈe_d ˈu k$iuˈɛˈeˈu$u k$u$5$NO$Viq$NO
-Vitry-sur-Seine$Vitry-sur-Seine$NPCSG00$b ˈi . t ɾ i s u ɾ s ə j . n ə$ˈiiuəə$i . t ɾ i s u ɾ s ə j . n ə$iiuəə$4$NO$Viq$NO
-Voll-Damm$Voll-Damm$NPFNO00$b ˈɔ ʎ_d ə . m ˈɛ . m ə_$ˈɔəˈɛə$ɛ . m ə_$ɛə$2$NO$Viq$NO
-Vélez-Málaga$Vélez-Málaga$NPCSG00$b ˈe . l ə s_m ˈa . l ə . ɣ ə$ˈeəˈaəə$a . l ə . ɣ ə$aəə$5$NO$Viq$NO
-Vélizy-Villacoublay$Vélizy-Villacoublay$NPCSG00$b ˈe . l i . z j_b i . ʎ ə . k ɔ w . b l ˈa j$ˈeiiəɔˈa$a j$a$6$NO$Viq$NO
-WC$WC$NCMN000$b ˈe_d ˈo . b l ə_s ˈe$ˈeˈoəˈe$e$e$1$NO$Viq$NO
-WhatsApp$WhatsApp$NPMNO00$b ˈe_d ˈo . b l ə_ə t . s ˈa p . p ə_$ˈeˈoəəˈaə$a p . p ə_$aə$2$NO$Viq$NO
-Wi-Fi$Wi-Fi$NCCN000$w ˈi_f ˈi$ˈiˈi$i$i$2$Vicc$Viq$NO
-WikiLeaks$WikiLeaks$NPMNO00$w i . k i . l e . ə . k ˈɛ . s ə_$iieəˈɛə$ɛ . s ə_$ɛə$4$NO$Viq$NO
-Wilkes-Barre$Wilkes-Barre$NPCSG00$w ˈi l . k ə s_b ˈa . r ə$ˈiəˈaə$a . r ə$aə$4$NO$Viq$NO
-WinRAR$WinRAR$NPCNO00$w i n . r ˈa$iˈa$a$a$2$NO$Viq$NO
-Winston-Salem$Winston-Salem$NPCSG00$w i n s . t ˈo n_s ə . l ˈɛ m$iˈoəˈɛ$ɛ m$ɛ$4$NO$Viq$NO
-WordPress$WordPress$NPMNO00$w u ɾ d . p ɾ ˈe s$uˈe$e s$e$2$NO$Viq$NO
-X-Men$X-Men$NPCNO00$ˈi k s_m ˈɛ n$ˈiˈɛ$ɛ n$ɛ$2$NO$Viq$NO
-XL$XL$AQ0CN0$ˈi k s_ˈe . l ə$ˈiˈeə$e . l ə$eə$1$Vicc$NO$NO
-XML$XML$NCMN000$ˈi k s_ˈe . m ə_ˈe . l ə$ˈiˈeəˈeə$e . l ə$eə$1$NO$Viq$NO
-XS$XS$NCFN000$ˈi k s_ˈe . s ə$ˈiˈeə$e . s ə$eə$1$Vicc$NO$NO
-XXL$XXL$AQ0CN0$ˈi k s_ˈi k s_ˈe . l ə$ˈiˈiˈeə$e . l ə$eə$1$Vicc$NO$NO
-XXXL$XXXL$AQ0CN0$ˈi k s_ˈi k s_ˈi k s_ˈe . l ə$ˈiˈiˈiˈeə$e . l ə$eə$1$Vicc$NO$NO
-Xampanya-Ardenes$Xampanya-Ardenes$NPCSG00$ʃ ə m . p ˈa . ɲ ə_ə ɾ . d ˈɛ . n ə s$əˈaəəˈɛə$ɛ . n ə s$ɛə$6$NO$Viq$NO
-YouTube$YouTube$NPMSO00$j ɔ w . t ˈu . β ə$ɔˈuə$u . β ə$uə$3$NO$Viq$NO
-Yverdon-les-Bains$Yverdon-les-Bains$NPCSG00$i_g ɾ ˈe . g ə_b ə ɾ . d ˈo n_l ə s_b ˈa j n s$iˈeəəˈoəˈa$a j n s$a$5$NO$Viq$NO
-ZER$ZER$NCFN000$z ˈe$ˈe$e$e$1$Vicc$Viq$NO
-mRNA$mRNA$NCMN000$ˈe . m ə_ˈɛ . r ə_n ˈa$ˈeəˈɛəˈa$a$a$2$NO$Viq$NO
-phpBB$phpBB$NPMSO00$p ˈe_ˈa g_p ˈe_b ˈe_b ˈe_$ˈeˈaˈeˈeˈe$e_$e$1$NO$Viq$NO
-Àustria-Este$Àustria-Este$NPCNSP0$ˈa w s . t ɾ i . ə ə s . t ə$ˈaiəəə$a w s . t ɾ i . ə ə s . t ə$aiəəə$5$NO$Viq$NO
-Àustria-Hongria$Àustria-Hongria$NPFSG00$ˈa w s . t ɾ i . ə_u n . g ɾ ˈi . ə$ˈaiəuˈiə$i . ə$iə$6$NO$Viq$NO
-Épinay-sur-Seine$Épinay-sur-Seine$NPCSG00$ˈe . p i . n ə . i s u ɾ s ə j . n ə$ˈeiəiuəə$e . p i . n ə . i s u ɾ s ə j . n ə$eiəiuəə$6$NO$Viq$NO
-Équeurdreville-Hainneville$Équeurdreville-Hainneville$NPCSG00$ˈe . k ə w ɾ . d ɾ ə . β i . ʎ ə_ə j . n ə . β ˈi . ʎ ə$ˈeəəiəəəˈiə$i . ʎ ə$iə$9$NO$Viq$NO

@@ -1,0 +1,28 @@
+
+#footer {
+    color: black;
+    text-align: center;
+    padding: 15px;
+    bottom: 0;
+    width: 100%;
+}
+
+#footer a {
+    color: rgb(179, 1, 1); /* Color normal */
+    text-decoration: none; /* Elimina el subratllat */
+}
+
+#footer a:hover {
+    color: #00ffff; /* Color quan el ratolí passa per sobre */
+    font-family: 'Comic Sans MS';
+    text-decoration: underline; /* Elimina el subratllat */
+
+}
+
+#footer a:active {
+    color: #01b7b7; /* Color mentre es clica */
+}
+
+#footer a:visited {
+    color: rgb(179, 1, 1); /* Color després d'haver estat visitat */
+}

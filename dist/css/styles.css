@@ -487,6 +487,12 @@ li {
     font-weight: lighter;
 }
 
+#text_presentació p {
+    margin: 30px;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
 #text_presentació a {
     color: #ff00ff; /* Canvia el color del text */
     text-decoration: none;
@@ -503,10 +509,42 @@ li {
     text-decoration: underline;
 }
 
-
 #text_presentació a:active { /* Color mentre es clica */
     color: #606060; 
 }
+
+#arimar a {
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: none;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 27px;
+    font-family: 'Comic Sans MS';
+    font-weight: bold;
+    position: relative; /* Afegeix position: relative perquè el pseudoelement funcioni */
+}
+
+#arimar a:hover {
+    background: linear-gradient(to left, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: none;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+#arimar a:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;  /* Ajusta la posició del subratllat */
+    left: 0;
+    width: 100%;
+    height: 2px;  /* Grosor del subratllat */
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); /* Color inicial */
+}
+
+#arimar a:hover:after {
+    background: linear-gradient(to left, red, orange, yellow, green, blue, indigo, violet); /* El gradient canvia de direcció quan el ratolí passa per sobre */
+}
+
 body {
     overflow-y: auto;
     overflow-x: hidden;

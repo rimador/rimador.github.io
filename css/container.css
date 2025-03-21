@@ -5,6 +5,13 @@
     top: 0px
 }
 
+#separador_rosa_nosaltres{
+    background-color: #FF91FF;
+    height: 60px;
+    position: sticky;
+    top: 0px
+}
+
 #separador_rosa2{
     background-color: #FF91FF;
     height: 40px;

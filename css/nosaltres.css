@@ -1,0 +1,36 @@
+#text_presentació {
+    background-color: #00ffff;
+    padding: 20px;
+    text-align: center;
+    margin: 150px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+    display: block;
+    justify-content: flex-start;
+    align-items: center;    
+    position: sticky;
+    top: 40px;
+    font-weight: lighter
+}
+
+#text_presentació a {
+    color: #ff00ff; /* Canvia el color del text */
+    text-decoration: none;
+    font-weight: bold; /* Fa el text més destacat */
+}
+
+#text_presentació a[id^="link"] {
+    text-decoration: underline; 
+}
+
+#text_presentació a:hover { /* Quan el ratolí passa per sobre */
+    color: rgb(0, 145, 0); 
+    font-family: 'Comic Sans MS';
+    text-decoration: underline;
+}
+
+
+#text_presentació a:active { /* Color mentre es clica */
+    color: #606060; 
+}

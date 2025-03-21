@@ -1,0 +1,155 @@
+a$a$NCFS000$ə$ə$ə$ə$1$Vicc$Viq$Diec
+a$a$ZSPS00$ə$ə$ə$ə$1$Vicc$Viq$Diec
+Aberystwyth$Aberystwyth$NPCSG00$ə . β ə . ɾ i s . t w i t$əəii$ə . β ə . ɾ i s . t w i t$əəii$2$NO$Viq$NO
+al$a+el$ZSP+DA$ə l$ə$ə l$ə$1$Vicc$Viq$NO
+Als$Als$NPCSG00$ə l s$ə$ə l s$ə$1$NO$Viq$NO
+als$a+els$ZSP+DA$ə l s$ə$ə l s$ə$1$Vicc$Viq$NO
+Antim$Antim$NPMSSP0$ˌa n . t i m$ai$ˌa n . t i m$ai$2$NO$Viq$NO
+antis$anti$AQ0CP0$ˌa n . t i s$ai$ˌa n . t i s$ai$2$NO$NO$Diec
+antis$anti$NCCP000$ˌa n . t i s$ai$ˌa n . t i s$ai$2$NO$NO$Diec
+Antist$Antist$NPCSG00$ˌa n . t i s t$ai$ˌa n . t i s t$ai$2$NO$Viq$NO
+aquagym$aquagym$NCMS000$ə . k w ə . g i m$əəi$ə . k w ə . g i m$əəi$2$NO$Viq$NO
+Århus$Århus$NPCSG00$a ɾ u s$au$a ɾ u s$au$1$NO$Viq$NO
+Blantyre$Blantyre$NPCSG00$b l ə n . t i . ɾ ə$əiə$b l ə n . t i . ɾ ə$əiə$2$NO$Viq$NO
+boîte$boîte$NCFS000$b u t ə$uə$b u t ə$uə$1$Vicc$NO$NO
+boîtes$boîte$NCFP000$b u t ə s$uə$b u t ə s$uə$1$Vicc$NO$NO
+bokmål$bokmål$AQ0CN0$b u k . m a l$ua$b u k . m a l$ua$2$NO$Viq$NO
+Brooklyn$Brooklyn$NPCSG00$b ɾ u . u . k l i n$uui$b ɾ u . u . k l i n$uui$2$NO$Viq$NO
+byte$byte$NCMS000$b i . t ə$iə$b i . t ə$iə$1$Vicc$Viq$Diec
+bytes$byte$NCMP000$b i . t ə s$iə$b i . t ə s$iə$1$Vicc$Viq$Diec
+Clyde$Clyde$NPCSG00$k l i . d ə$iə$k l i . d ə$iə$2$NO$Viq$NO
+contrac$contreure$VMIP1S00$k ˌo n . t ɾ ə k$oə$k ˌo n . t ɾ ə k$oə$2$Vicc$NO$Diec
+contralt$contralt$AQ0CS0$k ˌo n . t ɾ ə l$oə$k ˌo n . t ɾ ə l$oə$2$Vicc$Viq$Diec
+contralt$contralt$NCCS000$k ˌo n . t ɾ ə l$oə$k ˌo n . t ɾ ə l$oə$2$Vicc$Viq$Diec
+contralts$contralt$AQ0CP0$k ˌo n . t ɾ ə l s$oə$k ˌo n . t ɾ ə l s$oə$2$Vicc$Viq$Diec
+contralts$contralt$NCCP000$k ˌo n . t ɾ ə l s$oə$k ˌo n . t ɾ ə l s$oə$2$Vicc$Viq$Diec
+contrasts$contrast$NCMP000$k ˌo n . t ɾ ə s t s$oə$k ˌo n . t ɾ ə s t s$oə$2$Vicc$NO$Diec
+de$de$NCFS000$d ə$ə$d ə$ə$1$Vicc$Viq$Diec
+de$de$ZSPS00$d ə$ə$d ə$ə$1$Vicc$Viq$Diec
+del$de+el$ZSP+DA$d ə l$ə$d ə l$ə$1$Vicc$NO$NO
+dels$de+els$ZSP+DA$d ə l s$ə$d ə l s$ə$1$Vicc$NO$NO
+el$el$DA0MS0$ə l$ə$ə l$ə$1$Vicc$Viq$Diec
+el$ell$PP3MSA00$ə l$ə$ə l$ə$1$Vicc$Viq$Diec
+els$el$DA0MP0$ə l s$ə$ə l s$ə$1$Vicc$NO$Diec
+els$ell$PP3CP000$ə l s$ə$ə l s$ə$1$Vicc$NO$Diec
+em$jo$P010S000$ə m$ə$ə m$ə$1$Vicc$NO$Diec
+em$jo$PP1CS000$ə m$ə$ə m$ə$1$Vicc$NO$Diec
+en$en$DA0MS0$ə n$ə$ə n$ə$1$Vicc$Viq$Diec
+en$en$PP3CN000$ə n$ə$ə n$ə$1$Vicc$Viq$Diec
+en$en$ZSPS00$ə n$ə$ə n$ə$1$Vicc$Viq$Diec
+ens$ens$NCMN000$ə n s$ə$ə n s$ə$1$Vicc$Viq$Diec
+ens$jo$P010P000$ə n s$ə$ə n s$ə$1$Vicc$Viq$Diec
+ens$jo$PP1CP000$ə n s$ə$ə n s$ə$1$Vicc$Viq$Diec
+es$e$NCFP000$ə s$ə$ə s$ə$1$Vicc$Viq$Diec
+es$es$DA0MN0$ə s$ə$ə s$ə$1$Vicc$Viq$Diec
+es$es$P0300000$ə s$ə$ə s$ə$1$Vicc$Viq$Diec
+et$tu$P020S000$ə d$ə$ə d$ə$1$Vicc$Viq$Diec
+et$tu$PP2CS000$ə d$ə$ə d$ə$1$Vicc$Viq$Diec
+Evelyn$Evelyn$NPCNSP0$ə . β ə . l i n$əəi$ə . β ə . l i n$əəi$2$NO$Viq$NO
+exabyte$exabyte$NCMS000$ˌɛ g . z ə . b i . t ə$ɛəiə$ˌɛ g . z ə . b i . t ə$ɛəiə$2$NO$Viq$NO
+fins$fi$AQ0MP0$f i n s$i$f i n s$i$1$Vicc$Viq$Diec
+fins$fi$NCCP000$f i n s$i$f i n s$i$1$Vicc$Viq$Diec
+fins$fins$ZRG$f i n s$i$f i n s$i$1$Vicc$Viq$Diec
+fins$fins$ZSPS00$f i n s$i$f i n s$i$1$Vicc$Viq$Diec
+fynbos$fynbo$NCMP000$f i m . b u s$iu$f i m . b u s$iu$2$NO$Viq$NO
+gigabyte$gigabyte$NCMS000$ʒ i . ɣ ə . b i . t ə$iəiə$ʒ i . ɣ ə . b i . t ə$iəiə$2$NO$Viq$NO
+Glåma$Glåma$NPCSG00$g l a . m ə$aə$g l a . m ə$aə$2$NO$Viq$NO
+hi$hi$PP3CN000$i$i$i$i$1$Vicc$NO$Diec
+ho$ho$PP3NN000$u$u$u$u$1$Vicc$Viq$Diec
+i$i$ZCC$i$i$i$i$1$Vicc$Viq$Diec
+i$i$NCFS000$i$i$i$i$1$Vicc$Viq$Diec
+Jyväskylä$Jyväskylä$NPCSG00$ʒ i . b a s . k i . l a$iaia$ʒ i . b a s . k i . l a$iaia$1$NO$Viq$NO
+kilobyte$kilobyte$NCMS000$k i . l u . b i . t ə$iuiə$k i . l u . b i . t ə$iuiə$2$NO$Viq$NO
+kilobytes$kilobyte$NCMP000$k i . l u . b i . t ə s$iuiə$k i . l u . b i . t ə s$iuiə$2$NO$Viq$NO
+Kintyre$Kintyre$NPCSG00$k i n . t i . ɾ ə$iiə$k i n . t i . ɾ ə$iiə$2$NO$Viq$NO
+Kyzyl$Kyzyl$NPCSG00$k i . z i l$ii$k i . z i l$ii$1$NO$Viq$NO
+la$el$DA0FS0$l ə$ə$l ə$ə$1$Vicc$Viq$Diec
+la$ell$PP3FSA00$l ə$ə$l ə$ə$1$Vicc$Viq$Diec
+la$la$ZI$l ə$ə$l ə$ə$1$Vicc$Viq$Diec
+la$la$NCMS000$l ə$ə$l ə$ə$1$Vicc$Viq$Diec
+les$el$DA0FP0$l ə s$ə$l ə s$ə$1$Vicc$Viq$Diec
+les$ell$PP3FPA00$l ə s$ə$l ə s$ə$1$Vicc$Viq$Diec
+les$les$AQ0MS0$l ə s$ə$l ə s$ə$1$Vicc$Viq$Diec
+lo$lo$DA0MS0$l u$u$l u$u$1$Vicc$NO$Diec
+los$lo$DA0MP0$l u s$u$l u s$u$1$Vicc$NO$Diec
+Lydda$Lydda$NPCSG00$l i . d ə$iə$l i . d ə$iə$2$NO$Viq$NO
+lyn$lyn$NCFS000$l i n$i$l i n$i$1$NO$Viq$NO
+ma$mon$DP1FSS$m ə$ə$m ə$ə$1$Vicc$Viq$Diec
+maître$maître$NCCS000$m ə t . ɾ ə$əə$m ə t . ɾ ə$əə$2$Vicc$Viq$Diec
+maîtres$maître$NCCP000$m ə t . ɾ ə s$əə$m ə t . ɾ ə s$əə$2$Vicc$NO$Diec
+Marilyn$Marilyn$NPFSSP0$m ə . ɾ i . l i n$əii$m ə . ɾ i . l i n$əii$2$Vicc$Viq$NO
+megabyte$megabyte$NCMS000$m ə . ɣ ə . b i . t ə$əəiə$m ə . ɣ ə . b i . t ə$əəiə$2$NO$Viq$NO
+mon$mon$DP1MSS$m u n$u$m u n$u$1$Vicc$Viq$Diec
+Monghyr$Monghyr$NPCSG00$m u n g i$ui$m u n g i$ui$1$NO$Viq$NO
+Mos$Mos$NPCSG00$m u s$u$m u s$u$1$NO$Viq$NO
+mos$mon$DP1MPS$m u s$u$m u s$u$1$Vicc$Viq$Diec
+mos$mos$NCMS000$m u s$u$m u s$u$1$Vicc$Viq$Diec
+ni$ni$ZCC$n i$i$n i$i$1$Vicc$Viq$Diec
+ni$ni$NCFS000$n i$i$n i$i$1$Vicc$Viq$Diec
+nos$no$NCMP000$n u s$u$n u s$u$1$Vicc$Viq$Diec
+OpenType$OpenType$NPCNO00$u . p ə n . t i . p ə$uəiə$u . p ə n . t i . p ə$uəiə$3$NO$Viq$NO
+pel$per+el$ZSP+DA$p ə l$ə$p ə l$ə$1$Vicc$Viq$NO
+pels$per+els$ZSP+DA$p ə l s$ə$p ə l s$ə$1$Vicc$NO$NO
+per$per$NCMS000$p ə ɾ$ə$p ə ɾ$ə$1$Vicc$Viq$Diec
+per$per$ZSPS00$p ə ɾ$ə$p ə ɾ$ə$1$Vicc$Viq$Diec
+petabyte$petabyte$NCMS000$p ə . t ə . b i . t ə$əəiə$p ə . t ə . b i . t ə$əəiə$2$NO$Viq$NO
+posts$pondre$VMP00PM0$p ˌɔ s t s$ɔ$p ˌɔ s t s$ɔ$1$Vicc$Viq$Diec
+posts$post$NCMP000$p ˌɔ s t s$ɔ$p ˌɔ s t s$ɔ$1$Vicc$Viq$Diec
+posts$post$NCFP000$p ˌɔ s t s$ɔ$p ˌɔ s t s$ɔ$1$Vicc$Viq$Diec
+prefixen$prefixar$VMIP3P00$p ɾ ə . f i k . s ə n$əiə$p ɾ ə . f i k . s ə n$əiə$3$NO$NO$Diec
+que$que$ZCC$k ə$ə$k ə$ə$1$Vicc$Viq$Diec
+que$que$PR0CN000$k ə$ə$k ə$ə$1$Vicc$Viq$Diec
+que$que$ZRG$k ə$ə$k ə$ə$1$Vicc$Viq$Diec
+sa$es$DA0FS0$s ə$ə$s ə$ə$1$Vicc$Viq$Diec
+sa$sa$AQ0MS0$s ə$ə$s ə$ə$1$Vicc$Viq$Diec
+sa$son$DP3FSC$s ə$ə$s ə$ə$1$Vicc$Viq$Diec
+Schwyz$Schwyz$NPCSG00$s ʃ w i s$i$s ʃ w i s$i$1$NO$Viq$NO
+se$es$P0300000$s ə$ə$s ə$ə$1$Vicc$Viq$Diec
+semin$semar$VMM03P0Y$s ˌɛ . m i n$ɛi$s ˌɛ . m i n$ɛi$2$NO$Viq$Diec
+semin$semar$VMSP3P0Y$s ˌɛ . m i n$ɛi$s ˌɛ . m i n$ɛi$2$NO$Viq$Diec
+semis$semar$VMSP2S0Y$s ˌɛ . m i s$ɛi$s ˌɛ . m i s$ɛi$2$NO$Viq$Diec
+semis$semis$NCMN000$s ˌɛ . m i s$ɛi$s ˌɛ . m i s$ɛi$2$NO$Viq$Diec
+ses$es$DA0FP0$s ə s$ə$s ə s$ə$1$Vicc$Viq$Diec
+ses$ses$NCMS000$s ə s$ə$s ə s$ə$1$Vicc$Viq$Diec
+ses$son$DP3FPC$s ə s$ə$s ə s$ə$1$Vicc$Viq$Diec
+Skyros$Skyros$NPCSG00$s k i . ɾ u s$iu$s k i . ɾ u s$iu$2$NO$Viq$NO
+So$So$NPCNSP0$s u$u$s u$u$1$NO$Viq$NO
+so$es$DA0MS0$s u$u$s u$u$1$Vicc$Viq$Diec
+so$so$NCMS000$s u$u$s u$u$1$Vicc$Viq$Diec
+sobrem$sobrar$VMIP1P00$s ˌo . b ɾ ə m$oə$s ˌo . b ɾ ə m$oə$2$Vicc$NO$Diec
+sobrem$sobrar$VMM01P00$s ˌo . b ɾ ə m$oə$s ˌo . b ɾ ə m$oə$2$Vicc$NO$Diec
+sobrem$sobrar$VMSP1P00$s ˌo . b ɾ ə m$oə$s ˌo . b ɾ ə m$oə$2$Vicc$NO$Diec
+sobren$sobrar$VMIP3P00$s ˌo . b ɾ ə n$oə$s ˌo . b ɾ ə n$oə$2$Vicc$NO$Diec
+sobres$sobra$NCFP000$s ˌo . b ɾ ə s$oə$s ˌo . b ɾ ə s$oə$2$Vicc$NO$Diec
+sobres$sobrar$VMIP2S00$s ˌo . b ɾ ə s$oə$s ˌo . b ɾ ə s$oə$2$Vicc$NO$Diec
+sobres$sobre$NCMP000$s ˌo . b ɾ ə s$oə$s ˌo . b ɾ ə s$oə$2$Vicc$NO$Diec
+Sos$Sos$NPCSG00$s u s$u$s u s$u$1$NO$Viq$NO
+sos$son$DP3MPC$s u s$u$s u s$u$1$Vicc$Viq$Diec
+Strathclyde$Strathclyde$NPCSG00$s t ɾ ə t k . l i . d ə$əiə$s t ɾ ə t k . l i . d ə$əiə$2$NO$Viq$NO
+sufixen$sufixar$VMIP3P00$s u . f i k . s ə n$uiə$s u . f i k . s ə n$uiə$3$NO$NO$Diec
+sufixes$sufix$AQ0FP0$s u . f i k . s ə s$uiə$s u . f i k . s ə s$uiə$3$NO$NO$Diec
+sufixes$sufixar$VMIP2S00$s u . f i k . s ə s$uiə$s u . f i k . s ə s$uiə$3$NO$NO$Diec
+ta$ton$DP2FSS$t ə$ə$t ə$ə$1$Vicc$Viq$Diec
+te$te$NCFS000$t ə$ə$t ə$ə$1$Vicc$Viq$Diec
+te$te$NCMS000$t ə$ə$t ə$ə$1$Vicc$Viq$Diec
+te$tu$P020S000$t ə$ə$t ə$ə$1$Vicc$Viq$Diec
+te$tu$PP2CS000$t ə$ə$t ə$ə$1$Vicc$Viq$Diec
+terabyte$terabyte$NCMS000$t ə . ɾ ə . b i . t ə$əəiə$t ə . ɾ ə . b i . t ə$əəiə$2$NO$Viq$NO
+tes$te$NCFP000$t ə s$ə$t ə s$ə$1$Vicc$NO$Diec
+tes$te$NCMP000$t ə s$ə$t ə s$ə$1$Vicc$NO$Diec
+tes$tes$AQ0MS0$t ə s$ə$t ə s$ə$1$Vicc$NO$Diec
+tes$ton$DP2FPS$t ə s$ə$t ə s$ə$1$Vicc$NO$Diec
+Thyssen$Thyssen$NPCNSP0$t i . s ə n$iə$t i . s ə n$iə$2$NO$Viq$NO
+ton$ton$DP2MSS$t u n$u$t u n$u$1$Vicc$Viq$Diec
+ton$tondre$VMIP3S00$t u n$u$t u n$u$1$Vicc$Viq$Diec
+ton$tondre$VMM02S00$t u n$u$t u n$u$1$Vicc$Viq$Diec
+TrueType$TrueType$NPCNO00$t ɾ u . ə . t i . p ə$uəiə$t ɾ u . ə . t i . p ə$uəiə$3$NO$Viq$NO
+Tychy$Tychy$NPCSG00$t i . ʃ j$i$t i . ʃ j$i$1$NO$Viq$NO
+Tyne$Tyne$NPCSG00$t i . n ə$iə$t i . n ə$iə$2$NO$Viq$NO
+us$tu$P020P000$u s$u$u s$u$1$Vicc$Viq$Diec
+us$tu$PP2CP000$u s$u$u s$u$1$Vicc$Viq$Diec
+us$u$NCFP000$u s$u$u s$u$1$Vicc$Viq$Diec
+vos$tu$P020P000$b u s$u$b u s$u$1$Vicc$NO$Diec
+vos$tu$PP2CP000$b u s$u$b u s$u$1$Vicc$NO$Diec
+yottabyte$yottabyte$NCMS000$j u . t ə . b i . t ə$uəiə$j u . t ə . b i . t ə$uəiə$2$NO$Viq$NO
+zettabyte$zettabyte$NCMS000$z ə . t ə . b i . t ə$əəiə$z ə . t ə . b i . t ə$əəiə$2$NO$Viq$NO

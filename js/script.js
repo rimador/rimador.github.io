@@ -1,5 +1,17 @@
-const debugLevel = 4; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
-const VERSIO_FITXERS = 'v1'; // Incrementar quan canviin els fitxers
+const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
+const VERSIONS_FITXERS = {
+  "col_0.txt": "v1", //paraula
+  "col_1.txt": "v1", //d'on prové
+  "col_2.txt": "v1", //codi
+  //col_3 - transcripció sencera
+  //col_4 - totes les vocals
+  "col_5.txt": "v1", //consonant
+  "col_6.txt": "v1", //assonant
+  "col_7.txt": "v1", //síl·labes
+  "col_8.txt": "v1", //Vicc
+  "col_9.txt": "v1", //Viq
+  "col_10.txt": "v1" //Diec
+};
 
 const Debug = {
     log: debugLevel >= 3 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},
@@ -8,6 +20,14 @@ const Debug = {
     logTimeEnd: debugLevel >= 4 ? (label) => console.timeEnd(`[TIMER] ${label}`) : () => {},
     contador: debugLevel >= 1 ? (label) => console.log(`[COUNTER] ${label}`) : () => {},
 };
+
+if (debugLevel >= 3) {
+  window.addEventListener('DOMContentLoaded', () => {
+    const boto = document.getElementById("botoNetejarCache");
+    if (boto) boto.style.display = "block";
+  });
+}
+
 
 let array0, array1, array2, array5, array6, array7, array8, array9, array10;
 let fitxersLlegits = 0;
@@ -71,35 +91,50 @@ function guardarFitxer(db, nom, contingut, versio) {
 }
 
 // --- LECTURA AMB INDEXEDDB + VERSIÓ + BACKUP ---
-async function llegirFitxerAmbIndexedDB(url) {
-    const nom = url.split('/').pop();
+async function llegirFitxerAmbIndexedDB(rutaFitxer) {
+  const nomFitxer = rutaFitxer.split("/").pop();
+  const versioActual = VERSIONS_FITXERS[nomFitxer] || "v1"; // Fallback
 
-    try {
-        const db = await obrirIndexedDB();
-        if (!db) throw new Error('IndexedDB no disponible');
+  try {
+    const db = await obrirIndexedDB();
+    if (!db) throw new Error("IndexedDB no disponible");
 
-        const registre = await recuperarFitxer(db, nom);
-        if (registre && registre.versio === VERSIO_FITXERS) {
-            Debug.log(`${nom} carregat d'IndexedDB`);
-            fitxersLlegits++;
-            document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
-            return processarFitxerDeText(registre.contingut);
-        }
+    const fitxerDesat = await recuperarFitxer(db, nomFitxer);
+    Debug.log(`Comparant versions: guardada=${fitxerDesat?.versio}, actual=${versioActual}`);
 
-        Debug.log(`${nom} obsolet o no trobat, fent fetch...`);
-        const contingut = await fetchFitxer(url);
-        await guardarFitxer(db, nom, contingut, VERSIO_FITXERS);
-        Debug.log(`${nom} guardat a IndexedDB amb nova versió`);
-        fitxersLlegits++;
-        document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
-        return processarFitxerDeText(contingut);
-    } catch (error) {
-        Debug.logError(`IndexedDB fallida per ${nom}, intentant fetch directe`);
-        const contingut = await fetchFitxer(url);
-        fitxersLlegits++;
-        document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
-        return processarFitxerDeText(contingut);
+    if (fitxerDesat && fitxerDesat.versio === versioActual) {
+      Debug.log(`${nomFitxer} carregat d'IndexedDB`);
+      fitxersLlegits++;
+      document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+      return processarFitxerEnParalel(fitxerDesat.contingut);
     }
+
+    Debug.log(`${nomFitxer} obsolet o no trobat, fent fetch...`);
+    const contingut = await fetchFitxer(rutaFitxer);
+    await guardarFitxer(db, nomFitxer, contingut, versioActual);
+    Debug.log(`${nomFitxer} guardat a IndexedDB amb nova versió`);
+    fitxersLlegits++;
+    document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+    return processarFitxerEnParalel(contingut);
+
+  } catch (err) {
+    Debug.logError(`IndexedDB fallida per ${nomFitxer}, intentant fetch directe`);
+    const errorMsg = document.getElementById("error-msg");
+    if (errorMsg) errorMsg.textContent = `Problema amb cache. Carregant ${nomFitxer} manualment.`;
+
+    const contingut = await fetchFitxer(rutaFitxer);
+    fitxersLlegits++;
+    document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+    return processarFitxerEnParalel(contingut);
+  }
+}
+
+function processarFitxerEnParalel(contingut) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(processarFitxerDeText(contingut));
+    }, 0);
+  });
 }
 
 // --- FETCH NORMAL ---

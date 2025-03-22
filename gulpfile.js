@@ -38,7 +38,7 @@ gulp.task('default', gulp.series('styles', 'scripts', 'watch'));
 
 //Executar 
 //Terminal:
-// cd Dropbox/FERRAN/Portàtil/ALTRES/Python/**GitHub/rimador.github.io/
+// cd Dropbox/FERRAN/Portàtil/ALTRES/Python/**GitHub/RIMADOR/rimador.github.io/
 //després
 //npx gulp
 

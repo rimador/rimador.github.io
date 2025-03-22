@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const resultatFitxers = await Promise.all(camins.map(llegirFitxerAmbIndexedDB));
         [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultatFitxers;
-        Debug.log('Tots els fitxers carregats correctament');
+        console.log('Tots els fitxers carregats correctament');
 
         // Aquí pots cridar inicialitzacions o activar funcionalitats que necessitin els arrays
         document.getElementById("loader").style.display = "none";
@@ -103,13 +103,13 @@ async function llegirFitxerAmbIndexedDB(rutaFitxer) {
     Debug.log(`Comparant versions: guardada=${fitxerDesat?.versio}, actual=${versioActual}`);
 
     if (fitxerDesat && fitxerDesat.versio === versioActual) {
-      Debug.log(`${nomFitxer} carregat d'IndexedDB`);
+      console.log(`${nomFitxer} carregat d'IndexedDB`);
       fitxersLlegits++;
       document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
       return processarFitxerEnParalel(fitxerDesat.contingut);
     }
 
-    Debug.log(`${nomFitxer} obsolet o no trobat, fent fetch...`);
+    console.log(`${nomFitxer} obsolet o no guardat, fent fetch i guardant arxiu a Indexed`);
     const contingut = await fetchFitxer(rutaFitxer);
     await guardarFitxer(db, nomFitxer, contingut, versioActual);
     Debug.log(`${nomFitxer} guardat a IndexedDB amb nova versió`);

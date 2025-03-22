@@ -1,4 +1,4 @@
-const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
+const debugLevel = 4; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 const VERSIO_FITXERS = 'v1'; // Incrementar quan canviin els fitxers
 
 const Debug = {

@@ -1,4 +1,5 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
+const VERSIO_FITXERS = 'v1'; // Incrementar quan canviin els fitxers
 
 const Debug = {
     log: debugLevel >= 3 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},
@@ -6,79 +7,132 @@ const Debug = {
     logTime: debugLevel >= 4 ? (label) => console.time(`[TIMER] ${label}`) : () => {},
     logTimeEnd: debugLevel >= 4 ? (label) => console.timeEnd(`[TIMER] ${label}`) : () => {},
     contador: debugLevel >= 1 ? (label) => console.log(`[COUNTER] ${label}`) : () => {},
-
 };
 
-const cercaButton = document.getElementById('cercaButton');
-
-Debug.contador("Botó clicat, +1 GoatCounter")
-            
-//Llista de llistes.
 let array0, array1, array2, array5, array6, array7, array8, array9, array10;
 let fitxersLlegits = 0;
 let nombresDeFitxers = 9;
 
-document.addEventListener('DOMContentLoaded', () => {
-  Debug.logTime('Temps de càrrega')
-  Debug.log("Lectura de fitxers iniciada")
-  document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
-  
-let camins = [];
-let nombresSeleccionats = [0,1,2,5,6,7,8,9,10];
+const nombresSeleccionats = [0,1,2,5,6,7,8,9,10];
+const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
 
-for (let i of nombresSeleccionats) {
-  camins.push(`diccionaris/separat/col_${i}.txt`);
+document.addEventListener('DOMContentLoaded', async () => {
+    Debug.logTime('Temps de càrrega');
+    document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+
+    try {
+        const resultatFitxers = await Promise.all(camins.map(llegirFitxerAmbIndexedDB));
+        [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultatFitxers;
+        Debug.log('Tots els fitxers carregats correctament');
+
+        // Aquí pots cridar inicialitzacions o activar funcionalitats que necessitin els arrays
+        document.getElementById("loader").style.display = "none";
+    } catch (error) {
+        Debug.logError('Error en carregar els fitxers:', error);
+        document.getElementById("loader").style.display = "none";
+    } finally {
+        Debug.logTimeEnd('Temps de càrrega');
+    }
+});
+
+// --- FUNCIONS INDEXEDDB ---
+function obrirIndexedDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('rimadorDB', 1);
+        request.onerror = () => reject(null);
+        request.onsuccess = () => resolve(request.result);
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('fitxers')) {
+                db.createObjectStore('fitxers', { keyPath: 'nom' });
+            }
+        };
+    });
 }
 
-  Promise.all(camins.map(llegirIProcessarFitxer))
-    .then(resultats => {
-      Debug.log('Tots els fitxers s\'han processat correctament');
-      Debug.logTimeEnd('Temps de càrrega')
-      document.getElementById("loader").style.display = "none";
-
-      [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultats;
-    })
-    .catch(error => {
-      Debug.logError('Error en processar els fitxers:', error);
-      document.getElementById("loader").style.display = "none";
+function recuperarFitxer(db, nom) {
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction('fitxers', 'readonly');
+        const store = tx.objectStore('fitxers');
+        const req = store.get(nom);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(null);
     });
+}
 
-  function llegirIProcessarFitxer(url) {
-    return fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Error en llegir el fitxer ${url}`);
+function guardarFitxer(db, nom, contingut, versio) {
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction('fitxers', 'readwrite');
+        const store = tx.objectStore('fitxers');
+        store.put({ nom, contingut, versio });
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject();
+    });
+}
+
+// --- LECTURA AMB INDEXEDDB + VERSIÓ + BACKUP ---
+async function llegirFitxerAmbIndexedDB(url) {
+    const nom = url.split('/').pop();
+
+    try {
+        const db = await obrirIndexedDB();
+        if (!db) throw new Error('IndexedDB no disponible');
+
+        const registre = await recuperarFitxer(db, nom);
+        if (registre && registre.versio === VERSIO_FITXERS) {
+            Debug.log(`${nom} carregat d'IndexedDB`);
+            fitxersLlegits++;
+            document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+            return processarFitxerDeText(registre.contingut);
         }
-        return response.text();
-      })
-      .then(contingut => {
-        const resultats = processarFitxerDeText(contingut);
 
+        Debug.log(`${nom} obsolet o no trobat, fent fetch...`);
+        const contingut = await fetchFitxer(url);
+        await guardarFitxer(db, nom, contingut, VERSIO_FITXERS);
+        Debug.log(`${nom} guardat a IndexedDB amb nova versió`);
         fitxersLlegits++;
         document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
-        Debug.log(`Fitxers llegits: ${fitxersLlegits}/${nombresDeFitxers}`);
-        
-        return resultats;
-      })
-      .catch(error => {
-        Debug.logError(`Error en processar el fitxer ${url}:`, error);
-        throw error;
-      });
-  }
-
-  function processarFitxerDeText(contingut) {
-    const linies = contingut.split('\n');
-    return linies;
-  }
-  
-  // Afegir event listener per la tecla Enter
-  const inputParaula = document.getElementById('paraulaCercada');
-  inputParaula.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      realitzarCerca();
+        return processarFitxerDeText(contingut);
+    } catch (error) {
+        Debug.logError(`IndexedDB fallida per ${nom}, intentant fetch directe`);
+        const contingut = await fetchFitxer(url);
+        fitxersLlegits++;
+        document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+        return processarFitxerDeText(contingut);
     }
-  });
+}
+
+// --- FETCH NORMAL ---
+async function fetchFitxer(url) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`Error en llegir ${url}`);
+    return await response.text();
+}
+
+// --- PROCESSAR TXT ---
+function processarFitxerDeText(contingut) {
+    return contingut.split('\n');
+}
+
+// --- NETEJAR INDEXEDDB ---
+function netejarIndexedDB() {
+    const request = indexedDB.deleteDatabase('rimadorDB');
+    request.onsuccess = () => console.log('IndexedDB esborrat correctament');
+    request.onerror = () => console.error('Error en esborrar IndexedDB');
+    request.onblocked = () => console.warn("L'esborrat d'IndexedDB està bloquejat");
+}
+
+// --- CONTINUA EL TEU SCRIPT AQUÍ ---
+// Afegeix tot el teu codi de cerca, categories, checkbox, etc. a continuació
+// Aquestes funcions poden utilitzar directament array0, array1, etc., que ja estaran carregats.
+  
+// Afegir event listener per la tecla Enter
+const inputParaula = document.getElementById('paraulaCercada');
+inputParaula.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    realitzarCerca();
+  }
 });
 
 

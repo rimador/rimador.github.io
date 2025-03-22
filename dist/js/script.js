@@ -62,7 +62,7 @@ for (let i of nombresSeleccionats) {
       })
       .catch(error => {
         Debug.logError(`Error en processar el fitxer ${url}:`, error);
-        throw error; // Propaga l'error per a que Promise.all pugui gestionar-lo
+        throw error;
       });
   }
 
@@ -75,7 +75,7 @@ for (let i of nombresSeleccionats) {
   const inputParaula = document.getElementById('paraulaCercada');
   inputParaula.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Evitar la recàrrega de la pàgina
+      event.preventDefault();
       realitzarCerca();
     }
   });
@@ -170,7 +170,7 @@ async function realitzarCerca() {
   try {
     matches = [];
     
-    var paraulaCercada = document.getElementById('paraulaCercada').value.toLowerCase();
+    var paraulaCercada = document.getElementById('paraulaCercada').value.trim().toLowerCase();
     var numeroSeleccionat = document.getElementById('numeroSelector').value;
     var tipusRima = document.getElementById('rimaSelector').value;
     var comença = document.getElementById('categoriaSelector').value;
@@ -411,7 +411,7 @@ function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
       var elementsDeLlista = list.querySelectorAll('li');
 
       elementsDeLlista.forEach(function (element, index) {
-          element.style.display = 'none';  // Amagar tots els elements inicialment
+          element.style.display = 'none';
       });
 
       elementsAMostrar.forEach(function (indexToShow) {
@@ -574,9 +574,6 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
       resultatsAlt: resultatsAlt,
   };
 }
-
-
-
 
 
 //CSS

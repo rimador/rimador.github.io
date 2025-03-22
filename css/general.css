@@ -1,8 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #FF91FF; /* Color de fons de la pàgina */
-    margin-top: 30px; /* Ajusta la marge superior per afegir píxels del color de fons a dalt */
+    background-color: #FF91FF;
+    margin-top: 30px; 
 }
 
 #espai_inicial {

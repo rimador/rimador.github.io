@@ -682,3 +682,23 @@ window.addEventListener('scroll', function() {
     separador_rosa2.style.top = '160px';
   }
 });
+
+//Mostrar i amagar el formulari de contacte
+function toggleForm() {
+  var formContainer = document.getElementById("formulariContainer");
+  if (formContainer.style.display === "none" || formContainer.style.display === "") {
+      formContainer.style.display = "block";
+      document.addEventListener("click", closeFormOnClickOutside);
+  } else {
+      formContainer.style.display = "none";
+      document.removeEventListener("click", closeFormOnClickOutside);
+  }
+}
+
+function closeFormOnClickOutside(event) {
+  var formContainer = document.getElementById("formulariContainer");
+  if (!formContainer.contains(event.target) && event.target.id !== "mostrarFormulari") {
+      formContainer.style.display = "none";
+      document.removeEventListener("click", closeFormOnClickOutside);
+  }
+}

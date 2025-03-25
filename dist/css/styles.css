@@ -215,7 +215,108 @@
 #footer a:visited {
     color: rgb(179, 1, 1); 
 }
+#mostrarFormulari {
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+    background: linear-gradient(45deg, #fd96ca, #ff14b5);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
 
+#mostrarFormulari:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+#formulariContainer {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
+}
+
+form h3 {
+    margin: 0 0 10px;
+    color: #ff1493;
+    font-size: 18px;
+    text-align: center;
+}
+
+form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    text-align: left;
+}
+
+input, textarea {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background: #ff1493;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #d11775;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 body {
     margin: 0;
     padding: 0;

@@ -250,21 +250,21 @@
     text-align: center;
 }
 
-form h3 {
+#formulariContainer form h3 {
     margin: 0 0 10px;
     color: #ff1493;
     font-size: 18px;
     text-align: center;
 }
 
-form p {
+#formulariContainer form p {
     font-size: 14px;
     color: #555;
     margin-bottom: 15px;
     text-align: center;
 }
 
-label {
+#formulariContainer form label {
     display: block;
     font-size: 14px;
     font-weight: bold;
@@ -273,7 +273,8 @@ label {
     text-align: left;
 }
 
-input, textarea {
+#formulariContainer form input,
+#formulariContainer form textarea {
     width: calc(100% - 20px);
     padding: 8px;
     margin-bottom: 12px;
@@ -286,12 +287,12 @@ input, textarea {
     margin-right: auto;
 }
 
-textarea {
+#formulariContainer form textarea {
     height: 80px;
     resize: none;
 }
 
-button[type="submit"] {
+#formulariContainer form button[type="submit"] {
     width: 100%;
     background: #ff1493;
     color: white;
@@ -303,7 +304,7 @@ button[type="submit"] {
     transition: background 0.2s;
 }
 
-button[type="submit"]:hover {
+#formulariContainer form button[type="submit"]:hover {
     background: #d11775;
 }
 

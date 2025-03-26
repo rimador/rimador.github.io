@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PRLRBXFC');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4S5EE36FXV"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4S5EE36FXV'); 
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Troba rimes en català fàcilment amb el nostre rimador intel·ligent! Per a poetes, escriptors, estudiants... Prova-ho ara!">
+    <meta name="keywords" content="rimes, rima, rimador, català, diccionari, sinònims, poesia, vers">
+    <meta name="author" content="Marc i Ferran">
+    <meta property="og:title" content="Rimador en Català">
+    <meta property="og:description" content="Troba rimes fàcilment amb el Rimador en català.">
+    <meta property="og:image" content="https://rimador.github.io/assets/R.gif">
+    <meta property="og:url" content="https://rimador.github.io/">
+    <meta property="og:type" content="website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rimador en català</title>
+
+    <link rel="shortcut icon" href="https://rimador.github.io/assets/R.gif">
+
+    <link rel="stylesheet" href="dist/css/styles.min.css">
+
+    <script src="dist/js/script.min.js" defer></script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRLRBXFC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="loader" id="loader">
+        <p class = "loader-text1" id="loader-text1"></p>
+        <div class="loader-inner">
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+            <div class="loader-line-wrap">
+                <div class="loader-line"></div>
+            </div>
+        </div>
+        <p class = "loader-text2" id="loader-text2"></p>
+    </div>     
+
+    <header>
+        <a href="https://rimador.github.io"><img class="rimador" src="./assets/Rimador-1.gif" alt="Logo del Rimador en català"></a>
+        <img class="peixet" src="./assets/peixet.gif" alt="Peixet decoratiu">
+        </header>
+
+    <div id="separador_rosa1">
+        <p>Pàgina web en fase de correció, versió en desenvolupament</p>
+    </div>
+    <div class="container" id="container">
+        <div class="search-container">
+            <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula que vols cercar">
+            <button class="boto" role="button" id="cercaButton"><span class="text">Cercar</span></button>
+        </div>
+
+        <div class="dropdown-container">
+            <div>
+                <label for="rimaSelector">Tipus de rima:</label>
+                <select id="rimaSelector">
+                    <option value="r.consonant">Consonant</option>
+                    <option value="r.assonant">Assonant</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="numeroSelector">Número de síl·labes:</label>
+                <select id="numeroSelector">
+                    <option value="0">Indiferent</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="categoriaSelector">Comença per:</label>
+                <select id="categoriaSelector">
+                    <option value="indiferent">Indiferent</option>
+                    <option value="vocal+h">Vocal / H</option>
+                    <option value="consonant">Consonant</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="plurals">Incloure plurals:</label>
+                <select id="plurals">
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="nomsPropis">Incloure noms propis:</label>
+                <select id="nomsPropis">
+                    <option value="no">No</option>
+                    <option value="si">Sí</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="impressio">
+        
+        <div id="checkboxContainer">
+            <!-- Secció "Noms" -->
+            <label>
+                <input type="checkbox" class="clickable-checkbox" id="checkbox1" onchange="toggleList('nomsList', 'checkbox1')" onclick="handleCheckboxClick(event, CriterisNoms)"> Noms
+            </label>
+            
+            <ul id="nomsList" style="display: none" onclick="handleCheckboxClick(event, CriterisNoms)">
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Propis</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Comuns</li>
+            </ul>
+            <br>
+
+            <!-- Secció "Adjectius" -->
+            <label>
+                <input type="checkbox" class="clickable-checkbox" id="checkbox2" onchange="toggleList('adjectiusList', 'checkbox2')" onclick="handleCheckboxClick(event, CriterisAdjectius)"> Adjectius
+            </label>
+            
+            <ul id="adjectiusList" style="display: none" onclick="handleCheckboxClick(event, CriterisAdjectius)">
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Qualificatius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Superlatius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Ordinals</li>
+            </ul>
+            <br>
+
+            <!-- Secció "Verbs" -->
+            <label>
+                <input type="checkbox" class="clickable-checkbox" id="checkbox3" onchange="toggleList('verbsList', 'checkbox3')" onclick="handleCheckboxClick(event, CriterisVerbs)"> Verbs
+            </label>
+            
+            <ul id="verbsList" style="display: none" onclick="handleCheckboxClick(event, CriterisVerbs)">
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indicatiu</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Subjuntiu</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Imperatiu</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Gerundis</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Participis</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Infinitius</li>
+            </ul>
+            <br>
+
+            <!-- Secció "Determinants" -->
+            <label>
+                <input type="checkbox" class="clickable-checkbox" id="checkbox4" onchange="toggleList('determinantsList', 'checkbox4')" onclick="handleCheckboxClick(event, CriterisDeterminants)"> Determinants
+            </label>
+            
+            <ul id="determinantsList" style="display: none" onclick="handleCheckboxClick(event, CriterisDeterminants)">
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Números</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Articles</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Exclamatius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
+
+            </ul>
+            <br>
+
+            <!-- Secció "Pronoms" -->
+            <label>
+                <input type="checkbox" class="clickable-checkbox" id="checkbox5" onchange="toggleList('pronomsList', 'checkbox5')" onclick="handleCheckboxClick(event, CriterisPronoms)"> Pronoms
+            </label>
+
+            <ul id="pronomsList"  style="display: none" onclick="handleCheckboxClick(event, CriterisPronoms)">
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius / Exclamatius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Personals (forts i febles)</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
+
+            </ul>
+            <br>
+
+            <!-- Secció "Altres categories" -->
+            <label>
+                <input type="checkbox" class="clickable-checkbox" id="checkbox6" onchange="toggleList('altresList', 'checkbox6')" onclick="handleCheckboxClick(event, CriterisAltres)"> Altres categories
+            </label>
+
+            <ul id="altresList"  style="display: none" onclick="handleCheckboxClick(event, CriterisAltres)">
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Adverbis</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Conjuncions</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interjeccions</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Preposicions</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Contraccions</li>
+                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">"etcètera"</li>
+
+            </ul>
+            <br>
+        </div>
+        <div class="resultats">
+            <div id="separador_rosa2">
+                <p id="nombre"></p>
+            </div>
+            <p id="rima_enllac" class="column-container"></p>
+
+        </div>
+    </div>
+
+    <div id="espai_inicial">
+        <p>.</p>
+    </div>    
+
+<footer id="footer">
+    &copy; Marc i Ferran. Tots els drets reservats.
+    <br><br><a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a><br><br><br>
+    <button id="botoNetejarCache" style="display:none;position:fixed;bottom:70px;right:15px;" onclick="netejarIndexedDB()">🗑 Esborrar memòria cau</button>
+</footer>
+</body>
+</html>
+
+
+
+
+
+

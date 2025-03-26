@@ -216,25 +216,72 @@
     color: rgb(179, 1, 1); 
 }
 #mostrarFormulari {
-    position: fixed;
-    bottom: 20px;
-    right: 15px;
-    background: linear-gradient(45deg, #fd96ca, #ff14b5);
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    font-family: 'Comic Sans MS';
+  position: fixed;
+  bottom: 20px;
+  right: 15px;
+  appearance: button;
+  background-color: #1899D6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
-#mostrarFormulari:hover {
-    transform: scale(1.05);
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+#mostrarFormulari:after {
+  background-clip: padding-box;
+  background-color: #1CB0F6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
 }
+
+#mostrarFormulari,
+#mostrarFormulari:focus {
+  user-select: auto;
+}
+
+#mostrarFormulari:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+#mostrarFormulari:disabled {
+  cursor: auto;
+}
+
+#mostrarFormulari:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
 
 #formulariContainer {
     display: none;
@@ -265,7 +312,6 @@
     margin-bottom: 15px;
     text-align: center;
     font-family: 'Comic Sans MS';
-
 }
 
 #formulariContainer form label {

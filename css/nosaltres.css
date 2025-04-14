@@ -40,6 +40,10 @@
     color: #606060; 
 }
 
+#arimar {
+    text-align: center;
+}
+
 #arimar a {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     background-clip: none;

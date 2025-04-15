@@ -1,3 +1,26 @@
+#enllaç {
+    color: #007BFF;
+    text-decoration: underline;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s ease;
+}
+  
+#enllaç:visited {
+    color: #007BFF;
+}
+  
+#enllaç:hover {
+    color: #0056b3;
+    text-shadow: 0 0 4px #66b2ff;
+    transform: scale(1.1) rotate(-2deg);
+}
+  
+#enllaç:active {
+    transform: scale(0.95) rotate(1deg);
+    text-shadow: 0 0 8px #3399ff;
+}
+
 #text_canvis {
     background-color: #00ffff;
     padding: 20px;
@@ -49,4 +72,4 @@
 
 #text_canvis a:active { 
     color: #606060; 
-}
+}    

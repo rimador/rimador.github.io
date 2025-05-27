@@ -5,8 +5,8 @@ const VERSIONS_FITXERS = {
   "col_2.txt": "v1", //codi
   //col_3 - transcripció sencera
   //col_4 - totes les vocals (inexistent)
-  "col_5.txt": "v3", //consonant
-  "col_6.txt": "v3", //assonant
+  "col_5.txt": "v4", //consonant
+  "col_6.txt": "v4", //assonant
   "col_7.txt": "v1", //síl·labes
   "col_8.txt": "v1", //Vicc
   "col_9.txt": "v1", //Viq

@@ -2,7 +2,7 @@ const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Tem
 const VERSIONS_FITXERS = {
   "col_0.txt": "v1", //paraula
   "col_1.txt": "v1", //d'on prové
-  "col_2.txt": "v1", //codi
+  "col_2.txt": "v2", //codi
   //col_3 - transcripció sencera
   //col_4 - totes les vocals (inexistent)
   "col_5.txt": "v4", //consonant
@@ -156,10 +156,6 @@ function netejarIndexedDB() {
     request.onerror = () => console.error('Error en esborrar IndexedDB');
     request.onblocked = () => console.warn("L'esborrat d'IndexedDB està bloquejat");
 }
-
-// --- CONTINUA EL TEU SCRIPT AQUÍ ---
-// Afegeix tot el teu codi de cerca, categories, checkbox, etc. a continuació
-// Aquestes funcions poden utilitzar directament array0, array1, etc., que ja estaran carregats.
   
 // Afegir event listener per la tecla Enter
 const inputParaula = document.getElementById('paraulaCercada');
@@ -188,6 +184,7 @@ const CriterisVerbs = {
   ...crearCriterisTriples('Gerundis', 'VAG', 'VSG', 'VMG'),
   ...crearCriterisTriples('Participis', 'VAP', 'VSP', 'VMP'),
   ...crearCriterisTriples('Infinitius', 'VAN', 'VSN', 'VMN'),
+  ...crearCriterisTriples('Condicional', 'VAC', 'VSC', 'VMC' ),
 };
 
 const CriterisAdjectius = {
@@ -610,6 +607,8 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
                   case "G": resultatsV.push(3); break; // Gerundi
                   case "P": resultatsV.push(4); break; // Participi
                   case "N": resultatsV.push(5); break; // Infinitiu
+                  case "C": resultatsV.push(6); break; // Condicional
+
               }
               break; 
           

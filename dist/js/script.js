@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultatFitxers;
         console.log('Tots els fitxers carregats correctament');
 
-        // Aquí pots cridar inicialitzacions o activar funcionalitats que necessitin els arrays
         document.getElementById("loader").style.display = "none";
     } catch (error) {
         Debug.logError('Error en carregar els fitxers:', error);
@@ -90,7 +89,7 @@ function guardarFitxer(db, nom, contingut, versio) {
     });
 }
 
-// --- LECTURA AMB INDEXEDDB + VERSIÓ + BACKUP ---
+// LECTURA AMB INDEXEDDB + VERSIÓ + BACKUP
 async function llegirFitxerAmbIndexedDB(rutaFitxer) {
   const nomFitxer = rutaFitxer.split("/").pop();
   const versioActual = VERSIONS_FITXERS[nomFitxer] || "v1"; // Fallback
@@ -137,19 +136,19 @@ function processarFitxerEnParalel(contingut) {
   });
 }
 
-// --- FETCH NORMAL ---
+// FETCH NORMAL
 async function fetchFitxer(url) {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Error en llegir ${url}`);
     return await response.text();
 }
 
-// --- PROCESSAR TXT ---
+// PROCESSAR TXT
 function processarFitxerDeText(contingut) {
     return contingut.split('\n');
 }
 
-// --- NETEJAR INDEXEDDB ---
+// NETEJAR INDEXEDDB
 function netejarIndexedDB() {
     const request = indexedDB.deleteDatabase('rimadorDB');
     request.onsuccess = () => console.log('IndexedDB esborrat correctament');
@@ -192,7 +191,6 @@ const CriterisAdjectius = {
   ...crearCriteris('Qualificatius', 'AQ0'),
   ...crearCriteris('Superlatius', 'AQA'),
   ...crearCriteris('Ordinals', 'AO'),
-
 };
 
 const CriterisPronoms = {
@@ -381,7 +379,6 @@ function crearEnllacDiec(paraula) {
 }
 
 
-
 function actualitzarRimes() {
   Debug.logTime('actualitzarRimes');
 
@@ -476,9 +473,7 @@ function mostrarTotesLesLlistes() {
   mostrarLlista('pronoms', resultats.resultatsP, 'checkbox5');
   mostrarLlista('altres', resultats.resultatsAlt, 'checkbox6');
 
-
   Debug.logTimeEnd('mostrarTotesLesLlistes');
-
 }
 
 function mostrarLlista(tipusLlista, elementsAMostrar, checkboxId) {
@@ -681,6 +676,7 @@ window.addEventListener('scroll', function() {
     separador_rosa2.style.top = '160px';
   }
 });
+
 
 //Mostrar i amagar el formulari de contacte
 function toggleForm() {

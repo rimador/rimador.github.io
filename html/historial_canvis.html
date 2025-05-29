@@ -16,7 +16,7 @@
 
     <link rel="shortcut icon" href="https://rimador.github.io/assets/R.gif">
 
-    <link rel="stylesheet" href="dist/css/styles.min.css">
+    <link rel="stylesheet" href="../dist/css/styles.min.css">
 
 </head>
 
@@ -27,9 +27,9 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <header>
-        <a href="https://rimador.github.io"><img class="rimador" src="./assets/Rimador-1.gif" alt="Logo del Rimador en català"></a>
-        <img class="peixet" src="./assets/peixet.gif" alt="Peixet decoratiu">
-        </header>
+        <a href="https://rimador.github.io"><img class="rimador" src="../assets/Rimador-1.gif" alt="Logo del Rimador en català"></a>
+        <img class="peixet" src="../assets/peixet.gif" alt="Peixet decoratiu">
+    </header>
 
     <div id="separador_rosa_nosaltres"><p>Pàgina web en fase de correcció, versió en desenvolupament</p></div>
 
@@ -57,10 +57,13 @@
     </div>
 
 <footer id="footer">
-    <br><br>v.5.1.0 &copy; Marc i Ferran. Tots els drets reservats.
-    <br><br><a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a><br><br>
+  <script>
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('footer').innerHTML = html;
+      });
+  </script>
 </footer>
-
 </body>
-
 </html>

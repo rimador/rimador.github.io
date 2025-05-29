@@ -33,9 +33,9 @@
 
     <link rel="shortcut icon" href="https://rimador.github.io/assets/R.gif">
 
-    <link rel="stylesheet" href="dist/css/styles.min.css">
+    <link rel="stylesheet" href="../dist/css/styles.min.css">
 
-    <script src="dist/js/script.min.js" defer></script>
+    <script src="../dist/js/script.min.js" defer></script>
 </head>
 
 <body>
@@ -67,9 +67,9 @@
     </div>     
 
     <header>
-        <a href="https://rimador.github.io"><img class="rimador" src="./assets/Rimador-1.gif" alt="Logo del Rimador en català"></a>
-        <img class="peixet" src="./assets/peixet.gif" alt="Peixet decoratiu">
-        </header>
+        <a href="https://rimador.github.io"><img class="rimador" src="../assets/Rimador-1.gif" alt="Logo del Rimador en català"></a>
+        <img class="peixet" src="../assets/peixet.gif" alt="Peixet decoratiu">
+    </header>
 
     <div id="separador_rosa1">
         <p>Pàgina web en fase de correció, versió en desenvolupament</p>
@@ -233,9 +233,13 @@
     </div>    
 
 <footer id="footer">
-    &copy; Marc i Ferran. Tots els drets reservats.
-    <br><br><a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a><br><br><br>
-    <button id="botoNetejarCache" style="display:none;position:fixed;bottom:70px;right:15px;" onclick="netejarIndexedDB()">🗑 Esborrar memòria cau</button>
+  <script>
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('footer').innerHTML = html;
+      });
+  </script>
 </footer>
 </body>
 </html>

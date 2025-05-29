@@ -233,11 +233,15 @@
     </div>    
 
 <footer id="footer">
-    <br><br>v.5.1.0 &copy; Marc i Ferran. Tots els drets reservats.
-    <br><br><a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a><br><br><br>
-    <button id="botoNetejarCache" style="display:none;position:fixed;bottom:70px;right:15px;" onclick="netejarIndexedDB()">🗑 Esborrar memòria cau</button>
-    <br>
-    <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
+  <script>
+    fetch('html/footer.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('footer').innerHTML = html;
+      });
+  </script>
+</footer>
+  <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
 
     <div id="formulariContainer">
         <form action="https://formspree.io/f/xeoazgnl" method="POST">
@@ -270,6 +274,5 @@
               
         </form>
     </div>
-</footer>
 </body>
 </html>

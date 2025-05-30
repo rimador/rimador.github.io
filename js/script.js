@@ -1,16 +1,16 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 const VERSIONS_FITXERS = {
-  "col_0.txt": "v1", //paraula
-  "col_1.txt": "v1", //d'on prové
-  "col_2.txt": "v2", //codi
-  //col_3 - transcripció sencera
-  //col_4 - totes les vocals (inexistent)
-  "col_5.txt": "v5", //consonant
-  "col_6.txt": "v5", //assonant
-  "col_7.txt": "v1", //síl·labes
-  "col_8.txt": "v1", //Vicc
-  "col_9.txt": "v1", //Viq
-  "col_10.txt": "v1" //Diec
+  "col_0.txt": "v.1.1", //paraula
+  "col_1.txt": "v.1.1", //d'on prové
+  "col_2.txt": "v.1.1", //codi
+  "col_3.txt": "v.1.2", //consonant
+  "col_4.txt": "v.1.2", //assonant
+  "col_5.txt": "v.1.1", //síl·labes
+  "col_6.txt": "v.1.1", //Vicc
+  "col_7.txt": "v.1.1", //Viq
+  "col_8.txt": "v.1.1" //Diec
+  //col_9 - transcripció sencera
+  //col_10 - paraula + transcripció
 };
 
 const Debug = {
@@ -29,11 +29,11 @@ if (debugLevel >= 3) {
 }
 
 
-let array0, array1, array2, array5, array6, array7, array8, array9, array10;
+let array0, array1, array2, array3, array4, array5, array6, array7, array8;
 let fitxersLlegits = 0;
 let nombresDeFitxers = 9;
 
-const nombresSeleccionats = [0,1,2,5,6,7,8,9,10];
+const nombresSeleccionats = [0,1,2,3,4,5,6,7,8];
 const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const resultatFitxers = await Promise.all(camins.map(llegirFitxerAmbIndexedDB));
-        [array0, array1, array2, array5, array6, array7, array8, array9, array10] = resultatFitxers;
+        [array0, array1, array2, array3, array4, array5, array6, array7, array8] = resultatFitxers;
         console.log('Tots els fitxers carregats correctament');
 
         document.getElementById("loader").style.display = "none";
@@ -92,7 +92,7 @@ function guardarFitxer(db, nom, contingut, versio) {
 // LECTURA AMB INDEXEDDB + VERSIÓ + BACKUP
 async function llegirFitxerAmbIndexedDB(rutaFitxer) {
   const nomFitxer = rutaFitxer.split("/").pop();
-  const versioActual = VERSIONS_FITXERS[nomFitxer] || "v1"; // Fallback
+  const versioActual = VERSIONS_FITXERS[nomFitxer] || "v.1.1"; // Fallback
 
   try {
     const db = await obrirIndexedDB();
@@ -261,7 +261,7 @@ async function realitzarCerca() {
     var inclourePropis = document.getElementById('nomsPropis').value;
     var inclourePlurals = document.getElementById('plurals').value;
     
-    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array5, array6, array7, array8, array9, array10);
+    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8);
     matches = buscaparaula[0];
     paraulacerca = buscaparaula[1];
       
@@ -282,7 +282,7 @@ async function realitzarCerca() {
   }
 }
 
-function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array5, array6, array7, array8, array9, array10) {
+function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8) {
   Debug.logTime('buscarParaula');
 
   var indexparaula = array0.findIndex(item => {
@@ -290,7 +290,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
   });
   
 
-  llistaParaulaCerca = [array0[indexparaula], array1[indexparaula], array2[indexparaula], array5[indexparaula], array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula], array10[indexparaula]]
+  llistaParaulaCerca = [array0[indexparaula], array1[indexparaula], array2[indexparaula], array3[indexparaula], array4[indexparaula], array5[indexparaula], array6[indexparaula], array7[indexparaula], array8[indexparaula]]
 
   if (indexparaula == -1) {
     llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -299,11 +299,11 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
   for (var i = 0; i < array0.length; i++) {
     let bona = 1;
     while (bona === 1) {
-      if (array7[i] !== numeroSeleccionat && numeroSeleccionat !== "0" && numeroSeleccionat !== "5") {
+      if (array5[i] !== numeroSeleccionat && numeroSeleccionat !== "0" && numeroSeleccionat !== "5") {
         break;
       }
 
-      if (numeroSeleccionat === "5" && parseInt(array7[i]) < 5) {
+      if (numeroSeleccionat === "5" && parseInt(array5[i]) < 5) {
         break;
       }
 
@@ -316,13 +316,13 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       }
 
       if (tipusRima === 'r.consonant') {
-        if (array5[i] !== llistaParaulaCerca[3]) {
+        if (array3[i] !== llistaParaulaCerca[3]) {
           break;
         }
       }
 
       if (tipusRima === 'r.assonant') {
-        if (array6[i] !== llistaParaulaCerca[4]) {
+        if (array4[i] !== llistaParaulaCerca[4]) {
           break;
         }
       }
@@ -348,7 +348,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         }
       }
       
-      let paraula = [array0[i], array1[i], array2[i], array7[i], array8[i], array9[i], array10[i]]
+      let paraula = [array0[i], array1[i], array2[i], array5[i], array6[i], array7[i], array8[i]] //no cal guardar les rimes (array3 i 4)
       matches.push(paraula);
       bona = 0;
     }

@@ -280450,8 +280450,8 @@ ospin
 ospin
 ospis
 ospu
-ɛʎə
-ɛʎə
+eʎə
+eʎə
 a
 aðə
 aðəs
@@ -386805,7 +386805,7 @@ uin
 uin
 uis
 uu
-ɛʎə
+eʎə
 aðə
 aðəs
 ɛʎəs
@@ -464625,7 +464625,7 @@ anə
 anəs
 ans
 iʎə
-eʎə
+ɛlə
 esə
 ak
 a
@@ -530874,7 +530874,7 @@ as
 oi
 a
 as
-eʎə
+ɛl
 ɔði
 asiə
 asiəs

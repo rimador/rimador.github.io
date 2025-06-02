@@ -3,8 +3,8 @@ const VERSIONS_FITXERS = {
   "col_0.txt": "v.1.1", //paraula
   "col_1.txt": "v.1.1", //d'on prové
   "col_2.txt": "v.1.1", //codi
-  "col_3.txt": "v.1.2", //consonant
-  "col_4.txt": "v.1.2", //assonant
+  "col_3.txt": "v.1.3", //consonant
+  "col_4.txt": "v.1.3", //assonant
   "col_5.txt": "v.1.1", //síl·labes
   "col_6.txt": "v.1.1", //Vicc
   "col_7.txt": "v.1.1", //Viq

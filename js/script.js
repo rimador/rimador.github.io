@@ -1,14 +1,14 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 const VERSIONS_FITXERS = {
-  "col_0.txt": "v.1.1", //paraula
-  "col_1.txt": "v.1.1", //d'on prové
-  "col_2.txt": "v.1.1", //codi
-  "col_3.txt": "v.1.3", //consonant
-  "col_4.txt": "v.1.3", //assonant
-  "col_5.txt": "v.1.1", //síl·labes
-  "col_6.txt": "v.1.1", //Vicc
-  "col_7.txt": "v.1.1", //Viq
-  "col_8.txt": "v.1.1" //Diec
+  "col_0.txt": "v.2.1", //paraula
+  "col_1.txt": "v.2.1", //d'on prové
+  "col_2.txt": "v.2.1", //codi
+  "col_3.txt": "v.2.1", //consonant
+  "col_4.txt": "v.2.1", //assonant
+  "col_5.txt": "v.2.1", //síl·labes
+  "col_6.txt": "v.2.1", //Vicc
+  "col_7.txt": "v.2.1", //Viq
+  "col_8.txt": "v.2.1" //Diec
   //col_9 - transcripció sencera
   //col_10 - paraula + transcripció
 };

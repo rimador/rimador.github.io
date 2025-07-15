@@ -3,13 +3,13 @@ const VERSIONS_FITXERS = {
   "col_0.txt": "v.2.1", //paraula
   "col_1.txt": "v.2.1", //d'on prové
   "col_2.txt": "v.2.1", //codi
-  "col_3.txt": "v.2.1", //consonant
-  "col_4.txt": "v.2.1", //assonant
+  "col_3.txt": "v.2.2", //consonant
+  "col_4.txt": "v.2.2", //assonant
   "col_5.txt": "v.2.1", //síl·labes
   "col_6.txt": "v.2.1", //Vicc
   "col_7.txt": "v.2.1", //Viq
-  "col_8.txt": "v.2.1" //Diec
-  //col_9 - transcripció sencera
+  "col_8.txt": "v.2.1", //Diec
+  "col_9.txt": "v.2.2" //transcripció sencera
   //col_10 - paraula + transcripció
 };
 
@@ -29,11 +29,11 @@ if (debugLevel >= 3) {
 }
 
 
-let array0, array1, array2, array3, array4, array5, array6, array7, array8;
+let array0, array1, array2, array3, array4, array5, array6, array7, array8, array9;
 let fitxersLlegits = 0;
-let nombresDeFitxers = 9;
+let nombresDeFitxers = 10;
 
-const nombresSeleccionats = [0,1,2,3,4,5,6,7,8];
+const nombresSeleccionats = [0,1,2,3,4,5,6,7,8,9];
 const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const resultatFitxers = await Promise.all(camins.map(llegirFitxerAmbIndexedDB));
-        [array0, array1, array2, array3, array4, array5, array6, array7, array8] = resultatFitxers;
+        [array0, array1, array2, array3, array4, array5, array6, array7, array8, array9] = resultatFitxers;
         console.log('Tots els fitxers carregats correctament');
 
         document.getElementById("loader").style.display = "none";
@@ -261,8 +261,9 @@ async function realitzarCerca() {
     var inclourePropis = document.getElementById('nomsPropis').value;
     var inclourePlurals = document.getElementById('plurals').value;
     
-    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8);
+    const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9);
     matches = buscaparaula[0];
+    
     paraulacerca = buscaparaula[1];
       
     matches_provisionals = matches.slice();
@@ -282,19 +283,71 @@ async function realitzarCerca() {
   }
 }
 
-function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8) {
+function descriureCategoria(codi) {
+  if (codi.startsWith("V")) return "verb";
+  if (codi.startsWith("N")) return "nom";
+  if (codi.startsWith("A")) return "adjectiu";
+  if (codi.startsWith("P")) return "pronom";
+  if (codi.startsWith("D")) return "determinant";
+  if (codi.startsWith("Z")) return "altre";
+  return "categoria desconeguda";
+}
+
+function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9) {
   Debug.logTime('buscarParaula');
 
-  var indexparaula = array0.findIndex(item => {
-    return item.toLowerCase() === paraulaCercada.toLowerCase();
-  });
-  
+  const coincidencies = array0
+    .map((item, index) => ({ paraula: item, index }))
+    .filter(obj => obj.paraula.toLowerCase() === paraulaCercada.toLowerCase());
 
-  llistaParaulaCerca = [array0[indexparaula], array1[indexparaula], array2[indexparaula], array3[indexparaula], array4[indexparaula], array5[indexparaula], array6[indexparaula], array7[indexparaula], array8[indexparaula]]
-
-  if (indexparaula == -1) {
+  if (coincidencies.length === 0) {
     llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-}
+    
+  } else if (coincidencies.length === 1) {
+    var indexparaula = coincidencies[0].index;
+    llistaParaulaCerca = [
+      array0[indexparaula], array1[indexparaula], array2[indexparaula],
+      array3[indexparaula], array4[indexparaula], array5[indexparaula],
+      array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula]
+    ];
+  } else {
+    const transcripcions = new Set(coincidencies.map(c => array9[c.index]));
+    if (transcripcions.size === 1) {
+      var indexparaula = coincidencies[0].index;
+      llistaParaulaCerca = [
+        array0[indexparaula], array1[indexparaula], array2[indexparaula],
+        array3[indexparaula], array4[indexparaula], array5[indexparaula],
+        array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula]
+      ];
+    } else {
+      const ordenat = coincidencies; // pots afegir `.sort(...)` si vols ordenació
+
+      let opcions = coincidencies.map((c, i) => {
+        const index = c.index;
+        const paraula = array0[index];
+        const categoria = descriureCategoria(array2[index]);
+        const transcripcio = array9[index];
+        return `${i + 1}: ${paraula} (${categoria}) ${transcripcio.startsWith("/") ? transcripcio : "/" + transcripcio + "/"}`;
+      }).join("\n");
+
+      let eleccio = prompt(`Hi ha ${ordenat.length} coincidències per "${paraulaCercada}".\nEscull una opció:\n${opcions}`);
+
+      let num = parseInt(eleccio);
+      if (!isNaN(num) && num > 0 && num <= ordenat.length) {
+        const indexparaula = ordenat[num - 1].index;
+        llistaParaulaCerca = [
+          array0[indexparaula], array1[indexparaula], array2[indexparaula],
+          array3[indexparaula], array4[indexparaula], array5[indexparaula],
+          array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula]
+        ];
+      } else {
+        alert("Selecció invàlida. Cerca cancel·lada.");
+        return [[], [0, 0, 0, 0, 0, 0, 0, 0, 0]];
+      }
+    }
+  }
+
+  
   
   for (var i = 0; i < array0.length; i++) {
     let bona = 1;

@@ -1,15 +1,18 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
+
+const VERSIO_TRANSCRIPCIONS = "v.2.4";  // Versió compartida per col_3, col_4 i col_9
+
 const VERSIONS_FITXERS = {
-  "col_0.txt": "v.2.1", //paraula
-  "col_1.txt": "v.2.1", //d'on prové
-  "col_2.txt": "v.2.1", //codi
-  "col_3.txt": "v.2.2", //consonant
-  "col_4.txt": "v.2.2", //assonant
-  "col_5.txt": "v.2.1", //síl·labes
-  "col_6.txt": "v.2.1", //Vicc
-  "col_7.txt": "v.2.1", //Viq
-  "col_8.txt": "v.2.1", //Diec
-  "col_9.txt": "v.2.2" //transcripció sencera
+  "col_0.txt": "v.2.2", //paraula
+  "col_1.txt": "v.2.2", //d'on prové
+  "col_2.txt": "v.2.2", //codi
+  "col_3.txt": VERSIO_TRANSCRIPCIONS, //consonant
+  "col_4.txt": VERSIO_TRANSCRIPCIONS, //assonant
+  "col_5.txt": "v.2.2", //síl·labes
+  "col_6.txt": "v.2.2", //Vicc
+  "col_7.txt": "v.2.2", //Viq
+  "col_8.txt": "v.2.2", //Diec
+  "col_9.txt": VERSIO_TRANSCRIPCIONS //transcripció sencera
   //col_10 - paraula + transcripció
 };
 
@@ -330,7 +333,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         return `${i + 1}: ${paraula} (${categoria}) ${transcripcio.startsWith("/") ? transcripcio : "/" + transcripcio + "/"}`;
       }).join("\n");
 
-      let eleccio = prompt(`Hi ha ${ordenat.length} coincidències per "${paraulaCercada}".\nEscull una opció:\n${opcions}`);
+      let eleccio = prompt(`Hi ha ${ordenat.length} coincidències per "${paraulaCercada}".\nEscull una opció:\n\n${opcions}`);
 
       let num = parseInt(eleccio);
       if (!isNaN(num) && num > 0 && num <= ordenat.length) {

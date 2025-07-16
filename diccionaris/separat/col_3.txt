@@ -431772,8 +431772,7 @@ istəs
 ulit
 ulits
 ok
-ok
-ok
+ɔk
 okə
 okə
 okə
@@ -480449,8 +480448,8 @@ ons
 ɔks
 ɔks
 ɔðə
-ɔðə
-ɔðə
+oðə
+oðə
 a
 aðə
 aðə
@@ -480510,7 +480509,7 @@ astiŋ
 ɛm
 ɛm
 ɛmus
-ɔðən
+oðən
 ɔðən
 ɛŋ
 ɛn
@@ -480577,7 +480576,7 @@ ozəs
 ozus
 ɛs
 ɔðəs
-ɔðəs
+oðəs
 es
 esim
 esin
@@ -480590,8 +480589,8 @@ esiw
 ɔðəks
 ɔðəkss
 ikə
-ɔði
-ɔði
+oði
+oði
 ɔði
 i
 iə
@@ -480605,14 +480604,14 @@ iəs
 iəw
 ormə
 orməs
-ɔðin
-ɔðin
+oðin
+oðin
 oðis
 oðis
 ɔðiwm
 ɔðiwms
 akiə
-ɔðu
+oðu
 arp
 asiə
 asiəs

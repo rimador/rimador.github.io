@@ -78671,7 +78671,6 @@ eɾəm
 eɾəs
 eɾəw
 ɛw
-????
 ew
 ɛwən
 a
@@ -87211,7 +87210,6 @@ otə
 otə
 otə
 a
-????
 aðə
 aðə
 aðəs
@@ -87396,7 +87394,6 @@ otəs
 otəs
 es
 es
-????
 esim
 esim
 esin
@@ -149934,7 +149931,6 @@ aβən
 iŋ
 iə
 oβə
-????
 ɛr
 an
 a
@@ -173835,7 +173831,6 @@ uptin
 uptis
 uptu
 ɛ
-????
 ikə
 ikə
 a
@@ -211053,7 +211048,6 @@ ors
 ɔrsus
 ozə
 ozəs
-????
 akə
 armə
 a
@@ -218838,6 +218832,7 @@ epə
 ɛstər
 opsk
 ɔ
+o
 obblə
 obblə
 obblə
@@ -220112,8 +220107,6 @@ on
 onə
 onə
 a
-????
-????
 abblə
 abbləs
 a
@@ -220595,6 +220588,7 @@ un
 al
 als
 ɔrβə
+os
 os
 os
 ɛ
@@ -279633,7 +279627,6 @@ eɾəm
 eɾəs
 eɾəw
 ɛw
-????
 ew
 ɛwən
 a
@@ -344466,7 +344459,6 @@ okəs
 istə
 o
 ɔɾə
-????
 a
 a
 oɾə
@@ -351942,7 +351934,6 @@ urs
 uksin
 ɔw
 imbus
-????
 aβə
 aβə
 a
@@ -368601,7 +368592,6 @@ en
 ɛɾu
 edt
 ɔ
-????
 a
 a
 a
@@ -398209,7 +398199,6 @@ izmə
 izməs
 ans
 ans
-????
 opsk
 asiə
 anti
@@ -398526,10 +398515,6 @@ on
 ons
 uʃu
 il
-????
-????
-????
-????
 ilə
 ə
 ə
@@ -410564,8 +410549,6 @@ iks
 iddə
 eʎ
 in
-????
-????
 ə
 a
 enrip
@@ -415469,7 +415452,6 @@ at
 ats
 ɛt
 ɛw
-????
 ew
 ɛwən
 a
@@ -427909,8 +427891,6 @@ edzo
 orno
 ano
 anos
-????
-????
 i
 i
 iə
@@ -433055,17 +433035,14 @@ uðə
 uðəs
 ut
 uts
-????
 ol
 ol
 ol
 ɔl
-????
 oltə
 oltə
 ɔltə
 ɔltə
-????
 oltəs
 oltəs
 ɔltəs
@@ -433135,7 +433112,6 @@ aβəw
 inə
 inəs
 ons
-????
 ols
 ols
 ɔls
@@ -439517,8 +439493,6 @@ iwm
 ɔɾə
 asə
 ap
-????
-????
 endʒəmənə
 uplə
 a
@@ -442650,7 +442624,6 @@ ans
 ans
 estus
 ɛt
-????
 ɛt
 et
 ɛtə
@@ -442736,7 +442709,6 @@ etəs
 iks
 inə
 ɛts
-????
 ets
 apə
 ew
@@ -490516,7 +490488,6 @@ eɾəs
 eɾəs
 eɾəw
 ɛw
-????
 ew
 ɛwən
 a
@@ -496609,7 +496580,6 @@ azis
 ɔɾikə
 ɔɾiks
 ɔɾikəs
-????
 ɔðun
 al
 als
@@ -535057,7 +535027,6 @@ os
 os
 ɛm
 ɛnən
-????
 enən
 en
 ɛw
@@ -535150,7 +535119,6 @@ aβəs
 aβəw
 ɛnʒu
 ɛns
-????
 ens
 uðə
 uðəs
@@ -535717,7 +535685,6 @@ es
 eʎʎə
 eʎʎəs
 ɛw
-????
 ew
 ɛwən
 a
@@ -542798,9 +542765,6 @@ aiənˌeə
 insk
 ik
 op
-????
-????
-????
 o
 ə
 ə
@@ -560520,7 +560484,6 @@ ozəs
 ozus
 ok
 ɔk
-????
 ɔkə
 ɔkə
 ɛl
@@ -572138,7 +572101,6 @@ izə
 ekəsfəˌerβə
 ok
 ɛli
-????
 ə
 enizz
 aβə
@@ -605602,7 +605564,6 @@ os
 uɾəs
 ɛm
 ɛnən
-????
 enən
 ifər
 ifəɾə
@@ -605834,7 +605795,6 @@ ozus
 ɔnik
 ɔniks
 ɛns
-????
 ens
 o
 en
@@ -608315,7 +608275,6 @@ ustus
 usts
 ɛw
 ɛw
-????
 ew
 ɛwən
 a

@@ -78713,6 +78713,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 NO
 Viq
@@ -87210,6 +87211,7 @@ Viq
 Viq
 Viq
 NO
+Viq
 NO
 NO
 NO
@@ -87394,6 +87396,7 @@ NO
 NO
 NO
 NO
+Viq
 NO
 NO
 NO
@@ -149931,6 +149934,7 @@ Viq
 Viq
 Viq
 Viq
+NO
 Viq
 Viq
 Viq
@@ -173443,6 +173447,7 @@ NO
 NO
 NO
 Viq
+NO
 NO
 NO
 NO
@@ -211062,6 +211067,7 @@ Viq
 Viq
 Viq
 Viq
+Viq
 NO
 NO
 Viq
@@ -218835,7 +218841,6 @@ Viq
 Viq
 Viq
 Viq
-Viq
 NO
 Viq
 NO
@@ -220106,9 +220111,11 @@ Viq
 Viq
 Viq
 Viq
+NO
 NO
 NO
 NO
+NO
 Viq
 Viq
 NO
@@ -220590,7 +220597,6 @@ NO
 Viq
 Viq
 Viq
-Viq
 NO
 NO
 NO
@@ -279576,6 +279582,7 @@ NO
 NO
 Viq
 Viq
+NO
 NO
 NO
 NO
@@ -344462,6 +344469,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 NO
 Viq
@@ -351928,6 +351936,7 @@ NO
 Viq
 NO
 NO
+Viq
 Viq
 Viq
 Viq
@@ -368602,6 +368611,7 @@ Viq
 Viq
 Viq
 Viq
+Viq
 NO
 NO
 NO
@@ -398206,6 +398216,7 @@ Viq
 Viq
 Viq
 Viq
+Viq
 NO
 Viq
 Viq
@@ -398513,9 +398524,13 @@ Viq
 Viq
 NO
 NO
+Viq
 Viq
 Viq
 Viq
+NO
+NO
+Viq
 Viq
 Viq
 Viq
@@ -410550,8 +410565,10 @@ Viq
 Viq
 Viq
 Viq
+NO
 Viq
 Viq
+Viq
 NO
 NO
 NO
@@ -415451,6 +415468,7 @@ NO
 NO
 NO
 Viq
+NO
 NO
 NO
 NO
@@ -427903,6 +427921,8 @@ Viq
 Viq
 Viq
 Viq
+Viq
+Viq
 NO
 Viq
 NO
@@ -433039,10 +433059,13 @@ NO
 NO
 NO
 NO
+NO
 Viq
 Viq
 Viq
 Viq
+Viq
+NO
 NO
 NO
 NO
@@ -433166,6 +433189,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 Viq
 NO
@@ -439493,6 +439517,8 @@ Viq
 Viq
 Viq
 Viq
+NO
+NO
 Viq
 Viq
 Viq
@@ -442625,6 +442651,7 @@ Viq
 Viq
 Viq
 Viq
+Viq
 NO
 NO
 Viq
@@ -442720,6 +442747,7 @@ Viq
 Viq
 Viq
 Viq
+Viq
 NO
 NO
 NO
@@ -490482,6 +490510,7 @@ NO
 NO
 NO
 Viq
+NO
 NO
 NO
 NO
@@ -496581,6 +496610,7 @@ NO
 NO
 NO
 Viq
+Viq
 NO
 NO
 NO
@@ -535081,6 +535111,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 NO
 NO
@@ -535118,6 +535149,7 @@ NO
 NO
 NO
 NO
+Viq
 Viq
 NO
 NO
@@ -535701,6 +535733,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 NO
 NO
@@ -542765,6 +542798,9 @@ Viq
 Viq
 Viq
 Viq
+Viq
+NO
+NO
 Viq
 Viq
 Viq
@@ -560484,6 +560520,7 @@ NO
 NO
 Viq
 Viq
+NO
 Viq
 Viq
 NO
@@ -572101,6 +572138,7 @@ Viq
 Viq
 Viq
 Viq
+NO
 Viq
 Viq
 Viq
@@ -605578,6 +605616,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 Viq
 Viq
@@ -605796,6 +605835,7 @@ NO
 NO
 NO
 NO
+NO
 Viq
 Viq
 Viq
@@ -608273,6 +608313,7 @@ NO
 NO
 NO
 NO
+Viq
 Viq
 Viq
 NO

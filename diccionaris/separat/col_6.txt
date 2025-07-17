@@ -78672,6 +78672,7 @@ NO
 NO
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -87201,6 +87202,7 @@ NO
 NO
 NO
 NO
+Vicc
 Vicc
 Vicc
 Vicc
@@ -87402,6 +87404,7 @@ Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -149931,6 +149934,7 @@ NO
 Vicc
 NO
 NO
+Vicc
 NO
 NO
 Vicc
@@ -173830,6 +173834,7 @@ NO
 NO
 NO
 NO
+Vicc
 Vicc
 NO
 NO
@@ -211049,6 +211054,7 @@ NO
 NO
 NO
 Vicc
+Vicc
 NO
 NO
 Vicc
@@ -218838,7 +218844,6 @@ Vicc
 Vicc
 Vicc
 Vicc
-Vicc
 NO
 NO
 NO
@@ -220102,11 +220107,13 @@ Vicc
 Vicc
 Vicc
 NO
+Vicc
 Vicc
 Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -220590,7 +220597,6 @@ NO
 NO
 Vicc
 Vicc
-Vicc
 NO
 NO
 NO
@@ -279626,6 +279632,7 @@ NO
 NO
 NO
 NO
+Vicc
 Vicc
 Vicc
 NO
@@ -344462,6 +344469,7 @@ Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 NO
 Vicc
@@ -351934,6 +351942,7 @@ Vicc
 NO
 NO
 NO
+Vicc
 Vicc
 Vicc
 Vicc
@@ -368595,6 +368604,7 @@ NO
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -398199,6 +398209,7 @@ NO
 NO
 NO
 NO
+Vicc
 NO
 NO
 NO
@@ -398515,6 +398526,10 @@ Vicc
 Vicc
 NO
 NO
+Vicc
+Vicc
+Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -410551,6 +410566,8 @@ NO
 NO
 Vicc
 Vicc
+Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -415451,6 +415468,7 @@ NO
 Vicc
 Vicc
 NO
+Vicc
 Vicc
 Vicc
 NO
@@ -427892,6 +427910,8 @@ NO
 NO
 NO
 Vicc
+NO
+Vicc
 Vicc
 Vicc
 NO
@@ -433035,6 +433055,9 @@ NO
 NO
 NO
 NO
+Vicc
+Vicc
+Vicc
 Vicc
 Vicc
 Vicc
@@ -433166,6 +433189,7 @@ Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -439493,6 +439517,8 @@ NO
 NO
 NO
 NO
+Vicc
+Vicc
 NO
 NO
 Vicc
@@ -442629,6 +442655,7 @@ Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -442710,6 +442737,7 @@ NO
 NO
 Vicc
 Vicc
+Vicc
 NO
 Vicc
 NO
@@ -490481,6 +490509,7 @@ NO
 NO
 NO
 NO
+Vicc
 Vicc
 Vicc
 Vicc
@@ -496627,6 +496656,7 @@ NO
 NO
 NO
 NO
+NO
 Vicc
 NO
 NO
@@ -535028,6 +535058,7 @@ NO
 NO
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -535087,6 +535118,7 @@ NO
 Vicc
 NO
 NO
+Vicc
 Vicc
 Vicc
 Vicc
@@ -535700,6 +535732,7 @@ Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -542764,7 +542797,10 @@ NO
 NO
 NO
 NO
+Vicc
+Vicc
 Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -560484,6 +560520,7 @@ NO
 NO
 Vicc
 Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -572101,6 +572138,7 @@ NO
 NO
 NO
 NO
+Vicc
 Vicc
 NO
 Vicc
@@ -605565,6 +605603,7 @@ NO
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 NO
 NO
@@ -605796,6 +605835,7 @@ Vicc
 Vicc
 Vicc
 Vicc
+Vicc
 NO
 Vicc
 Vicc
@@ -608270,6 +608310,7 @@ Vicc
 Vicc
 NO
 NO
+Vicc
 Vicc
 Vicc
 Vicc

@@ -328,7 +328,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
         array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula]
       ];
     } else {
-      const ordenat = coincidencies; // pots afegir `.sort(...)` si vols ordenació
+      const ordenat = coincidencies; // podríem afegir `.sort(...)` si volem ordenar els resultats???
 
       let opcions = coincidencies.map((c, i) => {
         const index = c.index;

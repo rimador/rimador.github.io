@@ -1,17 +1,17 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
-const VERSIO_TRANSCRIPCIONS = "v.2.4";  // Versió compartida per col_3, col_4 i col_9
+const VERSIO_TRANSCRIPCIONS = "v.2.5";  // Versió compartida per col_3, col_4 i col_9
 
 const VERSIONS_FITXERS = {
-  "col_0.txt": "v.2.2", //paraula
-  "col_1.txt": "v.2.2", //d'on prové
-  "col_2.txt": "v.2.2", //codi
+  "col_0.txt": "v.2.5", //paraula
+  "col_1.txt": "v.2.5", //d'on prové
+  "col_2.txt": "v.2.5", //codi
   "col_3.txt": VERSIO_TRANSCRIPCIONS, //consonant
   "col_4.txt": VERSIO_TRANSCRIPCIONS, //assonant
-  "col_5.txt": "v.2.2", //síl·labes
-  "col_6.txt": "v.2.2", //Vicc
-  "col_7.txt": "v.2.2", //Viq
-  "col_8.txt": "v.2.2", //Diec
+  "col_5.txt": "v.2.5", //síl·labes
+  "col_6.txt": "v.2.5", //Vicc
+  "col_7.txt": "v.2.5", //Viq
+  "col_8.txt": "v.2.5", //Diec
   "col_9.txt": VERSIO_TRANSCRIPCIONS //transcripció sencera
   //col_10 - paraula + transcripció
 };
@@ -287,13 +287,18 @@ async function realitzarCerca() {
 }
 
 function descriureCategoria(codi) {
+  if (codi.startsWith("Y")) return "abreviació";
+  if (codi.startsWith("CC")) return "conjunció";
+  if (codi.startsWith("SP")) return "preposició";
+  if (codi.startsWith("I")) return "interjecció";
+  if (codi.startsWith("RG")) return "adverbi";
   if (codi.startsWith("V")) return "verb";
   if (codi.startsWith("N")) return "nom";
   if (codi.startsWith("A")) return "adjectiu";
   if (codi.startsWith("P")) return "pronom";
   if (codi.startsWith("D")) return "determinant";
   if (codi.startsWith("Z")) return "altre";
-  return "categoria desconeguda";
+  return "altra categoria";
 }
 
 function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9) {
@@ -328,9 +333,10 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       let opcions = coincidencies.map((c, i) => {
         const index = c.index;
         const paraula = array0[index];
+        const arrel = array1[index];
         const categoria = descriureCategoria(array2[index]);
         const transcripcio = array9[index];
-        return `${i + 1}: ${paraula} (${categoria}) ${transcripcio.startsWith("/") ? transcripcio : "/" + transcripcio + "/"}`;
+        return `${i + 1}: ${paraula} (${categoria}, ${arrel}) ${transcripcio.startsWith("/") ? transcripcio : "/" + transcripcio + "/"}`;
       }).join("\n");
 
       let eleccio = prompt(`Hi ha ${ordenat.length} coincidències per "${paraulaCercada}".\nEscull una opció:\n\n${opcions}`);

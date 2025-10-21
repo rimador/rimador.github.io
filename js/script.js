@@ -1,6 +1,6 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
-const VERSIO_TRANSCRIPCIONS = "v.2.5";  // Versió compartida per col_3, col_4 i col_9
+const VERSIO_TRANSCRIPCIONS = "v.2.6";  // Versió compartida per col_3, col_4 i col_9
 
 const VERSIONS_FITXERS = {
   "col_0.txt": "v.2.5", //paraula

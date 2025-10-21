@@ -4282,7 +4282,7 @@ iən
 iəs
 iəw
 ɔls
-ɔlt
+ɔl
 ɔltə
 ɔltə
 ɔltəs
@@ -52036,7 +52036,7 @@ arnis
 arnu
 arnu
 o
-anəlt
+anəl
 os
 ozə
 ozəs
@@ -57520,7 +57520,7 @@ at
 als
 at
 ats
-alt
+al
 altə
 altə
 a
@@ -118974,7 +118974,7 @@ als
 aj
 ajs
 inə
-alt
+al
 altik
 altikə
 altiks
@@ -196120,7 +196120,7 @@ antin
 antin
 antis
 antu
-ɔlt
+ɔl
 ɔltə
 en
 ɔltəs
@@ -217347,7 +217347,7 @@ iən
 iəs
 iəw
 ɔls
-ɔlt
+ɔl
 ɔltə
 ɔltəs
 ɔls
@@ -220122,7 +220122,7 @@ oɾəs
 oɾəs
 os
 os
-onəlt
+onəl
 als
 am
 ams
@@ -383956,7 +383956,7 @@ en
 ens
 inə
 inəs
-ult
+ul
 ultə
 ultə
 a
@@ -389251,7 +389251,7 @@ ulsə
 en
 ulsəs
 ulsus
-ult
+ul
 ultə
 ultə
 a
@@ -449337,7 +449337,7 @@ os
 iw
 iws
 ɔkuls
-ult
+ul
 ultə
 ultə
 ultə
@@ -529316,7 +529316,7 @@ iəs
 iəw
 ɔlis
 ɔls
-ɔlt
+ɔl
 ɔltə
 ɔltəs
 ɔls

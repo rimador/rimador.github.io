@@ -82308,6 +82308,7 @@ Viq
 Viq
 Viq
 Viq
+NO
 Viq
 Viq
 Viq
@@ -618201,6 +618202,8 @@ NO
 NO
 NO
 NO
+Viq
+Viq
 NO
 NO
 NO

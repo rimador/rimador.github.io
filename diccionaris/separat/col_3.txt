@@ -21114,8 +21114,8 @@ izməs
 ɔstikəs
 ɔstikəs
 aɡnus
-ɛj
-ɛjs
+ej
+ejs
 ɔʒik
 ɔʒikə
 ɔʒikə
@@ -82308,6 +82308,7 @@ ar
 ak
 ɛɾi
 akbən
+ejs
 e
 aðə
 a
@@ -83988,8 +83989,8 @@ iə
 iəs
 ɔʒəs
 ɔʒəs
-ei
-eis
+oɣi
+oɣis
 ɔʒi
 ɔʒis
 ɔɣu
@@ -113121,7 +113122,7 @@ iʎə
 atə
 u
 atʃil
-ei
+utni
 iə
 iə
 iə
@@ -333621,8 +333622,8 @@ ajk
 ajkə
 ajks
 ajkəs
-ai
-ais
+aj
+ajs
 aðik
 aðikə
 aðiks
@@ -364590,8 +364591,8 @@ o
 ons
 its
 aβu
-ei
-ais
+aj
+ajs
 az
 emə
 al
@@ -405382,8 +405383,8 @@ aβəm
 aβən
 aβəs
 aβəw
-ɛj
-ɛjs
+ej
+ejs
 ɛm
 ɛm
 ɛm
@@ -428880,7 +428881,7 @@ ildiw
 ildius
 ɛ
 e
-ɛj
+ej
 ɛnə
 a
 as
@@ -434417,8 +434418,8 @@ iə
 eɾo
 ɔls
 ondu
-ɛj
-ei
+ej
+ej
 ɔntəs
 ɛzə
 aðu
@@ -519695,8 +519696,8 @@ atis
 atu
 ɔt
 ɔt
-ei
-ei
+ej
+ej
 ɛjə
 al
 al
@@ -520443,7 +520444,7 @@ iw
 iw
 iw
 os
-eis
+ejs
 e
 ɛm
 eɾəm
@@ -618201,6 +618202,8 @@ oʎ
 oʎs
 ops
 ops
+ej
+ejs
 ɛm
 ɛm
 ɛm

@@ -1,17 +1,17 @@
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
-const VERSIO_TRANSCRIPCIONS = "v.2.6";  // Versió compartida per col_3, col_4 i col_9
+const VERSIO_TRANSCRIPCIONS = "v.2.7";  // Versió compartida per col_3, col_4 i col_9
 
 const VERSIONS_FITXERS = {
-  "col_0.txt": "v.2.5", //paraula
-  "col_1.txt": "v.2.5", //d'on prové
-  "col_2.txt": "v.2.5", //codi
+  "col_0.txt": "v.2.7", //paraula
+  "col_1.txt": "v.2.7", //d'on prové
+  "col_2.txt": "v.2.7", //codi
   "col_3.txt": VERSIO_TRANSCRIPCIONS, //consonant
   "col_4.txt": VERSIO_TRANSCRIPCIONS, //assonant
-  "col_5.txt": "v.2.5", //síl·labes
-  "col_6.txt": "v.2.5", //Vicc
-  "col_7.txt": "v.2.5", //Viq
-  "col_8.txt": "v.2.5", //Diec
+  "col_5.txt": "v.2.7", //síl·labes
+  "col_6.txt": "v.2.7", //Vicc
+  "col_7.txt": "v.2.7", //Viq
+  "col_8.txt": "v.2.7", //Diec
   "col_9.txt": VERSIO_TRANSCRIPCIONS //transcripció sencera
   //col_10 - paraula + transcripció
 };

@@ -5,9 +5,10 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Fitxers de log
-*.log
+# Fitxers font (ja tenim els minificats a dist/)
+css/
+js/
 
-# Fitxers d'entorn local
-.env
-.env.local
+# Notebooks de treball
+proves/
+diccionaris/*.ipynb

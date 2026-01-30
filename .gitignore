@@ -1,0 +1,13 @@
+# Dependències de Node.js
+node_modules/
+
+# Fitxers del sistema
+.DS_Store
+Thumbs.db
+
+# Fitxers de log
+*.log
+
+# Fitxers d'entorn local
+.env
+.env.local

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PRLRBXFC');</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4S5EE36FXV"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4S5EE36FXV'); 
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="El Rimador català et permet cercar rimes assonants i consonants segons la fonètica de les paraules, no segons com s'escriuen. S'hi poden cercar rimes assonantment i consonantment, i el sistema de filtres et permet garbellar per categories gramaticals. Prova'l!">
+    <meta name="keywords" content="rimes, rima, rimador, català, diccionari, sinònims, poesia, vers, assonant, consonant, noms, adjectius, marc, ferran">
+    <meta name="author" content="Marc i Ferran">
+    <meta property="og:title" content="El Rimador català">
+    <meta property="og:description" content="El primer cercador funcional de rimes en català.">
+    <meta property="og:image" content="https://rimador.github.io/assets/R.webp">
+    <meta property="og:url" content="https://rimador.github.io/">
+    <meta property="og:type" content="website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>El Rimador català</title>
+
+    <link rel="shortcut icon" href="https://rimador.github.io/assets/R.webp">
+
+    <link rel="stylesheet" href="../dist/css/styles.min.css">
+    <script src="../dist/js/script.min.js" defer></script>
+</head>
+
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRLRBXFC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div class="loader" id="loader">
+        <p class="loader-text1" id="loader-text1"></p>
+        <div class="loader-inner">
+            <div class="loader-line-wrap"><div class="loader-line"></div></div>
+            <div class="loader-line-wrap"><div class="loader-line"></div></div>
+            <div class="loader-line-wrap"><div class="loader-line"></div></div>
+            <div class="loader-line-wrap"><div class="loader-line"></div></div>
+            <div class="loader-line-wrap"><div class="loader-line"></div></div>
+        </div>
+        <p class="loader-text2" id="loader-text2"></p>
+    </div>     
+
+    <header>
+        <a href="https://rimador.github.io"><img class="rimador" src="../assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
+        <img class="peixet" src="../assets/peixet.webp" alt="Peixet decoratiu">
+    </header>
+
+    <div id="separador_rosa_nosaltres">  
+    <script defer>
+        fetch('html/header.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('separador_rosa_nosaltres').innerHTML = html;
+        });
+    </script>
+</div>
+
+    <div id="text_presentació">
+        <p>Som en Marc i en Ferran, dos estudiants del barri d'Hostafrancs. La mancança d'un bon rimador en llengua catalana ens ha portat a dissenyar la present pàgina web, amb l'únic objectiu que sigui útil per qui mai la pugui necessitar.
+    
+        <br><br>Agraïm a *** per cedir-nos el seu transcriptor.
+    
+        <br><br>Si trobeu cap error o teniu alguna suggerència, preguem ens ho feu arribar al nostre correu:  
+            <a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a>        
+        <br>    
+        </p>
+
+        <p id="arimar">
+            <a href="https://rimador.github.io">
+                A rimar!
+            </a>
+        </p>
+    </div>
+    <div id="espai_inicial">
+        <p>.</p>
+    </div>    
+
+    <footer id="footer">
+      <script defer>
+        fetch('footer.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('footer').innerHTML = html;
+          });
+      </script>
+    </footer>
+
+</body>
+</html>

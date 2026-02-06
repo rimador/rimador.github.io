@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Troba rimes en català fàcilment amb el nostre rimador intel·ligent! Per a poetes, escriptors, estudiants... Prova-ho ara!">
+    <meta name="keywords" content="rimes, rima, rimador, català, diccionari, sinònims, poesia, vers">
+    <meta name="author" content="Marc i Ferran">
+    <meta property="og:title" content="Rimador en Català">
+    <meta property="og:description" content="Troba rimes fàcilment amb el Rimador en català.">
+    <meta property="og:image" content="https://rimador.github.io/assets/R.gif">
+    <meta property="og:url" content="https://rimador.github.io/">
+    <meta property="og:type" content="website">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rimador en català</title>
+
+    <link rel="shortcut icon" href="https://rimador.github.io/assets/R.gif">
+
+    <link rel="stylesheet" href="dist/css/styles.min.css">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRLRBXFC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <header>
+        <a href="https://rimador.github.io"><img class="rimador" src="./assets/Rimador-1.gif" alt="Logo del Rimador en català"></a>
+        <img class="peixet" src="./assets/peixet.gif" alt="Peixet decoratiu">
+        </header>
+
+    <div id="separador_rosa_nosaltres">
+        <script defer>
+            fetch('html/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('separador_rosa_nosaltres').innerHTML = html;
+            });
+        </script>
+    </div>
+
+    <div id="text_presentació">
+        <p>Som en Marc i en Ferran, dos estudiants del barri d'Hostafrancs. La mancança d'un bon rimador en llengua catalana ens ha portat a dissenyar la present pàgina web, amb l'únic objectiu que sigui útil per qui mai la pugui necessitar.
+    
+        <br><br>Agraïm a *** per cedir-nos el seu transcriptor.
+    
+        <br><br>Si trobeu cap error o teniu alguna suggerència, preguem ens ho feu arribar al nostre correu:  
+            <a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a>        
+        <br>    
+        </p>
+
+        <p id="arimar">
+            <a href="https://rimador.github.io">
+                A rimar!
+            </a>
+        </p>
+        
+    </div>
+
+    <footer id="footer">
+      <script defer>
+        fetch('footer.html')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById('footer').innerHTML = html;
+          });
+      </script>
+    </footer>
+
+
+</body>
+
+</html>

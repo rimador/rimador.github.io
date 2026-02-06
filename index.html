@@ -70,8 +70,13 @@
         </header>
 
     <div id="separador_rosa1">
-        <p>Pàgina web en fase de correcció, versió en desenvolupament<br>
-        Novetat! (5 de gener) Correció de paraules acabades en -ei(s). Revisa tots els canvis <a id="enllaç" href="historial_canvis.html" target="_blank">aquí</a>.</p>
+        <script defer>
+            fetch('html/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('separador_rosa1').innerHTML = html;
+            });
+        </script>
         </div>
     <div class="container" id="container">
         <div class="search-container">
@@ -224,7 +229,7 @@
     </div>    
 
 <footer id="footer">
-  <script>
+  <script defer>
     fetch('html/footer.html')
       .then(res => res.text())
       .then(html => {

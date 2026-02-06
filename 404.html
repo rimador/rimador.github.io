@@ -30,7 +30,15 @@
         <img class="peixet" src="./assets/peixet.webp" alt="Peixet decoratiu">
     </header>
 
-    <div id="separador_rosa_nosaltres"><p>Pàgina web en fase de correcció, versió en desenvolupament</p></div>
+    <div id="separador_rosa_nosaltres">
+        <script defer>
+            fetch('html/header.html')
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('separador_rosa_nosaltres').innerHTML = html;
+            });
+        </script>
+    </div>
 
     <div id="text_presentació">
         <p>Error CDIV, sembla que no anem bé per aquí...</p>
@@ -50,7 +58,7 @@
     </div>
 
 <footer id="footer">
-  <script>
+  <script defer>
     fetch('html/footer.html')
       .then(res => res.text())
       .then(html => {

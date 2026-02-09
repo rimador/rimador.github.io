@@ -323630,6 +323630,7 @@ i
 ini
 ɔm
 ət
+ɛt
 ɛtə
 a
 ali
@@ -324129,6 +324130,7 @@ usks
 uskəs
 uskəs
 ets
+ɛts
 ek
 uzə
 uzəs

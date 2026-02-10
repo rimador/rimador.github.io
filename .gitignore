@@ -8,10 +8,10 @@ Thumbs.db
 # Notebooks de treball
 proves/
 diccionaris/*.ipynb
-diccionaris/diccionari.5.2.3.txt
+diccionaris/*.txt
 
 # Minimitzats
 dist/
 
 # JS antics
-js_antics
+js_antics/

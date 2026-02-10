@@ -8,3 +8,6 @@ Thumbs.db
 # Notebooks de treball
 proves/
 diccionaris/*.ipynb
+
+# Minimitzats
+dist/

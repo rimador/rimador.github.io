@@ -5,10 +5,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Fitxers font (ja tenim els minificats a dist/)
-css/
-js/
-
 # Notebooks de treball
 proves/
 diccionaris/*.ipynb

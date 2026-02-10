@@ -34,12 +34,3 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', gulp.series('styles', 'scripts', 'watch'));
-
-
-//Executar 
-//Terminal:
-// cd Dropbox/FERRAN/Portàtil/ALTRES/Python/**GitHub/RIMADOR/rimador.github.io/
-//després
-//npx gulp
-
-// control c ho atura

@@ -19,7 +19,7 @@ gulp.task('styles', function () {
 
 // Tasca 2: Minificar JS
 gulp.task('scripts', function () {
-    return gulp.src('js/**/script.js', { allowEmpty: true }) 
+    return gulp.src('script.js', { allowEmpty: true }) 
         .pipe(sourcemaps.init())
         .pipe(gulp.dest('dist/js'))  
         .pipe(uglify().on('error', console.error))  

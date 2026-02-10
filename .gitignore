@@ -11,3 +11,7 @@ diccionaris/*.ipynb
 
 # Minimitzats
 dist/
+
+# JS antics
+js/script_moltantic.js
+js/script antic (22-3).js

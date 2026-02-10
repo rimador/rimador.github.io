@@ -1,0 +1,2 @@
+cd /Users/macbookpro/Dropbox/FERRAN/Portàtil/ALTRES/Python/**GitHub/RIMADOR/rimador.github.io/
+npx gulp

@@ -13,5 +13,4 @@ diccionaris/*.ipynb
 dist/
 
 # JS antics
-js/script_moltantic.js
-js/script_antic_22-3.js
+js_antics

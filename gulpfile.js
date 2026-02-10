@@ -5,7 +5,7 @@ const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 
-// Tasca 1: Minificar i combinar CSS
+// Tasca 1: CSS
 gulp.task('styles', function () {
     return gulp.src('css/**/*.css', { allowEmpty: true }) 
         .pipe(sourcemaps.init())
@@ -17,32 +17,29 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('dist/css'));
 });
 
-// Tasca 2: Minificar JS
+// Tasca 2: JS (Sense allowEmpty per detectar errors)
 gulp.task('scripts', function () {
-    return gulp.src('script.js', { allowEmpty: true }) 
+    return gulp.src('script.js') // <--- HE TRET { allowEmpty: true }
         .pipe(sourcemaps.init())
         .pipe(gulp.dest('dist/js'))  
-        .pipe(uglify().on('error', console.error))  
+        .pipe(uglify().on('error', console.error)) // Això ens dirà si hi ha error de sintaxi
         .pipe(rename({ suffix: '.min' }))  
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist/js'));  
 });
 
-// Tasca 3: Construir una sola vegada (Per a GitHub Actions)
+// Tasca 3: Build
 gulp.task('build', gulp.series('styles', 'scripts'));
 
-// Tasca 4: Vigilar canvis (Per a TU en local)
+// Tasca 4: Watch
 gulp.task('watch', function () {
-    // Primer construïm per assegurar que els fitxers existeixen
-    gulp.series('styles', 'scripts')(); 
-    
-    // Després vigilem
+    // Ja no cal fer el build aquí dins, el fa la tasca 'dev' abans
     gulp.watch('css/**/*.css', gulp.series('styles'));
     gulp.watch('script.js', gulp.series('scripts'));
 });
 
-// Per defecte (si escrius 'gulp' o per a GitHub): Només construeix
+// Default
 gulp.task('default', gulp.series('build'));
 
-// Tasca 'dev': Construeix i es posa a vigilar
+// Dev
 gulp.task('dev', gulp.series('build', 'watch'));

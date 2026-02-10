@@ -1,0 +1,202 @@
+#mostrarFormulari {
+  position: fixed;
+  bottom: 20px;
+  right: 15px;
+  appearance: button;
+  background-color: #01c8c8;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+#mostrarFormulari:after {
+  background-clip: padding-box;
+  background-color: #00ffff;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+#mostrarFormulari,
+#mostrarFormulari:focus {
+  user-select: auto;
+}
+
+#mostrarFormulari:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+#mostrarFormulari:disabled {
+  cursor: auto;
+}
+
+#mostrarFormulari:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+
+
+#formulariContainer {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
+}
+
+#formulariContainer form h3 {
+    margin: 0 0 10px;
+    color: #ff1493;
+    font-size: 18px;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", "sans serif"; 
+}
+
+#formulariContainer form p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: 'Comic Sans MS';
+}
+
+#formulariContainer form label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #f6ff00;
+  text-align: left;
+  text-shadow:  
+      -1px -1px 0 #A50044,  
+       1px -1px 0 #004D98,  
+       -1px  1px 0 #004D98,  
+       1px  1px 0 #004D98;  
+}
+
+
+#formulariContainer form input,
+#formulariContainer form textarea {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#formulariContainer form textarea {
+    height: 80px;
+    resize: none;
+}
+
+.submit-button {
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: 5px solid #e50000;
+    display: inline-block;
+    overflow: hidden;
+    background: red;
+    box-shadow:
+      inset 6px 6px 10px rgba(255, 255, 255, 0.6),
+      inset -6px -6px 10px rgba(0, 0, 0, 0.3),
+      2px 2px 10px rgba(0, 0, 0, 0.3),
+      -2px -2px 10px rgba(255, 255, 255, 0.5);
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.1s ease;
+  }
+  
+  .submit-button span {
+    font-weight: 900;
+    font-size: 24px;
+    color: #db0000;
+    text-shadow:
+      1px 1px 1px rgba(255, 255, 255, 0.4),
+      -1px -1px 1px rgba(0, 0, 0, 0.4);
+    position: relative;
+    display: inline-block;
+    transition: transform 0.3s ease-out;
+    z-index: 1;
+    padding: 0px 4px;
+  }
+  
+  .submit-button span:hover {
+    transform: translateY(-7px);
+  }
+  
+  .submit-button:hover span {
+    color: #d30000;
+  }
+  
+  .submit-button:active {
+    box-shadow:
+      inset 2px 2px 1px rgba(0, 0, 0, 0.3),
+      inset -2px -2px 1px rgba(255, 255, 255, 0.5);
+    transform: scale(0.98);
+  }
+  
+  .submit-button:active span {
+    color: #f30000;
+    text-shadow:
+      1px 1px 1px rgba(255, 255, 255, 0.5),
+      -1px -1px 2px rgba(0, 0, 0, 0.5);
+  }  
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gifok {
+  width: 35px;
+  height: 35px;
+}

@@ -28,5 +28,21 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('dist/js'));  
 });
 
-// Tasca per defecte: Executa styles i scripts, i ACABA.
-gulp.task('default', gulp.series('styles', 'scripts'));
+// Tasca 3: Construir una sola vegada (Per a GitHub Actions)
+gulp.task('build', gulp.series('styles', 'scripts'));
+
+// Tasca 4: Vigilar canvis (Per a TU en local)
+gulp.task('watch', function () {
+    // Primer construïm per assegurar que els fitxers existeixen
+    gulp.series('styles', 'scripts')(); 
+    
+    // Després vigilem
+    gulp.watch('css/**/*.css', gulp.series('styles'));
+    gulp.watch('script.js', gulp.series('scripts'));
+});
+
+// Per defecte (si escrius 'gulp' o per a GitHub): Només construeix
+gulp.task('default', gulp.series('build'));
+
+// Tasca 'dev': Construeix i es posa a vigilar
+gulp.task('dev', gulp.series('build', 'watch'));

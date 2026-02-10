@@ -1,5 +1,6 @@
 # Dependències de Node.js
 node_modules/
+npx.txt
 
 # Fitxers del sistema
 .DS_Store

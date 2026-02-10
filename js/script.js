@@ -1,5 +1,3 @@
-const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
-
 const VERSIO_TRANSCRIPCIONS = "v.2.8";  // Versió de col_3, col_4 i col_9
 const VERSIO_TOTAL = "v.2.8"; // Versió de totes les altres columnes
 
@@ -16,6 +14,8 @@ const VERSIONS_FITXERS = {
   "col_9.txt": VERSIO_TRANSCRIPCIONS //transcripció sencera
   //col_10 - paraula + transcripció
 };
+
+const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
 const Debug = {
     log: debugLevel >= 3 ? (label) => console.log(`[DEBUG] ${label}`) : () => {},

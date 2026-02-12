@@ -23900,7 +23900,6 @@ NO
 NO
 NO
 Viq
-Viq
 NO
 NO
 NO

@@ -1,4 +1,4 @@
-const VERSIO_TRANSCRIPCIONS = "v.2.11";  // Versió de col_3, col_4 i col_9
+const VERSIO_TRANSCRIPCIONS = "v.2.12";  // Versió de col_3, col_4 i col_9
 const VERSIO_TOTAL          = "v.2.9"; // Versió de totes les altres columnes
 
 const VERSIONS_FITXERS = {

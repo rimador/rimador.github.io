@@ -1,3 +1,35 @@
+#enllaçbrillant {
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: none;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-decoration: underline;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s ease;
+}
+  
+#enllaçbrillant:visited {
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: none;
+    -webkit-background-clip: text;
+    color: transparent;}
+  
+#enllaçbrillant:hover {
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-clip: none;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 4px #000000;
+    transform: scale(1.1) rotate(-2deg);
+}
+  
+#enllaçbrillant:active {
+    transform: scale(0.95) rotate(1deg);
+    text-shadow: 0 0 8px #3399ff;
+}
+
+
 #enllaç {
     color: #007BFF;
     text-decoration: underline;
@@ -20,6 +52,7 @@
     transform: scale(0.95) rotate(1deg);
     text-shadow: 0 0 8px #3399ff;
 }
+
 
 #text_canvis {
     background-color: #00ffff;

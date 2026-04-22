@@ -1,26 +1,29 @@
 #enllaçbrillant {
-    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: none;
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     text-decoration: underline;
     font-weight: bold;
+    font-size: 19px;
     position: relative;
     transition: all 0.3s ease;
 }
   
 #enllaçbrillant:visited {
-    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: none;
-    -webkit-background-clip: text;
-    color: transparent;}
-  
-#enllaçbrillant:hover {
-    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: none;
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    text-shadow: 0 0 4px #000000;
+    font-size: 19px;
+}
+  
+#enllaçbrillant:hover {
+    background: linear-gradient(to left, red, orange, yellow, green, blue, indigo);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 19px;
     transform: scale(1.1) rotate(-2deg);
 }
   
@@ -87,22 +90,22 @@
     margin-right: 70px;
 }
 
-#text_canvis a {
+#text_canvis > p:not(#arimar) a:not(#enllaçbrillant) {
     color: #ff00ff; 
     text-decoration: none;
     font-weight: bold;
 }
 
-#text_canvis a[id^="link"] {
+#text_canvis > p:not(#arimar) a[id^="link"] {
     text-decoration: underline; 
 }
 
-#text_canvis a:hover { 
+#text_canvis > p:not(#arimar) a:not(#enllaçbrillant):hover { 
     color: rgb(0, 145, 0); 
     font-family: 'Comic Sans MS';
     text-decoration: underline;
 }
 
-#text_canvis a:active { 
+#text_canvis > p:not(#arimar) a:not(#enllaçbrillant):active { 
     color: #606060; 
 }    

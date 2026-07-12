@@ -2,7 +2,7 @@ name: Deploy Gulp site to Pages
 
 on:
   push:
-    branches: ["main"] # S'executa cada cop que puges a la branca main
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -19,19 +19,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # O la versió que usis
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Gulp
-        run: npx gulp # Aquí s'executa el teu comando de minimització
+        run: npx gulp
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # O la carpeta on es generi el resultat final (ex: 'dist')
+          path: '.'
 
   deploy:
     needs: build

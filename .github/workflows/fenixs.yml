@@ -1,0 +1,22 @@
+name: Fenixs workflow
+
+on:
+  push:
+    paths:
+      - 'diccionaris/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run generar_fenixs.py
+        working-directory: rimador.github.io
+        run: python generar_fenixs.py

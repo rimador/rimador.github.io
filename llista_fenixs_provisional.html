@@ -31,6 +31,7 @@
 
     <link rel="stylesheet" href="dist/css/styles.min.css">
     <script src="dist/js/script.min.js" defer></script>
+    
 </head>
 
 <body>
@@ -77,20 +78,8 @@
     </div>
 
     <div class="container" id="container">
-        <div class="search-container">
-            <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula que vols cercar">
-            <button class="boto" role="button" id="cercaButton"><span class="text">Cercar</span></button>
-        </div>
 
         <div class="dropdown-container">
-            <div>
-                <label for="rimaSelector">Tipus de rima:</label>
-                <select id="rimaSelector">
-                    <option value="r.consonant">Consonant</option>
-                    <option value="r.assonant">Assonant</option>
-                </select>
-            </div>
-
             <div>
                 <label for="numeroSelector">Nombre de síl·labes:</label>
                 <select id="numeroSelector">
@@ -127,7 +116,12 @@
                     <option value="si">Sí</option>
                 </select>
             </div>
+            <div>
+                <button class="boto" role="button" id="actualitzaButton"><span class="text">Actualitzar</span></button>
+            </div>
+
         </div>
+
     </div>
 
     <div class="impressio">
@@ -243,8 +237,89 @@
         </form>
     </div>
 
-    <script>
-      function carregarLlistaFenixs() {
+        <script>
+            function normalitzarParaula(paraula) {
+                return (paraula || '').trim().toLowerCase();
+            }
+
+            function compleixFiltresFenixs(entrada, numeroSeleccionat, comenca, inclourePropis, inclourePlurals) {
+                const paraula = normalitzarParaula(entrada.paraula);
+                const codi = entrada.codi || '';
+                const silabes = String(entrada.sil || '');
+
+                if (numeroSeleccionat !== '0' && numeroSeleccionat !== '5' && silabes !== numeroSeleccionat) {
+                    return false;
+                }
+
+                if (numeroSeleccionat === '5' && parseInt(silabes, 10) < 5) {
+                    return false;
+                }
+
+                if (comenca === 'vocal+h' && !'haeiou'.includes(paraula.charAt(0))) {
+                    return false;
+                }
+
+                if (comenca === 'consonant' && 'haeiou'.includes(paraula.charAt(0))) {
+                    return false;
+                }
+
+                if (inclourePropis === 'no' && codi.startsWith('NP')) {
+                    return false;
+                }
+
+                if (inclourePlurals === 'no') {
+                    if (codi[0] === 'D' && codi[4] === 'P') {
+                        return false;
+                    }
+                    if (codi[0] === 'A' && codi[4] === 'P') {
+                        return false;
+                    }
+                    if (codi[0] === 'N' && codi[3] === 'P') {
+                        return false;
+                    }
+                    if (codi[0] === 'P' && codi[4] === 'P') {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            function actualitzarLlistaFenixs() {
+                const numeroSeleccionat = document.getElementById('numeroSelector').value;
+                const comenca = document.getElementById('categoriaSelector').value;
+                const inclourePropis = document.getElementById('nomsPropis').value;
+                const inclourePlurals = document.getElementById('plurals').value;
+
+                const dadesFiltrades = window.matches_base.filter((entrada) =>
+                    compleixFiltresFenixs(entrada, numeroSeleccionat, comenca, inclourePropis, inclourePlurals)
+                );
+
+                window.matches = dadesFiltrades.map((entrada) => [
+                    entrada.paraula,
+                    entrada.infinitiu,
+                    entrada.codi,
+                    entrada.sil,
+                    entrada.vicc,
+                    entrada.viq,
+                    entrada.diec,
+                ]);
+                window.matches_provisionals = window.matches.slice();
+                window.paraulacerca = window.matches.length > 0 ? window.matches[0] : [0, 0, 0, 0, 0, 0, 0];
+
+                actualitzarRimes();
+                mostrarTotesLesLlistes();
+            }
+
+            function prepararBotoActualitzar() {
+                const botoOriginal = document.getElementById('actualitzaButton');
+
+                const botoNou = botoOriginal.cloneNode(true);
+                botoOriginal.parentNode.replaceChild(botoNou, botoOriginal);
+                botoNou.addEventListener('click', actualitzarLlistaFenixs);
+            }
+
+            function carregarLlistaFenixs() {
         fetch('./paraules_fenixs.json')
           .then((response) => {
             if (!response.ok) {
@@ -262,10 +337,12 @@
               entrada.viq,
               entrada.diec,
             ]);
+                        window.matches_base = dades;
             window.matches_provisionals = window.matches.slice();
             window.paraulacerca = window.matches.length > 0 ? window.matches[0] : [0, 0, 0, 0, 0, 0, 0];
 
-            actualitzarRimes();
+            actualitzarLlistaFenixs();
+                        prepararBotoActualitzar();
 
             document.querySelectorAll('.clickable-checkbox').forEach((checkbox) => {
               checkbox.checked = true;

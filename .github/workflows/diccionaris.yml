@@ -18,17 +18,17 @@ jobs:
           python-version: '3.x'
 
       - name: Crear diccionari
-        working-directory: rimador.github.io/diccionaris
-        run: python creador_rima + dicc.py
+        working-directory: diccionaris
+        run: python "creador_rima + dicc.py"
 
       - name: Separar diccionari
-        working-directory: rimador.github.io/diccionaris
+        working-directory: diccionaris
         run: python separar_arxiu.py
 
       - name: Crear llista de fenixs
-        working-directory: rimador.github.io
+        working-directory: .
         run: python generar_fenixs.py
 
       - name: Crear llista de mots_de7
-        working-directory: rimador.github.io
+        working-directory: .
         run: python generar_mots_de7.py

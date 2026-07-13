@@ -21,16 +21,17 @@
     <meta charset="UTF-8">
     <meta name="keywords" content="rimes, rima, rimador, català, fènixs, diccionari">
     <meta name="author" content="Marc i Ferran">
-    <meta property="og:image" content="/assets/R.webp">
+    <meta property="og:image" content="../assets/R.webp">
     <meta property="og:url" content="https://rimador.cat/llista_fenixs.html">
     <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Llista de paraules fènixs</title>
-    <link rel="shortcut icon" href="/assets/R.webp">
+    <link rel="shortcut icon" href="../assets/R.webp">
 
-    <link rel="stylesheet" href="dist/css/styles.min.css">
-    <script src="dist/js/script.min.js" defer></script>
+    <link rel="stylesheet" href="../dist/css/styles.min.css">
+    <script src="../dist/js/script.min.js" defer></script>
+    
 </head>
 
 <body>
@@ -62,13 +63,13 @@
     </div>
 
     <header>
-        <a href="https://rimador.cat"><img class="rimador" src="./assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
-        <img class="peixet" src="./assets/peixet.webp" alt="Peixet decoratiu">
+        <a href="https://rimador.cat"><img class="rimador" src="../assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
+        <img class="peixet" src="../assets/peixet.webp" alt="Peixet decoratiu">
     </header>
 
     <div id="separador_rosa1">
         <script defer>
-            fetch('html/header.html')
+            fetch('../html/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('separador_rosa1').innerHTML = html;
@@ -77,20 +78,8 @@
     </div>
 
     <div class="container" id="container">
-        <div class="search-container">
-            <input type="text" id="paraulaCercada" placeholder="Introdueix la paraula que vols cercar">
-            <button class="boto" role="button" id="cercaButton"><span class="text">Cercar</span></button>
-        </div>
 
         <div class="dropdown-container">
-            <div>
-                <label for="rimaSelector">Tipus de rima:</label>
-                <select id="rimaSelector">
-                    <option value="r.consonant">Consonant</option>
-                    <option value="r.assonant">Assonant</option>
-                </select>
-            </div>
-
             <div>
                 <label for="numeroSelector">Nombre de síl·labes:</label>
                 <select id="numeroSelector">
@@ -127,7 +116,12 @@
                     <option value="si">Sí</option>
                 </select>
             </div>
+            <div>
+                <button class="boto" role="button" id="actualitzaButton"><span class="text">Actualitzar</span></button>
+            </div>
+
         </div>
+
     </div>
 
     <div class="impressio">
@@ -222,7 +216,7 @@
 
     <footer id="footer">
       <script defer>
-        fetch('html/footer.html')
+        fetch('../html/footer.html')
           .then(res => res.text())
           .then(html => {
             document.getElementById('footer').innerHTML = html;
@@ -236,16 +230,97 @@
             <h3>Ajuda'ns a millorar!!!!!!!!!!!!!!</h3>
             <p>Si has trobat una errada o tens una suggerència, ens pots enviar un correu a <a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a></p>
 
-            <img class="gifok" src="./assets/ok1.webp" alt="Ok1">
-            <img class="gifok" src="./assets/ok2.webp" alt="Ok2">
+            <img class="gifok" src="../assets/ok1.webp" alt="Ok1">
+            <img class="gifok" src="../assets/ok2.webp" alt="Ok2">
 
             <br>
         </form>
     </div>
 
-    <script>
-      function carregarLlistaFenixs() {
-        fetch('./mots_de7.json')
+        <script>
+            function normalitzarParaula(paraula) {
+                return (paraula || '').trim().toLowerCase();
+            }
+
+            function compleixFiltresFenixs(entrada, numeroSeleccionat, comenca, inclourePropis, inclourePlurals) {
+                const paraula = normalitzarParaula(entrada.paraula);
+                const codi = entrada.codi || '';
+                const silabes = String(entrada.sil || '');
+
+                if (numeroSeleccionat !== '0' && numeroSeleccionat !== '5' && silabes !== numeroSeleccionat) {
+                    return false;
+                }
+
+                if (numeroSeleccionat === '5' && parseInt(silabes, 10) < 5) {
+                    return false;
+                }
+
+                if (comenca === 'vocal+h' && !'haeiou'.includes(paraula.charAt(0))) {
+                    return false;
+                }
+
+                if (comenca === 'consonant' && 'haeiou'.includes(paraula.charAt(0))) {
+                    return false;
+                }
+
+                if (inclourePropis === 'no' && codi.startsWith('NP')) {
+                    return false;
+                }
+
+                if (inclourePlurals === 'no') {
+                    if (codi[0] === 'D' && codi[4] === 'P') {
+                        return false;
+                    }
+                    if (codi[0] === 'A' && codi[4] === 'P') {
+                        return false;
+                    }
+                    if (codi[0] === 'N' && codi[3] === 'P') {
+                        return false;
+                    }
+                    if (codi[0] === 'P' && codi[4] === 'P') {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            function actualitzarLlistaFenixs() {
+                const numeroSeleccionat = document.getElementById('numeroSelector').value;
+                const comenca = document.getElementById('categoriaSelector').value;
+                const inclourePropis = document.getElementById('nomsPropis').value;
+                const inclourePlurals = document.getElementById('plurals').value;
+
+                const dadesFiltrades = window.matches_base.filter((entrada) =>
+                    compleixFiltresFenixs(entrada, numeroSeleccionat, comenca, inclourePropis, inclourePlurals)
+                );
+
+                window.matches = dadesFiltrades.map((entrada) => [
+                    entrada.paraula,
+                    entrada.infinitiu,
+                    entrada.codi,
+                    entrada.sil,
+                    entrada.vicc,
+                    entrada.viq,
+                    entrada.diec,
+                ]);
+                window.matches_provisionals = window.matches.slice();
+                window.paraulacerca = window.matches.length > 0 ? window.matches[0] : [0, 0, 0, 0, 0, 0, 0];
+
+                actualitzarRimes();
+                mostrarTotesLesLlistes();
+            }
+
+            function prepararBotoActualitzar() {
+                const botoOriginal = document.getElementById('actualitzaButton');
+
+                const botoNou = botoOriginal.cloneNode(true);
+                botoOriginal.parentNode.replaceChild(botoNou, botoOriginal);
+                botoNou.addEventListener('click', actualitzarLlistaFenixs);
+            }
+
+            function carregarLlistaFenixs() {
+        fetch('./paraules_fenixs.json')
           .then((response) => {
             if (!response.ok) {
               throw new Error(`No s'ha pogut llegir el JSON (${response.status})`);
@@ -262,10 +337,12 @@
               entrada.viq,
               entrada.diec,
             ]);
+                        window.matches_base = dades;
             window.matches_provisionals = window.matches.slice();
             window.paraulacerca = window.matches.length > 0 ? window.matches[0] : [0, 0, 0, 0, 0, 0, 0];
 
-            actualitzarRimes();
+            actualitzarLlistaFenixs();
+                        prepararBotoActualitzar();
 
             document.querySelectorAll('.clickable-checkbox').forEach((checkbox) => {
               checkbox.checked = true;

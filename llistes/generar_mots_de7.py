@@ -6,16 +6,16 @@ from collections import Counter
 def generar_llista():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     
-    ruta_col_0 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_0.txt') #paraula
-    ruta_col_1 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_1.txt') #infinitiu
-    ruta_col_2 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_2.txt') #codi
-    ruta_col_3 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_3.txt') #rimacons
-    #ruta_col_4 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_4.txt') #rimaass
-    ruta_col_5 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_5.txt') #sil
-    ruta_col_6 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_6.txt') #Vicc
-    ruta_col_7 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_7.txt') #Viq
-    ruta_col_8 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_8.txt') #DIEC
-    #ruta_col_9 = os.path.join(base_dir, 'diccionaris', 'separat', 'col_9.txt') #transcripció
+    ruta_col_0 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_0.txt') #paraula
+    ruta_col_1 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_1.txt') #infinitiu
+    ruta_col_2 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_2.txt') #codi
+    ruta_col_3 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_3.txt') #rimacons
+    #ruta_col_4 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_4.txt') #rimaass
+    ruta_col_5 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_5.txt') #sil
+    ruta_col_6 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_6.txt') #Vicc
+    ruta_col_7 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_7.txt') #Viq
+    ruta_col_8 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_8.txt') #DIEC
+    #ruta_col_9 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_9.txt') #transcripció
     
     fitxer_sortida = os.path.join(base_dir, 'mots_de7.json')
 

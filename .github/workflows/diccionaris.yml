@@ -1,4 +1,4 @@
-name: Fenixs workflow
+name: Generador de diccionaris (i de fènixs i heptasíl·labs)
 
 on:
   push:

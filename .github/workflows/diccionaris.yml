@@ -26,9 +26,9 @@ jobs:
         run: python separar_arxiu.py
 
       - name: Crear llista de fenixs
-        working-directory: .
+        working-directory: llistes
         run: python generar_fenixs.py
 
       - name: Crear llista de mots_de7
-        working-directory: .
+        working-directory: llistes
         run: python generar_mots_de7.py

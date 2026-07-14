@@ -38,6 +38,7 @@ let nombresDeFitxers = 10;
 
 const nombresSeleccionats = [0,1,2,3,4,5,6,7,8,9];
 const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
+const idPagina = document.body ? document.body.id : '';
 
 document.addEventListener('DOMContentLoaded', async () => {
     Debug.logTime('Temps de càrrega');
@@ -170,7 +171,10 @@ inputParaula.addEventListener('keydown', function(event) {
 
 
 //Botó:
-cercaButton.addEventListener('click', realitzarCerca);
+const cercaButton = document.getElementById('cercaButton');
+if (cercaButton) {
+  cercaButton.addEventListener('click', realitzarCerca);
+}
 
 const CriterisNoms = {
   ...crearCriteris('Noms', 'N'),
@@ -420,31 +424,40 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
 }
 
 function crearEnllacViccionari(paraula) {
-  var scriptElement = document.getElementById('meu-script');
-  var rutaBase = scriptElement ? scriptElement.getAttribute('data-ruta') : './';
-  var rutaImatge = rutaBase + 'assets/logovicc (240x240).png';
+  let ruta = '';
+    if (idPagina === 'principal') {
+    ruta = 'assets/';
+  } else if (idPagina === 'llista1') {
+    ruta = '../assets/';
+  }
   var enllac_vicc = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
-    enllac_vicc += '<img src="' + rutaImatge + '" loading="lazy" alt="Logo" class="logo">';
+    enllac_vicc += '<img src="' + ruta + 'logovicc (240x240).png" loading="lazy" alt="Logo_Viccionari" class="logo">';
   enllac_vicc += '</a>';
   return enllac_vicc;
 }
 
 function crearEnllacViquipedia(paraula) {
-  var scriptElement = document.getElementById('meu-script');
-  var rutaBase = scriptElement ? scriptElement.getAttribute('data-ruta') : './';
-  var rutaImatge = rutaBase + 'assets/logowiki (263x240).png';
+  let ruta = '';
+    if (idPagina === 'principal') {
+    ruta = 'assets/';
+  } else if (idPagina === 'llista1') {
+    ruta = '../assets/';
+  }
   var enllac_viq = '<a href="https://ca.wikipedia.org/wiki/' + paraula + '" target="_blank">';
-    enllac_viq += '<img src="' + rutaImatge + '" loading="lazy" alt="Logo_Viquipedia" class="logo">';
+    enllac_viq += '<img src="' + ruta + 'logowiki (263x240).png" loading="lazy" alt="Logo_Viquipedia" class="logo">';
   enllac_viq += '</a>';
   return enllac_viq;
 }
 
 function crearEnllacDiec(paraula) {
-  var scriptElement = document.getElementById('meu-script');
-  var rutaBase = scriptElement ? scriptElement.getAttribute('data-ruta') : './';
-  var rutaImatge = rutaBase + 'assets/logodiec (200x200).png';
+  let ruta = '';
+  if (idPagina === 'principal') {
+    ruta = 'assets/';
+  } else if (idPagina === 'llista1') {
+    ruta = '../assets/';
+  }
   var enllac_diec = '<a href="https://dlc.iec.cat/Results?DecEntradaText=' + paraula + '&AllInfoMorf=False&OperEntrada=0&OperDef=0&OperEx=0&OperSubEntrada=0&OperAreaTematica=0&InfoMorfType=0&OperCatGram=False&AccentSen=False&CurrentPage=0&refineSearch=0&Actualitzacions=False" target="_blank">';
-    enllac_diec += '<img src="' + rutaImatge + '" loading="lazy" alt="Logo_Diec" class="logo">';
+    enllac_diec += '<img src="' + ruta + 'logodiec (200x200).png" loading="lazy" alt="Logo_Diec" class="logo">';
   enllac_diec += '</a>';
   return enllac_diec;
 }
@@ -453,7 +466,13 @@ function crearEnllacDiec(paraula) {
 function actualitzarRimes() {
   Debug.logTime('actualitzarRimes');
 
-  var numerorimes = "Nombre de rimes: " + matches_provisionals.length;
+  let text = '';
+  if (idPagina === 'principal') {
+    text = 'rimes';
+  } else if (idPagina === 'llista1') {
+    text = 'paraules fènixs';
+  }
+  var numerorimes = "Nombre de " + text + ": " + matches_provisionals.length;
   document.getElementById("nombre").innerHTML = numerorimes;
 
   var rimesPerSilabes = {};

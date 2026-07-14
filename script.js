@@ -420,22 +420,31 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
 }
 
 function crearEnllacViccionari(paraula) {
+  var scriptElement = document.getElementById('meu-script');
+  var rutaBase = scriptElement ? scriptElement.getAttribute('data-ruta') : './';
+  var rutaImatge = rutaBase + 'assets/logovicc (240x240).png';
   var enllac_vicc = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
-    enllac_vicc += '<img src="assets/logovicc (240x240).png" loading="lazy" alt="Logo" class="logo">';
+    enllac_vicc += '<img src="' + rutaImatge + '" loading="lazy" alt="Logo" class="logo">';
   enllac_vicc += '</a>';
   return enllac_vicc;
 }
 
 function crearEnllacViquipedia(paraula) {
+  var scriptElement = document.getElementById('meu-script');
+  var rutaBase = scriptElement ? scriptElement.getAttribute('data-ruta') : './';
+  var rutaImatge = rutaBase + 'assets/logowiki (263x240).png';
   var enllac_viq = '<a href="https://ca.wikipedia.org/wiki/' + paraula + '" target="_blank">';
-    enllac_viq += '<img src="assets/logowiki (263x240).png" loading="lazy" alt="Logo" class="logo">';
+    enllac_viq += '<img src="' + rutaImatge + '" loading="lazy" alt="Logo_Viquipedia" class="logo">';
   enllac_viq += '</a>';
   return enllac_viq;
 }
 
 function crearEnllacDiec(paraula) {
+  var scriptElement = document.getElementById('meu-script');
+  var rutaBase = scriptElement ? scriptElement.getAttribute('data-ruta') : './';
+  var rutaImatge = rutaBase + 'assets/logodiec (200x200).png';
   var enllac_diec = '<a href="https://dlc.iec.cat/Results?DecEntradaText=' + paraula + '&AllInfoMorf=False&OperEntrada=0&OperDef=0&OperEx=0&OperSubEntrada=0&OperAreaTematica=0&InfoMorfType=0&OperCatGram=False&AccentSen=False&CurrentPage=0&refineSearch=0&Actualitzacions=False" target="_blank">';
-    enllac_diec += '<img src="assets/logodiec (200x200).png" loading="lazy" alt="Logo" class="logo">';
+    enllac_diec += '<img src="' + rutaImatge + '" loading="lazy" alt="Logo_Diec" class="logo">';
   enllac_diec += '</a>';
   return enllac_diec;
 }

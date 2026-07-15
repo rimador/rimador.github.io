@@ -32,7 +32,7 @@
 
     <div id="separador_rosa_nosaltres">
         <script defer>
-            fetch('html/header.html')
+            fetch('/html/header.html')
             .then(res => res.text())
             .then(html => {
                 document.getElementById('separador_rosa_nosaltres').innerHTML = html;
@@ -59,7 +59,7 @@
 
 <footer id="footer">
   <script defer>
-    fetch('html/footer.html')
+    fetch('/html/footer.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('footer').innerHTML = html;

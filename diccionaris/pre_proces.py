@@ -1,7 +1,7 @@
 import glob
 import os
 
-ruta_dicc_separats = "separat"
+ruta_dicc_separats = "separat/col_10 (canvis aquí)"
 arxiu_temporal = os.path.join(ruta_dicc_separats, "col_10provisional.txt")
 
 print("Iniciant el pre-procés: unint arxius col_10_*.txt...")

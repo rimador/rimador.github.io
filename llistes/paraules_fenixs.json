@@ -4380,16 +4380,6 @@
     "diec": "Diec"
   },
   {
-    "paraula": "boîte",
-    "infinitiu": "boîte",
-    "codi": "NCFS000",
-    "rimacons": "ɔjtə",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "NO",
-    "diec": "NO"
-  },
-  {
     "paraula": "Bóixols",
     "infinitiu": "Bóixols",
     "codi": "NPCSG00",
@@ -7327,26 +7317,6 @@
     "sil": "3",
     "vicc": "Vicc",
     "viq": "Viq",
-    "diec": "Diec"
-  },
-  {
-    "paraula": "clown",
-    "infinitiu": "clown",
-    "codi": "NCMS000",
-    "rimacons": "ɔbn",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "Diec"
-  },
-  {
-    "paraula": "clowns",
-    "infinitiu": "clown",
-    "codi": "NCMP000",
-    "rimacons": "ɔbns",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "NO",
     "diec": "Diec"
   },
   {
@@ -23320,16 +23290,6 @@
     "diec": "Diec"
   },
   {
-    "paraula": "Notepad++",
-    "infinitiu": "Notepad++",
-    "codi": "NPCNO00",
-    "rimacons": "esmˌes",
-    "sil": "3",
-    "vicc": "NO",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
     "paraula": "nóvia",
     "infinitiu": "nóvio",
     "codi": "NCFS000",
@@ -28807,16 +28767,6 @@
     "sil": "3",
     "vicc": "NO",
     "viq": "Viq",
-    "diec": "NO"
-  },
-  {
-    "paraula": "rounds",
-    "infinitiu": "round",
-    "codi": "NCMP000",
-    "rimacons": "ɔwns",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "NO",
     "diec": "NO"
   },
   {

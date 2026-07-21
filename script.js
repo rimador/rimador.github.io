@@ -257,6 +257,52 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
           filterFunction: item => item[2].startsWith(prefix1) || item[2].startsWith(prefix2) || item[2].startsWith(prefix3),},};
 }
 
+//excel per guardar cerques
+const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwJi-2Rv1YJoFjS0AvdsxGdx96U5SJ4gjPa5gzyx_XMalJ06ZWojWiGbMFz8eT8fSR1/exec";
+
+function getUsuariID() {
+  let usuariID = localStorage.getItem('rimador_usuari_id');
+  if (!usuariID) {
+    const temps = Date.now().toString(36);    
+    const aleatori = Math.random().toString(36).substring(2, 7);
+    usuariID = 'usr_' + temps + '_' + aleatori;
+    localStorage.setItem('rimador_usuari_id', usuariID);
+  }
+  return usuariID;
+}
+async function registrarCerca(paraulaBuscada) {
+  if (!paraulaBuscada || paraulaBuscada.trim().length < 2) return;
+
+  const usuari = getUsuariID();
+
+  let lloc = 'Desconegut';
+  try {
+    const resposta = await fetch('https://get.geojs.io/v1/ip/geo.json');
+    const dades = await resposta.json();
+    if (dades.city && dades.region) {
+      lloc = `${dades.city}, ${dades.region}`;
+    } else if (dades.city || dades.region || dades.country) {
+      lloc = dades.city || dades.region || dades.country;
+    }
+  } catch (error) {
+    console.log("No s'ha pogut obtenir la localització");
+  }
+
+  fetch(URL_GOOGLE_SCRIPT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ 
+      paraula: paraulaBuscada.trim().toLowerCase(),
+      usuari: usuari,
+      lloc: lloc 
+    })
+  }).catch(error => console.log('Error silenciós guardant la cerca', error));
+}
+
+
 
 //FUNCIONS
 async function realitzarCerca() {
@@ -268,6 +314,9 @@ async function realitzarCerca() {
     matches = [];
     
     var paraulaCercada = document.getElementById('paraulaCercada').value.trim().toLowerCase();
+
+    registrarCerca(paraulaCercada);
+
     var numeroSeleccionat = document.getElementById('numeroSelector').value;
     var tipusRima = document.getElementById('rimaSelector').value;
     var comença = document.getElementById('categoriaSelector').value;

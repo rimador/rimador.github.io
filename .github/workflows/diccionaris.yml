@@ -3,7 +3,7 @@ name: Generador de diccionaris (i de fènixs i heptasíl·labs)
 on:
   push:
     paths:
-      - 'diccionaris/**'
+      - 'diccionaris/separat/**'
 
 jobs:
   build:

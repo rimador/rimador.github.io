@@ -1,4 +1,4 @@
-with open("separat/col_10 (canvis aquí).txt", "r", encoding="utf-8") as doc2:
+with open("separat/col_10 (canvis aquí)/col_10provisional.txt", "r", encoding="utf-8") as doc2:
     linies = [linia.strip() for linia in doc2 if "€" in linia]
 
 paraula = []
@@ -68,14 +68,13 @@ for file in files:
         lines = f.readlines()
         lines_per_file.append(lines)
 
+
 output_file = 'diccionari.5.2.3.txt'
-with open(output_file, 'w') as f:
+
+with open(output_file, 'w', encoding="utf-8") as f:
     for i in range(len(lines_per_file[0])):
         line_parts = [lines[i].strip() for lines in lines_per_file]
         
-        extra_column = f"{line_parts[0]} € {line_parts[1]} € {line_parts[2]} € {line_parts[9]}"
-        line_parts.append(extra_column)
-
         line_to_write = '$'.join(line_parts)
         f.write(line_to_write + '\n')
 

@@ -18,6 +18,9 @@
 
     <link rel="stylesheet" href="./dist/css/styles.min.css">
 
+    <script src="dist/js/script.min.js" defer></script>
+
+
 </head>
 
 <body>
@@ -27,8 +30,8 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <header>
-        <a href="https://rimador.cat"><img class="rimador" src="./assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
-        <img class="peixet" src="./assets/peixet.webp" alt="Peixet decoratiu">
+        <a href="https://rimador.cat"><img class="rimador" id="rimadorImg" src="./assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
+        <button type="button" id="themeToggleBtn" class="peixet-btn" onclick="toggleTheme()" aria-label="Canvia entre mode festiu i mode sobri" title="Canvia d'estil"><img class="peixet" id="peixetImg" src="./assets/peixet.webp" alt="Peixet decoratiu"></button>
     </header>
 
     <div id="separador_rosa_nosaltres"><p>Pàgina web en fase de correcció, versió en desenvolupament</p></div>
@@ -82,5 +85,7 @@
       });
   </script>
 </footer>
+
 </body>
+
 </html>

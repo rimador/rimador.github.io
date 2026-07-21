@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'diccionaris/separat/**'
+  workflow_dispatch:
 
 jobs:
   build:

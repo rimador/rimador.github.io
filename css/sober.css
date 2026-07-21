@@ -49,10 +49,8 @@
 [data-theme="sober"] #separador_rosa1,
 [data-theme="sober"] #separador_rosa_nosaltres,
 [data-theme="sober"] #separador_rosa2 {
-  background-color: var(--sober-border);
-  border-bottom: 1px solid var(--sober-muted);
+  background-color: var(--sober-bg);
 }
-
 
 [data-theme="sober"] #enllaçbrillant,
 [data-theme="sober"] #enllaç {
@@ -147,7 +145,7 @@
 
 
 [data-theme="sober"] .loader {
-  background: #f2f2f2;
+  background: #f2f2f2bc;
 }
 
 [data-theme="sober"] #loader-text1 {

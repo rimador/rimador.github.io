@@ -762,14 +762,18 @@ window.addEventListener('scroll', function() {
   var separador_rosa2 = document.getElementById('separador_rosa2')
   
   var dades_container = container.getBoundingClientRect();
+
+  var esModeSobri = document.documentElement.getAttribute("data-theme") === "sober";
+  var compensacio = esModeSobri ? -2 : 0;
+
   
   if (dades_container.height > 120) {
-    checkboxContainer.style.top = (40 + dades_container.height + 40) + 'px';
-    separador_rosa2.style.top = (40 + dades_container.height) + 'px';
+    checkboxContainer.style.top = (40 + dades_container.height + 40 + compensacio) + 'px';
+    separador_rosa2.style.top = (40 + dades_container.height + compensacio) + 'px';
   }
   else {
-    checkboxContainer.style.top = '200px';
-    separador_rosa2.style.top = '160px';
+    checkboxContainer.style.top = (200 + compensacio) + 'px';
+    separador_rosa2.style.top = (160 + compensacio) + 'px';
   }
 });
 
@@ -796,7 +800,6 @@ function closeFormOnClickOutside(event) {
 
 
 // extra prova boring style
-
 
 const PEIXET_IMG_FESTIU = "./assets/peixet.webp";
 const PEIXET_IMG_SOBRI = "./assets/boringlogo.webp";

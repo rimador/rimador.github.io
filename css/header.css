@@ -12,11 +12,21 @@ header {
     width: 100%;
 }
 
+.peixet-btn {
+    display: inline-block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    line-height: 0;
+    margin-right: 10%;
+}
+
 .peixet{
     display: inline-block;
     width: 90px;
     height: 90px;
-    margin-right: 10%;
 }
 
 .rimador {

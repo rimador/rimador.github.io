@@ -301,8 +301,8 @@ henoteisme € henoteisme € NCMS000 € ənutəˈizmə
 henoteismes € henoteisme € NCMP000 € ənutəˈizməs
 henoteista € henoteista € AQ0CS0 € ənutəˈistə
 henoteistes € henoteista € AQ0CP0 € ənutəˈistəs
-Henry € Henry € NPCNSP0 € χˈɛnɾi
-henry € henry € NCMS000 € χˈɛnɾi
+Henry € Henry € NPCNSP0 € χˈɛnri
+henry € henry € NCMS000 € χˈɛnri
 henrys € henry € NCMP000 € ˈɛnris
 heortologia € heortologia € NCFS000 € eurtuluʒˈiə
 heortologies € heortologia € NCFP000 € eurtuluʒˈiəs

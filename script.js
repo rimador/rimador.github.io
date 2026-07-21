@@ -1,5 +1,5 @@
-const VERSIO_TRANSCRIPCIONS = "v.3";  // Versió de col_3, col_4 i col_9
-const VERSIO_TOTAL          = "v.3"; // Versió de totes les altres columnes
+const VERSIO_TRANSCRIPCIONS = "v.3.1";  // Versió de col_3, col_4 i col_9
+const VERSIO_TOTAL          = "v.3.1"; // Versió de totes les altres columnes
 
 const VERSIONS_FITXERS = {
   "col_0.txt": VERSIO_TOTAL, //paraula

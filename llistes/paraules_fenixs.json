@@ -20,16 +20,6 @@
     "diec": "NO"
   },
   {
-    "paraula": "Abc",
-    "infinitiu": "Abc",
-    "codi": "NPMSO00",
-    "rimacons": "esˌe",
-    "sil": "1",
-    "vicc": "NO",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
     "paraula": "Abéché",
     "infinitiu": "Abéché",
     "codi": "NPCSG00",
@@ -1846,16 +1836,6 @@
     "rimacons": "astum",
     "sil": "3",
     "vicc": "NO",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
-    "paraula": "anc",
-    "infinitiu": "anc",
-    "codi": "ZRG",
-    "rimacons": "enəcˌe",
-    "sil": "1",
-    "vicc": "Vicc",
     "viq": "Viq",
     "diec": "NO"
   },

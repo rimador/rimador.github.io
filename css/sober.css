@@ -1,0 +1,307 @@
+:root {
+  --sober-bg: #e6e4e5;
+  --sober-panel-bg: #ffffff;
+  --sober-text: #222222;
+  --sober-muted: #555555;
+  --sober-border: #c9c7c8;
+  --sober-accent: #aa0000;
+  --sober-accent-dark: #800000;
+  --sober-header-bg: #4d4d4d;
+  --sober-footer-bg: #aaaaaa;
+  --sober-font: "Arial Narrow", Arial, Helvetica, sans-serif;
+}
+
+
+[data-theme="sober"] body {
+  background-color: var(--sober-bg);
+  font-family: var(--sober-font);
+  color: var(--sober-text);
+}
+
+[data-theme="sober"] #espai_inicial {
+  color: var(--sober-bg);
+}
+
+[data-theme="sober"] header {
+  background: none;
+  background-color: var(--sober-header-bg);
+  color: #ffffff;
+}
+
+[data-theme="sober"] .peixet-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: opacity 0.15s ease;
+}
+
+[data-theme="sober"] .peixet-btn:hover {
+  opacity: 0.85;
+}
+
+[data-theme="sober"] .peixet-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+[data-theme="sober"] #separador_rosa1,
+[data-theme="sober"] #separador_rosa_nosaltres,
+[data-theme="sober"] #separador_rosa2 {
+  background-color: var(--sober-border);
+  border-bottom: 1px solid var(--sober-muted);
+}
+
+
+[data-theme="sober"] #enllaçbrillant,
+[data-theme="sober"] #enllaç {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--sober-accent);
+  text-shadow: none;
+  font-weight: bold;
+  font-size: 14px;
+  transition: color 0.15s ease;
+}
+
+[data-theme="sober"] #enllaçbrillant:visited,
+[data-theme="sober"] #enllaç:visited {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--sober-accent-dark);
+}
+
+[data-theme="sober"] #enllaçbrillant:hover,
+[data-theme="sober"] #enllaç:hover {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--sober-accent-dark);
+  transform: none;
+  text-shadow: none;
+}
+
+[data-theme="sober"] #enllaçbrillant:active,
+[data-theme="sober"] #enllaç:active {
+  transform: none;
+  text-shadow: none;
+}
+
+[data-theme="sober"] .container {
+  background-color: var(--sober-panel-bg);
+  border: 1px solid var(--sober-border);
+  font-weight: normal;
+}
+
+[data-theme="sober"] #paraulaCercada {
+  background-color: #ffffff;
+  border: 1px solid var(--sober-border);
+  border-radius: 3px;
+  box-shadow: none;
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #paraulaCercada:focus {
+  border-color: var(--sober-accent);
+}
+
+[data-theme="sober"] .boto {
+  background-image: none;
+  background-color: var(--sober-accent);
+  border-radius: 4px;
+  box-shadow: none;
+  font-family: var(--sober-font);
+  font-size: 14px;
+}
+
+[data-theme="sober"] .boto span {
+  background-color: var(--sober-accent);
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+[data-theme="sober"] .boto:hover span {
+  background: var(--sober-accent-dark);
+  color: #ffffff;
+  font-family: var(--sober-font);
+  font-weight: bold;
+}
+
+[data-theme="sober"] .dropdown-container {
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #checkboxContainer {
+  background-color: var(--sober-panel-bg);
+  border: 1px solid var(--sober-border);
+  font-family: var(--sober-font);
+  color: var(--sober-text);
+}
+
+[data-theme="sober"] .classeParaulaMare {
+  color: var(--sober-muted);
+}
+
+
+[data-theme="sober"] .loader {
+  background: #f2f2f2;
+}
+
+[data-theme="sober"] #loader-text1 {
+  color: var(--sober-accent);
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #loader-text2 {
+  color: var(--sober-muted);
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] .loader-line-wrap:nth-child(1) .loader-line {
+  border-color: var(--sober-border);
+}
+[data-theme="sober"] .loader-line-wrap:nth-child(2) .loader-line {
+  border-color: var(--sober-muted);
+}
+[data-theme="sober"] .loader-line-wrap:nth-child(3) .loader-line {
+  border-color: var(--sober-accent);
+}
+[data-theme="sober"] .loader-line-wrap:nth-child(4) .loader-line {
+  border-color: #ffffff;
+}
+[data-theme="sober"] .loader-line-wrap:nth-child(5) .loader-line {
+  border-color: var(--sober-header-bg);
+}
+
+
+[data-theme="sober"] #text_presentació,
+[data-theme="sober"] #text_canvis {
+  background-color: var(--sober-panel-bg);
+  border: 1px solid var(--sober-border);
+  font-weight: normal;
+}
+
+[data-theme="sober"] #text_presentació a,
+[data-theme="sober"] #text_canvis > p:not(#arimar) a:not(#enllaçbrillant) {
+  color: var(--sober-accent);
+  font-weight: bold;
+}
+
+[data-theme="sober"] #text_presentació a:hover,
+[data-theme="sober"] #text_canvis > p:not(#arimar) a:not(#enllaçbrillant):hover {
+  color: var(--sober-accent-dark);
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #text_presentació a:active,
+[data-theme="sober"] #text_canvis > p:not(#arimar) a:not(#enllaçbrillant):active {
+  color: var(--sober-muted);
+}
+
+[data-theme="sober"] #titol_canvis {
+  font-family: var(--sober-font);
+  color: var(--sober-text);
+  text-shadow: none;
+  letter-spacing: normal;
+}
+
+[data-theme="sober"] #arimar a {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--sober-accent);
+  font-size: 18px;
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #arimar a:hover {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  color: var(--sober-accent-dark);
+}
+
+[data-theme="sober"] #arimar a:after,
+[data-theme="sober"] #arimar a:hover:after {
+  background: var(--sober-accent);
+}
+
+[data-theme="sober"] #footer {
+  background-color: var(--sober-footer-bg);
+  color: #222222;
+}
+
+[data-theme="sober"] #footer a {
+  color: var(--sober-accent-dark);
+}
+
+[data-theme="sober"] #footer a:hover {
+  color: var(--sober-accent);
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #footer a:active,
+[data-theme="sober"] #footer a:visited {
+  color: var(--sober-accent-dark);
+}
+
+[data-theme="sober"] #mostrarFormulari {
+  background-color: var(--sober-header-bg);
+  color: #ffffff;
+  border-radius: 4px;
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #mostrarFormulari:after {
+  background-color: var(--sober-muted);
+  border-radius: 4px;
+}
+
+[data-theme="sober"] #formulariContainer {
+  font-family: var(--sober-font);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="sober"] #formulariContainer form h3 {
+  color: var(--sober-accent);
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] #formulariContainer form p {
+  font-family: var(--sober-font);
+  color: var(--sober-muted);
+}
+
+[data-theme="sober"] #formulariContainer form label {
+  color: var(--sober-text);
+  text-shadow: none;
+}
+
+[data-theme="sober"] .submit-button {
+  background: var(--sober-accent);
+  border-color: var(--sober-accent-dark);
+  box-shadow: none;
+  border-radius: 4px;
+}
+
+[data-theme="sober"] .submit-button span {
+  color: #ffffff;
+  text-shadow: none;
+}
+
+[data-theme="sober"] .submit-button:hover span {
+  color: #f2f2f2;
+}
+
+
+[data-theme="sober"] ::-webkit-scrollbar-thumb:vertical {
+  background: var(--sober-muted);
+  border: 2px solid var(--sober-border);
+}
+
+[data-theme="sober"] ::-webkit-scrollbar-thumb:hover:vertical {
+  background: var(--sober-accent);
+}

@@ -1,4 +1,3 @@
-queixalegem € queixalejar € VMM01P00 € kəʃələʒˈɛm
 queixalegem € queixalejar € VMSP1P00 € kəʃələʒˈɛm
 queixalegen € queixalejar € VMIP3P00 € kəʃəlˈɛʒən
 queixaleges € queixalejar € VMIP2S00 € kəʃəlˈɛʒəs
@@ -948,3 +947,4 @@ quimioorganòtrofes € quimioorganòtrofa € NCFP000 € kimiuurɣənˈɔtɾuf
 quimioorganotròfia € quimioorganotròfia € NCFS000 € kimiuurɣənutɾˈɔfiə
 quimioorganotròfies € quimioorganotròfia € NCFP000 € kimiuurɣənutɾˈɔfiəs
 quimioorganòtrofs € quimioorganòtrof € AQ0MP0 € kimiuurɣənˈɔtɾufs
+quimioorganòtrofs € quimioorganòtrof € NCMP000 € kimiuurɣənˈɔtɾufs

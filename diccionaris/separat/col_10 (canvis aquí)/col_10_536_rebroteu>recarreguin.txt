@@ -1,4 +1,3 @@
-rebroteu € rebrotar € VMIP2P00 € rəβɾutˈɛw
 rebroteu € rebrotar € VMM02P0X € rəβɾutˈɛw
 rebroteu € rebrotar € VMSP2P00 € rəβɾutˈɛw
 rebroti € rebrotar € VMM03S0Y € rəβɾˈoti
@@ -948,3 +947,4 @@ recarregui € recarregar € VMM03S0Y € rəkərˈɛɣi
 recarregui € recarregar € VMSP1S0Y € rəkərˈɛɣi
 recarreguí € recarregar € VMIS1S00 € rəkərəɣˈi
 recarreguin € recarregar € VMM03P0Y € rəkərˈɛɣin
+recarreguin € recarregar € VMSP3P0Y € rəkərˈɛɣin

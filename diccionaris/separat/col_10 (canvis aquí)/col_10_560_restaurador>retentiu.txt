@@ -1,4 +1,3 @@
-restaurador € restaurador € AQ0MS0 € rəstəwɾəðˈo
 restaurador € restaurador € NCMS000 € rəstəwɾəðˈo
 restauradora € restaurador € AQ0FS0 € rəstəwɾəðˈoɾə
 restauradora € restaurador € NCFS000 € rəstəwɾəðˈoɾə
@@ -948,3 +947,4 @@ retentit € retentir € VMP00SM0 € rətəntˈit
 retentits € retentir € VMP00PM0 € rətəntˈits
 retentiu € retentir € VMIP2P00 € rətəntˈiw
 retentiu € retentir € VMM02P00 € rətəntˈiw
+retentiu € retentir € VMSP2P00 € rətəntˈiw

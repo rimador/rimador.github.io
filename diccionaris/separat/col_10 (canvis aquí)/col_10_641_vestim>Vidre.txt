@@ -1,4 +1,3 @@
-vestim € vestir € VMIP1P00 € bəstˈim
 vestim € vestir € VMM01P00 € bəstˈim
 vestim € vestir € VMSP1P00 € bəstˈim
 vestiment € vestiment € NCMS000 € bəstimˈen
@@ -948,3 +947,4 @@ vidranesa € vidranès € NCFS000 € biðɾənˈɛzə
 vidrat € vidrat € AQ0MS0 € biðɾˈat
 vidrats € vidrat € AQ0MP0 € biðɾˈats
 Vidre € Vidre € NPMSG00 € bˈiðɾə
+vidre € vidre € NCMS000 € bˈiðɾə

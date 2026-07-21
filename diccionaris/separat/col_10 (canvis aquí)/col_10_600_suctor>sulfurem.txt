@@ -1,4 +1,3 @@
-suctor € suctor € AQ0MS0 € suktˈo
 suctor € suctor € NCMS000 € suktˈo
 suctora € suctor € AQ0FS0 € suktˈoɾə
 suctores € suctor € AQ0FP0 € suktˈoɾəs
@@ -948,3 +947,4 @@ sulfuraves € sulfurar € VMII2S00 € sulfuɾˈaβəs
 sulfuràveu € sulfurar € VMII2P00 € sulfuɾˈaβəw
 sulfurem € sulfurar € VMIP1P00 € sulfuɾˈɛm
 sulfurem € sulfurar € VMM01P00 € sulfuɾˈɛm
+sulfurem € sulfurar € VMSP1P00 € sulfuɾˈɛm

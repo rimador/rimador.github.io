@@ -1,4 +1,3 @@
-participant € participant € AQ0CS0 € pərtisipˈan
 participant € participant € NCCS000 € pərtisipˈan
 participant € participar € VMG00000 € pərtisipˈan
 participants € participant € AQ0CP0 € pərtisipˈans
@@ -948,3 +947,4 @@ pasti € pastar € VMSP1S0Y € pˈasti
 pastí € pastar € VMIS1S00 € pəstˈi
 pastifa € pastifa € NCCS000 € pəstˈifə
 pastifegem € pastifejar € VMIP1P00 € pəstifəʒˈɛm
+pastifegem € pastifejar € VMM01P00 € pəstifəʒˈɛm

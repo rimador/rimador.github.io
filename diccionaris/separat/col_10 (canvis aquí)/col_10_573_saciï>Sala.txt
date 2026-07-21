@@ -1,4 +1,3 @@
-saciï € saciar € VMM03S0Y € səsˈii
 saciï € saciar € VMSP1S0Y € səsˈii
 saciïn € saciar € VMM03P0Y € səsˈiin
 saciïn € saciar € VMSP3P0Y € səsˈiin
@@ -948,3 +947,4 @@ sakmarià € sakmarià € AQ0MS0 € səkməɾiˈa
 sakmarià € sakmarià € NCMS000 € səkməɾiˈa
 sal € sal € NCFS000 € sˈal
 Sala € Sala € NPCNSP0 € sˈalə
+sala € sala € NCFS000 € sˈalə

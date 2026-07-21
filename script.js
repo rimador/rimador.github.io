@@ -1,19 +1,33 @@
-const VERSIO_TRANSCRIPCIONS = "v.3.2";  // Versió de col_3, col_4 i col_9
-const VERSIO_TOTAL          = "v.3.2"; // Versió de totes les altres columnes
+let VERSIONS_FITXERS = {};
 
-const VERSIONS_FITXERS = {
-  "col_0.txt": VERSIO_TOTAL, //paraula
-  "col_1.txt": VERSIO_TOTAL, //d'on prové
-  "col_2.txt": VERSIO_TOTAL, //codi
-  "col_3.txt": VERSIO_TRANSCRIPCIONS, //consonant
-  "col_4.txt": VERSIO_TRANSCRIPCIONS, //assonant
-  "col_5.txt": VERSIO_TOTAL, //síl·labes
-  "col_6.txt": VERSIO_TOTAL, //Vicc
-  "col_7.txt": VERSIO_TOTAL, //Viq
-  "col_8.txt": VERSIO_TOTAL, //Diec
-  "col_9.txt": VERSIO_TRANSCRIPCIONS //transcripció sencera
-  //col_10 - paraula + transcripció
-};
+async function carregarVersions() {
+  try {
+    const resposta = await fetch(`diccionaris/versions.json?t=${Date.now()}`);
+    const dades = await resposta.json();
+
+    const verTrans = `v.${dades.transcripcions}`;
+    const verTotal = `v.${dades.general}`;
+
+    VERSIONS_FITXERS = {
+      "col_0.txt": verTotal, // paraula
+      "col_1.txt": verTotal, // d'on prové
+      "col_2.txt": verTotal, // codi
+      "col_3.txt": verTrans, // consonant
+      "col_4.txt": verTrans, // assonant
+      "col_5.txt": verTotal, // síl·labes
+      "col_6.txt": verTotal, // Vicc
+      "col_7.txt": verTotal, // Viq
+      "col_8.txt": verTotal, // Diec
+      "col_9.txt": verTrans  // transcripció sencera
+    };
+    console.log("Versions carregades correctament:", dades);
+  } catch (err) {
+    console.error("Error carregant versio.json, utilitzant valors per defecte", err);
+    const verDefecte = "v.1";
+    ["col_0.txt","col_1.txt","col_2.txt","col_3.txt","col_4.txt","col_5.txt","col_6.txt","col_7.txt","col_8.txt","col_9.txt"]
+      .forEach(f => VERSIONS_FITXERS[f] = verDefecte);
+  }
+}
 
 const debugLevel = 0; // 0 = Off, 1 = Goatcounter, 2 = Errors, 3 = Logs, 4 = Temps
 
@@ -49,6 +63,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
+        await carregarVersions();
         const resultatFitxers = await Promise.all(camins.map(llegirFitxerAmbIndexedDB));
         [array0, array1, array2, array3, array4, array5, array6, array7, array8, array9] = resultatFitxers;
         console.log('Tots els fitxers carregats correctament');

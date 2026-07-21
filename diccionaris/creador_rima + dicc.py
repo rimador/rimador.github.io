@@ -1,8 +1,6 @@
-# Obrim l'arxiu de transcripcions i llegim totes les línies alhora
 with open("separat/col_10 (canvis aquí).txt", "r", encoding="utf-8") as doc2:
     linies = [linia.strip() for linia in doc2 if "€" in linia]
 
-# Separem les columnes
 paraula = []
 donve = []
 codi = []
@@ -18,27 +16,22 @@ for linia in linies:
     else:
         print("Línia amb format incorrecte:", linia)
 
-# Guardem la columna de paraules a un nou arxiu
 with open("separat/col_0.txt", "w", encoding="utf-8") as doc0:
     for i in paraula:
         doc0.write(i + "\n")
 
-# Guardem la columna de "d'on ve" a un nou arxiu
 with open("separat/col_1.txt", "w", encoding="utf-8") as doc1:
     for i in donve:
         doc1.write(i + "\n")
      
-# Guardem la columna de codi a un nou arxiu
 with open("separat/col_2.txt", "w", encoding="utf-8") as doc2:
     for i in codi:
         doc2.write(i + "\n")
 
-# Guardem la columna de transcripcions a un nou arxiu
 with open("separat/col_9.txt", "w", encoding="utf-8") as doc9:
     for i in transcripcions:
         doc9.write(i + "\n")
         
-# Guardem les paraules a partir de l'accent final en un altre arxiu
 with open("separat/col_3.txt", "w", encoding="utf-8") as doc3:
     finals = []
     for linia in transcripcions:
@@ -47,7 +40,6 @@ with open("separat/col_3.txt", "w", encoding="utf-8") as doc3:
         finals.append(final)
         doc3.write(final + '\n')
 
-# Separem i guardem els sons vocals dels finals a un altre arxiu
 with open("separat/col_4.txt", "w", encoding="utf-8") as doc4:
     vocals = []
     for linia in finals:

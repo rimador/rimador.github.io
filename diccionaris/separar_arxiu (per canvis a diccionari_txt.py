@@ -1,11 +1,9 @@
 import os
 
-# Configuració de rutes
 nom_document = "diccionari.5.2.3.txt"
 directori_destinacio = os.path.join("..", "diccionaris", "separat")
 os.makedirs(directori_destinacio, exist_ok=True)
 
-# Llegir línies del fitxer
 try:
     with open(nom_document, "r", encoding="utf-8") as file:
         linies = file.readlines()
@@ -13,12 +11,10 @@ except FileNotFoundError:
     print(f"El fitxer '{nom_document}' no s'ha trobat.")
     exit()
 
-# Separar per columnes
 columnes = [linia.strip().split("$") for linia in linies]
 max_columnes = max(len(col) for col in columnes)
 columnes = [col + [""] * (max_columnes - len(col)) for col in columnes]
 
-# Transposar per a tenir columnes com a files
 columnes_transposades = zip(*columnes)
 
 # Escriure cada columna en un fitxer diferent

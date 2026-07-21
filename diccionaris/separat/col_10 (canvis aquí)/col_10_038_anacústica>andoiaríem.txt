@@ -692,7 +692,7 @@ Anaxàgores € Anaxàgores € NPMSSP0 € ənəksˈaɣuɾəs
 Anaximandre € Anaximandre € NPMSSP0 € ənəksimˈandɾə
 Anaxímenes € Anaxímenes € NPMSSP0 € ənəksˈimənəs
 Anazarba € Anazarba € NPCSG00 € ənəzˈarβə
-anc € anc € ZRG € ˌaˈenəcˌe
+anc € anc € ZRG € ˈaŋ
 anca € anca € NCFS000 € ˈaŋkə
 anca-rossegant € anca-rossegant € AQ0CS0 € ˈaŋkərusəɣˈan
 anca-rossegants € anca-rossegant € AQ0CP0 € ˈaŋkərusəɣˈans

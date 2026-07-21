@@ -292,7 +292,7 @@ async function registrarCerca(paraulaBuscada) {
     method: 'POST',
     mode: 'no-cors',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'text/plain;charset=utf-8',
     },
     body: JSON.stringify({ 
       paraula: paraulaBuscada.trim().toLowerCase(),

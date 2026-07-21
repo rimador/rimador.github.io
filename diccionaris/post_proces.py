@@ -2,7 +2,7 @@ import glob
 import os
 import math
 
-ruta_separat = "separat"
+ruta_separat = "separat/col_10 (canvis aquí)"
 arxiu_temporal = os.path.join(ruta_separat, "col_10provisional.txt")
 
 def netejar_paraula(linia):
@@ -50,7 +50,7 @@ for i in range(num_arxius):
     with open(ruta_completa, 'w', encoding='utf-8') as f:
         f.write("\n".join(tall) + "\n")
         
-    print(f"Creat: {nom_fitxer} (del registre {inici} al {fi-1}).")
+    print(f"Creat fitxer {i+1} del registre {inici} ({primera}) al {fi-1} ({ultima}).")
 
 os.remove(arxiu_temporal)
 print(f"L'arxiu sencer {arxiu_temporal} ha estat eliminat correctament.")

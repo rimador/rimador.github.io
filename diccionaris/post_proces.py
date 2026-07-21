@@ -26,7 +26,8 @@ for f_antic in antics:
         pass
 
 total_linies = len(dades_col10)
-num_arxius = math.ceil(total_linies / 50000)  # Cada fitxer tindrà un màxim de 100.000 línies
+#num_arxius = math.ceil(total_linies / 50000)  # Cada fitxer tindrà un màxim de n línies
+num_arxius = 20
 mida_part = math.ceil(total_linies / num_arxius)
 
 for i in range(num_arxius):

@@ -17,18 +17,13 @@ columnes = [col + [""] * (max_columnes - len(col)) for col in columnes]
 
 columnes_transposades = zip(*columnes)
 
-# Escriure cada columna en un fitxer diferent
 for i, columna in enumerate(columnes_transposades):
-    if i == 10:
-        nou_nom_fitxer = "col_10 (canvis aquí).txt"
-    else:
-        nou_nom_fitxer = f"col_{i}.txt"
+    nou_nom_fitxer = f"col_{i}.txt"
 
     nom_fitxer = os.path.join(directori_destinacio, nou_nom_fitxer)
     with open(nom_fitxer, "w", encoding="utf-8") as sortida:
         sortida.write("\n".join(columna))
 
-    # Comptar línies escrites
     nombre_linees = len(columna)
     print(f"Generat: {nou_nom_fitxer} amb {nombre_linees} línies")
 

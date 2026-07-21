@@ -810,7 +810,7 @@ function aplicarTema(tema) {
   var rimadorImg = document.getElementById("rimadorImg");
 
   let ruta = '';
-  if (idPagina === 'principal') {
+  if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === '404') {
     ruta = './assets/';
   } else if (idPagina === 'llista1') {
     ruta = '../assets/';

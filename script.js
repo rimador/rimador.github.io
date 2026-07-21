@@ -258,7 +258,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 }
 
 //excel per guardar cerques
-const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwJi-2Rv1YJoFjS0AvdsxGdx96U5SJ4gjPa5gzyx_XMalJ06ZWojWiGbMFz8eT8fSR1/exec";
+const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbz7sd6za6wleHwk7bmwBOJ6lLdjQKt5uCi6zpQ9Nh1y9ZkEg1KlOLtw1J2FCdj8UFQs/exec";
 
 function getUsuariID() {
   let usuariID = localStorage.getItem('rimador_usuari_id');
@@ -270,38 +270,21 @@ function getUsuariID() {
   }
   return usuariID;
 }
-async function registrarCerca(paraulaBuscada) {
+
+function registrarCerca(paraulaBuscada) {
   if (!paraulaBuscada || paraulaBuscada.trim().length < 2) return;
 
-  const usuari = getUsuariID();
-
-  let lloc = 'Desconegut';
-  try {
-    const resposta = await fetch('https://get.geojs.io/v1/ip/geo.json');
-    const dades = await resposta.json();
-    if (dades.city && dades.region) {
-      lloc = `${dades.city}, ${dades.region}`;
-    } else if (dades.city || dades.region || dades.country) {
-      lloc = dades.city || dades.region || dades.country;
-    }
-  } catch (error) {
-    console.log("No s'ha pogut obtenir la localització");
-  }
+  const dades = new URLSearchParams();
+  dades.append('paraula', paraulaBuscada.trim().toLowerCase());
+  
+  dades.append('usuari', getUsuariID()); 
 
   fetch(URL_GOOGLE_SCRIPT, {
     method: 'POST',
     mode: 'no-cors',
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8',
-    },
-    body: JSON.stringify({ 
-      paraula: paraulaBuscada.trim().toLowerCase(),
-      usuari: usuari,
-      lloc: lloc 
-    })
-  }).catch(error => console.log('Error silenciós guardant la cerca', error));
+    body: dades
+  }).catch(error => console.log('Error silenciós', error));
 }
-
 
 
 //FUNCIONS

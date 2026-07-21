@@ -26,8 +26,8 @@ for f_antic in antics:
         pass
 
 total_linies = len(dades_col10)
-#num_arxius = math.ceil(total_linies / 50000)  # Cada fitxer tindrà un màxim de n línies
-num_arxius = 20
+num_arxius = math.ceil(total_linies / 950)  # Cada fitxer tindrà un màxim de n línies
+#num_arxius = 500
 mida_part = math.ceil(total_linies / num_arxius)
 
 for i in range(num_arxius):
@@ -39,10 +39,12 @@ for i in range(num_arxius):
     if not tall:
         continue
         
+    numero_ordre = f"{i + 1:03d}"
+
     primera = netejar_paraula(tall[0])
     ultima = netejar_paraula(tall[-1])
     
-    nom_fitxer = f"col_10_{i+1}_{primera}>{ultima}.txt"
+    nom_fitxer = f"col_10_{numero_ordre}_{primera}>{ultima}.txt"
     ruta_completa = os.path.join(ruta_separat, nom_fitxer)
     
     with open(ruta_completa, 'w', encoding='utf-8') as f:

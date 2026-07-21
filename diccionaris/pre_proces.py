@@ -7,7 +7,13 @@ arxiu_temporal = os.path.join(ruta_dicc_separats, "col_10provisional.txt")
 print("Iniciant el pre-procés: unint arxius col_10_*.txt...")
 
 patro = os.path.join(ruta_dicc_separats, "col_10_*.txt")
-fitxers_petits = sorted(glob.glob(patro))
+
+def extreure_numero(ruta):
+    nom_arxiu = os.path.basename(ruta)
+    parts = nom_arxiu.split('_')
+    return int(parts[2])
+
+fitxers_petits = sorted(glob.glob(patro), key=extreure_numero)
 
 dades_completes = []
 for fitxer in fitxers_petits:

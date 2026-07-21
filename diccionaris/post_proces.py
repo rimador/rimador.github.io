@@ -5,9 +5,10 @@ import math
 ruta_separat = "separat"
 arxiu_temporal = os.path.join(ruta_separat, "col_10provisional.txt")
 
-def netejar_paraula(paraula):
+def netejar_paraula(linia):
     caracters_prohibits = ['/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', ' ', '.']
-    paraula_neta = paraula.strip()
+    primera_paraula = linia.split('€')[0]
+    paraula_neta = primera_paraula.strip()
     for c in caracters_prohibits:
         paraula_neta = paraula_neta.replace(c, "_")
     return paraula_neta
@@ -25,7 +26,7 @@ for f_antic in antics:
         pass
 
 total_linies = len(dades_col10)
-num_arxius = 4
+num_arxius = 6
 mida_part = math.ceil(total_linies / num_arxius)
 
 for i in range(num_arxius):

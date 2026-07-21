@@ -40,9 +40,13 @@ const nombresSeleccionats = [0,1,2,3,4,5,6,7,8,9];
 const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
 const idPagina = document.body ? document.body.id : '';
 
+
 document.addEventListener('DOMContentLoaded', async () => {
     Debug.logTime('Temps de càrrega');
-    document.getElementById('loader-text2').textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+    const loaderText2 = document.getElementById('loader-text2');
+    if (loaderText2) {
+        loaderText2.textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+    }
 
     try {
         const resultatFitxers = await Promise.all(camins.map(llegirFitxerAmbIndexedDB));
@@ -162,12 +166,14 @@ function netejarIndexedDB() {
   
 // Afegir event listener per la tecla Enter
 const inputParaula = document.getElementById('paraulaCercada');
-inputParaula.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    realitzarCerca();
-  }
-});
+if (inputParaula) {
+  inputParaula.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      realitzarCerca();
+    }
+  });
+}
 
 
 //Botó:

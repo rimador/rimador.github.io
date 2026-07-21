@@ -1,0 +1,28 @@
+name: Actualitza versió GENERAL del diccionari
+
+on:
+  push:
+    paths:
+      - 'diccionaris/diccionari*.txt'
+
+jobs:
+  update-general-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixa el codi
+        uses: actions/checkout@v4
+
+      - name: Incrementa versió GENERAL (+1)
+        run: |
+          tmp=$(mktemp)
+          jq '.general += 1' diccionaris/versions.json > "$tmp" && mv "$tmp" diccionaris/versions.json
+          echo "Nova versió generada:"
+          cat diccionaris/versions.json
+
+      - name: Commit i Push de la versió
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add diccionaris/versions.json
+          git commit -m "+1 a la versió general del diccionari [automàtic]" || echo "No hi ha canvis"
+          git push

@@ -46,6 +46,6 @@ with open(nom_fitxer_extra, "w", encoding="utf-8") as sortida_extra:
 print(f"Generat: {nom_fitxer_extra} amb {len(extra_linies)} línies al directori: {directori_extra}")
 print(f"Funció acabada! {max_columnes} fitxers generats al directori: {directori_destinacio}")
 
-subprocess.run(["python", "post_proces.py"])
+subprocess.run(["python3", "post_proces.py"])
 
 print("Post-procés finalitzat. Els fitxers han estat dividits i guardats correctament.")

@@ -1331,7 +1331,7 @@ abbevil·lià € abbevil·lià € NCMS000 € əbbəβilliˈa
 Abbiategrasso € Abbiategrasso € NPCSG00 € əbbiətəɣɾˈasu
 Abbot € Abbot € NPCNSP0 € əbbˈɔt
 Abbottabad € Abbottabad € NPCSG00 € əbbutəβˈat
-Abc € Abc € NPMSO00 € ˌaβˈesˌe
+ABC € ABC € NPMSO00 € aβesˌe
 abcegar € abcegar € VMN00000 € əpsəɣˈa
 abdalita € abdalita € AQ0CS0 € əbdəlˈitə
 abdalita € abdalita € NCCS000 € əbdəlˈitə

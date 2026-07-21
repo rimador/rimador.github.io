@@ -17,13 +17,20 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Preprocés (generar col_10provisional a partir de les parts de col_10)
+        working-directory: diccionaris
+        run: python "pre_proces.py"
+
+
       - name: Crear diccionari
         working-directory: diccionaris
-        run: python "creador_rima + dicc.py"
+        run: python "creador_rima + dicc (a partir de col_10).py"
 
-      - name: Separar diccionari
+
+      - name: Postprocés (regenerar les parts de col_10 i eliminar col_10provisional)
         working-directory: diccionaris
-        run: python separar_arxiu.py
+        run: python "post_proces.py"
+
 
       - name: Crear llista de fenixs
         working-directory: llistes

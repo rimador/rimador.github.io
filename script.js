@@ -677,6 +677,24 @@ function handleCheckboxClick(event, checkboxCriteria) {
   if (event.target.type === 'checkbox') {
       const checkboxLabel = event.target.parentNode.innerText.trim();
 
+      const elementLi = event.target.closest('li');
+      if (elementLi) {
+          const elementUl = elementLi.closest('ul');
+          if (elementUl) {
+              const casellesMarcadesVisibles = Array.from(elementUl.querySelectorAll('li')).filter(li => {
+                  if (li.style.display === 'none') return false;
+                  const input = li.querySelector('input[type="checkbox"]');
+                  return input && input.checked;
+              });
+              
+              const checkboxPrincipal = document.querySelector(`input[onchange*="${elementUl.id}"]`);
+              
+              if (checkboxPrincipal) {
+                  checkboxPrincipal.checked = casellesMarcadesVisibles.length > 0;
+              }
+          }
+      }
+          
       if (checkboxLabel in checkboxCriteria) {
           const { filterFunction } = checkboxCriteria[checkboxLabel];
 

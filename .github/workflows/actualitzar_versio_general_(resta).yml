@@ -1,9 +1,10 @@
-name: Actualitza versió GENERAL del diccionari
+name: Actualitza versió general del diccionari
 
 on:
   push:
     paths:
       - 'diccionaris/diccionari*.txt'
+  workflow_dispatch:
 
 jobs:
   update-general-version:

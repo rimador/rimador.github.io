@@ -77,7 +77,7 @@ jobs:
           git push
 
 
-      - name: Incrementa versió de TRANSCRIPCIONS (+1)
+      - name: Incrementa versió de transcripcions (+1)
         run: |
           jq '.transcripcions += 1' diccionaris/versions.json > "$tmp" && mv "$tmp" diccionaris/versions.json
           echo "Nova versió generada:"

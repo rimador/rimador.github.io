@@ -686,8 +686,8 @@ algorísmic € algorísmic € AQ0MS0 € əlɣuɾˈizmik
 algorísmica € algorísmic € AQ0FS0 € əlɣuɾˈizmikə
 algorísmics € algorísmic € AQ0MP0 € əlɣuɾˈizmiks
 algorísmiques € algorísmic € AQ0FP0 € əlɣuɾˈizmikəs
-algoritme € algoritme € NCMS000 € əlɣuɾˈidmə
-algoritmes € algoritme € NCMP000 € əlɣuɾˈidməs
+algoritme € algoritme € NCMS000 € əlɣuɾˈimmə
+algoritmes € algoritme € NCMP000 € əlɣuɾˈimməs
 algorítmic € algorítmic € AQ0MS0 € əlɣuɾˈimmik
 algorítmica € algorítmic € AQ0FS0 € əlɣuɾˈimmikə
 algorítmics € algorítmic € AQ0MP0 € əlɣuɾˈimmiks

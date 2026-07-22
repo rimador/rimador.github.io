@@ -315,7 +315,7 @@
             }
 
             function carregarLlistaFenixs() {
-        fetch('./paraules_fenixs.json')
+        fetch('./paraules_fenixs.json', { cache: 'no-cache' })
           .then((response) => {
             if (!response.ok) {
               throw new Error(`No s'ha pogut llegir el JSON (${response.status})`);

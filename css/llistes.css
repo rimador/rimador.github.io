@@ -1,0 +1,23 @@
+body#llista1,
+body#llista1 #separador_rosa1,
+body#llista1 #separador_rosa2 {
+    background-color: orange;
+}
+
+body#llista1 #container {
+    background-color: #FF91FF;
+    border: 1px solid white;
+}
+
+#actualitzaButton {
+    margin-left: auto;
+    margin-right: auto;
+    align-self: flex-end;
+}
+
+body#llista1 .dropdown-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}

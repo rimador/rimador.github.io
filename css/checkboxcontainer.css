@@ -20,6 +20,12 @@
     display: none;
 }
 
+#checkboxContainer ul li label {
+    display: inline-block !important;
+/*    cursor: pointer;
+    width: 100%; */
+}
+
 @media screen and (max-width: 750px) {
     #checkboxContainer {
         font-size: 12px;

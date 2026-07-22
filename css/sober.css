@@ -12,7 +12,10 @@
 }
 
 
-[data-theme="sober"] body {
+[data-theme="sober"] body,
+[data-theme="sober"] body#llista1,
+[data-theme="sober"] body#llista1 #separador_rosa1,
+[data-theme="sober"] body#llista1 #separador_rosa2 {
   background-color: var(--sober-bg);
   font-family: var(--sober-font);
   color: var(--sober-text);
@@ -88,7 +91,8 @@
   text-shadow: none;
 }
 
-[data-theme="sober"] .container {
+[data-theme="sober"] .container,
+[data-theme="sober"] body#llista1 #container {
   background-color: var(--sober-panel-bg);
   border: 1px solid var(--sober-border);
   font-weight: normal;

@@ -2,44 +2,43 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Troba rimes en català fàcilment amb el nostre rimador intel·ligent! Per a poetes, escriptors, estudiants... Prova-ho ara!">
-    <meta name="keywords" content="rimes, rima, rimador, català, diccionari, sinònims, poesia, vers">
-    <meta name="author" content="Marc i Ferran">
-    <meta property="og:title" content="Rimador en Català">
-    <meta property="og:description" content="Troba rimes fàcilment amb el Rimador en català.">
-    <meta property="og:image" content="/assets/R.webp">
-    <meta property="og:url" content="https://rimador.cat/">
-    <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FF91FF">
+    <meta name="robots" content="index, follow">
 
-    <title>Rimador en català</title>
+    <title>El Rimador català</title>
+    <meta name="description" content="El Rimador català et permet cercar rimes assonants i consonants segons la fonètica de les paraules. Conté filtres per categories gramaticals. Prova'l!">
+    <meta name="author" content="Marc i Ferran">
+    <link rel="canonical" href="https://rimador.cat/">
 
-    <link rel="shortcut icon" href="./assets/R.webp">
+    <link rel="icon" type="image/webp" href="assets/R.webp">
+    <link rel="apple-touch-icon" href="https://rimador.cat/assets/R.webp">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rimador.cat/">
+    <meta property="og:title" content="El Rimador català">
+    <meta property="og:description" content="El primer cercador funcional de rimes en català segons la fonètica.">
+    <meta property="og:image" content="https://rimador.cat/assets/R.webp">
+    <meta property="og:locale" content="ca_ES">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="El Rimador català">
+    <meta name="twitter:description" content="El primer cercador funcional de rimes en català segons la fonètica.">
+    <meta name="twitter:image" content="https://rimador.cat/assets/R.webp">
 
     <link rel="stylesheet" href="dist/css/styles.min.css">
+    <script src="components.js" defer></script>
     <script src="dist/js/script.min.js" defer></script>
-
 </head>
 
-<body id="404">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PRLRBXFC"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<body id="404">   
 
-    <header>
-        <a href="https://rimador.cat"><img class="rimador" id="rimadorImg" src="./assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
-        <button type="button" id="themeToggleBtn" class="peixet-btn" onclick="toggleTheme()" aria-label="Canvia entre mode festiu i mode sobri" title="Canvia d'estil"><img class="peixet" id="peixetImg" src="./assets/peixet.webp" alt="Peixet decoratiu"></button>
+    <header id="header">
+        <!-- components.js -->
     </header>
 
-    <div id="separador_rosa_nosaltres">
-        <script defer>
-            fetch('html/header.html')
-            .then(res => res.text())
-            .then(html => {
-                document.getElementById('separador_rosa_nosaltres').innerHTML = html;
-            });
-        </script>
+    <div id="separador_rosa1">
+        <!-- components.js -->
     </div>
 
     <div id="text_presentació">
@@ -59,14 +58,13 @@
         
     </div>
 
+    <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
+    <div id="formulariContainer">
+        <!-- components.js -->
+    </div>
+    
 <footer id="footer">
-  <script defer>
-    fetch('html/footer.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('footer').innerHTML = html;
-      });
-  </script>
+<!-- components.js -->
 </footer>
 
 </body>

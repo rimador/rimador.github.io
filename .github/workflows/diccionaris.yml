@@ -79,6 +79,7 @@ jobs:
 
       - name: Incrementa versió de transcripcions (+1)
         run: |
+          tmp=$(mktemp)
           jq '.transcripcions += 1' diccionaris/versions.json > "$tmp" && mv "$tmp" diccionaris/versions.json
           echo "Nova versió generada:"
           cat diccionaris/versions.json

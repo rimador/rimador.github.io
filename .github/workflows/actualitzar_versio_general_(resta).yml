@@ -13,7 +13,7 @@ jobs:
       - name: Baixa el codi
         uses: actions/checkout@v4
 
-      - name: Incrementa versió GENERAL (+1)
+      - name: Incrementa versió general (+1)
         run: |
           tmp=$(mktemp)
           jq '.general += 1' diccionaris/versions.json > "$tmp" && mv "$tmp" diccionaris/versions.json

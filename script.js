@@ -6,7 +6,7 @@ async function carregarVersions() {
     const dades = await resposta.json();
 
     const verTrans = `v.${dades.transcripcions}`;
-    const verTotal = `v.${dades.resta}`;
+    const verTotal = `v.${dades.general}`;
 
     VERSIONS_FITXERS = {
       "col_0.txt": verTotal, // paraula

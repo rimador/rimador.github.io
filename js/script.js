@@ -54,7 +54,7 @@ const nombresSeleccionats = [0,1,2,3,4,5,6,7,8,9];
 const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if (idPagina === 'llista1') return;
+    if (idPagina !== 'principal') return;
     Debug.logTime('Temps de càrrega');
     const loaderText2 = document.getElementById('loader-text2');
     if (loaderText2) {
@@ -479,7 +479,7 @@ function crearEnllacViccionari(paraula) {
   let ruta = '';
     if (idPagina === 'principal') {
     ruta = 'assets/';
-  } else if (idPagina === 'llista1') {
+  } else if (idPagina === 'llista') {
     ruta = '../assets/';
   }
   var enllac_vicc = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
@@ -492,7 +492,7 @@ function crearEnllacViquipedia(paraula) {
   let ruta = '';
     if (idPagina === 'principal') {
     ruta = 'assets/';
-  } else if (idPagina === 'llista1') {
+  } else if (idPagina === 'llista') {
     ruta = '../assets/';
   }
   var enllac_viq = '<a href="https://ca.wikipedia.org/wiki/' + paraula + '" target="_blank">';
@@ -505,7 +505,7 @@ function crearEnllacDiec(paraula) {
   let ruta = '';
   if (idPagina === 'principal') {
     ruta = 'assets/';
-  } else if (idPagina === 'llista1') {
+  } else if (idPagina === 'llista') {
     ruta = '../assets/';
   }
   var enllac_diec = '<a href="https://dlc.iec.cat/Results?DecEntradaText=' + paraula + '&AllInfoMorf=False&OperEntrada=0&OperDef=0&OperEx=0&OperSubEntrada=0&OperAreaTematica=0&InfoMorfType=0&OperCatGram=False&AccentSen=False&CurrentPage=0&refineSearch=0&Actualitzacions=False" target="_blank">';
@@ -520,11 +520,15 @@ function actualitzarRimes() {
 
   let text = '';
   if (idPagina === 'principal') {
-    text = 'rimes';
-  } else if (idPagina === 'llista1') {
-    text = 'paraules fènixs';
+    text = 'de rimes';
+  } else if (idPagina === 'llista') {
+    if (dataLlista === 'fenixs') {
+      text = 'de paraules fènixs';
+    } else if (dataLlista === 'mots_de7') {
+      text = 'd\'heptasíl·labs';
+    }
   }
-  var numerorimes = "Nombre de " + text + ": " + matches_provisionals.length;
+  var numerorimes = "Nombre " + text + ": " + matches_provisionals.length;
   document.getElementById("nombre").innerHTML = numerorimes;
 
   var rimesPerSilabes = {};
@@ -871,6 +875,7 @@ const THEME_STORAGE_KEY = "rimadorTheme";
 const RIMADOR_IMG_FESTIU = "./assets/Rimador-1.webp";
 const RIMADOR_IMG_SOBRI = "./assets/Rimador-1-sober.webp";
 
+let colorFestiuOriginal = null;
 
 function aplicarTema(tema) {
   var peixetImg = document.getElementById("peixetImg");
@@ -884,7 +889,7 @@ function aplicarTema(tema) {
   let ruta = '';
   if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === '404') {
     ruta = './assets/';
-  } else if (idPagina === 'llista1') {
+  } else if (idPagina === 'llista') {
     ruta = '../assets/';
   }
 

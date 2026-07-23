@@ -1,10 +1,10 @@
-body#llista1,
-body#llista1 #separador_rosa1,
-body#llista1 #separador_rosa2 {
+body#llista,
+body#llista #separador_rosa1,
+body#llista #separador_rosa2 {
     background-color: #FFA500;
 }
 
-body#llista1 #container {
+body#llista #container {
     background-color: #FF91FF;
     border: 1px solid white;
 }
@@ -15,7 +15,7 @@ body#llista1 #container {
     align-self: flex-end;
 }
 
-body#llista1 .dropdown-container {
+body#llista .dropdown-container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;

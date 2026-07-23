@@ -1,8 +1,14 @@
-#separador_rosa1{
+#separador_rosa1 {
     background-color: #FF91FF;
-    height: 40px;
     position: sticky;
-    top: 0px
+    top: 0px;
+    min-height: 40px;
+}
+
+#separador_rosa_nosaltres {
+    background-color: #FF91FF;
+    top: 0px;
+    min-height: 40px;
 }
 
 #separador_rosa2{

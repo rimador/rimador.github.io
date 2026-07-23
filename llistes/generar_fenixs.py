@@ -71,5 +71,15 @@ def generar_llista():
 
     print(f"Generació completada: {len(paraules_orfes)} paraules sense rima guardades a {fitxer_sortida}")
 
+    #+1 a json
+    with open('versions_llistes.json', 'r') as fitxer:
+        dades = json.load(fitxer)
+
+    dades['versio_fenix'] += 1
+
+    with open('versions_llistes.json', 'w') as fitxer:
+        json.dump(dades, fitxer, indent=2)
+
+
 if __name__ == "__main__":
     generar_llista()

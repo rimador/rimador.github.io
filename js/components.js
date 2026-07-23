@@ -3,9 +3,13 @@ const dataLlista = document.body ? document.body.dataset.llista : '';
 
 let ruta1 = '';
 let ruta2 = '';
-if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === '404') {
-  ruta1 = './assets/';
+if (idPagina === 'principal' || idPagina === 'canvis') {
+  ruta1 = 'assets/';
   ruta2 = 'historial_canvis.html';
+  botoactualitzar = '';
+} else if (idPagina === '404') {
+  ruta1 = '/assets/';
+  ruta2 = '/historial_canvis.html';
   botoactualitzar = '';
 } else if (idPagina === 'llista') {
   ruta1 = '../assets/';

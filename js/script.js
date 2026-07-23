@@ -869,11 +869,11 @@ function closeFormOnClickOutside(event) {
 
 // boring style
 
-const PEIXET_IMG_FESTIU = "./assets/peixet.webp";
-const PEIXET_IMG_SOBRI = "./assets/boringlogo.webp";
+const PEIXET_IMG_FESTIU = "assets/peixet.webp";
+const PEIXET_IMG_SOBRI = "assets/boringlogo.webp";
 const THEME_STORAGE_KEY = "rimadorTheme";
-const RIMADOR_IMG_FESTIU = "./assets/Rimador-1.webp";
-const RIMADOR_IMG_SOBRI = "./assets/Rimador-1-sober.webp";
+const RIMADOR_IMG_FESTIU = "assets/Rimador-1.webp";
+const RIMADOR_IMG_SOBRI = "assets/Rimador-1-sober.webp";
 
 let colorFestiuOriginal = null;
 
@@ -887,8 +887,10 @@ function aplicarTema(tema) {
   }
 
   let ruta = '';
-  if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === '404') {
-    ruta = './assets/';
+  if (idPagina === 'principal' || idPagina === 'canvis') {
+    ruta = 'assets/';
+  } else if (idPagina === '404') {
+    ruta = '/assets/';
   } else if (idPagina === 'llista') {
     ruta = '../assets/';
   }

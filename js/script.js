@@ -52,10 +52,9 @@ let nombresDeFitxers = 10;
 
 const nombresSeleccionats = [0,1,2,3,4,5,6,7,8,9];
 const camins = nombresSeleccionats.map(i => `diccionaris/separat/col_${i}.txt`);
-const idPagina = document.body ? document.body.id : '';
-
 
 document.addEventListener('DOMContentLoaded', async () => {
+  if (idPagina === 'llista1') return;
     Debug.logTime('Temps de càrrega');
     const loaderText2 = document.getElementById('loader-text2');
     if (loaderText2) {
@@ -864,7 +863,7 @@ function closeFormOnClickOutside(event) {
 }
 
 
-// extra prova boring style
+// boring style
 
 const PEIXET_IMG_FESTIU = "./assets/peixet.webp";
 const PEIXET_IMG_SOBRI = "./assets/boringlogo.webp";
@@ -876,6 +875,11 @@ const RIMADOR_IMG_SOBRI = "./assets/Rimador-1-sober.webp";
 function aplicarTema(tema) {
   var peixetImg = document.getElementById("peixetImg");
   var rimadorImg = document.getElementById("rimadorImg");
+  var themeColorMeta = document.getElementById("themeColor");
+
+  if (themeColorMeta && !colorFestiuOriginal) {
+    colorFestiuOriginal = themeColorMeta.getAttribute("content");
+  }
 
   let ruta = '';
   if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === '404') {
@@ -894,6 +898,9 @@ function aplicarTema(tema) {
       rimadorImg.src = ruta + "Rimador-1-sober.webp";
       rimadorImg.alt = "El Rimador (mode sobri)";
     }
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", "#e6e4e5");
+    }
   } else {
     document.documentElement.removeAttribute("data-theme");
     if (peixetImg) {
@@ -903,6 +910,9 @@ function aplicarTema(tema) {
     if (rimadorImg) {
       rimadorImg.src = ruta + "Rimador-1.webp";
       rimadorImg.alt = "Logo del Rimador en català";
+    }
+    if (themeColorMeta && colorFestiuOriginal) {
+      themeColorMeta.setAttribute("content", colorFestiuOriginal);
     }
   }
 }

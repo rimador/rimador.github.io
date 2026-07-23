@@ -6,13 +6,8 @@ npx.txt
 .DS_Store
 Thumbs.db
 
-# Notebooks de treball
-alia/
-
 # Minimitzats
 dist/
 
 # HTML's
-html/index_sense_formulari.html
-html/prova_nosaltres (malament).html
-html/prova_nosaltres copy.html
+html/

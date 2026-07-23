@@ -1,200 +1,63 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PRLRBXFC');</script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4S5EE36FXV"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-4S5EE36FXV'); 
-    </script>
-
     <meta charset="UTF-8">
-    <meta name="keywords" content="rimes, rima, rimador, català, fènixs, diccionari">
-    <meta name="author" content="Marc i Ferran">
-    <meta property="og:image" content="../assets/R.webp">
-    <meta property="og:url" content="https://rimador.cat/llista_fenixs.html">
-    <meta property="og:type" content="website">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" id="themeColor" content="#FFA500">
+    <meta name="robots" content="index, follow">
 
-    <title>Llista de paraules fènixs</title>
-    <link rel="shortcut icon" href="../assets/R.webp">
+    <title>El Rimador català - Fènixs</title>
+    <meta name="description" content="El Rimador català et permet cercar rimes assonants i consonants segons la fonètica de les paraules. Conté filtres per categories gramaticals. Prova'l!">
+    <meta name="author" content="Marc i Ferran">
+    <link rel="canonical" href="https://rimador.cat/">
+
+    <link rel="icon" type="image/webp" href="../assets/R.webp">
+    <link rel="apple-touch-icon" href="../assets/R.webp">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rimador.cat/">
+    <meta property="og:title" content="El Rimador català - Fènixs">
+    <meta property="og:description" content="El primer cercador funcional de rimes en català segons la fonètica.">
+    <meta property="og:image" content="../assets/R.webp">
+    <meta property="og:locale" content="ca_ES">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="El Rimador català - Fènixs">
+    <meta name="twitter:description" content="El primer cercador funcional de rimes en català segons la fonètica.">
+    <meta name="twitter:image" content="../assets/R.webp">
 
     <link rel="stylesheet" href="../dist/css/styles.min.css">
-
+    <script src="../dist/js/components.min.js" defer></script>
     <script src="../dist/js/script.min.js" defer></script>
-
+    <script src="../dist/js/script_llistes.min.js" defer></script>
 </head>
 
-<body id="llista1">
+<body id="llista" data-llista="fenixs">
 
     <div class="loader" id="loader">
-        <p class = "loader-text1" id="loader-text1"></p>
-        <div class="loader-inner">
-            <div class="loader-line-wrap">
-                <div class="loader-line"></div>
-            </div>
-            <div class="loader-line-wrap">
-                <div class="loader-line"></div>
-            </div>
-            <div class="loader-line-wrap">
-                <div class="loader-line"></div>
-            </div>
-            <div class="loader-line-wrap">
-                <div class="loader-line"></div>
-            </div>
-            <div class="loader-line-wrap">
-                <div class="loader-line"></div>
-            </div>
-        </div>
-        <p class = "loader-text2" id="loader-text2"></p>
-    </div>
+        <!-- components.js -->
+    </div>  
 
-    <header>
-        <a href="https://rimador.cat"><img class="rimador" id="rimadorImg" src="../assets/Rimador-1.webp" alt="Logo del Rimador en català"></a>
-        <button type="button" id="themeToggleBtn" class="peixet-btn" onclick="toggleTheme()" aria-label="Canvia entre mode festiu i mode sobri" title="Canvia d'estil"><img class="peixet" id="peixetImg" src="../assets/peixet.webp" alt="Peixet decoratiu"></button>    
+    <header id="header">
+        <!-- components.js -->
     </header>
 
     <div id="separador_rosa1">
-        <script defer>
-            fetch('../html/header.html')
-            .then(res => res.text())
-            .then(html => {
-                document.getElementById('separador_rosa1').innerHTML = html;
-            });
-        </script>
+        <!-- components.js -->
     </div>
 
     <div class="container" id="container">
 
-        <div class="dropdown-container">
-            <div>
-                <label for="numeroSelector">Nombre de síl·labes:</label>
-                <select id="numeroSelector">
-                    <option value="0">Indiferent</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5+</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="categoriaSelector">Comença per:</label>
-                <select id="categoriaSelector">
-                    <option value="indiferent">Indiferent</option>
-                    <option value="vocal+h">Vocal / H</option>
-                    <option value="consonant">Consonant</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="plurals">Incloure plurals:</label>
-                <select id="plurals">
-                    <option value="si">Sí</option>
-                    <option value="no">No</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="nomsPropis">Incloure noms propis:</label>
-                <select id="nomsPropis">
-                    <option value="no">No</option>
-                    <option value="si">Sí</option>
-                </select>
-            </div>
-            <button class="boto" role="button" id="actualitzaButton"><span class="text">Actualitzar</span></button>
-            
+        <div class="dropdown-container" id="dropdown-container">
+            <!-- components.js -->
         </div>
 
     </div>
 
     <div class="impressio">
-
+        
         <div id="checkboxContainer">
-            <label>
-                <input type="checkbox" class="clickable-checkbox" id="checkbox1" onchange="toggleList('nomsList', 'checkbox1')" onclick="handleCheckboxClick(event, CriterisNoms)"> Noms
-            </label>
-
-            <ul id="nomsList" style="display: none" onclick="handleCheckboxClick(event, CriterisNoms)">
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Propis</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Comuns</li>
-            </ul>
-
-            <label>
-                <input type="checkbox" class="clickable-checkbox" id="checkbox2" onchange="toggleList('adjectiusList', 'checkbox2')" onclick="handleCheckboxClick(event, CriterisAdjectius)"> Adjectius
-            </label>
-
-            <ul id="adjectiusList" style="display: none" onclick="handleCheckboxClick(event, CriterisAdjectius)">
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Qualificatius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Superlatius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Ordinals</li>
-            </ul>
-
-            <label>
-                <input type="checkbox" class="clickable-checkbox" id="checkbox3" onchange="toggleList('verbsList', 'checkbox3')" onclick="handleCheckboxClick(event, CriterisVerbs)"> Verbs
-            </label>
-
-            <ul id="verbsList" style="display: none" onclick="handleCheckboxClick(event, CriterisVerbs)">
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indicatiu</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Subjuntiu</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Imperatiu</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Gerundis</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Participis</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Infinitius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Condicional</li>
-            </ul>
-
-            <label>
-                <input type="checkbox" class="clickable-checkbox" id="checkbox4" onchange="toggleList('determinantsList', 'checkbox4')" onclick="handleCheckboxClick(event, CriterisDeterminants)"> Determinants
-            </label>
-
-            <ul id="determinantsList" style="display: none" onclick="handleCheckboxClick(event, CriterisDeterminants)">
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Números</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Articles</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Exclamatius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
-            </ul>
-
-            <label>
-                <input type="checkbox" class="clickable-checkbox" id="checkbox5" onchange="toggleList('pronomsList', 'checkbox5')" onclick="handleCheckboxClick(event, CriterisPronoms)"> Pronoms
-            </label>
-
-            <ul id="pronomsList"  style="display: none" onclick="handleCheckboxClick(event, CriterisPronoms)">
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Demostratius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Indefinits</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interrogatius / Exclamatius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Personals (forts i febles)</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Possessius</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Relatius</li>
-            </ul>
-
-            <label>
-                <input type="checkbox" class="clickable-checkbox" id="checkbox6" onchange="toggleList('altresList', 'checkbox6')" onclick="handleCheckboxClick(event, CriterisAltres)"> Altres categories
-            </label>
-
-            <ul id="altresList"  style="display: none" onclick="handleCheckboxClick(event, CriterisAltres)">
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Adverbis</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Conjuncions</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Interjeccions</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Preposicions</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">Contraccions</li>
-                <li class="no-list-style"><input type="checkbox" class="clickable-checkbox">"etcètera"</li>
-            </ul>
+            <!-- components.js -->
         </div>
 
         <div class="resultats">
@@ -202,160 +65,22 @@
                 <p id="nombre"></p>
             </div>
             <p id="rima_enllac" class="column-container"></p>
+
         </div>
     </div>
 
     <div id="espai_inicial">
         <p>.</p>
-    </div>
+    </div>    
 
-    <footer id="footer">
-      <script defer>
-        fetch('../html/footer.html')
-          .then(res => res.text())
-          .then(html => {
-            document.getElementById('footer').innerHTML = html;
-          });
-      </script>
-    </footer>
     <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
-
     <div id="formulariContainer">
-        <form action="https://formspree.io/f/xeoazgnl" method="POST">
-            <h3>Ajuda'ns a millorar!!!!!!!!!!!!!!</h3>
-            <p>Si has trobat una errada o tens una suggerència, ens pots enviar un correu a <a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a></p>
-
-            <img class="gifok" src="../assets/ok1.webp" alt="Ok1">
-            <img class="gifok" src="../assets/ok2.webp" alt="Ok2">
-
-            <br>
-        </form>
+        <!-- components.js -->
     </div>
+    
+<footer id="footer">
+<!-- components.js -->
+</footer>
 
-        <script>
-            function normalitzarParaula(paraula) {
-                return (paraula || '').trim().toLowerCase();
-            }
-
-            function compleixFiltresFenixs(entrada, numeroSeleccionat, comenca, inclourePropis, inclourePlurals) {
-                const paraula = normalitzarParaula(entrada.paraula);
-                const codi = entrada.codi || '';
-                const silabes = String(entrada.sil || '');
-
-                if (numeroSeleccionat !== '0' && numeroSeleccionat !== '5' && silabes !== numeroSeleccionat) {
-                    return false;
-                }
-
-                if (numeroSeleccionat === '5' && parseInt(silabes, 10) < 5) {
-                    return false;
-                }
-
-                if (comenca === 'vocal+h' && !'haeiou'.includes(paraula.charAt(0))) {
-                    return false;
-                }
-
-                if (comenca === 'consonant' && 'haeiou'.includes(paraula.charAt(0))) {
-                    return false;
-                }
-
-                if (inclourePropis === 'no' && codi.startsWith('NP')) {
-                    return false;
-                }
-
-                if (inclourePlurals === 'no') {
-                    if (codi[0] === 'D' && codi[4] === 'P') {
-                        return false;
-                    }
-                    if (codi[0] === 'A' && codi[4] === 'P') {
-                        return false;
-                    }
-                    if (codi[0] === 'N' && codi[3] === 'P') {
-                        return false;
-                    }
-                    if (codi[0] === 'P' && codi[4] === 'P') {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-
-            function actualitzarLlistaFenixs() {
-                const numeroSeleccionat = document.getElementById('numeroSelector').value;
-                const comenca = document.getElementById('categoriaSelector').value;
-                const inclourePropis = document.getElementById('nomsPropis').value;
-                const inclourePlurals = document.getElementById('plurals').value;
-
-                const dadesFiltrades = window.matches_base.filter((entrada) =>
-                    compleixFiltresFenixs(entrada, numeroSeleccionat, comenca, inclourePropis, inclourePlurals)
-                );
-
-                window.matches = dadesFiltrades.map((entrada) => [
-                    entrada.paraula,
-                    entrada.infinitiu,
-                    entrada.codi,
-                    entrada.sil,
-                    entrada.vicc,
-                    entrada.viq,
-                    entrada.diec,
-                ]);
-                window.matches_provisionals = window.matches.slice();
-                window.paraulacerca = window.matches.length > 0 ? window.matches[0] : [0, 0, 0, 0, 0, 0, 0];
-
-                actualitzarRimes();
-                mostrarTotesLesLlistes();
-            }
-
-            function prepararBotoActualitzar() {
-                const botoOriginal = document.getElementById('actualitzaButton');
-
-                const botoNou = botoOriginal.cloneNode(true);
-                botoOriginal.parentNode.replaceChild(botoNou, botoOriginal);
-                botoNou.addEventListener('click', actualitzarLlistaFenixs);
-            }
-
-            function carregarLlistaFenixs() {
-        fetch('./paraules_fenixs.json', { cache: 'no-cache' })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`No s'ha pogut llegir el JSON (${response.status})`);
-            }
-            return response.json();
-          })
-          .then((dades) => {
-            window.matches = dades.map((entrada) => [
-              entrada.paraula,
-              entrada.infinitiu,
-              entrada.codi,
-              entrada.sil,
-              entrada.vicc,
-              entrada.viq,
-              entrada.diec,
-            ]);
-                        window.matches_base = dades;
-            window.matches_provisionals = window.matches.slice();
-            window.paraulacerca = window.matches.length > 0 ? window.matches[0] : [0, 0, 0, 0, 0, 0, 0];
-
-            actualitzarLlistaFenixs();
-                        prepararBotoActualitzar();
-
-            document.querySelectorAll('.clickable-checkbox').forEach((checkbox) => {
-              checkbox.checked = true;
-            });
-
-            mostrarTotesLesLlistes();
-            document.querySelector('.impressio').style.display = 'flex';
-            document.getElementById('loader').style.display = 'none';
-          })
-          .catch((error) => {
-            console.error(error);
-            document.getElementById('nombre').textContent = 'Error carregant les paraules fènixs';
-            document.getElementById('rima_enllac').innerHTML = '<ul><li>No s\'ha pogut llegir el JSON.</li></ul>';
-            document.getElementById('loader').style.display = 'none';
-          });
-      }
-
-      document.addEventListener('DOMContentLoaded', carregarLlistaFenixs);
-    </script>
 </body>
 </html>

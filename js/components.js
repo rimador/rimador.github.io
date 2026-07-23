@@ -1,4 +1,5 @@
 const idPagina = document.body ? document.body.id : '';
+const dataLlista = document.body ? document.body.dataset.llista : '';
 
 let ruta1 = '';
 let ruta2 = '';
@@ -6,7 +7,7 @@ if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === '404') {
   ruta1 = './assets/';
   ruta2 = 'historial_canvis.html';
   botoactualitzar = '';
-} else if (idPagina === 'llista1') {
+} else if (idPagina === 'llista') {
   ruta1 = '../assets/';
   ruta2 = '../historial_canvis.html';
   botoactualitzar = '<button class="boto" role="button" id="actualitzaButton"><span class="text">Actualitzar</span></button>';

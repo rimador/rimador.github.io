@@ -17,7 +17,7 @@ def generar_llista():
     ruta_col_8 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_8.txt') #DIEC
     #ruta_col_9 = os.path.join(base_dir, '..', 'diccionaris', 'separat', 'col_9.txt') #transcripció
     
-    fitxer_sortida = os.path.join(base_dir, 'mots_de7.json')
+    fitxer_sortida = os.path.join(base_dir, 'mots_de7_real.json')
 
     mots_de7 = []
 

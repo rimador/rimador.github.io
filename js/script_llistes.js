@@ -111,8 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tipusLlista === 'fenixs') {
         carregarDades('paraules_fenixs.json', 'versio_fenix');
 // ======= canviar aquí baix
-    } else if (tipusLlista === 'mots_de7') {
-        carregarDades('mots_de7.json', 'versio_hepta');
+    } else if (tipusLlista === 'mots_de7_real') {
+        carregarDades('mots_de7_real.json', 'versio_hepta_real');
+    
+    } else if (tipusLlista === 'mots_de7_glosa') {
+        carregarDades('mots_de7_glosa.json', 'versio_hepta_glosa');
+
     } else {
         console.warn('Tipus de llista desconegut o no definit al data-llista de l\'etiqueta body.');
     }

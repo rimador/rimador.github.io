@@ -65,8 +65,9 @@ jobs:
 
       - name: Crear llista de mots_de7
         working-directory: llistes
-        run: python generar_mots_de7_real.py
-        run: python generar_mots_de7_glosa.py
+        run: | 
+          python generar_mots_de7_real.py
+          python generar_mots_de7_glosa.py
 
 # --- comit diccionari ---
       - name: Comit llista de mots de 7

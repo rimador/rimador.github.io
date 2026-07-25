@@ -417,11 +417,11 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
   for (var i = 0; i < array0.length; i++) {
     let bona = 1;
     while (bona === 1) {
-      if (array5[i] !== numeroSeleccionat && numeroSeleccionat !== "0" && numeroSeleccionat !== "5") {
+      if (array5[i] !== numeroSeleccionat && numeroSeleccionat !== "0" && numeroSeleccionat !== "6") {
         break;
       }
 
-      if (numeroSeleccionat === "5" && parseInt(array5[i]) < 5) {
+      if (numeroSeleccionat === "6" && parseInt(array5[i]) < 6) {
         break;
       }
 
@@ -524,8 +524,10 @@ function actualitzarRimes() {
   } else if (idPagina === 'llista') {
     if (dataLlista === 'fenixs') {
       text = 'de paraules fènixs';
-    } else if (dataLlista === 'mots_de7') {
-      text = 'd\'heptasíl·labs';
+    } else if (dataLlista === 'mots_de7_real') {
+      text = 'de paraules de set síl·labes';
+    } else if (dataLlista === 'mots_de7_glosa') {
+      text = "d'heptasíl·labs";
     }
   }
   var numerorimes = "Nombre " + text + ": " + matches_provisionals.length;
@@ -569,7 +571,16 @@ function actualitzarRimes() {
     }
 
     for (var silabes in rimesPerSilabes) {
-      rima_enllac += "<h3><br>" + silabes + (silabes > 1 ? " síl·labes" : " síl·laba") + ":</h3><ul>";
+      if (dataLlista === 'mots_de7_glosa') {
+        if (silabes == 7) {
+          rima_enllac += "<h3><br>7 síl·labes (mots aguts):</h3><ul>";
+      } else if (silabes == 8) {
+          rima_enllac += "<h3><br>8 síl·labes (mots plans):</h3><ul>";
+      } else if (silabes == 9) {
+          rima_enllac += "<h3><br>9 síl·labes (mots esdrúixols):</h3><ul>";
+    }} else {
+        rima_enllac += "<h3><br>" + silabes + (silabes > 1 ? " síl·labes" : " síl·laba") + ":</h3><ul>";
+      }
       for (var j = 0; j < rimesPerSilabes[silabes].length; j++) {
         var item = rimesPerSilabes[silabes][j];
         var enllacText = "";

@@ -64,7 +64,7 @@ async function carregarVersionsLlistes(clauVersio) {
 
 async function carregarDades(arxiuJson, clauVersio) {
     const loaderText2 = document.getElementById('loader-text2');
-    if (loaderText2) loaderText2.textContent = "Carregant fitxer (0/1)";
+    if (loaderText2) loaderText2.textContent = "Carregant fitxer (0/2)"; //és fals que hi hagi 2 fitxers, però es queda congelat mentre fa l'"await resParaules.json();".
 
     try {
         await carregarVersionsLlistes(clauVersio);
@@ -72,7 +72,7 @@ async function carregarDades(arxiuJson, clauVersio) {
         const resParaules = await fetch(`${arxiuJson}?v=${VERSIO_ACTUAL}`);
         if (!resParaules.ok) throw new Error(`Error HTTP: ${resParaules.status}`);
 
-        if (loaderText2) loaderText2.textContent = "Carregant fitxer (1/1)";
+        if (loaderText2) loaderText2.textContent = "Carregant fitxer (1/2)";
 
         const dades = await resParaules.json();
         window.matches_base = dades;

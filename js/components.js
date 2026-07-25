@@ -3,6 +3,17 @@ const dataLlista = document.body ? document.body.dataset.llista : '';
 
 let ruta1 = '';
 let ruta2 = '';
+let estilSilabes = '';
+let opcionsSilabes = /*html*/`
+    <option value="0">Indiferent</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6 o +</option>
+`;
+
 if (idPagina === 'principal' || idPagina === 'canvis') {
   ruta1 = 'assets/';
   ruta2 = 'historial_canvis.html';
@@ -15,8 +26,18 @@ if (idPagina === 'principal' || idPagina === 'canvis') {
   ruta1 = '../assets/';
   ruta2 = '../historial_canvis.html';
   botoactualitzar = '<button class="boto" role="button" id="actualitzaButton"><span class="text">Actualitzar</span></button>';
+    if (dataLlista === 'mots_de7_real') {
+        estilSilabes = 'style="display: none;"';
+    
+  } else if (dataLlista === 'mots_de7_glosa') {
+        opcionsSilabes = /*html*/`
+            <option value="0">Indiferent</option>
+            <option value="7">7 (mots aguts)</option>
+            <option value="8">8 (mots plans)</option>
+            <option value="9">9 (mots esdrúixols)</option> 
+    `;
+  }
 }
-
 
 const loader = /*html*/`
 <p class = "loader-text1" id="loader-text1"></p>
@@ -68,15 +89,10 @@ const dropdowncontainer = /*html*/`
     </select>
 </div>
 
-<div>
+<div ${estilSilabes}>
     <label for="numeroSelector">Nombre de síl·labes:</label>
     <select id="numeroSelector">
-        <option value="0">Indiferent</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5+</option>
+        ${opcionsSilabes}
     </select>
 </div>
 

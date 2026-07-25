@@ -824,26 +824,31 @@ function obtenirValorsSegonsPrimerCaracter(matches) {
 
 
 //CSS
-window.addEventListener('scroll', function() {
+
+function ajustarPosicionsSticky() {
   var container = document.getElementById('container');
   var checkboxContainer = document.getElementById('checkboxContainer');
-  var separador_rosa2 = document.getElementById('separador_rosa2')
+  var separador_rosa2 = document.getElementById('separador_rosa2');
   
-  var dades_container = container.getBoundingClientRect();
-
-  var esModeSobri = document.documentElement.getAttribute("data-theme") === "sober";
-  var compensacio = esModeSobri ? -2 : 0;
-
+  if (!container || !checkboxContainer || !separador_rosa2) return;
   
-  if (dades_container.height > 120) {
-    checkboxContainer.style.top = (40 + dades_container.height + 40 + compensacio) + 'px';
-    separador_rosa2.style.top = (40 + dades_container.height + compensacio) + 'px';
-  }
-  else {
-    checkboxContainer.style.top = (200 + compensacio) + 'px';
-    separador_rosa2.style.top = (160 + compensacio) + 'px';
-  }
+  var calculTop = 40 + container.offsetHeight;
+  
+  separador_rosa2.style.top = calculTop + 'px';
+  checkboxContainer.style.top = (calculTop + 40) + 'px'; 
+}
+
+document.addEventListener('DOMContentLoaded', ajustarPosicionsSticky);
+
+var observer = new ResizeObserver(function() {
+    ajustarPosicionsSticky();
 });
+
+var containerEl = document.getElementById('container');
+if (containerEl) {
+    observer.observe(containerEl);
+}
+
 
 
 //Mostrar i amagar el formulari de contacte

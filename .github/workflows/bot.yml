@@ -22,7 +22,9 @@ jobs:
           python-version: '3.11'
 
       - name: Instal·lar dependències (Tweepy)
-        run: pip install tweepy
+        run: |
+          pip install tweepy
+          pip install numpy
 
       - name: Executar l'script de Python 
         env:

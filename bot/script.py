@@ -5,8 +5,8 @@ from numpy import sort
 import tweepy
 from datetime import datetime
 
-FITXER_RIMES = 'resultat_ordenat_cons.json'          
-FITXER_UTILITZATS = 'publicades.json'  
+FITXER_RIMES = 'bot/resultat_ordenat_cons.json'          
+FITXER_UTILITZATS = 'bot/publicades.json'  
 
 def carregar_json(nom_fitxer):
     if not os.path.exists(nom_fitxer):

@@ -1,6 +1,7 @@
 import json
 import random
 import os
+from numpy import sort
 import tweepy
 from datetime import datetime
 
@@ -44,7 +45,8 @@ def principal():
     llista_paraules = info_rima.get("paraules", [])
 
     quantitat_a_triar = min(4, len(llista_paraules))
-    paraules_escollides = random.sample(llista_paraules, quantitat_a_triar)
+    paraules_random = random.sample(llista_paraules, quantitat_a_triar)
+    paraules_escollides = sort(paraules_random)
 
     avui = datetime.now()
     data_formatada = f"{avui.day}/{avui.month}/{avui.strftime('%y')}"

@@ -53,7 +53,7 @@ def principal():
 
     tuit = f"Rima del dia ({data_formatada}): /{rima_escollida}/ ({frequencia} paraules hi rimen)\n\n"
     for paraula in paraules_escollides:
-        tuit += f"🔹 {paraula}\n"
+        tuit += f"- {paraula}\n"
     tuit += "\nConsulta totes les rimes a https://rimador.cat"
 
     print("-" * 50)

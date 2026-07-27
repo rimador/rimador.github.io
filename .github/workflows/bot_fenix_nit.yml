@@ -1,8 +1,8 @@
-name: Bot de Rimes a Twitter
+name: Bot de Rimes a Twitter (tarda, fènix)
 
 on:
-  schedule:
-    - cron: '0 2 * * *'
+  #schedule:
+  #  - cron: '0 14 * * *'
   
   workflow_dispatch:
 
@@ -32,12 +32,12 @@ jobs:
           API_SECRET: ${{ secrets.API_SECRET }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
-        run: python bot/script.py
+        run: python bot/script_fenix.py
 
       - name: Guardar els canvis al JSON (Commit & Push)
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add bot/publicades.json
-          git commit -m "Actualització automàtica: Rima diària afegida a publicades.json" || echo "Cap canvi per fer commit"
+          git add bot/publicades_fenix.json
+          git commit -m "Actualització automàtica: Rima diària afegida a publicades_fenix.json" || echo "Cap canvi per fer commit"
           git push

@@ -76,7 +76,7 @@ def principal():
             else:
                 tuit += f"📖 Viquipèdia: https://ca.wikipedia.org/wiki/{paraula_url}\n"
 
-    tuit += "\nConsulta totes les paraules fènix a https://rimador.cat/llistes/llista_fenixs_provisional.html"
+    tuit += "\nConsulta totes les paraules fènix a https://rimador.cat/llistes/llista_fenixs.html"
 
     print("-" * 50)
     print(tuit)

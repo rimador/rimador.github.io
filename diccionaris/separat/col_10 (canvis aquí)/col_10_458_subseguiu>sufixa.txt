@@ -1,4 +1,3 @@
-subseguiu € subseguir € VMIP2P00 € supsəɣˈiw
 subseguiu € subseguir € VMM02P00 € supsəɣˈiw
 subseguiu € subseguir € VMSP2P00 € supsəɣˈiw
 subseqüent € subseqüent € AQ0CS0 € supsəkwˈen
@@ -1241,3 +1240,4 @@ sufismes € sufisme € NCMP000 € sufˈizməs
 sufix € sufix € AQ0MS0 € sufˈiks
 sufix € sufix € NCMS000 € sufˈiks
 sufixa € sufix € AQ0FS0 € sufˈiksə
+sufixa € sufixar € VMIP3S00 € sufˈiksə

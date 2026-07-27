@@ -4,6 +4,7 @@ def agrupar_rimes_amb_paraules(ruta_rimes, ruta_paraules, ruta_json):
     try:
         dades_agrupades = {}
         
+        # Obrim i llegim els arxius de rimes i paraules
         with open(ruta_rimes, 'r', encoding='utf-8') as arxiu1, \
              open(ruta_paraules, 'r', encoding='utf-8') as arxiu2:
             
@@ -17,16 +18,27 @@ def agrupar_rimes_amb_paraules(ruta_rimes, ruta_paraules, ruta_json):
                     
                     dades_agrupades[rima].append(paraula) 
         
-        dades_ordenades = dict(sorted(dades_agrupades.items(), key=lambda item: len(item[1]), reverse=True))
+        # NOU: Creem una nova estructura que inclogui la freqüència
+        dades_ordenades = {}
+        # Ordenem de més a menys freqüència
+        elements_ordenats = sorted(dades_agrupades.items(), key=lambda item: len(item[1]), reverse=True)
         
+        for rima, paraules in elements_ordenats:
+            dades_ordenades[rima] = {
+                "frequencia": len(paraules),
+                "paraules": paraules
+            }
+        
+        # Desem l'arxiu JSON
         with open(ruta_json, 'w', encoding='utf-8') as arxiu_sortida:
             json.dump(dades_ordenades, arxiu_sortida, indent=4, ensure_ascii=False)
             
-        print(f"S'ha generat l'arxiu")
+        print("S'ha generat l'arxiu.")
         
     except FileNotFoundError as e:
         print(f"Error: No s'ha trobat algun dels arxius especificats. Detalls: {e}")
 
+# Rutes dels arxius
 arxiu_rimes = '../diccionaris/separat/col_3.txt'
 arxiu_paraules = '../diccionaris/separat/col_0.txt'
 arxiu_sortida = 'resultat_ordenat_cons.json'

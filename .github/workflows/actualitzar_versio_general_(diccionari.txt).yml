@@ -44,6 +44,20 @@ jobs:
           git commit -m "+1 a la versió general del diccionari [automàtic]" || echo "No hi ha canvis"
           git push
 
+# ------ Generar resultat_ordenat_cons.json
+      - name: Generar json de rimes sencer
+        working-directory: bot
+        run: python "generador_rimes_cons.py"
+
+# ----- comit resultat_ordenat_cons.json
+      - name: Comit json de rimes sencer
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Generació automàtica del json de rimes sencer" || echo "No s'han detectat canvis nous per guardar"
+          git push
+
 # ------ Crear llista fènixs
       - name: Crear llista de fenixs
         working-directory: llistes

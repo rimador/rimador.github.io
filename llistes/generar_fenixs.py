@@ -1,37 +1,41 @@
 import os
 import json
-from collections import Counter
-from itertools import zip_longest
 from contextlib import ExitStack
 
 def generar_llista():
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    dir_diccionaris = os.path.join(base_dir, '..', 'diccionaris', 'separat')
+    dir_diccionaris = os.path.join(base_dir, '..', 'diccionaris')
+    dir_separat = os.path.join(dir_diccionaris, 'separat')
     
-    noms_fitxers = [
-        'col_0.txt', 'col_1.txt', 'col_2.txt', 'col_3.txt', 'col_5.txt', 'col_6.txt', 'col_7.txt', 'col_8.txt'
-    ]
-    rutes = [os.path.join(dir_diccionaris, nom) for nom in noms_fitxers]
+    ruta_json_rimes = os.path.join('..', 'bot', 'resultat_ordenat_cons.json')
     fitxer_sortida = os.path.join(base_dir, 'paraules_fenixs.json')
     ruta_versions = os.path.join(base_dir, 'versions_llistes.json')
 
-    try:
-        ruta_rimes = rutes[3]
-        with open(ruta_rimes, 'r', encoding='utf-8') as f_rimes:
-            comptador_rimes = Counter(linia.strip() for linia in f_rimes)
+    noms_fitxers = [
+        'col_0.txt', 'col_1.txt', 'col_2.txt', 
+        'col_3.txt', 'col_5.txt', 'col_6.txt', 
+        'col_7.txt', 'col_8.txt'
+    ]
+    rutes_txt = [os.path.join(dir_separat, nom) for nom in noms_fitxers]
 
-        rimes_orfes = {rima for rima, freq in comptador_rimes.items() if freq == 1}
-        
-        paraules_orfes = []
+    paraules_orfes = []
+
+    try:
+        with open(ruta_json_rimes, 'r', encoding='utf-8') as f:
+            dades_rimes = json.load(f)
+            
+        rimes_fenix = {
+            rima for rima, dades in dades_rimes.items() 
+            if len(dades.get("paraules", [])) == 1
+        }
 
         with ExitStack() as stack:
-            fitxers_oberts = [stack.enter_context(open(ruta, 'r', encoding='utf-8')) for ruta in rutes]
+            fitxers_oberts = [stack.enter_context(open(ruta, 'r', encoding='utf-8')) for ruta in rutes_txt]
             
-            for linies in zip_longest(*fitxers_oberts, fillvalue=''):
-                
-                paraula, infinitiu, codi, rima, sil, vicc, viq, diec = [linia.strip() if linia else None for linia in linies]
+            for linies in zip(*fitxers_oberts):
+                paraula, infinitiu, codi, rima, sil, vicc, viq, diec = [linia.strip() for linia in linies]
 
-                if rima in rimes_orfes:
+                if rima in rimes_fenix:
                     paraules_orfes.append({
                         'paraula': paraula,
                         'infinitiu': infinitiu,
@@ -53,7 +57,7 @@ def generar_llista():
     with open(fitxer_sortida, 'w', encoding='utf-8') as f:
         json.dump(paraules_orfes, f, ensure_ascii=False, indent=2)
 
-    print(f"Generació completada: {len(paraules_orfes)} paraules sense rima guardades a {fitxer_sortida}")
+    print(f"Generació completada: {len(paraules_orfes)} paraules fènix guardades a {fitxer_sortida}")
 
     try:
         with open(ruta_versions, 'r', encoding='utf-8') as fitxer:

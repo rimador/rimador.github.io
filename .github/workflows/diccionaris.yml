@@ -39,7 +39,7 @@ jobs:
         working-directory: diccionaris
         run: python "post_proces.py"
 
-# --- comit diccionari ---
+# --- comit col_10 ---
       - name: Comit columna 10 separada
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -48,12 +48,28 @@ jobs:
           git commit -m "Generació automàtica de la columna_10 separada" || echo "No s'han detectat canvis nous per guardar"
           git push
 
+      - name: Incrementa versió de transcripcions (+1)
+        run: |
+          tmp=$(mktemp)
+          jq '.transcripcions += 1' diccionaris/versions.json > "$tmp" && mv "$tmp" diccionaris/versions.json
+          echo "Nova versió generada:"
+          cat diccionaris/versions.json
 
+      - name: Commit i Push de la versió
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add diccionaris/versions.json
+          git commit -m "+1 a la versió de transcripcions [automàtic]" || echo "No hi ha canvis"
+          git push
+
+
+          
       - name: Crear llista de fenixs
         working-directory: llistes
         run: python generar_fenixs.py
 
-# --- comit diccionari ---
+# --- comit fenix ---
       - name: Comit llista de fènixs
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -69,27 +85,11 @@ jobs:
           python generar_mots_de7_real.py
           python generar_mots_de7_glosa.py
 
-# --- comit diccionari ---
+# --- comit mots_de7 ---
       - name: Comit llista de mots de 7
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add .
           git commit -m "Generació automàtica de la llista de mots de 7" || echo "No s'han detectat canvis nous per guardar"
-          git push
-
-
-      - name: Incrementa versió de transcripcions (+1)
-        run: |
-          tmp=$(mktemp)
-          jq '.transcripcions += 1' diccionaris/versions.json > "$tmp" && mv "$tmp" diccionaris/versions.json
-          echo "Nova versió generada:"
-          cat diccionaris/versions.json
-
-      - name: Commit i Push de la versió
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add diccionaris/versions.json
-          git commit -m "+1 a la versió de transcripcions [automàtic]" || echo "No hi ha canvis"
           git push

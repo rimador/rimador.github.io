@@ -10,7 +10,7 @@ async function carregarVersions() {
 
     VERSIONS_FITXERS = {
       "col_0.txt": verTotal, // paraula
-      "col_1.txt": verTotal, // d'on prové
+      "col_1.txt": verTotal, // d'on prové (infinitiu)
       "col_2.txt": verTotal, // codi
       "col_3.txt": verTrans, // consonant
       "col_4.txt": verTrans, // assonant

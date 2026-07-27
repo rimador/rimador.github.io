@@ -48,11 +48,13 @@ jobs:
           find . -type f -name "*.html" -exec sed -i -E "s/(\.css\?v=)[^\"]*/\1$NOVA_VERSIO/g" {} +
 
       - name: Guardar els HTML actualitzats al repositori
-        if: steps.canvis.outputs.any_changed == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Cache busting: versions actualitzades als HTML"
-          file_pattern: "**/*.html"
+              if: steps.canvis.outputs.any_changed == 'true'
+              run: |
+                git config --local user.email "github-actions[bot]@users.noreply.github.com"
+                git config --local user.name "github-actions[bot]"
+                git add '*.html' '**/_*.html'
+                git commit -m "Cache busting: versions actualitzades als HTML" || echo "No hi ha canvis"
+                git push
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

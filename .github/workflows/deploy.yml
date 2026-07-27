@@ -52,7 +52,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add '*.html' '**/_*.html'
+          git add '*.html' '**/*.html'
           git commit -m "Cache busting: versions actualitzades als HTML" || echo "No hi ha canvis"
           git push
 

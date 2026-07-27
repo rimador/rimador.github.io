@@ -1,4 +1,5 @@
 import json
+import os
 
 def agrupar_rimes_amb_paraules(ruta_rimes, ruta_paraules, ruta_json):
     try:
@@ -34,8 +35,12 @@ def agrupar_rimes_amb_paraules(ruta_rimes, ruta_paraules, ruta_json):
     except FileNotFoundError as e:
         print(f"Error: No s'ha trobat algun dels arxius especificats. Detalls: {e}")
 
-arxiu_rimes = '../diccionaris/separat/col_3.txt'
-arxiu_paraules = '../diccionaris/separat/col_0.txt'
-arxiu_sortida = 'resultat_ordenat_cons.json'
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+dir_diccionaris = os.path.join(base_dir, '..', 'diccionaris', 'separat')
+
+arxiu_sortida = os.path.join(base_dir, 'resultat_ordenat_cons.json')
+arxiu_rimes = os.path.join(dir_diccionaris, 'col_3.txt')
+arxiu_paraules = os.path.join(dir_diccionaris, 'col_0.txt')
 
 agrupar_rimes_amb_paraules(arxiu_rimes, arxiu_paraules, arxiu_sortida)

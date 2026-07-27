@@ -272,7 +272,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 }
 
 //excel per guardar cerques
-const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbz7sd6za6wleHwk7bmwBOJ6lLdjQKt5uCi6zpQ9Nh1y9ZkEg1KlOLtw1J2FCdj8UFQs/exec";
+const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwsFU7gABGK58oz0PsBa2QWUDfI0aYygXcddK0q0qox4asUtMNXjFlIMSStM06i-LpZ/exec";
 
 function getUsuariID() {
   let usuariID = localStorage.getItem('rimador_usuari_id');
@@ -285,12 +285,13 @@ function getUsuariID() {
   return usuariID;
 }
 
-function registrarCerca(paraulaBuscada) {
+function registrarCerca(paraulaBuscada, rimaTrobada, tipusRima) {
   if (!paraulaBuscada || paraulaBuscada.trim().length < 2) return;
 
   const dades = new URLSearchParams();
   dades.append('paraula', paraulaBuscada.trim().toLowerCase());
-  
+  dades.append('rima', rimaTrobada);
+  dades.append('tipusRima', tipusRima);
   dades.append('usuari', getUsuariID()); 
 
   fetch(URL_GOOGLE_SCRIPT, {
@@ -311,9 +312,6 @@ async function realitzarCerca() {
     matches = [];
     
     var paraulaCercada = document.getElementById('paraulaCercada').value.trim().toLowerCase();
-
-    registrarCerca(paraulaCercada);
-
     var numeroSeleccionat = document.getElementById('numeroSelector').value;
     var tipusRima = document.getElementById('rimaSelector').value;
     var comença = document.getElementById('categoriaSelector').value;
@@ -322,8 +320,16 @@ async function realitzarCerca() {
     
     const buscaparaula = buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9);
     matches = buscaparaula[0];
-    
     paraulacerca = buscaparaula[1];
+
+
+    // lògica per a registrar les cerques
+    let rimaTrobada ="***";
+    if (paraulacerca[0] !== 0) {
+        rimaTrobada = paraulacerca[3];}
+
+    registrarCerca(paraulaCercada, rimaTrobada, tipusRima);
+
       
     matches_provisionals = matches.slice();
 

@@ -44,6 +44,10 @@ jobs:
           git commit -m "+1 a la versió general del diccionari [automàtic]" || echo "No hi ha canvis"
           git push
 
+
+# ===================
+          
+          
 # ------ Generar resultat_ordenat_cons.json
       - name: Generar json de rimes sencer
         working-directory: bot

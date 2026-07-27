@@ -52,7 +52,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Cache busting: versions actualitzades als HTML"
-          file_pattern: "*.html"
+          file_pattern: "**/*.html"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

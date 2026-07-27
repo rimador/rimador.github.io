@@ -12,9 +12,7 @@ def generar_llista():
     ruta_versions = os.path.join(base_dir, 'versions_llistes.json')
 
     noms_fitxers = [
-        'col_0.txt', 'col_1.txt', 'col_2.txt', 
-        'col_3.txt', 'col_5.txt', 'col_6.txt', 
-        'col_7.txt', 'col_8.txt'
+        'col_0.txt', 'col_1.txt', 'col_2.txt', 'col_3.txt', 'col_5.txt', 'col_6.txt', 'col_7.txt', 'col_8.txt'
     ]
     rutes_txt = [os.path.join(dir_separat, nom) for nom in noms_fitxers]
 
@@ -23,10 +21,10 @@ def generar_llista():
     try:
         with open(ruta_json_rimes, 'r', encoding='utf-8') as f:
             dades_rimes = json.load(f)
-            
+
         rimes_fenix = {
             rima for rima, dades in dades_rimes.items() 
-            if len(dades.get("paraules", [])) == 1
+            if len(set(dades.get("paraules", []))) == 1
         }
 
         with ExitStack() as stack:

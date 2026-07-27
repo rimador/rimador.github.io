@@ -160,7 +160,7 @@ function processarFitxerEnParalel(contingut) {
 
 // FETCH NORMAL
 async function fetchFitxer(url) {
-    const nomFitxer = url.split("/").pop(); // <-- AFEGEIX AQUESTA LÍNIA
+    const nomFitxer = url.split("/").pop();
     const response = await fetch(`${url}?v=${VERSIONS_FITXERS[nomFitxer]}`);
     if (!response.ok) throw new Error(`Error en llegir ${url}`);
     return await response.text();

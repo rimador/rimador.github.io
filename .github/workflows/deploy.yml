@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -15,6 +15,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detectar canvis en CSS o JS
+        id: canvis
+        uses: tj-actions/changed-files@v42
+        with:
+          files: |
+            css/*.css
+            js/*.js
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,6 +37,22 @@ jobs:
 
       - name: Run Gulp
         run: npx gulp
+
+      - name: Rebentar Memòria Cau (Actualitzar versions HTML)
+        if: steps.canvis.outputs.any_changed == 'true'
+        run: |
+          NOVA_VERSIO=${GITHUB_SHA::7}
+          echo "S'han detectat canvis al codi! Aplicant la versió $NOVA_VERSIO als HTML..."
+          
+          find . -type f -name "*.html" -exec sed -i -E "s/(\.js\?v=)[^\"]*/\1$NOVA_VERSIO/g" {} +
+          find . -type f -name "*.html" -exec sed -i -E "s/(\.css\?v=)[^\"]*/\1$NOVA_VERSIO/g" {} +
+
+      - name: Guardar els HTML actualitzats al repositori
+        if: steps.canvis.outputs.any_changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Cache busting: versions actualitzades als HTML"
+          file_pattern: "*.html"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

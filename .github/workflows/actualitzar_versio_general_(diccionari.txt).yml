@@ -13,11 +13,12 @@ jobs:
       - name: Baixa el codi
         uses: actions/checkout@v4
 
+# ------ Separar diccionari (i preparar la generació de [500]col_10.txt) i POSTPROCÉS (generació [500]col_10.txt)
       - name: Separar diccionari
         working-directory: diccionaris
         run: python "separar_arxiu (per canvis a diccionari_txt).py"
 
-# --- comit diccionari ---
+# ----- comit columnes diccionari i diccionari 
       - name: Comit diccionari i columnes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -26,7 +27,7 @@ jobs:
           git commit -m "Separació automàtica del diccionari" || echo "No s'han detectat canvis nous per guardar"
           git push
 
-
+# ----- +1 versió general          
       - name: Incrementa versió general (+1)
         run: |
           tmp=$(mktemp)
@@ -34,6 +35,7 @@ jobs:
           echo "Nova versió generada:"
           cat diccionaris/versions.json
 
+# ------ Comit +1 versió
       - name: Commit i Push de la versió
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -42,11 +44,12 @@ jobs:
           git commit -m "+1 a la versió general del diccionari [automàtic]" || echo "No hi ha canvis"
           git push
 
+# ------ Crear llista fènixs
       - name: Crear llista de fenixs
         working-directory: llistes
         run: python generar_fenixs.py
 
-# --- comit fenix ---
+# ----- comit fenix
       - name: Comit llista de fènixs
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -55,14 +58,14 @@ jobs:
           git commit -m "Generació automàtica de la llista de fènixs" || echo "No s'han detectat canvis nous per guardar"
           git push
 
-
+# ------ Crear llistes mots_de7
       - name: Crear llista de mots_de7
         working-directory: llistes
         run: | 
           python generar_mots_de7_real.py
           python generar_mots_de7_glosa.py
 
-# --- comit mots_de7 ---
+# ----- comit mots_de7 
       - name: Comit llista de mots de 7
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

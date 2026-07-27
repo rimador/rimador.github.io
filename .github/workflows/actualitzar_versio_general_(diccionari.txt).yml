@@ -13,6 +13,20 @@ jobs:
       - name: Baixa el codi
         uses: actions/checkout@v4
 
+      - name: Separar diccionari
+        working-directory: diccionaris
+        run: python "separar_arxiu (per canvis a diccionari_txt).py"
+
+# --- comit diccionari ---
+      - name: Comit diccionari i columnes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Separació automàtica del diccionari" || echo "No s'han detectat canvis nous per guardar"
+          git push
+
+
       - name: Incrementa versió general (+1)
         run: |
           tmp=$(mktemp)

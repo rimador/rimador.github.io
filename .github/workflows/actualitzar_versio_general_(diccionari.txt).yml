@@ -42,7 +42,7 @@ jobs:
           git commit -m "+1 a la versió general del diccionari [automàtic]" || echo "No hi ha canvis"
           git push
 
-          - name: Crear llista de fenixs
+      - name: Crear llista de fenixs
         working-directory: llistes
         run: python generar_fenixs.py
 

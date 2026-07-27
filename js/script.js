@@ -114,7 +114,7 @@ function guardarFitxer(db, nom, contingut, versio) {
 // LECTURA AMB INDEXEDDB + VERSIÓ + BACKUP
 async function llegirFitxerAmbIndexedDB(rutaFitxer) {
   const nomFitxer = rutaFitxer.split("/").pop();
-  const versioActual = VERSIONS_FITXERS[nomFitxer] || "v.1.1";
+  const versioActual = VERSIONS_FITXERS[nomFitxer];
 
   try {
     const db = await obrirIndexedDB();
@@ -160,7 +160,7 @@ function processarFitxerEnParalel(contingut) {
 
 // FETCH NORMAL
 async function fetchFitxer(url) {
-    const response = await fetch(url);
+    const response = await fetch(`${url}?v=${VERSIONS_FITXERS[nomFitxer]}`);
     if (!response.ok) throw new Error(`Error en llegir ${url}`);
     return await response.text();
 }

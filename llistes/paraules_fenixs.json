@@ -26320,6 +26320,36 @@
     "diec": "Diec"
   },
   {
+    "paraula": "llenya",
+    "infinitiu": "llenya",
+    "codi": "NCFS000",
+    "rimacons": "eɲə",
+    "sil": "2",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "llenya",
+    "infinitiu": "llenyar",
+    "codi": "VMIP3S00",
+    "rimacons": "eɲə",
+    "sil": "2",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "llenya",
+    "infinitiu": "llenyar",
+    "codi": "VMM02S00",
+    "rimacons": "eɲə",
+    "sil": "2",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
     "paraula": "llenyen",
     "infinitiu": "llenyar",
     "codi": "VMIP3P00",
@@ -26374,6 +26404,16 @@
     "infinitiu": "llenyar",
     "codi": "VMSP2S0Y",
     "rimacons": "eɲis",
+    "sil": "2",
+    "vicc": "Vicc",
+    "viq": "NO",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "llenyo",
+    "infinitiu": "llenyar",
+    "codi": "VMIP1S0C",
+    "rimacons": "eɲu",
     "sil": "2",
     "vicc": "Vicc",
     "viq": "NO",

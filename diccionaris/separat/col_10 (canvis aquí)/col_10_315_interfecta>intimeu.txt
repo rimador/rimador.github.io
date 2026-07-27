@@ -1,4 +1,3 @@
-interfecta € interfecta € NCFS000 € intərfˈektə
 interfecta € interfecte € AQ0FS0 € intərfˈektə
 interfecte € interfecte € AQ0MS0 € intərfˈektə
 interfecte € interfecte € NCMS000 € intərfˈektə
@@ -1241,3 +1240,4 @@ intimessis € intimar € VMSI2S02 € intimˈesis
 intiméssiu € intimar € VMSI2P02 € intimˈesiw
 intimeu € intimar € VMIP2P00 € intimˈɛw
 intimeu € intimar € VMM02P0X € intimˈɛw
+intimeu € intimar € VMSP2P00 € intimˈɛw

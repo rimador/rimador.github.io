@@ -1,4 +1,3 @@
-fadem € fadar € VMM01P00 € fəðˈɛm
 fadem € fadar € VMSP1P00 € fəðˈɛm
 faden € fadar € VMIP3P00 € fˈaðən
 fades € fada € NCFP000 € fˈaðəs
@@ -1241,3 +1240,4 @@ fanariotes € fanariota € AQ0CP0 € fənəɾiˈɔtəs
 fanàtic € fanàtic € AQ0MS0 € fənˈatik
 fanàtic € fanàtic € NCMS000 € fənˈatik
 fanàtica € fanàtic € AQ0FS0 € fənˈatikə
+fanàtica € fanàtic € NCFS000 € fənˈatikə

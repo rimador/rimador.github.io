@@ -1,4 +1,3 @@
-prenyeu € prenyar € VMIP2P00 € pɾəɲˈɛw
 prenyeu € prenyar € VMM02P0X € pɾəɲˈɛw
 prenyeu € prenyar € VMSP2P00 € pɾəɲˈɛw
 prenyi € prenyar € VMM03S0Y € pɾˈɛɲi
@@ -1241,3 +1240,4 @@ prestador € prestador € NCMS000 € pɾəstəðˈo
 prestadora € prestador € AQ0FS0 € pɾəstəðˈoɾə
 prestadores € prestador € AQ0FP0 € pɾəstəðˈoɾəs
 prestadors € prestador € AQ0MP0 € pɾəstəðˈos
+prestadors € prestador € NCMP000 € pɾəstəðˈos

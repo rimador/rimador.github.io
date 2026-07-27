@@ -1,4 +1,3 @@
-uïsseu € uïssar € VMIP2P00 € uisˈɛw
 uïsseu € uïssar € VMM02P0X € uisˈɛw
 uïsseu € uïssar € VMSP2P00 € uisˈɛw
 uïssi € uïssar € VMM03S0Y € uˈisi
@@ -1241,3 +1240,4 @@ uníeu € unir € VMII2P00 € unˈiəw
 unifamiliar € unifamiliar € AQ0CS0 € unifəmiliˈa
 unifamiliars € unifamiliar € AQ0CP0 € unifəmiliˈas
 unifica € unificar € VMIP3S00 € unifˈikə
+unifica € unificar € VMM02S00 € unifˈikə

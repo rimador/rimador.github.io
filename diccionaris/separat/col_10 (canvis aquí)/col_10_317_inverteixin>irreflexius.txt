@@ -1,4 +1,3 @@
-inverteixin € invertir € VMM03P0Y € imbərtˈɛʃin
 inverteixin € invertir € VMSP3P0Y € imbərtˈɛʃin
 inverteixis € invertir € VMSP2S0Y € imbərtˈɛʃis
 inverteixo € invertir € VMIP1S0C € imbərtˈɛʃu
@@ -1241,3 +1240,4 @@ irreflexions € irreflexió € NCFP000 € irəfləksiˈons
 irreflexiu € irreflexiu € AQ0MS0 € irəfləksˈiw
 irreflexiu € irreflexiu € NCMS000 € irəfləksˈiw
 irreflexius € irreflexiu € AQ0MP0 € irəfləksˈiws
+irreflexius € irreflexiu € NCMP000 € irəfləksˈiws

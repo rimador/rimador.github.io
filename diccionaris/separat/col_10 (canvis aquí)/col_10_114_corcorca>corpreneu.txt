@@ -1,4 +1,3 @@
-corcorca € corcorcar € VMIP3S00 € kurkˈɔrkə
 corcorca € corcorcar € VMM02S00 € kurkˈɔrkə
 corcorcà € corcorcar € VMIS3S00 € kurkurkˈa
 corcorcada € corcorcar € VMP00SF0 € kurkurkˈaðə
@@ -1241,3 +1240,4 @@ corprenem € corprendre € VMIP1P00 € kurpɾənˈɛm
 corprenen € corprendre € VMIP3P00 € kurpɾˈɛnən
 corprenent € corprendre € VMG00000 € kurpɾənˈen
 corpreneu € corprendre € VMIP2P00 € kurpɾənˈɛw
+corpreneu € corprendre € VMM02P00 € kurpɾənˈɛw

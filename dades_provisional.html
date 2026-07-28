@@ -47,36 +47,61 @@
     </div>
 
 
-    <main class="estadistiques-container" style="max-width: 1000px; margin: 20px auto; padding: 20px; font-family: sans-serif;">
-        <h2 style="text-align: center;">📊 Estadístiques del Rimador</h2>
-        <p style="text-align: center; color: #666;">Última actualització: <span id="data-actualitzacio">...</span></p>
+<main class="estadistiques-container" style="max-width: 1200px; margin: 20px auto; padding: 20px; font-family: sans-serif;">
+    <h2 style="text-align: center;">📊 Estadístiques del Rimador</h2>
+    <p style="text-align: center; color: #666;">Última actualització: <span id="data-actualitzacio">...</span></p>
 
-        <!-- Blocs de dades numèriques -->
-        <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; text-align: center;">
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1;">
-                <h3>Aquesta Setmana</h3>
-                <p style="font-size: 24px; margin: 10px 0;"><b><span id="cerques-setmana">0</span></b> cerques</p>
-                <p><b><span id="usuaris-setmana">0</span></b> usuaris únics</p>
-            </div>
-            <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1;">
-                <h3>Sempre (Històric)</h3>
-                <p style="font-size: 24px; margin: 10px 0;"><b><span id="cerques-sempre">0</span></b> cerques</p>
-                <p><b><span id="usuaris-sempre">0</span></b> usuaris únics</p>
-                <p><span id="assonant-sempre">0</span> assonants / <span id="consonant-sempre">0</span> consonants</p>
-            </div>
+    <!-- Blocs de dades numèriques i rànquings -->
+    <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
+        
+        <!-- COLUMNA 1: SETMANA -->
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1; min-width: 300px;">
+            <h3 style="text-align: center;">Els últims set dies</h3>
+            <p style="text-align: center; font-size: 24px; margin: 10px 0;"><b><span id="cerques-setmana">0</span></b> cerques</p>
+            <p style="text-align: center;"><b><span id="usuaris-setmana">0</span></b> usuaris únics</p>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+            <h4>Top 5 Paraules</h4>
+            <ol id="llista-paraules-setmana"></ol>
+            <h4>Top 5 Rimes</h4>
+            <ol id="llista-rimes-setmana"></ol>
         </div>
 
-        <!-- Els Gràfics -->
-        <div class="grafic-wrapper" style="margin-bottom: 50px;">
-            <h3 style="text-align: center;">Evolució de cerques (Darrers 30 dies)</h3>
-            <canvas id="graficLinia"></canvas>
+        <!-- COLUMNA 2: SEMPRE -->
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1; min-width: 300px;">
+            <h3 style="text-align: center;">Total (des de l'1 d'agost)</h3>
+            <p style="text-align: center; font-size: 24px; margin: 10px 0;"><b><span id="cerques-sempre">0</span></b> cerques</p>
+            <p style="text-align: center;"><b><span id="usuaris-sempre">0</span></b> usuaris únics</p>
+            <p style="text-align: center; font-size: 14px;"><span id="assonant-sempre">0</span> assonants / <span id="consonant-sempre">0</span> consonants</p>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+            <h4>Top 10 Paraules</h4>
+            <ol id="llista-paraules-sempre"></ol>
+            <h4>Top 10 Rimes</h4>
+            <ol id="llista-rimes-sempre"></ol>
         </div>
 
-        <div class="grafic-wrapper" style="max-width: 700px; margin: 0 auto;">
-            <h3 style="text-align: center;">Totes les rimes cercades a la història</h3>
-            <canvas id="graficFormatge"></canvas>
+        <!-- COLUMNA 3: CURIOSITATS -->
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1; min-width: 300px;">
+            <h3 style="text-align: center;">Curiositats i Errors</h3>
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+            <h4>Top 5 Paraules Fènix</h4>
+            <ol id="llista-fenix"></ol>
+            <h4>Top 5 Typos (Senses rima)</h4>
+            <ol id="llista-typos"></ol>
         </div>
-    </main>    
+
+    </div>
+
+    <!-- Els Gràfics -->
+    <div class="grafic-wrapper" style="margin-bottom: 50px; height: 400px; position: relative;">
+        <h3 style="text-align: center;">Evolució de cerques (Darrers 30 dies)</h3>
+        <canvas id="graficLinia"></canvas>
+    </div>
+
+    <div class="grafic-wrapper" style="max-width: 700px; margin: 0 auto;">
+        <h3 style="text-align: center;">Totes les rimes cercades a la història</h3>
+        <canvas id="graficFormatge"></canvas>
+    </div>
+    </main>  
     
     <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
     <div id="formulariContainer">

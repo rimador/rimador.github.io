@@ -14,7 +14,7 @@ let opcionsSilabes = /*html*/`
     <option value="6">6 o +</option>
 `;
 
-if (idPagina === 'principal' || idPagina === 'canvis') {
+if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === 'dades') {
   ruta1 = 'assets/';
   ruta2 = 'historial_canvis.html';
   botoactualitzar = '';

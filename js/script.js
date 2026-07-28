@@ -914,7 +914,7 @@ function aplicarTema(tema) {
   }
 
   let ruta = '';
-  if (idPagina === 'principal' || idPagina === 'canvis') {
+  if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === 'dades') {
     ruta = 'assets/';
   } else if (idPagina === '404') {
     ruta = '/assets/';

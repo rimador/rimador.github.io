@@ -327,7 +327,11 @@ async function realitzarCerca() {
     // lògica per a registrar les cerques
     let rimaTrobada ="***";
     if (paraulacerca[0] !== 0) {
-        rimaTrobada = paraulacerca[3];}
+        if (tipusRima === 'r.consonant') {
+            rimaTrobada = paraulacerca[3];}
+        else if (tipusRima === 'r.assonant') {
+            rimaTrobada = paraulacerca[4];}
+    }
 
     registrarCerca(paraulaCercada, rimaTrobada, tipusRima);
 

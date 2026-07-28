@@ -76,8 +76,8 @@ Jou € Jou € NPCNSP0 € ʒˈɔw
 jou € jou € NCMS000 € ʒˈɔw
 jouell € jouell € NCMS000 € ʒɔwˈeʎ
 jouells € jouell € NCMP000 € ʒɔwˈeʎs
-joule € joule € NCMS000 € ʒˈɔwlə
-joules € joule € NCMP000 € ʒˈɔwləs
+joule € joule € NCMS000 € ʒˈul
+joules € joule € NCMP000 € ʒˈuls
 jous € jou € NCMP000 € ʒˈɔws
 Joux-Plane € Joux-Plane € NPCSG00 € ʒˈɔwksplˈanə
 jova € jova € NCFS000 € ʒˈoβə

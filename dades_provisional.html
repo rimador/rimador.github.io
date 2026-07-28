@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" id="themeColor" content="#FF91FF">
+    <meta name="robots" content="index, follow">
+
+    <title>El Rimador català - Dades</title>
+    <meta name="description" content="El Rimador català et permet cercar rimes assonants i consonants segons la fonètica de les paraules. Conté filtres per categories gramaticals. Prova'l!">
+    <meta name="author" content="Marc i Ferran">
+    <link rel="canonical" href="https://rimador.cat/">
+
+    <link rel="icon" type="image/webp" href="assets/R.webp">
+    <link rel="apple-touch-icon" href="assets/R.webp">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rimador.cat/">
+    <meta property="og:title" content="El Rimador català - Dades">
+    <meta property="og:description" content="El primer cercador funcional de rimes en català segons la fonètica.">
+    <meta property="og:image" content="assets/R.webp">
+    <meta property="og:locale" content="ca_ES">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="El Rimador català - Dades">
+    <meta name="twitter:description" content="El primer cercador funcional de rimes en català segons la fonètica.">
+    <meta name="twitter:image" content="assets/R.webp">
+
+    <link rel="stylesheet" href="dist/css/styles.min.css?v=96d6ccf">
+    <script src="dist/js/components.min.js?v=96d6ccf" defer></script>
+    <script src="dist/js/script_dades.min.js?v=96d6ccf" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body id="dades">
+
+    <div class="loader" id="loader">
+        <!-- components.js -->
+    </div>     
+
+    <header id="header">
+        <!-- components.js -->
+    </header>
+
+    <div id="separador_rosa1">
+        <!-- components.js -->
+    </div>
+
+
+    <main class="estadistiques-container" style="max-width: 1000px; margin: 20px auto; padding: 20px; font-family: sans-serif;">
+        <h2 style="text-align: center;">📊 Estadístiques del Rimador</h2>
+        <p style="text-align: center; color: #666;">Última actualització: <span id="data-actualitzacio">...</span></p>
+
+        <!-- Blocs de dades numèriques -->
+        <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; text-align: center;">
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1;">
+                <h3>Aquesta Setmana</h3>
+                <p style="font-size: 24px; margin: 10px 0;"><b><span id="cerques-setmana">0</span></b> cerques</p>
+                <p><b><span id="usuaris-setmana">0</span></b> usuaris únics</p>
+            </div>
+            <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1;">
+                <h3>Sempre (Històric)</h3>
+                <p style="font-size: 24px; margin: 10px 0;"><b><span id="cerques-sempre">0</span></b> cerques</p>
+                <p><b><span id="usuaris-sempre">0</span></b> usuaris únics</p>
+                <p><span id="assonant-sempre">0</span> assonants / <span id="consonant-sempre">0</span> consonants</p>
+            </div>
+        </div>
+
+        <!-- Els Gràfics -->
+        <div class="grafic-wrapper" style="margin-bottom: 50px;">
+            <h3 style="text-align: center;">Evolució de cerques (Darrers 30 dies)</h3>
+            <canvas id="graficLinia"></canvas>
+        </div>
+
+        <div class="grafic-wrapper" style="max-width: 700px; margin: 0 auto;">
+            <h3 style="text-align: center;">Totes les rimes cercades a la història</h3>
+            <canvas id="graficFormatge"></canvas>
+        </div>
+    </main>    
+    
+    <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
+    <div id="formulariContainer">
+        <!-- components.js -->
+    </div>
+    
+<footer id="footer">
+<!-- components.js -->
+</footer>
+
+</body>
+
+</html>

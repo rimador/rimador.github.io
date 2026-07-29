@@ -1,5 +1,5 @@
 {
-    "actualitzacio": "30/07/2026 00:33:21",
+    "actualitzacio": "30/07/2026 01:55:31",
     "setmana": {
         "top_10_paraules": [
             {
@@ -106,7 +106,7 @@
         "top_10_paraules": [
             {
                 "paraula": "casa",
-                "cerques": 8
+                "cerques": 10
             },
             {
                 "paraula": "camí",
@@ -147,14 +147,14 @@
         ],
         "top_10_rimes": [
             {
-                "paraula": "i",
+                "paraula": "azə",
                 "tipus": "r.consonant",
                 "cerques": 8
             },
             {
-                "paraula": "azə",
+                "paraula": "i",
                 "tipus": "r.consonant",
-                "cerques": 6
+                "cerques": 8
             },
             {
                 "paraula": "an",
@@ -197,11 +197,11 @@
                 "cerques": 3
             }
         ],
-        "total_cerques": 195,
-        "numero_usuaris": 62,
+        "total_cerques": 197,
+        "numero_usuaris": 64,
         "recompte_tipus_rima": {
             "assonant": 11,
-            "consonant": 157
+            "consonant": 159
         },
         "top_10_fenix": [
             {
@@ -400,7 +400,7 @@
             },
             {
                 "rima": "azə",
-                "vegades": 6
+                "vegades": 8
             },
             {
                 "rima": "iə",

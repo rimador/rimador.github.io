@@ -4,6 +4,8 @@ const dataLlista = document.body ? document.body.dataset.llista : '';
 let ruta1 = '';
 let ruta2 = '';
 let estilSilabes = '';
+let botoactualitzar = ''; // abans s'assignava sense declarar: si l'id del body no era
+                          // cap dels previstos, la plantilla petava amb un ReferenceError
 let opcionsSilabes = /*html*/`
     <option value="0">Indiferent</option>
     <option value="1">1</option>
@@ -17,11 +19,9 @@ let opcionsSilabes = /*html*/`
 if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === 'dades') {
   ruta1 = 'assets/';
   ruta2 = 'historial_canvis.html';
-  botoactualitzar = '';
 } else if (idPagina === '404') {
   ruta1 = '/assets/';
   ruta2 = '/historial_canvis.html';
-  botoactualitzar = '';
 } else if (idPagina === 'llista') {
   ruta1 = '../assets/';
   ruta2 = '../historial_canvis.html';

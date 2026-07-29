@@ -123,8 +123,8 @@ dades_json = {
         "total_cerques": len(df_net),
         "numero_usuaris": df_net['Usuari'].nunique(),
         "recompte_tipus_rima": comptar_per_tipus_rima(df_rimes_totes),
-        "top_5_fenix": formatar_top_per_json(obtenir_top_paraules(df_rimes_fenix, 5, 'paraula')),
-        "top_5_typos": formatar_top_per_json(obtenir_top_paraules(df_typos, 5, 'paraula')),
+        "top_10_fenix": formatar_top_per_json(obtenir_top_paraules(df_rimes_fenix, 10, 'paraula')),
+        "top_10_typos": formatar_top_per_json(obtenir_top_paraules(df_typos, 10, 'paraula')),
         "grafic_linia_diaria": dades_grafic_linia(df_net),
         "grafic_formatge_exit": dades_grafic_formatge_totes(df_rimes_totes),
 

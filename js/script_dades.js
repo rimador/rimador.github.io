@@ -60,8 +60,8 @@ async function carregarEstadistiques(arxiuJson) {
                 datasets: [{
                     label: 'Cerques',
                     data: dadesLinia.map(item => item.cerques),
-                    borderColor: '#333333',
-                    backgroundColor: 'rgba(51, 51, 51, 0.2)',
+                    borderColor: '#d30505',
+                    backgroundColor: 'rgba(255, 145, 255, 0.55)',
                     borderWidth: 2,
                     fill: true,
                     tension: 0.3
@@ -84,10 +84,9 @@ async function carregarEstadistiques(arxiuJson) {
         const dadesFormatge = dades.sempre.grafic_formatge_exit;
         const ctxFormatge = document.getElementById('graficFormatge').getContext('2d');
         
-        const colorsAleatoris = dadesFormatge.map(() => {
-            const h = Math.floor(Math.random() * 360);
-            return `hsl(${h}, 70%, 60%)`;
-        });
+        // Paleta fixa (els colors del botó de cercar), per no canviar a cada recàrrega
+        const PALETA = ['#ff0000', '#ff7300', '#fffb00', '#48ff00', '#00ffd5', '#002bff', '#7a00ff', '#ff00c8'];
+        const colorsFormatge = dadesFormatge.map((_, i) => PALETA[i % PALETA.length]);
 
         new Chart(ctxFormatge, {
             type: 'pie',
@@ -95,7 +94,7 @@ async function carregarEstadistiques(arxiuJson) {
                 labels: dadesFormatge.map(item => item.rima),
                 datasets: [{
                     data: dadesFormatge.map(item => item.vegades),
-                    backgroundColor: colorsAleatoris,
+                    backgroundColor: colorsFormatge,
                     borderWidth: 1
                 }]
             },

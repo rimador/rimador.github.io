@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+.btn-container {
+    position: fixed;
+    bottom: 20px;
+    left: 15px;
+    display: inline-block !important;
+    white-space: nowrap;
+    min-width: 160px;
+    z-index: 10000;
+}
+
+a.kofi-button {
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2) !important;
+    line-height: 36px !important;
+    min-width: 150px;
+    display: inline-block !important;
+    padding: 2px 12px !important;
+    text-align: center !important;
+    border-radius: 7px !important;
+    cursor: pointer;
+    overflow-wrap: break-word;
+    vertical-align: middle;
+    border: 0 none #fff;
+    font-family: 'Quicksand', Helvetica, Century Gothic, sans-serif !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    transition: transform 0.2s ease-in-out;
+    background-color: #00ffff; 
+}
+
+body#llista a.kofi-button {
+    background-color: #FF91FF !important;
+    border: 1px solid white;
+}
+
+body#canvis a.kofi-button {
+    background-color: #d30505 !important;
+    border: 1px solid white;
+}
+
+a.kofi-button:hover {
+    transform: scale(1.05);
+}
+
+span.kofitext {
+    color: #000000 !important; /* color del text */
+    letter-spacing: -0.15px !important;
+    white-space: nowrap !important;
+    vertical-align: middle;
+    line-height: 33px !important;
+    padding: 0;
+    text-align: center;
+    text-decoration: none !important;
+    text-shadow: 0 1px 1px rgba(34, 34, 34, 0.05) !important;
+}
+
+img.kofiimg {
+    height: 15px !important;
+    width: 22px !important;
+    display: initial !important;
+    animation: kofi-wiggle 3s infinite;
+    vertical-align: middle;
+    margin-right: 5px !important;
+    margin-bottom: 3px !important;
+}
+
+@keyframes kofi-wiggle {
+    0%, 60% { transform: rotate(0) scale(1); }
+    75% { transform: rotate(0) scale(1.13); }
+    80% { transform: rotate(0) scale(1.11); }
+    85% { transform: rotate(5deg) scale(1.11); }
+    90% { transform: rotate(-5deg) scale(1.11); }
+    95% { transform: rotate(5deg) scale(1.11); }
+    100% { transform: rotate(0) scale(1); }
+}
+
+@media screen and (max-width: 550px) {
+    .btn-container {
+        bottom: 15px;
+        left: 10px;
+    }
+}

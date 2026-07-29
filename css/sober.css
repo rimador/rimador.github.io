@@ -358,11 +358,6 @@
   border-top: 1px solid var(--sober-border);
 }
 
-[data-theme="sober"] .decoracio-peix {
-  display: none;
-}
-
-
 [data-theme="sober"] ::-webkit-scrollbar-thumb:vertical {
   background: var(--sober-muted);
   border: 2px solid var(--sober-border);

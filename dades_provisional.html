@@ -28,15 +28,16 @@
 
     <link rel="stylesheet" href="dist/css/styles.min.css?v=eee68e4">
     <script src="dist/js/components.min.js?v=eee68e4" defer></script>
+    <script src="dist/js/script.min.js?v=eee68e4" defer></script>
     <script src="dist/js/script_dades.min.js?v=eee68e4" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 
 <body id="dades">
 
     <div class="loader" id="loader">
         <!-- components.js -->
-    </div>     
+    </div>
 
     <header id="header">
         <!-- components.js -->
@@ -46,68 +47,86 @@
         <!-- components.js -->
     </div>
 
+    <main id="text_dades">
 
-<main class="estadistiques-container" style="max-width: 1200px; margin: 20px auto; padding: 20px; font-family: sans-serif;">
-    <h2 style="text-align: center;">📊 Estadístiques del Rimador</h2>
-    <p style="text-align: center; color: #666;">Última actualització: <span id="data-actualitzacio">...</span></p>
+        <div id="titol_dades">Estadístiques del Rimador</div>
+        <p id="data_actualitzacio">Última actualització: <span id="data-actualitzacio">...</span></p>
 
-    <!-- Blocs de dades numèriques i rànquings -->
-    <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
-        
-        <!-- COLUMNA 1: SETMANA -->
-        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1; min-width: 300px;">
-            <h3 style="text-align: center;">Els últims set dies</h3>
-            <p style="text-align: center; font-size: 24px; margin: 10px 0;"><b><span id="cerques-setmana">0</span></b> cerques</p>
-            <p style="text-align: center;"><b><span id="usuaris-setmana">0</span></b> usuaris únics</p>
-            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
-            <h4>Top 5 Paraules</h4>
-            <ol id="llista-paraules-setmana"></ol>
-            <h4>Top 5 Rimes</h4>
-            <ol id="llista-rimes-setmana"></ol>
+        <!-- Blocs de dades numèriques i rànquings -->
+        <div class="taula-dades">
+
+            <!-- COLUMNA 1: SETMANA -->
+            <div class="caixa-dades">
+                <h3>Els últims set dies</h3>
+
+                <p class="comptador"><span id="cerques-setmana">0</span><small>cerques</small></p>
+                <p class="comptador petit"><span id="usuaris-setmana">0</span><small>usuaris únics</small></p>
+
+                <hr class="separador-dades">
+
+                <h4>Top 5 paraules</h4>
+                <ol id="llista-paraules-setmana"></ol>
+
+                <h4>Top 5 rimes</h4>
+                <ol id="llista-rimes-setmana"></ol>
+            </div>
+
+            <!-- COLUMNA 2: SEMPRE -->
+            <div class="caixa-dades">
+                <h3>Total (des de l'1 d'agost)</h3>
+
+                <p class="comptador"><span id="cerques-sempre">0</span><small>cerques</small></p>
+                <p class="comptador petit"><span id="usuaris-sempre">0</span><small>usuaris únics</small></p>
+                <p class="comptador petit"><span id="assonant-sempre">0</span> / <span id="consonant-sempre">0</span><small>assonants / consonants</small></p>
+
+                <hr class="separador-dades">
+
+                <h4>Top 10 paraules</h4>
+                <ol id="llista-paraules-sempre"></ol>
+
+                <h4>Top 10 rimes</h4>
+                <ol id="llista-rimes-sempre"></ol>
+            </div>
+
+            <!-- COLUMNA 3: CURIOSITATS -->
+            <div class="caixa-dades">
+                <h3>Curiositats i errors</h3>
+
+                <img class="decoracio-peix" src="assets/peixgi.gif" alt="Peixet nedant">
+
+                <hr class="separador-dades">
+
+                <h4>Top 5 paraules fènix</h4>
+                <ol id="llista-fenix"></ol>
+
+                <h4>Top 5 typos (sense rima)</h4>
+                <ol id="llista-typos"></ol>
+            </div>
+
         </div>
 
-        <!-- COLUMNA 2: SEMPRE -->
-        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1; min-width: 300px;">
-            <h3 style="text-align: center;">Total (des de l'1 d'agost)</h3>
-            <p style="text-align: center; font-size: 24px; margin: 10px 0;"><b><span id="cerques-sempre">0</span></b> cerques</p>
-            <p style="text-align: center;"><b><span id="usuaris-sempre">0</span></b> usuaris únics</p>
-            <p style="text-align: center; font-size: 14px;"><span id="assonant-sempre">0</span> assonants / <span id="consonant-sempre">0</span> consonants</p>
-            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
-            <h4>Top 10 Paraules</h4>
-            <ol id="llista-paraules-sempre"></ol>
-            <h4>Top 10 Rimes</h4>
-            <ol id="llista-rimes-sempre"></ol>
+        <!-- Els Gràfics -->
+        <div class="grafic-caixa">
+            <h3>Evolució de cerques (darrers 30 dies)</h3>
+            <div class="grafic-cos">
+                <canvas id="graficLinia"></canvas>
+            </div>
         </div>
 
-        <!-- COLUMNA 3: CURIOSITATS -->
-        <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; flex: 1; min-width: 300px;">
-            <h3 style="text-align: center;">Curiositats i Errors</h3>
-            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
-            <h4>Top 5 Paraules Fènix</h4>
-            <ol id="llista-fenix"></ol>
-            <h4>Top 5 Typos (Senses rima)</h4>
-            <ol id="llista-typos"></ol>
+        <div class="grafic-caixa formatge">
+            <h3>Totes les rimes cercades a la història</h3>
+            <div class="grafic-cos">
+                <canvas id="graficFormatge"></canvas>
+            </div>
         </div>
 
-    </div>
+    </main>
 
-    <!-- Els Gràfics -->
-    <div class="grafic-wrapper" style="margin-bottom: 50px; height: 400px; position: relative;">
-        <h3 style="text-align: center;">Evolució de cerques (Darrers 30 dies)</h3>
-        <canvas id="graficLinia"></canvas>
-    </div>
-
-    <div class="grafic-wrapper" style="max-width: 700px; margin: 0 auto;">
-        <h3 style="text-align: center;">Totes les rimes cercades a la història</h3>
-        <canvas id="graficFormatge"></canvas>
-    </div>
-    </main>  
-    
     <button id="mostrarFormulari" onclick="toggleForm()">Has trobat algun error?</button>
     <div id="formulariContainer">
         <!-- components.js -->
     </div>
-    
+
 <footer id="footer">
 <!-- components.js -->
 </footer>

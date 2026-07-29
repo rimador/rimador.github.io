@@ -1,6 +1,7 @@
-#separador_rosa1 {
-    background-color: #FF91FF;
+body#principal #separador_rosa1,
+body#llista #separador_rosa1 {
     position: sticky;
+    background-color: #FF91FF;
     top: 0px;
     min-height: 40px;
 }

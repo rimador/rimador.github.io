@@ -5,16 +5,22 @@ function omplirLlistesHTML(idElement, arrayDades, esRima = false) {
 
     arrayDades.forEach(item => {
         const li = document.createElement('li');
+        const negreta = document.createElement('b');
+        negreta.textContent = item.paraula;
+        li.appendChild(negreta);
         if (esRima) {
-            // Netegem el text "r.consonant" a només "consonant" per estètica
-            const tipusNet = item.tipus.replace('r.', '');
-            li.innerHTML = `<b>${item.paraula}</b> (${tipusNet}): ${item.cerques}`;
-        } else {
-            li.innerHTML = `<b>${item.paraula}</b>: ${item.cerques}`;
+            const tipusNet = String(item.tipus).replace('r.', '');
+            const cursiva = document.createElement('i');
+            cursiva.textContent = `(${tipusNet})`;
+            li.appendChild(document.createTextNode(' '));
+            li.appendChild(cursiva);
         }
+
+        li.appendChild(document.createTextNode(`: ${item.cerques}`));
         contenidor.appendChild(li);
     });
 }
+
 
 async function carregarEstadistiques(arxiuJson) {
     const loaderText2 = document.getElementById('loader-text2');

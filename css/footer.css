@@ -2,8 +2,8 @@
     color: black;
     text-align: center;
     padding: 15px;
-    bottom: 0;
     width: 100%;
+    box-sizing: border-box; /* si no, el padding fa que sobresurti de la pantalla */
 }
 
 #footer a {

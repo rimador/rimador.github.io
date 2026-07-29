@@ -7,8 +7,6 @@
     margin-bottom: 0px;
     border-radius: 10px;
     display: block;
-    justify-content: flex-start;
-    align-items: center;    
     position: sticky;
     top: 40px;
     font-weight: lighter;
@@ -46,7 +44,7 @@
 
 #arimar a {
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: none;
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     font-size: 27px;
@@ -57,7 +55,7 @@
 
 #arimar a:hover {
     background: linear-gradient(to left, red, orange, yellow, green, blue, indigo, violet);
-    background-clip: none;
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }

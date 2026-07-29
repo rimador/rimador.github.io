@@ -116,6 +116,16 @@ async function llegirFitxerAmbIndexedDB(rutaFitxer) {
   const nomFitxer = rutaFitxer.split("/").pop();
   const versioActual = VERSIONS_FITXERS[nomFitxer];
 
+  // Abans es feia document.getElementById("loader-text2").textContent = ... a tres
+  // llocs, sense comprovar que l'element hi fos (la resta del fitxer sí que ho comprova).
+  const comptarFitxer = () => {
+    fitxersLlegits++;
+    const loaderText2 = document.getElementById("loader-text2");
+    if (loaderText2) {
+      loaderText2.textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`;
+    }
+  };
+
   try {
     const db = await obrirIndexedDB();
     if (!db) throw new Error("IndexedDB no disponible"); 
@@ -125,18 +135,16 @@ async function llegirFitxerAmbIndexedDB(rutaFitxer) {
 
     if (fitxerDesat && fitxerDesat.versio === versioActual) { 
       console.log(`[${nomFitxer}] Carregat d'IndexedDB (${versioGuardada} = ${versioActual})`);
-      fitxersLlegits++; 
-      document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`; 
+      comptarFitxer();
       return processarFitxerEnParalel(fitxerDesat.contingut);
     }
 
     console.log(`[${nomFitxer}] obsolet o no guardat, fent fetch i guardant arxiu a IndexedDB (${versioGuardada} =/= ${versioActual})`);
     const contingut = await fetchFitxer(rutaFitxer);
     await guardarFitxer(db, nomFitxer, contingut, versioActual);
-    
-    fitxersLlegits++; 
-    document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`; 
-    return processarFitxerEnParalel(contingut); 
+
+    comptarFitxer();
+    return processarFitxerEnParalel(contingut);
 
   } catch (err) {
     Debug.logError(`IndexedDB fallida per ${nomFitxer}, intentant fetch directe`);
@@ -144,9 +152,8 @@ async function llegirFitxerAmbIndexedDB(rutaFitxer) {
     if (errorMsg) errorMsg.textContent = `Problema amb cache. Carregant ${nomFitxer} manualment.`;
 
     const contingut = await fetchFitxer(rutaFitxer);
-    fitxersLlegits++; 
-    document.getElementById("loader-text2").textContent = `Carregant fitxers (${fitxersLlegits}/${nombresDeFitxers})`; 
-    return processarFitxerEnParalel(contingut); 
+    comptarFitxer();
+    return processarFitxerEnParalel(contingut);
   }
 }
 
@@ -486,41 +493,32 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
   return [matches, llistaParaulaCerca];
 }
 
+// La ruta no canvia mai un cop carregada la pàgina, però es tornava a calcular dins
+// de cada funció, o sigui un cop per cada logo de cada paraula del llistat de rimes.
+let rutaLogos = '';
+if (idPagina === 'principal') {
+  rutaLogos = 'assets/';
+} else if (idPagina === 'llista') {
+  rutaLogos = '../assets/';
+}
+
 function crearEnllacViccionari(paraula) {
-  let ruta = '';
-    if (idPagina === 'principal') {
-    ruta = 'assets/';
-  } else if (idPagina === 'llista') {
-    ruta = '../assets/';
-  }
   var enllac_vicc = '<a href="https://ca.wiktionary.org/wiki/' + paraula + '" target="_blank">';
-    enllac_vicc += '<img src="' + ruta + 'logovicc (240x240).png" loading="lazy" alt="Logo_Viccionari" class="logo">';
+    enllac_vicc += '<img src="' + rutaLogos + 'logovicc (240x240).png" loading="lazy" alt="Logo_Viccionari" class="logo">';
   enllac_vicc += '</a>';
   return enllac_vicc;
 }
 
 function crearEnllacViquipedia(paraula) {
-  let ruta = '';
-    if (idPagina === 'principal') {
-    ruta = 'assets/';
-  } else if (idPagina === 'llista') {
-    ruta = '../assets/';
-  }
   var enllac_viq = '<a href="https://ca.wikipedia.org/wiki/' + paraula + '" target="_blank">';
-    enllac_viq += '<img src="' + ruta + 'logowiki (263x240).png" loading="lazy" alt="Logo_Viquipedia" class="logo">';
+    enllac_viq += '<img src="' + rutaLogos + 'logowiki (263x240).png" loading="lazy" alt="Logo_Viquipedia" class="logo">';
   enllac_viq += '</a>';
   return enllac_viq;
 }
 
 function crearEnllacDiec(paraula) {
-  let ruta = '';
-  if (idPagina === 'principal') {
-    ruta = 'assets/';
-  } else if (idPagina === 'llista') {
-    ruta = '../assets/';
-  }
   var enllac_diec = '<a href="https://dlc.iec.cat/Results?DecEntradaText=' + paraula + '&AllInfoMorf=False&OperEntrada=0&OperDef=0&OperEx=0&OperSubEntrada=0&OperAreaTematica=0&InfoMorfType=0&OperCatGram=False&AccentSen=False&CurrentPage=0&refineSearch=0&Actualitzacions=False" target="_blank">';
-    enllac_diec += '<img src="' + ruta + 'logodiec (200x200).png" loading="lazy" alt="Logo_Diec" class="logo">';
+    enllac_diec += '<img src="' + rutaLogos + 'logodiec (200x200).png" loading="lazy" alt="Logo_Diec" class="logo">';
   enllac_diec += '</a>';
   return enllac_diec;
 }

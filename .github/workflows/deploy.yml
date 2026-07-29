@@ -3,7 +3,8 @@ name: Deploy Gulp site to Pages
 on:
   push:
     branches: ["main"]
-
+  workflow_dispatch:   
+  
 permissions:
   contents: write
   pages: write

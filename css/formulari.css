@@ -46,6 +46,22 @@
   z-index: -1;
 }
 
+body#llista #mostrarFormulari {
+    background-color: #c94fc9 !important;
+}
+
+body#llista #mostrarFormulari:after {
+    background-color: #FF91FF !important;
+}
+
+body#canvis #mostrarFormulari {
+    background-color: #7f0c0c !important;
+}
+
+body#canvis #mostrarFormulari:after {
+    background-color: #d30505 !important;
+}
+
 #mostrarFormulari,
 #mostrarFormulari:focus {
   user-select: auto;

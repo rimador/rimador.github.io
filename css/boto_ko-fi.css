@@ -46,7 +46,7 @@ a.kofi-button:hover {
 }
 
 span.kofitext {
-    color: #000000 !important; /* color del text */
+    color: #000000; /* color del text */
     letter-spacing: -0.15px !important;
     white-space: nowrap !important;
     vertical-align: middle;

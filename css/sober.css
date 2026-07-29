@@ -299,6 +299,70 @@
 }
 
 
+[data-theme="sober"] #text_dades {
+  background-color: var(--sober-panel-bg);
+  border: 1px solid var(--sober-border);
+  font-weight: normal;
+}
+
+[data-theme="sober"] #titol_dades {
+  font-family: var(--sober-font);
+  color: var(--sober-text);
+  text-shadow: none;
+  letter-spacing: normal;
+}
+
+[data-theme="sober"] #data_actualitzacio,
+[data-theme="sober"] .caixa-dades ol {
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] .caixa-dades,
+[data-theme="sober"] .grafic-caixa {
+  background-color: var(--sober-panel-bg);
+  border: 1px solid var(--sober-border);
+}
+
+[data-theme="sober"] .caixa-dades h3,
+[data-theme="sober"] .grafic-caixa h3 {
+  background-color: var(--sober-header-bg);
+  color: #ffffff;
+  font-family: var(--sober-font);
+  font-weight: bold;
+  letter-spacing: normal;
+  border-bottom: none;
+}
+
+[data-theme="sober"] .caixa-dades h4 {
+  font-family: var(--sober-font);
+  color: var(--sober-accent);
+  text-decoration: none;
+}
+
+[data-theme="sober"] .comptador {
+  background-color: #f2f2f2;
+  border: 1px solid var(--sober-border);
+  color: var(--sober-text);
+  font-family: var(--sober-font);
+}
+
+[data-theme="sober"] .comptador small {
+  color: var(--sober-muted);
+}
+
+[data-theme="sober"] .caixa-dades ol li:nth-child(odd) {
+  background-color: #f7f7f7;
+}
+
+[data-theme="sober"] .separador-dades {
+  border-top: 1px solid var(--sober-border);
+}
+
+[data-theme="sober"] .decoracio-peix {
+  display: none;
+}
+
+
 [data-theme="sober"] ::-webkit-scrollbar-thumb:vertical {
   background: var(--sober-muted);
   border: 2px solid var(--sober-border);

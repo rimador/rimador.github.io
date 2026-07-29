@@ -131,7 +131,7 @@ dades_json = {
     }
 }
 
-ruta_json = '/stats/estadistiques_rimador.json'
+ruta_json = 'stats/estadistiques_rimador.json'
 
 with open(ruta_json, 'w', encoding='utf-8') as arxiu:
     json.dump(dades_json, arxiu, ensure_ascii=False, indent=4)

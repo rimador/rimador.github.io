@@ -43,7 +43,7 @@ if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === 'dades') {
 //botó ko-fi
 const kofiWidgetHTML = /*html*/`
 <div class="btn-container">
-    <a title="Support me on ko-fi.com" class="kofi-button" href="https://ko-fi.com/rimador" target="_blank">
+    <a title="Support me on ko-fi.com" class="kofi-button" href="https://ko-fi.com/rimadorcat" target="_blank">
         <span class="kofitext">
             <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi donations" class="kofiimg">
             Regala'ns un cafè

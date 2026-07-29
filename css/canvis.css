@@ -104,3 +104,31 @@
 #text_canvis > p:not(#arimar) a:not(#enllaçbrillant):active { 
     color: #606060; 
 }    
+
+/* --- Pantalles petites ---
+   El marge de 150px deixava el text en una columna de 75px en un mòbil. */
+@media screen and (max-width: 750px) {
+    #text_canvis {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+    #text_canvis p {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #text_canvis {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 12px;
+    }
+    #text_canvis p {
+        margin: 20px 5px;
+    }
+    #titol_canvis {
+        font-size: 1.4em;
+        letter-spacing: 1px;
+    }
+}

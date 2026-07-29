@@ -40,3 +40,26 @@
     }
     
 }
+
+
+/* --- Pantalles petites ---
+   Deixa de ser una columna lateral enganxada: passa a ser una caixa
+   normal a sobre dels resultats, que se'n va cap amunt en fer scroll. */
+@media screen and (max-width: 750px) {
+    #checkboxContainer {
+        position: static;
+        max-width: none;
+        min-width: 0;
+        margin: 15px;
+        margin-bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #checkboxContainer {
+        min-width: 0;
+        margin: 8px;
+        margin-bottom: 0px;
+        font-size: 13px; /* 10px era massa petit per tocar-ho amb el dit */
+    }
+}

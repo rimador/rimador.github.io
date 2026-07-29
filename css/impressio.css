@@ -63,3 +63,35 @@
         height: 12px;
     }
 }
+
+
+/* --- Pantalles petites ---
+   .impressio és una fila: el panell de filtres (140px) al costat dels
+   resultats deixava la llista de rimes en 115px d'amplada. En un mòbil
+   els posem un sota l'altre. */
+@media screen and (max-width: 750px) {
+    /* No toquem `display`: el JS hi posa display:flex com a estil en línia
+       quan hi ha resultats, i si aquí forcéssim res es veuria abans d'hora. */
+    .impressio {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .resultats {
+        margin: 15px;
+        margin-top: 0px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .resultats {
+        margin: 8px;
+        margin-top: 0px;
+        /* Els 10px venien de quan la llista només tenia 115px d'amplada.
+           Ara que ocupa tota la pantalla, es pot llegir com cal. */
+        font-size: 13px;
+    }
+    .logo {
+        width: 14px;
+        height: 14px;
+    }
+}

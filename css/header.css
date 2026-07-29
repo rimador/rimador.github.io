@@ -71,3 +71,20 @@ header {
         background-size: 60px 60px; 
     }
 }
+
+/* Els marges del 5%/10% més el logo de 240px no cabien en pantalles molt
+   estretes (320-360px), típiques dels mòbils petits. */
+@media screen and (max-width: 400px) {
+    .rimador {
+        width: 195px;
+        margin-left: 3%;
+    }
+    .peixet {
+        width: 40px;
+        height: 40px;
+        margin-right: 4%;
+    }
+    .peixet-btn {
+        margin-right: 4%;
+    }
+}

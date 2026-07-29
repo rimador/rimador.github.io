@@ -73,3 +73,36 @@
 #arimar a:hover:after {
     background: linear-gradient(to left, red, orange, yellow, green, blue, indigo, violet); 
 }
+
+/* --- Pantalles petites ---
+   Mateix problema que a #text_canvis: 150px de marge deixaven 75px de text.
+   I les imatges del 404 tenen l'alçada fixada a l'HTML, o sigui que en un
+   mòbil sortien fins a 480px d'amplada. */
+@media screen and (max-width: 750px) {
+    #text_presentació {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+    #text_presentació p {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    #text_presentació img {
+        max-width: 44%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #text_presentació {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 12px;
+    }
+    #text_presentació p {
+        margin: 20px 5px;
+    }
+    #arimar a {
+        font-size: 22px;
+    }
+}

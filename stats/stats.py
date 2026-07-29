@@ -23,7 +23,7 @@ df_typos = df_net[df_net['Rima'] == '***'].copy()
 df_rimes_totes = df_net[df_net['Rima'] != '***'].copy()
 
 #df paraules fènix
-ruta_json_fenix = '../llistes/paraules_fenixs.json' 
+ruta_json_fenix = 'llistes/paraules_fenixs.json' 
 
 with open(ruta_json_fenix, 'r', encoding='utf-8') as arxiu:
     dades_fenix = json.load(arxiu)

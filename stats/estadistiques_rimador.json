@@ -158,7 +158,7 @@
             "assonant": 5,
             "consonant": 99
         },
-        "top_5_fenix": [
+        "top_10_fenix": [
             {
                 "paraula": "brunz",
                 "cerques": 1
@@ -168,7 +168,7 @@
                 "cerques": 1
             }
         ],
-        "top_5_typos": [
+        "top_10_typos": [
             {
                 "paraula": "os",
                 "cerques": 2

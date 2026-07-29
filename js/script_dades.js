@@ -1,7 +1,16 @@
 // Funció d'ajuda per imprimir els rànquings a les llistes de l'HTML
 function omplirLlistesHTML(idElement, arrayDades, esRima = false) {
     const contenidor = document.getElementById(idElement);
+    if (!contenidor) return;
     contenidor.innerHTML = ''; // Netegem abans d'afegir per seguretat
+
+    // Si el JSON no porta aquesta llista (per exemple perquè encara no s'ha tornat
+    // a generar amb stats.py i les claus han canviat de nom), abans petava aquí i
+    // l'error s'enduia per davant tota la resta de la pàgina, gràfics inclosos.
+    if (!Array.isArray(arrayDades)) {
+        console.warn(`[dades] no hi ha dades per a "${idElement}"`);
+        return;
+    }
 
     arrayDades.forEach(item => {
         const li = document.createElement('li');
@@ -10,10 +19,7 @@ function omplirLlistesHTML(idElement, arrayDades, esRima = false) {
         li.appendChild(negreta);
         if (esRima) {
             const tipusNet = String(item.tipus).replace('r.', '');
-            const cursiva = document.createElement('i');
-            cursiva.textContent = `(${tipusNet})`;
-            li.appendChild(document.createTextNode(' '));
-            li.appendChild(cursiva);
+            li.appendChild(document.createTextNode(` (${tipusNet})`));
         }
 
         li.appendChild(document.createTextNode(`: ${item.cerques}`));

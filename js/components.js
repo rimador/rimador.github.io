@@ -39,6 +39,7 @@ if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === 'dades') {
   }
 }
 
+
 //botó ko-fi
 const kofiWidgetHTML = /*html*/`
 <div class="btn-container">
@@ -90,7 +91,8 @@ if (headerHTML) { headerHTML.innerHTML = header; }
 
 
 const separador_rosa1 = /*html*/`
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOVETAT (11 de setembre): Llançament oficial! Revisa tots els canvis <a id="enllaç" href="${ruta2}" target="_blank">aquí</a>.
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pàgina web en fase de correcció, versió en desenvolupament
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 DE SETEMBRE LLANÇAMENT OFICIAL!!!!!!!!!
 <br>&nbsp;</p>
 `
 const separador_rosa1HTML = document.getElementById('separador_rosa1');
@@ -145,7 +147,7 @@ if (dropdowncontainerHTML) { dropdowncontainerHTML.innerHTML = dropdowncontainer
 const formulariContainer = /*html*/`
 <form action="https://formspree.io/f/xeoazgnl" method="POST">
     <h3>Ajuda'ns a millorar!!!!!!!!!!!!!!</h3>
-    <p>Si has trobat una errada o tens una suggerència, ens pots enviar un correu a <a href="mailto:hola@rimador.cat">hola@rimador.cat</a></p>
+    <p>Si has trobat una errada o tens una suggerència, ens pots enviar un correu a <a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a></p>
     
     <img class="gifok" src="${ruta1}ok1.webp" alt="Ok1">
     <img class="gifok" src="${ruta1}ok2.webp" alt="Ok2">
@@ -244,7 +246,7 @@ if (checkboxContainerHTML) { checkboxContainerHTML.innerHTML = checkboxContainer
 
 const footer = /*html*/`
 <br>v.5.3 &copy; Marc i Ferran. Tots els drets reservats.
-<br><br><a href="mailto:hola@rimador.cat">hola@rimador.cat</a>
+<br><br><a href="mailto:rimadorcat@gmail.com">rimadorcat@gmail.com</a>
 <button id="botoNetejarCache" style="display:none;position:fixed;bottom:70px;right:15px;" onclick="netejarIndexedDB()">🗑 Esborrar memòria cau</button>
 <br>
 `

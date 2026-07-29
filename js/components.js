@@ -74,7 +74,7 @@ if (headerHTML) { headerHTML.innerHTML = header; }
 
 const separador_rosa1 = /*html*/`
 <p>Pàgina web en fase de correcció, versió en desenvolupament
-<br>Novetat! (23 d'abril) Nou domini! Ara ens trobes a <a id="enllaçbrillant" href="https://rimador.cat" target="_blank">rimador.cat</a>. Revisa tots els canvis <a id="enllaç" href="${ruta2}" target="_blank">aquí</a>.</p>
+<br>11 DE SETEMBRE LLANÇAMENT OFICIAL</p>
 `
 const separador_rosa1HTML = document.getElementById('separador_rosa1');
 if (separador_rosa1HTML) { separador_rosa1HTML.innerHTML = separador_rosa1; }

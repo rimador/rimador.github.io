@@ -73,8 +73,9 @@ if (headerHTML) { headerHTML.innerHTML = header; }
 
 
 const separador_rosa1 = /*html*/`
-<p>Pàgina web en fase de correcció, versió en desenvolupament
-<br>11 DE SETEMBRE LLANÇAMENT OFICIAL</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pàgina web en fase de correcció, versió en desenvolupament
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 DE SETEMBRE LLANÇAMENT OFICIAL!!!!!!!!
+<br>&nbsp;</p>
 `
 const separador_rosa1HTML = document.getElementById('separador_rosa1');
 if (separador_rosa1HTML) { separador_rosa1HTML.innerHTML = separador_rosa1; }

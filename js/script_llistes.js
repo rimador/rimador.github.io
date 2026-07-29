@@ -4,8 +4,13 @@ const formatarEntrada = ({ paraula, infinitiu, codi, sil, vicc, viq, diec }) =>
 function compleixFiltres({ paraula = '', codi = '', sil = '' }, numSeleccionat, comenca, incPropis, incPlurals) {
     const silabes = String(sil);
 
-    if (numSeleccionat && numSeleccionat !== '0' && numSeleccionat !== '5' && silabes !== numSeleccionat) return false;
-    if (numSeleccionat === '5' && parseInt(silabes, 10) < 5) return false;
+    // El desplegable de components.js diu "6 o +", o sigui que l'obert és el 6, no el 5.
+    // Abans aquí el 5 era l'obert i el 6 era exacte: just al revés que a la pàgina principal.
+    if (numSeleccionat === '6') {
+        if (parseInt(silabes, 10) < 6) return false;
+    } else if (numSeleccionat && numSeleccionat !== '0' && silabes !== numSeleccionat) {
+        return false;
+    }
 
     if (comenca) {
         const esVocalOH = 'haeiou'.includes(paraula.trim().toLowerCase().charAt(0));

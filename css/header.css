@@ -1,15 +1,18 @@
+/* Atenció: la ruta és relativa al CSS ja construït (dist/css/styles.min.css),
+   no pas a aquest fitxer. Des de dist/css/, "../../assets/" = /assets/. */
 header {
     background: url("../../assets/bubbles.png") repeat;
-    background-size: 120px 120px; 
-    background-color: #d30505; 
+    background-size: 120px 120px;
+    background-color: #d30505;
     padding: 10px;
-    color: #fff; 
+    color: #fff;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     height: 100px;
     text-align: center;
     width: 100%;
+    box-sizing: border-box; /* si no, el padding fa que sobresurti de la pantalla */
 }
 
 .peixet-btn {

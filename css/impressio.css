@@ -13,16 +13,17 @@
     margin-bottom: 10px;
 }
 
-ul {
+/* Només les llistes de resultats i les de filtres van sense pics.
+   Abans això era global (`ul`, `li`) i afectava qualsevol llista nova. */
+#rima_enllac ul,
+#checkboxContainer ul,
+.no-list-style {
     list-style: none;
 }
 
-ul li {
-    list-style: none;
-}
-
-li {
-    margin-bottom: 5px; 
+#rima_enllac li,
+#checkboxContainer li {
+    margin-bottom: 5px;
 }
 
 .resultats {

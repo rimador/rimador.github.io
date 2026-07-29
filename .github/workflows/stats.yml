@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publicar_tuit:
+  actualitzar_estadistiques:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -22,7 +22,7 @@ jobs:
 
       - name: Instal·lar dependències
         run: |
-          pip install tweepy
+          pip install pandas
 
       - name: Executar l'script de Python 
         run: python stats/stats.py

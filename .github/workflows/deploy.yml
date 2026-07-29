@@ -18,9 +18,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Ho fem amb git i prou. Abans es feia amb tj-actions/changed-files@v42:
-      # aquella acció va ser compromesa el març del 2025 (CVE-2025-30066) i les
-      # etiquetes van ser reescrites, o sigui que apuntar a "@v42" és arriscat.
       - name: Detectar canvis en CSS o JS
         id: canvis
         run: |
@@ -62,7 +59,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add '*.html' '**/*.html'
+          git add '*.html'
           git commit -m "Cache busting: versions actualitzades als HTML" || echo "No hi ha canvis"
           git push
 

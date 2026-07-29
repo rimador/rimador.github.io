@@ -74,7 +74,7 @@ if (headerHTML) { headerHTML.innerHTML = header; }
 
 const separador_rosa1 = /*html*/`
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pàgina web en fase de correcció, versió en desenvolupament
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 DE SETEMBRE LLANÇAMENT OFICIAL!!!!!!!!
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11 DE SETEMBRE LLANÇAMENT OFICIAL!!!!!!!!!
 <br>&nbsp;</p>
 `
 const separador_rosa1HTML = document.getElementById('separador_rosa1');

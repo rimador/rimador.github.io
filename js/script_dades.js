@@ -8,7 +8,7 @@ function omplirLlistesHTML(idElement, arrayDades, esRima = false) {
         if (esRima) {
             // Netegem el text "r.consonant" a només "consonant" per estètica
             const tipusNet = item.tipus.replace('r.', '');
-            li.innerHTML = `<b>${item.paraula}</b> <i>(${tipusNet})</i>: ${item.cerques}`;
+            li.innerHTML = `<b>${item.paraula}</b> (${tipusNet}): ${item.cerques}`;
         } else {
             li.innerHTML = `<b>${item.paraula}</b>: ${item.cerques}`;
         }
@@ -46,8 +46,8 @@ async function carregarEstadistiques(arxiuJson) {
         omplirLlistesHTML('llista-paraules-sempre', dades.sempre.top_10_paraules, false);
         omplirLlistesHTML('llista-rimes-sempre', dades.sempre.top_10_rimes, true);
         
-        omplirLlistesHTML('llista-fenix', dades.sempre.top_5_fenix, false);
-        omplirLlistesHTML('llista-typos', dades.sempre.top_5_typos, false);
+        omplirLlistesHTML('llista-fenix', dades.sempre.top_10_fenix, false);
+        omplirLlistesHTML('llista-typos', dades.sempre.top_10_typos, false);
 
         // 3. CREEM EL GRÀFIC DE LÍNIA (Correcció de buit)
         const dadesLinia = dades.sempre.grafic_linia_diaria;

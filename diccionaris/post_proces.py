@@ -44,7 +44,7 @@ for i in range(num_arxius):
     primera = netejar_paraula(tall[0])
     ultima = netejar_paraula(tall[-1])
     
-    nom_fitxer = f"col_10_{numero_ordre}_{primera}>{ultima}.txt"
+    nom_fitxer = f"col_10_{numero_ordre}__{primera}-{ultima}.txt"
     ruta_completa = os.path.join(ruta_separat, nom_fitxer)
     
     with open(ruta_completa, 'w', encoding='utf-8') as f:

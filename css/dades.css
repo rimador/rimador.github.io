@@ -1,0 +1,179 @@
+#text_dades {
+    background-color: #00ffff;
+    padding: 20px;
+    text-align: left;
+    margin: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 10px;
+    font-weight: lighter;
+}
+
+#titol_dades {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 2em;
+    color: #FF69B4; /* Rosa vibrant */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Ombra suau */
+}
+
+#data_actualitzacio {
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 13px;
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+.taula-dades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.caixa-dades {
+    flex: 1 1 280px;
+    min-width: 260px;
+    background-color: #ffffcc;
+    border: 5px ridge #d30505;
+    padding-bottom: 12px;
+}
+
+.caixa-dades h3,
+.grafic-caixa h3 {
+    margin: 0px 0px 10px 0px;
+    padding: 6px;
+    background-color: #d30505;
+    color: #f6ff00;
+    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Arial Black", sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 3px solid #000000;
+}
+
+.caixa-dades h4 {
+    margin: 14px 10px 4px 10px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 14px;
+    color: #d30505;
+    text-decoration: underline;
+}
+
+/* Els comptadors, amb aire de rellotge digital */
+.comptador {
+    display: block;
+    margin: 8px 12px;
+    padding: 5px;
+    background-color: #000000;
+    border: 3px inset #808080;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.1;
+}
+
+.comptador small {
+    display: block;
+    color: #00ffff;
+    font-size: 11px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.comptador.petit {
+    font-size: 18px;
+}
+
+.caixa-dades ol {
+    margin: 0px 12px 6px 12px;
+    padding-left: 28px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 13px;
+    list-style: decimal;
+}
+
+.caixa-dades ol li {
+    list-style: decimal;
+    margin-bottom: 0px;
+    padding: 2px 4px;
+}
+
+.caixa-dades ol li:nth-child(odd) {
+    background-color: #ffe680;
+}
+
+.separador-dades {
+    border: 0;
+    border-top: 3px double #d30505;
+    margin: 14px 10px;
+}
+
+.decoracio-peix {
+    display: block;
+    width: 80px;
+    height: auto;
+    margin: 12px auto 4px auto;
+}
+
+.grafic-caixa {
+    background-color: #ffffcc;
+    border: 5px ridge #d30505;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+}
+
+.grafic-cos {
+    position: relative;
+    height: 340px;
+    margin: 0px 12px;
+}
+
+.grafic-caixa.formatge .grafic-cos {
+    height: auto;
+    max-width: 620px;
+    margin: 0px auto;
+}
+
+@media screen and (max-width: 750px) {
+    #text_dades {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding: 12px;
+    }
+    #titol_dades {
+        font-size: 1.5em;
+    }
+    .comptador {
+        font-size: 24px;
+    }
+    .grafic-cos {
+        height: 280px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #text_dades {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .caixa-dades {
+        min-width: 0px;
+    }
+    .caixa-dades ol {
+        font-size: 12px;
+    }
+    .grafic-cos {
+        height: 240px;
+    }
+}

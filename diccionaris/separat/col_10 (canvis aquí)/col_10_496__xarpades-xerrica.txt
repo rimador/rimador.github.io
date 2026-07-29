@@ -1,3 +1,4 @@
+xarpades € xarpada € NCFP000 € ʃərpˈaðəs
 xarpades € xarpar € VMP00PF0 € ʃərpˈaðəs
 xarpant € xarpar € VMG00000 € ʃərpˈan
 xarpar € xarpar € VMN00000 € ʃərpˈa
@@ -1240,4 +1241,3 @@ xerric € xerric € NCMS000 € ʃərˈik
 xerric-xerrac € xerric-xerrac € NCMS000 € ʃərˈikʃərˈak
 xerric-xerracs € xerric-xerrac € NCMP000 € ʃərˈikʃərˈaks
 xerrica € xerricar € VMIP3S00 € ʃərˈikə
-xerrica € xerricar € VMM02S00 € ʃərˈikə

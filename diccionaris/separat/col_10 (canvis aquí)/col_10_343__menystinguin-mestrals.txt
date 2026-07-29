@@ -1,3 +1,4 @@
+menystinguin € menystenir € VMM03P0Y € mˌɛɲʃtˈiŋɡin
 menystinguin € menystenir € VMSP3P0Y € mˌɛɲʃtˈiŋɡin
 menystinguis € menystenir € VMSP2S0Y € mˌɛɲʃtˈiŋɡis
 menystingut € menystenir € VMP00SM0 € mˌɛɲʃtiŋɡˈut
@@ -1240,4 +1241,3 @@ mestralejo € mestralejar € VMIP1S0C € məstɾəlˈɛʒu
 mestraló € mestraló € NCMS000 € məstɾəlˈo
 mestralons € mestraló € NCMP000 € məstɾəlˈons
 mestrals € mestral € AQ0CP0 € məstɾˈals
-mestrals € mestral € NCMP000 € məstɾˈals

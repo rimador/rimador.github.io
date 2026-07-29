@@ -1,3 +1,4 @@
+serpukhovià € serpukhovià € AQ0MS0 € sərpukuβiˈa
 serpukhovià € serpukhovià € NCMS000 € sərpukuβiˈa
 serpúlid € serpúlid € NCMS000 € sərpˈulit
 serpúlids € serpúlid € NCMP000 € sərpˈulits
@@ -1240,4 +1241,3 @@ sexualitzessin € sexualitzar € VMSI3P02 € səksuəlidzˈesin
 sexualitzessis € sexualitzar € VMSI2S02 € səksuəlidzˈesis
 sexualitzéssiu € sexualitzar € VMSI2P02 € səksuəlidzˈesiw
 sexualitzeu € sexualitzar € VMIP2P00 € səksuəlidzˈɛw
-sexualitzeu € sexualitzar € VMM02P0X € səksuəlidzˈɛw

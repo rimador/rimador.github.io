@@ -1,3 +1,4 @@
+guipa € guipar € VMIP3S00 € ɡˈipə
 guipa € guipar € VMM02S00 € ɡˈipə
 guipà € guipar € VMIS3S00 € ɡipˈa
 guipada € guipar € VMP00SF0 € ɡipˈaðə
@@ -1240,4 +1241,3 @@ hamletiana € hamletià € AQ0FS0 € χəmlətiˈanə
 hamletianes € hamletià € AQ0FP0 € χəmlətiˈanəs
 hamletians € hamletià € AQ0MP0 € χəmlətiˈans
 hammadita € hammadita € AQ0CS0 € əmməðˈitə
-hammadita € hammadita € NCCS000 € əmməðˈitə

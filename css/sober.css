@@ -15,6 +15,7 @@
 [data-theme="sober"] body,
 [data-theme="sober"] body#llista,
 [data-theme="sober"] body#llista #separador_rosa1,
+[data-theme="sober"] body#principal #separador_rosa1,
 [data-theme="sober"] body#llista #separador_rosa2 {
   background-color: var(--sober-bg);
   font-family: var(--sober-font);

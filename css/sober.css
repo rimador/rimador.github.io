@@ -367,3 +367,15 @@
 [data-theme="sober"] ::-webkit-scrollbar-thumb:hover:vertical {
   background: var(--sober-accent);
 }
+
+[data-theme="sober"] a.kofi-button,
+[data-theme="sober"] body#llista a.kofi-button,
+[data-theme="sober"] body#canvis a.kofi-button {
+    background-color: var(--sober-header-bg) !important;
+    border: 1px solid var(--sober-muted) !important;
+}
+
+[data-theme="sober"] span.kofitext {
+    color: white !important;
+    font-family: var(--sober-font) !important;
+}

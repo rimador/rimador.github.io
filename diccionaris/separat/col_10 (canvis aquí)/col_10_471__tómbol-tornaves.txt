@@ -603,8 +603,8 @@ Tòquio € Tòquio € NPCSG00 € tˈɔkiu
 toquiota € toquiota € AQ0CS0 € tukiˈɔtə
 toquiota € toquiota € NCCS000 € tukiˈɔtə
 toquis € tocar € VMSP2S0Y € tˈɔkis
-Tor € Tor € NPCNSP0 € tˈo
-tor € tor € NCMS000 € tˈo
+Tor € Tor € NPCNSP0 € tˈor
+tor € tor € NCMS000 € tˈoɾ
 Tor-la-ribera € Tor-la-ribera € NPCSG00 € tˈorləriβˈeɾə
 tora € tora € NCFS000 € tˈoɾə
 Torà € Torà € NPCNSP0 € tuɾˈa

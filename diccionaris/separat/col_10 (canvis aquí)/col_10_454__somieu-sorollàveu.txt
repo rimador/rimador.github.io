@@ -907,7 +907,7 @@ Sopron € Sopron € NPCSG00 € supɾˈon
 soques € soca € NCFP000 € sˈɔkəs
 soquet € soquet € NCMS000 € sukˈɛt
 soquets € soquet € NCMP000 € sukˈɛts
-sor € sor € NCFS000 € sˈo
+sor € sor € NCFS000 € sˈɔr
 Sora € Sora € NPCSG00 € sˈoɾə
 sora € sora € NCFS000 € sˈoɾə
 Sorà € Sorà € NPCNSP0 € suɾˈa

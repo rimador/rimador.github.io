@@ -29,6 +29,7 @@
   vertical-align: middle;
   white-space: nowrap;
   background-color: #01c8c8;
+  z-index: 11;
 }
 
 #mostrarFormulari:after {
@@ -95,6 +96,7 @@ body#canvis #mostrarFormulari:after {
     font-family: Arial, sans-serif;
     animation: fadeIn 0.3s ease-in-out;
     text-align: center;
+    z-index: 11;
 }
 
 #formulariContainer form h3 {

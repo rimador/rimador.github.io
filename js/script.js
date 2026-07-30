@@ -280,7 +280,7 @@ function crearCriterisTriples(nom, prefix1, prefix2, prefix3) {
 }
 
 //excel per guardar cerques
-const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbwsFU7gABGK58oz0PsBa2QWUDfI0aYygXcddK0q0qox4asUtMNXjFlIMSStM06i-LpZ/exec";
+const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbw5uSetN-OKIEQjmEo9PFFJp0r7UclUnHEYhbkghbqQ4q7JnIM7i0Ljfa3W_Q7Z-s5f/exec";
 
 function getUsuariID() {
   let usuariID = localStorage.getItem('rimador_usuari_id');
@@ -293,12 +293,15 @@ function getUsuariID() {
   return usuariID;
 }
 
-function registrarCerca(paraulaBuscada, rimaTrobada, tipusRima) {
-  if (!paraulaBuscada || paraulaBuscada.trim().length < 2) return;
-
+function registrarCerca(paraulaBuscada, rimaTrobada, tipusRima, codiParaula, numeroSeleccionat, comenca, inclourePropis, inclourePlurals) { if (!paraulaBuscada || paraulaBuscada.trim().length < 2) return;
   const dades = new URLSearchParams();
   dades.append('paraula', paraulaBuscada.trim().toLowerCase());
-  dades.append('rima', rimaTrobada);
+  dades.append('rima', rimaTrobada || "***");
+  dades.append('codi', codiParaula || "***");
+  dades.append('numeroSilabes', numeroSeleccionat);
+  dades.append('comencaPer', comenca);
+  dades.append('inclourePropis', inclourePropis);
+  dades.append('inclourePlurals', inclourePlurals);  
   dades.append('tipusRima', tipusRima);
   dades.append('usuari', getUsuariID()); 
 
@@ -332,16 +335,24 @@ async function realitzarCerca() {
 
 
     // lògica per a registrar les cerques
-    let rimaTrobada ="***";
     if (paraulacerca[0] !== 0) {
         if (tipusRima === 'r.consonant') {
             rimaTrobada = paraulacerca[3];}
         else if (tipusRima === 'r.assonant') {
             rimaTrobada = paraulacerca[4];}
     }
+    codiParaula = paraulacerca[2];
 
-    registrarCerca(paraulaCercada, rimaTrobada, tipusRima);
-
+    registrarCerca(
+          paraulaCercada, 
+          rimaTrobada, 
+          tipusRima, 
+          codiParaula, 
+          numeroSeleccionat, 
+          comença, 
+          inclourePropis, 
+          inclourePlurals
+        );
       
     matches_provisionals = matches.slice();
 
@@ -416,16 +427,16 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
       let eleccio = prompt(`Hi ha ${ordenat.length} coincidències per "${paraulaCercada}".\nEscull una opció:\n\n${opcions}`);
 
       let num = parseInt(eleccio);
-      if (!isNaN(num) && num > 0 && num <= ordenat.length) {
+      if (isNaN(num) || num <= 0 || num > ordenat.length) {
+              alert("Selecció invàlida. S'ha seleccionat la primera opció per defecte.");
+              num = 1; 
+
         const indexparaula = ordenat[num - 1].index;
         llistaParaulaCerca = [
           array0[indexparaula], array1[indexparaula], array2[indexparaula],
           array3[indexparaula], array4[indexparaula], array5[indexparaula],
           array6[indexparaula], array7[indexparaula], array8[indexparaula], array9[indexparaula]
         ];
-      } else {
-        alert("Selecció invàlida. Cerca cancel·lada.");
-        return [[], [0, 0, 0, 0, 0, 0, 0, 0, 0]];
       }
     }
   }

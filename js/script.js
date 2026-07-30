@@ -386,12 +386,33 @@ function descriureCategoria(codi) {
   return "altra categoria";
 }
 
+// Assignar pes a la paraula segons el codi i la jerarquia
+function obtenirPesJerarquia(codi) {
+  if (!codi) return 10;
+  if (codi.startsWith('NC')) return 1;
+  if (codi.startsWith('A')) return 2;
+  if (codi.startsWith('D')) return 3;
+  if (codi.startsWith('P')) return 4;
+  if (codi.startsWith('V')) return 5;
+  if (codi.startsWith('R')) return 6;
+  if (codi.startsWith('I')) return 7;
+  if (codi.startsWith('CC')) return 8;
+  if (codi.startsWith('NP')) return 9;
+  return 10;
+}
+
 function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, inclourePropis, inclourePlurals, array0, array1, array2, array3, array4, array5, array6, array7, array8, array9) {
   Debug.logTime('buscarParaula');
 
+
   const coincidencies = array0
     .map((item, index) => ({ paraula: item, index }))
-    .filter(obj => obj.paraula.toLowerCase() === paraulaCercada.toLowerCase());
+    .filter(obj => obj.paraula.toLowerCase() === paraulaCercada.toLowerCase())
+    .sort((a, b) => {
+      const codiA = array2[a.index];
+      const codiB = array2[b.index];
+      return obtenirPesJerarquia(codiA) - obtenirPesJerarquia(codiB);
+    });
 
   if (coincidencies.length === 0) {
     llistaParaulaCerca = [0, 0, 0, 0, 0, 0, 0, 0, 0];

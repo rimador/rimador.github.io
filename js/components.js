@@ -82,7 +82,7 @@ if (loaderHTML) { loaderHTML.innerHTML = loader; }
 
 
 const header = /*html*/`
-<a href="https://rimador.cat"><img class="rimador" id="rimadorImg" src="${ruta1}Rimador-1.webp" alt="Logo del Rimador en català"></a>
+<a href="https://rimador.cat"><img class="rimador" id="rimadorImg" src="${ruta1}Rimador-1.webp?=v1" alt="Logo del Rimador en català"></a>
 <button type="button" id="themeToggleBtn" class="peixet-btn" onclick="toggleTheme()" aria-label="Canvia entre mode festiu i mode sobri" title="Canvia d'estil"><img class="peixet" id="peixetImg" src="${ruta1}peixet.webp" alt="Peixet decoratiu"></button>
 `
 const headerHTML = document.getElementById('header');

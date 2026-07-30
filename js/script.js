@@ -441,8 +441,7 @@ function buscarParaula(paraulaCercada, numeroSeleccionat, comença, tipusRima, i
     }
   }
 
-  
-  
+
   for (var i = 0; i < array0.length; i++) {
     let bona = 1;
     while (bona === 1) {

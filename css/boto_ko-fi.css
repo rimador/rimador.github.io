@@ -26,7 +26,7 @@ a.kofi-button {
     text-decoration: none !important;
     text-shadow: none !important;
     font-weight: 700 !important;
-    font-size: 14px !important;
+    font-size: 14px;
     transition: transform 0.2s ease-in-out;
     background-color: #00ffff; 
 }
@@ -81,5 +81,34 @@ img.kofiimg {
     .btn-container {
         bottom: 15px;
         left: 10px;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .btn-container {
+        bottom: 15px;
+        left: 10px;
+    }
+    a.kofi-button {
+    font-size: 13px;
+    min-width: 140px;    
+}
+}
+
+@media screen and (max-width: 400px) {
+    .btn-container {
+        bottom: 15px;
+        left: 10px;
+    }
+    a.kofi-button {
+    font-size: 11px;
+    min-width: 120px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .btn-container {
+        left: auto;
+        right: 10px;
     }
 }

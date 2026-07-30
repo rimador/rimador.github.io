@@ -6,6 +6,11 @@ body#llista #separador_rosa1 {
     min-height: 40px;
 }
 
+#separador_rosa1 p {
+    margin-left:22px;
+    font-size: 16px;
+}
+
 #separador_rosa_nosaltres {
     background-color: #FF91FF;
     top: 0px;
@@ -156,11 +161,7 @@ body#llista #separador_rosa1 {
 }
 
 
-/* --- Pantalles petites --- */
 @media screen and (max-width: 750px) {
-    /* El bloc de cerca enganxat ocupava ~320px dels 640px d'un mòbil. En
-       pantalla petita deixem que pugi amb el scroll i només mantenim
-       enganxada la barra del recompte de rimes. */
     .container,
     #separador_rosa1 {
         position: static;
@@ -170,7 +171,6 @@ body#llista #separador_rosa1 {
         margin-right: 15px;
         padding: 15px;
     }
-    /* El JS escriu separador_rosa2.style.top en línia, per això cal !important. */
     #separador_rosa2 {
         top: 0px !important;
     }
@@ -183,20 +183,16 @@ body#llista #separador_rosa1 {
         padding: 12px;
     }
 
-    /* El camp de cerca es quedava en 120px al costat del botó: els separem. */
     .search-container {
         flex-wrap: wrap;
     }
     #paraulaCercada {
         margin-right: 0px;
         margin-bottom: 10px;
-        /* Amb menys de 16px, iOS fa zoom tot sol en tocar el camp i deixa
-           la pàgina desquadrada. */
         font-size: 16px;
         height: 38px;
     }
 
-    /* 10px és massa petit per llegir-ho en un mòbil. */
     .dropdown-container {
         font-size: 13px;
     }
@@ -208,8 +204,6 @@ body#llista #separador_rosa1 {
         width: 100%;
     }
 
-    /* Els <div> de cada filtre no eren elements flex amb base pròpia i alguns
-       desplegables quedaven en 40px. Ara cada filtre ocupa una línia sencera. */
     .dropdown-container > div {
         flex: 1 1 100%;
         display: flex;
@@ -221,4 +215,28 @@ body#llista #separador_rosa1 {
         flex: 0 1 auto;
         max-width: 55%;
     }
+}
+
+@media screen and (max-width: 550px) {
+#separador_rosa1 p {
+  font-size: 14px;
+}
+}
+
+@media screen and (max-width: 470px) {
+#separador_rosa1 p {
+  font-size: 12px;
+}
+}
+
+@media screen and (max-width: 420px) {
+#separador_rosa1 p {
+  font-size: 11px;
+}
+}
+
+@media screen and (max-width: 350px) {
+#separador_rosa1 p {
+  font-size: 10px;
+}
 }

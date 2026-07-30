@@ -217,15 +217,33 @@ body#canvis #mostrarFormulari:after {
   height: 35px;
 }
 
-@media screen and (max-width: 400px) {
+
+@media screen and (max-width: 460px) {
     #formulariContainer {
-        width: auto;
-        left: 10px;
-        right: 10px;
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important;
+        box-sizing: border-box !important;
+        padding: 15px 10px !important;
     }
     #mostrarFormulari {
         right: 10px;
-        font-size: 12px;
+        font-size: 10px;
         padding: 11px 12px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #mostrarFormulari {
+        font-size: 8px;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    #mostrarFormulari {
+        bottom: 65px;
+    }
+    #formulariContainer {
+        bottom: 115px;
     }
 }

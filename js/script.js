@@ -294,7 +294,6 @@ function getUsuariID() {
 }
 
 function registrarCerca(paraulaBuscada, rimaTrobada, tipusRima, codiParaula, numeroSeleccionat, comenca, inclourePropis, inclourePlurals) {  if (!paraulaBuscada || paraulaBuscada.trim().length < 2) return;
-
   const dades = new URLSearchParams();
   dades.append('paraula', paraulaBuscada.trim().toLowerCase());
   dades.append('rima', rimaTrobada || "***");

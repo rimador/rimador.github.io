@@ -926,8 +926,9 @@ function closeFormOnClickOutside(event) {
 
 
 // boring style
+
 const PEIXET_IMG_FESTIU = "assets/peixet.webp?v=1";
-const PEIXET_IMG_SOBRI = "assets/boringlogo.webp?v=2";
+const PEIXET_IMG_SOBRI = "assets/boringlogo.webp?v=1";
 const THEME_STORAGE_KEY = "rimadorTheme";
 const RIMADOR_IMG_FESTIU = "assets/Rimador-1.webp?v=1";
 const RIMADOR_IMG_SOBRI = "assets/Rimador-1-sober.webp?v=1";

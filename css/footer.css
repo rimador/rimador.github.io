@@ -25,3 +25,33 @@
 #footer a:visited {
     color: rgb(179, 1, 1); 
 }
+
+
+#footer {
+  font-size: 16px;
+}
+
+
+@media screen and (max-width: 550px) {
+#footer {
+  font-size: 14px;
+}
+}
+
+@media screen and (max-width: 470px) {
+#footer {
+  font-size: 12px;
+}
+}
+
+@media screen and (max-width: 420px) {
+#footer {
+  font-size: 11px;
+}
+}
+
+@media screen and (max-width: 350px) {
+#footer {
+  font-size: 10px;
+}
+}

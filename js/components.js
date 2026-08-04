@@ -40,20 +40,20 @@ if (idPagina === 'principal' || idPagina === 'canvis' || idPagina === 'dades') {
 }
 
 //botó ko-fi
-const kofiWidgetHTML = /*html*/`
-<div class="btn-container">
-    <a title="Support me on ko-fi.com" class="kofi-button" href="https://ko-fi.com/rimadorcat" target="_blank">
-        <span class="kofitext">
-            <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi donations" class="kofiimg">
-            Regala'ns un cafè
-        </span>
-    </a>
-</div>
-`;
+//const kofiWidgetHTML = /*html*/`
+//<div class="btn-container">
+//    <a title="Support me on ko-fi.com" class="kofi-button" href="https://ko-fi.com/rimadorcat" target="_blank">
+//        <span class="kofitext">
+//            <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi donations" class="kofiimg">
+//            Regala'ns un cafè
+//        </span>
+//    </a>
+//</div>
+//`;
 
-if (document.body) {
-    document.body.insertAdjacentHTML('beforeend', kofiWidgetHTML);
-}
+//if (document.body) {
+//    document.body.insertAdjacentHTML('beforeend', kofiWidgetHTML);
+//}
 
 
 const loader = /*html*/`

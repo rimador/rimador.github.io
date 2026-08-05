@@ -1,3 +1,4 @@
+arrepapin € arrepapar € VMM03P0Y € ərəpˈapin
 arrepapin € arrepapar € VMSP3P0Y € ərəpˈapin
 arrepapis € arrepapar € VMSP2S0Y € ərəpˈapis
 arrepapo € arrepapar € VMIP1S0C € ərəpˈapu
@@ -1240,4 +1241,3 @@ arrossem € arrossar € VMM01P00 € ərusˈɛm
 arrossem € arrossar € VMSP1P00 € ərusˈɛm
 arrossen € arrossar € VMIP3P00 € ərˈosən
 arrosser € arrosser € AQ0MS0 € ərusˈe
-arrosser € arrosser € NCMS000 € ərusˈe

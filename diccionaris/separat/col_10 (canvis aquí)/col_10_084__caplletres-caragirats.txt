@@ -1,3 +1,4 @@
+caplletres € caplletra € NCFP000 € kəbʎˈɛtɾəs
 caplletres € caplletrar € VMIP2S00 € kəbʎˈɛtɾəs
 caplletrés € caplletrar € VMSI1S01 € kəbʎətɾˈes
 caplletréssim € caplletrar € VMSI1P02 € kəbʎətɾˈesim
@@ -1240,4 +1241,3 @@ caragiraries € caragirar € VMCC2S00 € kəɾəʒiɾəɾˈiəs
 caragiraríeu € caragirar € VMCC2P00 € kəɾəʒiɾəɾˈiəw
 caragirat € caragirar € VMP00SM0 € kˌaɾəʒiɾˈat
 caragirats € caragirar € VMP00PM0 € kəɾəʒiɾˈats
-caragirats € caragirats € NCMP000 € kəɾəʒiɾˈats

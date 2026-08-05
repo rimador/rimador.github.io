@@ -1,3 +1,4 @@
+opsonitzin € opsonitzar € VMM03P0Y € upsunˈidzin
 opsonitzin € opsonitzar € VMSP3P0Y € upsunˈidzin
 opsonitzis € opsonitzar € VMSP2S0Y € upsunˈidzis
 opsonitzo € opsonitzar € VMIP1S0C € upsunˈidzu
@@ -1240,4 +1241,3 @@ orgullaven € orgullar € VMII3P00 € urɣuʎˈaβən
 orgullaves € orgullar € VMII2S00 € urɣuʎˈaβəs
 orgullàveu € orgullar € VMII2P00 € urɣuʎˈaβəw
 orgullem € orgullar € VMIP1P00 € urɣuʎˈɛm
-orgullem € orgullar € VMM01P00 € urɣuʎˈɛm

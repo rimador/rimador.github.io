@@ -1,3 +1,4 @@
+embigats € embigar € VMP00PM0 € əmbiɣˈats
 embigats € embigat € NCMP000 € əmbiɣˈats
 embigava € embigar € VMII1S00 € əmbiɣˈaβə
 embigàvem € embigar € VMII1P00 € əmbiɣˈaβəm
@@ -1240,4 +1241,3 @@ emborniessis € emborniar € VMSI2S02 € əmburniˈesis
 emborniéssiu € emborniar € VMSI2P02 € əmburniˈesiw
 embornieu € emborniar € VMIP2P00 € əmburniˈɛw
 embornieu € emborniar € VMM02P0X € əmburniˈɛw
-embornieu € emborniar € VMSP2P00 € əmburniˈɛw

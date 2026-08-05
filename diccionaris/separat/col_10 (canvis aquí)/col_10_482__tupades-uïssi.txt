@@ -1,3 +1,4 @@
+tupades € tupada € NCFP000 € tupˈaðəs
 tupades € tupar € VMP00PF0 € tupˈaðəs
 tupaia € tupaia € NCFS000 € tupˈajə
 tupaid € tupaid € NCMS000 € tupˈajt
@@ -1240,4 +1241,3 @@ uïsseu € uïssar € VMIP2P00 € uisˈɛw
 uïsseu € uïssar € VMM02P0X € uisˈɛw
 uïsseu € uïssar € VMSP2P00 € uisˈɛw
 uïssi € uïssar € VMM03S0Y € uˈisi
-uïssi € uïssar € VMSP1S0Y € uˈisi

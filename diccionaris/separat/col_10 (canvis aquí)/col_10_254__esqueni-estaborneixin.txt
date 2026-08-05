@@ -1,4 +1,3 @@
-esqueni € esquenar € VMM03S0Y € əskˈɛni
 esqueni € esquenar € VMSP1S0Y € əskˈɛni
 esquení € esquenar € VMIS1S00 € əskənˈi
 esquenin € esquenar € VMM03P0Y € əskˈɛnin
@@ -1241,3 +1240,4 @@ estaborneixes € estabornir € VMIP2S00 € əstəβurnˈɛʃəs
 estaborneixi € estabornir € VMM03S0Y € əstəβurnˈɛʃi
 estaborneixi € estabornir € VMSP1S0Y € əstəβurnˈɛʃi
 estaborneixin € estabornir € VMM03P0Y € əstəβurnˈɛʃin
+estaborneixin € estabornir € VMSP3P0Y € əstəβurnˈɛʃin

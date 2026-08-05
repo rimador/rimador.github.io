@@ -1,4 +1,3 @@
-instrumenteu € instrumentar € VMIP2P00 € instɾuməntˈɛw
 instrumenteu € instrumentar € VMM02P0X € instɾuməntˈɛw
 instrumenteu € instrumentar € VMSP2P00 € instɾuməntˈɛw
 instrumenti € instrumentar € VMM03S0Y € instɾumˈenti
@@ -1241,3 +1240,4 @@ interfàsiques € interfàsic € AQ0FP0 € intərfˈazikəs
 interfecta € interfecta € NCFS000 € intərfˈektə
 interfecta € interfecte € AQ0FS0 € intərfˈektə
 interfecte € interfecte € AQ0MS0 € intərfˈektə
+interfecte € interfecte € NCMS000 € intərfˈektə

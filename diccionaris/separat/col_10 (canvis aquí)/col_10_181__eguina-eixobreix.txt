@@ -1,4 +1,3 @@
-eguina € eguinar € VMM02S00 € əɣˈinə
 eguina € eguí € AQ0FS0 € əɣˈinə
 eguinà € eguinar € VMIS3S00 € əɣinˈa
 eguinada € eguinar € VMP00SF0 € əɣinˈaðə
@@ -1241,3 +1240,4 @@ eixivernius € eixiverniu € NCMP000 € əʃiβərnˈiws
 eixiverno € eixivernar € VMIP1S0C € əʃiβˈɛrnu
 eixiverns € eixivern € NCMP000 € əʃiβˈɛrns
 eixobreix € eixobrir € VMIP3S00 € əʃuβɾˈɛʃ
+eixobreix € eixobrir € VMM02S00 € əʃuβɾˈɛʃ

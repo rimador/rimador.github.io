@@ -50593,7 +50593,6 @@ NO
 NO
 NO
 Viq
-NO
 Viq
 NO
 NO

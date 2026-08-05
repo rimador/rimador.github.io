@@ -1,4 +1,3 @@
-comproveu € comprovar € VMM02P0X € kumpɾuβˈɛw
 comproveu € comprovar € VMSP2P00 € kumpɾuβˈɛw
 comprovi € comprovar € VMM03S0Y € kumpɾˈɔβi
 comprovi € comprovar € VMSP1S0Y € kumpɾˈɔβi
@@ -1241,3 +1240,4 @@ concitador € concitador € NCMS000 € kunsitəðˈo
 concitadora € concitador € AQ0FS0 € kunsitəðˈoɾə
 concitadora € concitador € NCFS000 € kunsitəðˈoɾə
 concitadores € concitador € AQ0FP0 € kunsitəðˈoɾəs
+concitadores € concitador € NCFP000 € kunsitəðˈoɾəs

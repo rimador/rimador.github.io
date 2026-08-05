@@ -1,4 +1,3 @@
-cinomorfs € cinomorf € AQ0MP0 € sinumˈɔrfs
 cinomorfs € cinomorf € NCMP000 € sinumˈɔrfs
 cinomoriàcia € cinomoriàcia € NCFS000 € sinumuɾiˈasiə
 cinomoriàcies € cinomoriàcia € NCFP000 € sinumuɾiˈasiəs
@@ -1241,3 +1240,4 @@ cistelleres € cisteller € NCFP000 € sistəʎˈeɾəs
 cistelleria € cistelleria € NCFS000 € sistəʎəɾˈiə
 cistelleries € cistelleria € NCFP000 € sistəʎəɾˈiəs
 cistellers € cisteller € AQ0MP0 € sistəʎˈes
+cistellers € cisteller € NCMP000 € sistəʎˈes

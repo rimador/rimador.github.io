@@ -1,4 +1,3 @@
-cablegem € cablejar € VMIP1P00 € kəbbləʒˈɛm
 cablegem € cablejar € VMM01P00 € kəbbləʒˈɛm
 cablegem € cablejar € VMSP1P00 € kəbbləʒˈɛm
 cablegen € cablejar € VMIP3P00 € kəbblˈɛʒən
@@ -1241,3 +1240,4 @@ caduquejo € caduquejar € VMIP1S0C € kəðukˈɛʒu
 caduquejos € caduqueig € NCMP000 € kəðukˈɛʒus
 caduquem € caducar € VMIP1P00 € kəðukˈɛm
 caduquem € caducar € VMM01P00 € kəðukˈɛm
+caduquem € caducar € VMSP1P00 € kəðukˈɛm

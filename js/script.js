@@ -1308,6 +1308,119 @@ const URL_GOOGLE_SCRIPT = "https://script.google.com/macros/s/AKfycbw5uSetN-OKIE
 const ES_WEB_OFICIAL = window.location.hostname === 'rimador.cat'
                     || window.location.hostname === 'rimador.github.io';
 
+// --------------------------------------------------- Autoactualització d'UI
+//
+// Qui deixa una pestanya oberta moltes hores es queda executant aquest JS fins
+// que recarrega. Si hi ha desplegament nou, la comprovació periòdica ho detecta
+// i obliga a refrescar abans de continuar.
+const INTERVAL_COMPROVACIO_VERSIO_MS = 5 * 60 * 1000;
+let dialegNovaVersioMostrat = false;
+
+function versioClientCarregada() {
+  const etiqueta = Array.from(document.scripts).find(s => {
+    if (!s.src) return false;
+    return s.src.includes('dist/js/script.min.js?v=')
+        || s.src.includes('dist/js/script.js?v=')
+        || s.src.includes('/js/script.js?v=');
+  });
+  if (!etiqueta || !etiqueta.src) return null;
+
+  try {
+    return new URL(etiqueta.src, window.location.href).searchParams.get('v');
+  } catch (err) {
+    return null;
+  }
+}
+
+async function versioPublicadaPerAquestaPagina() {
+  const adreca = new URL(window.location.pathname, window.location.origin);
+  adreca.searchParams.set('t', Date.now().toString());
+
+  const resposta = await fetch(adreca.href, {
+    cache: 'no-store',
+    headers: { 'Accept': 'text/html' }
+  });
+  if (!resposta.ok) return null;
+
+  const html = await resposta.text();
+  const trobat = html.match(/dist\/js\/script(?:\.min)?\.js\?v=([^"'&\s>]+)/i);
+  return trobat ? trobat[1] : null;
+}
+
+function mostrarDialegNovaVersio(versioNova) {
+  if (dialegNovaVersioMostrat) return;
+
+  if (document.querySelector('dialog[open]')) {
+    setTimeout(() => mostrarDialegNovaVersio(versioNova), 1000);
+    return;
+  }
+
+  dialegNovaVersioMostrat = true;
+
+  if (typeof HTMLDialogElement === 'undefined' || !HTMLDialogElement.prototype.showModal) {
+    alert("Hi ha una nova versió del Rimador. Recarregarem la pàgina per aplicar-la.");
+    window.location.reload();
+    return;
+  }
+
+  const dialeg = document.createElement('dialog');
+  dialeg.className = 'dialeg-homografs dialeg-actualitzacio';
+
+  const titol = document.createElement('h2');
+  titol.textContent = "Hi ha nova versió";
+  dialeg.appendChild(titol);
+
+  const text = document.createElement('p');
+  text.className = 'dialeg-explicacio';
+  text.textContent = "Hem actualitzat el Rimador. Per continuar, cal recarregar la pàgina.";
+  dialeg.appendChild(text);
+
+  const boto = document.createElement('button');
+  boto.type = 'button';
+  boto.className = 'dialeg-opcio dialeg-actualitzacio-boto';
+  boto.textContent = "Recarrega ara";
+  boto.addEventListener('click', () => window.location.reload());
+  dialeg.appendChild(boto);
+
+  dialeg.addEventListener('cancel', event => event.preventDefault());
+  dialeg.addEventListener('keydown', event => {
+    if (event.key === 'Escape') event.preventDefault();
+  });
+
+  document.body.appendChild(dialeg);
+  dialeg.showModal();
+  boto.focus();
+}
+
+async function comprovarSiHiHaNovaVersio() {
+  if (dialegNovaVersioMostrat || document.hidden) return;
+
+  try {
+    const versioClient = versioClientCarregada();
+    if (!versioClient || versioClient === 'dev') return;
+
+    const versioPublicada = await versioPublicadaPerAquestaPagina();
+    if (!versioPublicada || versioPublicada === versioClient) return;
+
+    mostrarDialegNovaVersio(versioPublicada);
+  } catch (err) {
+    // Sense xarxa o resposta temporalment dolenta: es tornarà a provar al pròxim cicle.
+  }
+}
+
+function engegarComprovacioPeriodicaDeVersio() {
+  if (!ES_WEB_OFICIAL) return;
+
+  setTimeout(comprovarSiHiHaNovaVersio, 60000);
+  setInterval(comprovarSiHiHaNovaVersio, INTERVAL_COMPROVACIO_VERSIO_MS);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) comprovarSiHiHaNovaVersio();
+  });
+}
+
+engegarComprovacioPeriodicaDeVersio();
+
 function getUsuariID() {
   let usuariID = localStorage.getItem('rimador_usuari_id');
   if (!usuariID) {

@@ -94,6 +94,17 @@
     color: $gris-606;
 }
 
+.dialeg-actualitzacio {
+    max-width: 430px;
+}
+
+.dialeg-actualitzacio-boto {
+    margin-top: 6px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 // --- Tema sobri -----------------------------------------
 [data-theme="sober"] .dialeg-homografs {
     border: 1px solid var(--sober-border);
@@ -139,6 +150,10 @@
 
 [data-theme="sober"] .dialeg-detall {
     color: var(--sober-muted);
+}
+
+[data-theme="sober"] .dialeg-actualitzacio-boto {
+    border-color: var(--sober-accent);
 }
 
 // --- Telèfons -------------------------------------------

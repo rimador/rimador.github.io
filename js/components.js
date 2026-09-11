@@ -103,7 +103,7 @@ if (loaderHTML) { loaderHTML.innerHTML = loader; }
 
 
 const header = /*html*/`
-<a href="${ARREL}"><img class="rimador" id="rimadorImg" src="${ruta1}Rimador_nou.webp" alt="Logo del Rimador.cat"></a>
+<a href="${ARREL}"><img class="rimador" id="rimadorImg" src="${ruta1}Rimador-1.webp" alt="Logo del Rimador.cat"></a>
 <div class="header-icons">
     <button type="button" id="themeToggleBtn" class="peixet-btn" onclick="toggleTheme()" aria-label="Canvia entre mode festiu i mode sobri" title="Canvia d'estil"><img class="peixet" id="peixetImg" src="${ruta1}peixet.webp" alt="Peixet decoratiu"></button>
     <button type="button" id="menuToggleBtn" class="menu-hamburger" aria-label="Obre el menú" aria-expanded="false" aria-controls="paper-back" title="Menú">

@@ -1,6 +1,6 @@
 {
   "name": "Rimador.cat",
-  "short_name": "Rimador",
+  "short_name": "Rimador.cat",
   "description": "Cerca paraules que rimen en català segons la fonètica, no només segons la terminació. Rimes consonants i assonants, amb filtres per categoria gramatical.",
   "lang": "ca",
   "dir": "ltr",

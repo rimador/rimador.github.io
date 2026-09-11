@@ -1,0 +1,215 @@
+/* =========================================================
+   AVÍS PERIÒDIC DE DONATIUS
+
+   Estils del quadre que obre avis/avis.js. Segueix la mateixa
+   línia que el diàleg d'homògrafs (css/dialeg.scss) perquè no
+   sembli una peça enganxada d'un altre web.
+
+   És CSS pla, no Sass: aquesta carpeta viu fora del build de
+   gulp (que només mira els fitxers .scss de dins de css/)
+   justament perquè tot el mòdul es pugui moure o esborrar
+   d'una peça. Per això els
+   colors es redeclaren aquí com a custom properties en comptes
+   de fer servir les variables de css/_variables.scss. Si algun
+   dia canvieu la paleta, són aquestes vuit línies.
+   ========================================================= */
+
+.avis-dialeg {
+    --avis-fons: #00ffff;         /* $cian-principal */
+    --avis-vora: #ff00ff;         /* $magenta */
+    --avis-titol: #d30505;        /* $vermell-principal */
+    --avis-text: rgb(5, 6, 45);   /* $blau-fosquissim */
+    --avis-boto-vora: #3498db;    /* $blau-input */
+    --avis-boto-fons: #ffffff;    /* $blanc */
+    --avis-boto-text: #333333;    /* $gris-text */
+    --avis-discret: #606060;      /* $gris-606 */
+
+    position: relative;
+    /* Sense això, el farciment i la vora se sumen a l'amplada i al
+       mòbil el quadre se'n surt per les dues bandes. */
+    box-sizing: border-box;
+    max-width: 440px;
+    width: calc(100% - 40px);
+    padding: 30px 28px 22px;
+    border: 4px solid var(--avis-vora);
+    border-radius: 15px;
+    background-color: var(--avis-fons);
+    color: var(--avis-text);
+    font-family: var(--font-divertida);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.avis-dialeg::backdrop {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+/* Entrada suau. Qui tingui activat "reduir el moviment" al
+   sistema no la veu (regla del final del fitxer). */
+.avis-dialeg[open] {
+    animation: avis-entrada 0.25s ease-out;
+}
+
+@keyframes avis-entrada {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+}
+
+.avis-dialeg h2 {
+    margin: 0 0 12px;
+    font-size: 1.35em;
+    color: var(--avis-titol);
+}
+
+.avis-text {
+    margin: 0 0 22px;
+    font-size: 0.95em;
+    line-height: 1.45;
+}
+
+.avis-text a {
+    color: var(--avis-titol);
+}
+
+/* --- Botons ------------------------------------------- */
+
+.avis-botons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.avis-boto-accio,
+.avis-boto-secundari {
+    display: block;
+    /* El botó principal és un <a> i el secundari un <button>: sense
+       això, l'ample de 100% no els compta igual la vora i el farciment
+       i queden de mides diferents. */
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--avis-boto-vora);
+    border-radius: 8px;
+    background-color: var(--avis-boto-fons);
+    color: var(--avis-boto-text);
+    font-family: inherit;
+    font-size: 1em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.avis-boto-accio {
+    border-color: var(--avis-titol);
+    font-weight: bold;
+    color: var(--avis-titol);
+}
+
+.avis-boto-accio:hover,
+.avis-boto-accio:focus-visible,
+.avis-boto-secundari:hover,
+.avis-boto-secundari:focus-visible {
+    border-color: #d975d9;         /* $rosa-mitja */
+    background-color: #f2f2f2;     /* $gris-molt-clar */
+    outline: none;
+}
+
+/* "Ja hi he col·laborat": ha de ser trobable, però no ha de
+   competir amb els dos botons de sobre. */
+.avis-boto-tercer {
+    display: block;
+    margin: 16px auto 0;
+    padding: 4px 6px;
+    border: none;
+    background: none;
+    color: var(--avis-discret);
+    font-family: inherit;
+    font-size: 0.8em;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.avis-boto-tercer:hover,
+.avis-boto-tercer:focus-visible {
+    color: var(--avis-text);
+    outline: none;
+}
+
+/* --- Creu de tancar ----------------------------------- */
+
+.avis-tanca {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--avis-text);
+    font-family: inherit;
+    font-size: 1.6em;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.avis-tanca:hover,
+.avis-tanca:focus-visible {
+    opacity: 1;
+    outline: none;
+}
+
+/* --- Tema sobri --------------------------------------- */
+/* Les custom properties --sober-* les defineix css/sober.scss. */
+
+[data-theme="sober"] .avis-dialeg {
+    --avis-fons: var(--sober-panel-bg);
+    --avis-vora: var(--sober-border);
+    --avis-titol: var(--sober-accent);
+    --avis-text: var(--sober-text);
+    --avis-boto-vora: var(--sober-border);
+    --avis-boto-fons: var(--sober-bg);
+    --avis-boto-text: var(--sober-text);
+    --avis-discret: var(--sober-muted);
+
+    border-width: 1px;
+    border-radius: 4px;
+    font-family: var(--sober-font);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="sober"] .avis-boto-accio,
+[data-theme="sober"] .avis-boto-secundari {
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+[data-theme="sober"] .avis-boto-accio:hover,
+[data-theme="sober"] .avis-boto-accio:focus-visible,
+[data-theme="sober"] .avis-boto-secundari:hover,
+[data-theme="sober"] .avis-boto-secundari:focus-visible {
+    border-color: var(--sober-accent);
+    background-color: var(--sober-panel-bg);
+}
+
+/* --- Telèfons ----------------------------------------- */
+
+@media screen and (max-width: 550px) {
+    .avis-dialeg {
+        padding: 26px 18px 18px;
+    }
+
+    .avis-dialeg h2 {
+        font-size: 1.2em;
+    }
+}
+
+/* --- Accessibilitat ----------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .avis-dialeg[open] {
+        animation: none;
+    }
+}

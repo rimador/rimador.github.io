@@ -1,13 +1,11 @@
 # Dependències de Node.js
 node_modules/
-npx.txt
 
-# gulp-dev.command
+gulp-dev.command
 
 # Fitxers del sistema
 .DS_Store
 Thumbs.db
-.claude
 
 #cache py
 __pycache__/
@@ -15,14 +13,5 @@ __pycache__/
 # Minimitzats
 dist/
 
-# Intermedi del diccionari (preproces.py / postproces.py)
-diccionaris/separat/col_10 (canvis aquí)/col_10provisional.txt
-
-#diccionari de pronoms
-diccionaris/diccionari.6*.txt
-
-# Caché de transcripcions dialectals (regenerable)
-diccionaris/separat/dialectes/api_aina/cache/
-
 #carpeta pronoms
-pronoms/previa
+pronoms/previa/

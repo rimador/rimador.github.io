@@ -1,5 +1,5 @@
 {
     "_ajuda": "Paraules del dia triades a ma per a dies assenyalats. Clau: data AAAA-MM-DD. Valor: una paraula (la mateixa per a facil i dificil) o un objecte {facil, dificil}. Abans de publicar, passeu eines/comprovar_diaries_manuals.py.",
     "_exemple": { "facil": "pessebre", "dificil": "torro" },
-    "2026-09-11": { "facil": "catalana", "dificil": "aniversari" }
+    "2026-09-11": { "facil": "dialecte", "dificil": "rimes" }
 }

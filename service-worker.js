@@ -113,10 +113,7 @@ function esNomesXarxa(url, ruta) {
 // s'omple sol amb el que la pàgina demana: la primera visita el guarda i la
 // segona ja obre sense xarxa.
 self.addEventListener('install', (event) => {
-    if (ATURAT) {
-        // Que l'aturada no s'esperi que es tanquin totes les pestanyes.
-        self.skipWaiting();
-    }
+    self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {

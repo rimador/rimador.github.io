@@ -2570,11 +2570,11 @@ function aplicarTema(tema) {
   if (tema === "sober") {
     document.documentElement.setAttribute("data-theme", "sober");
     if (peixetImg) {
-      peixetImg.src = ruta + "boringlogo.webp?v=2";
+      peixetImg.src = ruta + "boringlogo.webp";
       peixetImg.alt = "Logo (mode sobri)";
     }
     if (rimadorImg) {
-      rimadorImg.src = ruta + "Rimador-1-sober.webp?v=1";
+      rimadorImg.src = ruta + "Rimador-1-sober.webp";
       rimadorImg.alt = "El Rimador.cat (mode sobri)";
     }
     if (themeColorMeta) {
@@ -2583,11 +2583,11 @@ function aplicarTema(tema) {
   } else {
     document.documentElement.removeAttribute("data-theme");
     if (peixetImg) {
-      peixetImg.src = ruta + "peixet.webp?v=1";
+      peixetImg.src = ruta + "peixet.webp";
       peixetImg.alt = "Peixet decoratiu";
     }
     if (rimadorImg) {
-      rimadorImg.src = ruta + "Rimador-1.webp?v=1";
+      rimadorImg.src = ruta + "Rimador_nou.webp";
       rimadorImg.alt = "Logo del Rimador.cat";
     }
     if (themeColorMeta && colorFestiuOriginal) {

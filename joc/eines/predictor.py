@@ -133,7 +133,7 @@ if __name__ == "__main__":
     print("Predicció de les rimes per als propers 15 dies:")
     print("-" * 50)
     
-    for i in range(-2, 1):
+    for i in range(-1, 15):
         data_actual = avui + timedelta(days=i)
         data_iso = data_actual.strftime("%Y-%m-%d")
         

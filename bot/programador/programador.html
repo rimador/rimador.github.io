@@ -134,6 +134,7 @@
         color: var(--gris-fluix);
         white-space: nowrap;
     }
+    .marca.joc { border-color: #bbd6ff; background: #f2f7ff; color: #23558f; }
     .marca.naufragues { border-color: #f0c4f0; background: #fff4ff; color: #8c3d8c; }
 
     .etiqueta { font-weight: 700; }
@@ -214,8 +215,8 @@
         <p>
             Els mateixos tuits que publicarien els bots, però per programar-los a mà a
             <a href="https://x.com/compose/post" target="_blank" rel="noopener">la web de X</a>.
-            Cada lot passa per tots els dialectes: una rima i, l'endemà, una paraula nàufraga de cadascun.
-            La rima només s'apunta a <code>publicades</code> quan tu confirmes que ja està programada.
+            Cada lot és un dia: la paraula del joc d'ahir i una paraula nàufraga aleatòria.
+            Cada tuit només s'apunta a <code>publicades</code> quan tu confirmes que ja està programat.
         </p>
     </header>
 
@@ -248,10 +249,9 @@
 </div>
 
 <script>
-// El "-2" del nom: el lot va canviar de forma (abans era d'una sola mena de
-// tuit i d'un sol dialecte, ara en duu vuit barrejats). Amb la clau d'abans, un
-// lot desat del programador vell hauria arribat aquí sense tipus ni dialecte.
-const CLAU_MAGATZEM = 'rimador-programador-lot-2';
+// El "-3" del nom: el lot ara és d'un sol dia (joc d'ahir + nàufraga)
+// i els lots antics no tenen la mateixa forma.
+const CLAU_MAGATZEM = 'rimador-programador-lot-3';
 
 let estat = null;               // el que diu el servidor: què s'ha dit ja
 let lot = { tuits: [] };        // el que hi ha ara a la pantalla
@@ -299,21 +299,20 @@ function pintarEstat() {
 
     const fets = lot.tuits.filter(jaProgramat).length;
 
-    $('#recepta').innerHTML = `Cada lot: <b>${estat.tuits_per_lot}</b> tuits, un per dia,`
-                            + ' una rima i una nàufraga de cada dialecte.';
+    $('#recepta').innerHTML = `Cada lot: <b>${estat.tuits_per_lot}</b> tuits del mateix dia,`
+                            + " la paraula del joc d'ahir i una nàufraga random.";
 
     $('#estat').innerHTML = `
         ${lot.tuits.length ? `<span><b>${fets}</b> de <b>${lot.tuits.length}</b> d'aquest lot programats</span>` : ''}
-        <span><b>${nombre(estat.normal.publicades.length)}</b> rimes i
+        <span><b>${nombre(estat.joc.publicades.length)}</b> paraules del joc i
               <b>${nombre(estat.naufragues.publicades.length)}</b> nàufragues ja programades o publicades</span>
     `;
 
-    $('#queQueda').innerHTML = 'Per dir: ' + estat.dialectes.map((d) => `
-        <span><b>${d.nom}</b> ${nombre(estat.normal.disponibles[d.codi])} rimes i
-              ${nombre(estat.naufragues.disponibles[d.codi])} nàufragues</span>
+    $('#queQueda').innerHTML = 'Nàufragues per dir: ' + estat.dialectes.map((d) => `
+        <span><b>${d.nom}</b> ${nombre(estat.naufragues.disponibles[d.codi])}</span>
     `).join('');
 
-    $('#peuFitxer').innerHTML = `Cada confirmació escriu de seguida a <code>${estat.normal.fitxer}</code>`
+    $('#peuFitxer').innerHTML = `Cada confirmació escriu de seguida a <code>${estat.joc.fitxer}</code>`
                               + ` o a <code>${estat.naufragues.fitxer}</code>.`;
 }
 
@@ -592,12 +591,11 @@ const encabirTots = () => llista.querySelectorAll('textarea').forEach(encabir);
 
 const escapar = (text) => String(text).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 
-const NOM_TIPUS = { normal: 'rima', naufragues: 'nàufraga' };
+const NOM_TIPUS = { joc: "joc d'ahir", naufragues: 'nàufraga' };
 
-// Què s'hi busca, a cada mena de tuit: sempre una paraula. Els accents no
-// compten, o sigui que "porfir" ja troba "pòrfir".
+// El cercador només cal per a les nàufragues: el tuit del joc ve fixat per la
+// roda diària. Els accents no compten, o sigui que "porfir" troba "pòrfir".
 const QUE_CERCAR = {
-    normal: 'una paraula que hi rimi',
     naufragues: 'una paraula nàufraga'
 };
 

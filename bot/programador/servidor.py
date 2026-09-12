@@ -1,40 +1,8 @@
 """El programador manual de tuits: serveix la pàgina i toca els publicades_*.json.
 
-Per què existeix: abans dos bots penjaven un tuit al dia tots sols amb l'API
-de Twitter, que val diners; la web de X deixa programar tuits de franc. Això
-genera els mateixos tuits que dirien ells, te'ls dona d'un en un perquè els
-enganxis i els programis allà, i només apunta la rima a publicades_*.json quan
-tu confirmes que ja està programada. Així la rima no es crema si al final no la
-publiques.
-
-QUÈ HI HA A CADA LOT: una rima i una paraula nàufraga de cada dialecte, en
-l'ordre de generador.dialectes() —central, nord-occidental, valencià i balear—,
-o sigui vuit tuits, un per dia. No es tria: el lot és tots els dialectes o no
-és res, que per això s'ha fet. Si un dia n'hi ha cinc, el lot en tindrà deu tot
-sol. Si un tuit concret no fa el pes, el "Un altre" en dona un altre a l'atzar
-i el cercador deixa triar, escrivint-hi una paraula, què ha de dir aquell dia.
-
-Com s'engega:
-
-    python3 bot/programador/servidor.py
-
-(o doble clic a bot/programador/programador.command). S'obre el navegador tot
-sol. Per aturar-ho: Ctrl+C.
-
-Si n'hi ha un que ja corre amb el MATEIX codi, aquest no s'engega (no hi
-guanyaries res). Quan el que ha canviat són les dades i no pas el codi, no ho
-pot saber i cal dir-li que el faci fora:
-
-    python3 bot/programador/servidor.py reengega
-
-Per què un servidor i no pas un HTML i prou: un fitxer obert amb file:// no pot
-ni llegir els JSON del costat (el navegador ho barra) ni desar res al disc. Amb
-això, els fitxers els llegeix i els escriu el Python, i el navegador només fa
-d'interfície. És tot de la biblioteca estàndard: no cal instal·lar res.
-
-La pàgina NO s'ha de publicar mai a Pages: només té sentit amb aquest servidor
-al darrere. Per això el deploy.yml esborra bot/programador/ del paquet abans de
-pujar-lo (vegeu-hi el pas "Aprimar el paquet abans de publicar").
+Ara cada lot és un sol dia: el tuit que revela la paraula del joc d'ahir i una
+paraula nàufraga aleatòria. Es programen a mà a la web de X i només s'apunten a
+publicades_*.json quan es confirma que ja estan programats.
 """
 
 import hashlib
@@ -102,13 +70,12 @@ EMPREMTA = empremta_del_codi()
 PANY = threading.Lock()
 
 FITXERS_PUBLICADES = {
-    'normal': generador.FITXER_PUBLICADES_NORMAL,
+    'joc': generador.FITXER_PUBLICADES_JOC,
     'naufragues': generador.FITXER_PUBLICADES_NAUFRAGUES,
 }
 
-# L'ordre en què es van dient: la rima d'un dialecte, l'endemà la seva paraula
-# nàufraga, i al cap de dos dies el dialecte següent.
-TIPUS_PER_DIALECTE = ('normal', 'naufragues')
+# Cada dia es programen dos tuits: la paraula del joc d'ahir i una nàufraga.
+TIPUS_PER_DIA = ('joc', 'naufragues')
 
 # Quants en surten com a molt, del cercador. Prou per triar i prou pocs per
 # llegir-los d'un cop d'ull.
@@ -121,84 +88,59 @@ MINIM_A_CERCAR = 2
 class Dades:
     """Les dades grosses, carregades un sol cop.
 
-    Aplegar les rimes de les columnes del diccionari costa mig segon per
-    dialecte: fer-ho a cada petició deixaria la pàgina inservible. Com que no
-    canvien mentre el servidor corre, es queden a la memòria. Els
-    publicades_*.json, en canvi, es rellegeixen sempre del disc: són petits i
-    poden haver canviat per fora (un git pull, posem).
-
-    CADA DIALECTE TÉ LA SEVA LLISTA DE PARAULES: el diccionari, que és igual
-    per a tothom, i les seves paraules pròpies ("cante", "servisc", "tenc").
-    Per això paraules, planes, noms_propis i rimes van indexats pel dialecte.
-
-    El tros del diccionari es llegeix i s'aplana UNA sola vegada i les quatre
-    llistes el comparteixen: així les cadenes són les mateixes en comptes de
-    tenir-ne quatre còpies, que és la diferència entre 90 MB i 240 MB.
+    El tuit del joc només necessita el dialecte de referència, perquè la paraula
+    és comuna a tothom però la transcripció que s'ensenya al tuit ha de ser d'un
+    dialecte concret. Les nàufragues sí que es carreguen de tots els dialectes,
+    perquè el tuit random pot sortir de qualsevol llista.
     """
 
     def __init__(self):
         self.dialectes = generador.dialectes()
-        noms = ', '.join(generador.nom_dialecte(dialecte) for dialecte in self.dialectes)
-        print(f'Aplegant les rimes de les columnes del diccionari ({noms})...')
+        self.dialecte_joc = (generador.DIALECTE_JOC_PER_DEFECTE
+                             if generador.DIALECTE_JOC_PER_DEFECTE in self.dialectes
+                             else self.dialectes[0] if self.dialectes else None)
 
-        # El tros compartit, un sol cop: les paraules i les mateixes aplanades
-        # per al cercador (sense això, cada tecla aplanaria les 620.000 una
-        # altra vegada).
+        noms = ', '.join(generador.nom_dialecte(dialecte) for dialecte in self.dialectes)
+        print(f'Aplegant les dades dels tuits ({noms})...')
+
         self.paraules_base = generador.carregar_paraules_del_diccionari()
-        planes_base = generador.aplanar_paraules(self.paraules_base)
         del_diccionari = len(self.paraules_base)
 
-        self.paraules = {}
-        self.planes = {}
-        self.noms_propis = {}
-        for dialecte in self.dialectes:
-            seves = generador.carregar_paraules(dialecte, self.paraules_base)
-            self.paraules[dialecte] = seves
-            # El tros del diccionari ja està aplanat i es comparteix; només cal
-            # aplanar les paraules pròpies d'aquest dialecte.
-            self.planes[dialecte] = planes_base + generador.aplanar_paraules(
-                seves[del_diccionari:])
-            # Les formes que només són nom propi: no surten a la llista de cap
-            # rima si hi ha res més (vegeu paraules_del_tuit()).
-            self.noms_propis[dialecte] = generador.carregar_noms_propis(dialecte, seves)
+        self.paraules_joc = []
+        self.noms_propis_joc = set()
+        self.columna_rima_joc = []
+        self.rimes_joc = {}
+        if self.dialecte_joc:
+            self.paraules_joc = generador.carregar_paraules(self.dialecte_joc, self.paraules_base)
+            self.noms_propis_joc = generador.carregar_noms_propis(self.dialecte_joc,
+                                                                  self.paraules_joc)
+            self.columna_rima_joc = generador.carregar_columna_rima(self.dialecte_joc)
+            self.rimes_joc = generador.carregar_rimes(self.dialecte_joc, self.paraules_joc,
+                                                      self.columna_rima_joc)
 
-        # De la fila a la rima (per al cercador) i de la rima a les paraules
-        # (per al tuit). Es llegeix la columna un sol cop i surten les dues.
-        self.columna_rima = {dialecte: generador.carregar_columna_rima(dialecte)
-                             for dialecte in self.dialectes}
-        self.rimes = {dialecte: generador.carregar_rimes(dialecte,
-                                                         self.paraules[dialecte],
-                                                         self.columna_rima[dialecte])
-                      for dialecte in self.dialectes}
         self.naufragues = {dialecte: generador.carregar_naufragues(dialecte)
                            for dialecte in self.dialectes}
-
-        # Les rimes que són d'una nàufraga: el tuit de la rima no les ha de dir
-        # mai (diria "hi rima una paraula" d'una que no rima amb res), i per
-        # això queden fora sempre, s'hagin publicat o no.
-        self.rimes_naufragues = {dialecte: generador.rimes_de_naufragues(items)
-                                 for dialecte, items in self.naufragues.items()}
-
-        # En quins dialectes és nàufraga cada paraula: és el que diu el tuit.
         self.dialectes_de_naufraga = generador.dialectes_de_cada_naufraga(self.naufragues)
+
+        if self.dialecte_joc:
+            propies = len(self.paraules_joc) - del_diccionari
+            print(f'  Joc: {generador.nom_dialecte(self.dialecte_joc)}, '
+                  f'{len(self.rimes_joc)} rimes'
+                  f'{f", {propies} paraules pròpies" if propies else ""}.')
 
         for dialecte in self.dialectes:
             diuen = generador.naufragues_disponibles(self.naufragues[dialecte], set())
-            propies = len(self.paraules[dialecte]) - del_diccionari
-            print(f'  {generador.nom_dialecte(dialecte)}: {len(self.rimes[dialecte])} rimes'
-                  f' i {len(diuen)} paraules nàufragues'
-                  f' ({len(self.rimes_naufragues[dialecte]) - len(diuen)} noms propis fora)'
-                  f'{f", {propies} paraules pròpies" if propies else ""}.')
+            print(f'  {generador.nom_dialecte(dialecte)}: {len(diuen)} paraules nàufragues.')
 
         if not self.dialectes:
             print(f'AVÍS: no s\'ha trobat cap dialecte a {generador.DIR_DIALECTES}.')
         if not self.paraules_base:
             print(f'AVÍS: no s\'ha trobat {generador.FITXER_PARAULES}.')
+        if self.dialecte_joc and not self.rimes_joc:
+            print(f'AVÍS: no s\'han trobat les columnes de {generador.nom_dialecte(self.dialecte_joc)}:')
+            print(f'      {generador.FITXER_PARAULES}')
+            print(f'      {generador.fitxer_rimacons(self.dialecte_joc)}')
         for dialecte in self.dialectes:
-            if not self.rimes[dialecte]:
-                print(f'AVÍS: no s\'han trobat les columnes de {generador.nom_dialecte(dialecte)}:')
-                print(f'      {generador.FITXER_PARAULES}')
-                print(f'      {generador.fitxer_rimacons(dialecte)}')
             if not self.naufragues[dialecte]:
                 print(f'AVÍS: no s\'ha trobat {generador.fitxer_naufragues(dialecte)}.')
                 print('      El genera llistes/generar_naufragues.py.')
@@ -213,39 +155,25 @@ def publicades(tipus):
     return generador.carregar_json(FITXERS_PUBLICADES[tipus], [])
 
 
-def fora_de_rimes(pub_normal, dialecte):
-    """Les rimes d'un dialecte que no es poden dir: les dites i les nàufragues."""
-    return generador.rimes_publicades(pub_normal, dialecte) | DADES.rimes_naufragues[dialecte]
-
-
 def estat():
-    """Quantes en queden a cada dialecte i quines ja s'han dit."""
-    pub_normal = publicades('normal')
+    """Quantes nàufragues queden i quins tuits ja s'han dit."""
+    pub_joc = publicades('joc')
     pub_naufragues = publicades('naufragues')
     dites = set(pub_naufragues)
 
     return {
-        # Amb quin codi s'ha fet. La pàgina hi marca el lot que desa al
-        # navegador i així pot avisar que el que veus a la pantalla el va donar
-        # un servidor d'abans (vegeu avisarSiElLotEsVell() al programador.html).
         'empremta': EMPREMTA,
         'dialectes': [{'codi': dialecte, 'nom': generador.nom_dialecte(dialecte)}
                       for dialecte in DADES.dialectes],
-        'tuits_per_lot': len(DADES.dialectes) * len(TIPUS_PER_DIALECTE),
-        'normal': {
-            'publicades': pub_normal,
-            'disponibles': {
-                dialecte: len(generador.rimes_disponibles(DADES.rimes[dialecte],
-                                                          fora_de_rimes(pub_normal, dialecte)))
-                for dialecte in DADES.dialectes
-            },
-            'fitxer': os.path.relpath(FITXERS_PUBLICADES['normal'], os.path.dirname(DIR_BOT)),
+        'tuits_per_lot': len(TIPUS_PER_DIA),
+        'joc': {
+            'publicades': pub_joc,
+            'fitxer': os.path.relpath(FITXERS_PUBLICADES['joc'], os.path.dirname(DIR_BOT)),
+            'dialecte': DADES.dialecte_joc,
+            'dificultat': generador.DIFICULTAT_JOC_PER_DEFECTE,
         },
         'naufragues': {
             'publicades': pub_naufragues,
-            # Per paraula, no per entrada: les homògrafes ("boga" el peix i
-            # "boga" del verb bogar) hi són una vegada per categoria gramatical
-            # i són el mateix tuit. El que es compta és el que encara es pot dir.
             'disponibles': {
                 dialecte: len(generador.naufragues_disponibles(DADES.naufragues[dialecte], dites))
                 for dialecte in DADES.dialectes
@@ -255,26 +183,29 @@ def estat():
     }
 
 
-def tuit_de_rima(dialecte, rima, data):
-    """La targeta d'un tuit de rima concret, o None si aquella rima no hi és."""
-    paraules = DADES.rimes.get(dialecte, {}).get(rima)
-    if not paraules:
+def tuit_de_joc(data_publicacio, data):
+    """La targeta del tuit que revela la paraula del joc d'ahir."""
+    if not DADES.dialecte_joc:
         return None
 
+    data_joc = (data_publicacio - timedelta(days=1)).strftime('%Y-%m-%d')
+    dificultat = generador.DIFICULTAT_JOC_PER_DEFECTE
+    clau = generador.clau_de_joc(data_joc, dificultat, DADES.dialecte_joc)
+    dades = generador.dades_tuit_joc_ahir(DADES.dialecte_joc, data_joc, dificultat,
+                                          DADES.paraules_joc, DADES.columna_rima_joc,
+                                          DADES.rimes_joc, DADES.noms_propis_joc)
+
     return {
-        'tipus': 'normal',
-        'dialecte': dialecte,
-        'nom_dialecte': generador.nom_dialecte(dialecte),
-        'clau': generador.clau_de_rima(dialecte, rima),
-        'etiqueta': f'/{rima}/',
-        'detall': f'{generador.quantes_hi_rimen(paraules)} paraules hi rimen',
-        # Si la rima té més paraules de les que hi caben, refer els exemples en
-        # dona uns altres; si no, en sortirien sempre els mateixos i el botó
-        # només enganyaria.
-        'altres_exemples': generador.quantes_hi_rimen(paraules) > generador.PARAULES_PER_TUIT,
+        'tipus': 'joc',
+        'dialecte': DADES.dialecte_joc,
+        'nom_dialecte': generador.nom_dialecte(DADES.dialecte_joc),
+        'clau': clau,
+        'etiqueta': dades['paraula'],
+        'detall': f"/{dades['rima']}/ · {generador.nom_dificultat(dificultat)}",
+        'altres_exemples': dades['quantes_rimen'] > generador.EXEMPLES_PER_TUIT_JOC + 1,
         'data': data,
-        'text': generador.tuit_normal(rima, paraules, dialecte, data,
-                                      DADES.noms_propis.get(dialecte, set())),
+        'text': generador.tuit_joc_ahir(DADES.dialecte_joc, data_joc, dificultat,
+                                        data, dades=dades),
     }
 
 
@@ -290,8 +221,6 @@ def tuit_de_naufraga(dialecte, paraula, data, items=None):
     if not items:
         return None
 
-    # Quina de les entrades de la paraula, a l'atzar: canvia el lema, i per
-    # tant a quin diccionari va l'enllaç.
     item = random.choice(items)
     dialectes_naufraga = DADES.dialectes_de_naufraga.get(paraula, [dialecte])
 
@@ -309,129 +238,101 @@ def tuit_de_naufraga(dialecte, paraula, data, items=None):
     }
 
 
-def un_tuit(tipus, dialecte, data, fora):
-    """Un tuit a l'atzar d'un tipus i d'un dialecte, o None si ja no en queda cap.
+def tuit_de_naufraga_random(data, fora, dialecte=None):
+    """Una nàufraga random, mantenint el filtre de publicades i noms propis."""
+    dialectes = [dialecte] if dialecte else list(DADES.dialectes)
+    random.shuffle(dialectes)
 
-    `fora` són les que no es poden dir: per a les rimes, rimes d'aquest
-    dialecte; per a les nàufragues, paraules (que la mateixa paraula pot ser
-    nàufraga a més d'un dialecte i el tuit ja ho diu, o sigui que dir-la un cop
-    la crema a tots).
-    """
-    if tipus == 'normal':
-        candidates = generador.rimes_disponibles(DADES.rimes[dialecte], fora)
-        return tuit_de_rima(dialecte, random.choice(candidates), data) if candidates else None
+    disponibles = []
+    for candidat in dialectes:
+        per_paraula = generador.naufragues_disponibles(DADES.naufragues[candidat], fora)
+        if per_paraula:
+            disponibles.append((candidat, per_paraula))
 
-    per_paraula = generador.naufragues_disponibles(DADES.naufragues[dialecte], fora)
-    if not per_paraula:
+    if not disponibles:
         return None
 
+    dialecte, per_paraula = random.choice(disponibles)
     paraula = random.choice(list(per_paraula))
     return tuit_de_naufraga(dialecte, paraula, data, per_paraula[paraula])
 
 
 def generar(data_inici):
-    """El lot sencer: una rima i una nàufraga de cada dialecte. No toca cap fitxer.
-
-    Sempre un tuit per dia i en aquest ordre: la rima d'un dialecte, l'endemà
-    la seva paraula nàufraga, i el dia següent la rima del dialecte que ve. No
-    es tria: és el ritme del compte, i triar-lo només servia per fer lots que
-    no es podien programar tal com sortien.
-
-    Encara no s'ha dit res: els publicades_*.json només es toquen quan es
-    confirma tuit per tuit.
-    """
+    """El lot d'un dia: joc d'ahir i nàufraga random. No toca cap fitxer."""
     try:
         dia = datetime.strptime(data_inici, '%Y-%m-%d')
     except (TypeError, ValueError):
         dia = datetime.now()
 
-    pub_normal = publicades('normal')
-    dites = set(publicades('naufragues'))
-    # Dins d'un mateix lot tampoc no es repeteix la rima d'un dialecte a
-    # l'altre: /ana/ en central i /ana/ en valencià són dues rimes diferents
-    # de debò, però dos tuits seguits que en diuen la mateixa fan de mal llegir.
-    rimes_del_lot = set()
+    data = generador.data_curta(dia)
     tuits = []
 
-    for numero, dialecte in enumerate(DADES.dialectes):
-        for ordre, tipus in enumerate(TIPUS_PER_DIALECTE):
-            # El dia surt del LLOC que ocupa i no pas de quants n'han sortit:
-            # si d'un dialecte se n'ha quedat sense, els altres no s'han
-            # d'endarrerir un dia.
-            dies = numero * len(TIPUS_PER_DIALECTE) + ordre
-            data = generador.data_curta(dia + timedelta(days=dies))
+    tuit_joc = tuit_de_joc(dia, data)
+    if tuit_joc and tuit_joc['clau'] not in set(publicades('joc')):
+        tuits.append(tuit_joc)
 
-            if tipus == 'normal':
-                fora = fora_de_rimes(pub_normal, dialecte) | rimes_del_lot
-            else:
-                fora = dites
-
-            tuit = un_tuit(tipus, dialecte, data, fora)
-            if not tuit:
-                continue
-
-            if tipus == 'normal':
-                rimes_del_lot.add(generador.rima_de_clau(tuit['clau']))
-            else:
-                dites.add(tuit['clau'])
-
-            tuits.append(tuit)
+    dites = set(publicades('naufragues'))
+    tuit_naufraga = tuit_de_naufraga_random(data, dites)
+    if tuit_naufraga:
+        tuits.append(tuit_naufraga)
 
     return tuits
 
 
-def netejar_data(data):
-    """La data que ve del navegador, ja escrita ("5/9/26"), tal com surt al tuit."""
-    if not isinstance(data, str) or not data.strip():
-        return generador.data_curta()
-    return data.strip()[:16]
-
-
-def un_altre(tipus, dialecte, data, exclou):
-    """Un tuit per canviar-ne un del lot: el mateix tipus, el mateix dialecte i el mateix dia.
-
-    `exclou` són les claus que ja hi ha a la pantalla, la del tuit que se
-    substitueix inclosa: el que en surti ha de ser un de nou.
-    """
-    return un_tuit(tipus, dialecte, netejar_data(data), fora_del_lot(tipus, dialecte, exclou))
+def un_tuit(tipus, dialecte, data, fora):
+    if tipus == 'joc':
+        return None
+    return tuit_de_naufraga_random(data, fora, dialecte)
 
 
 def fora_del_lot(tipus, dialecte, exclou):
     """El que no es pot dir: el ja publicat i el que ja és a la pantalla."""
     exclou = {clau for clau in (exclou or []) if isinstance(clau, str)}
 
-    if tipus == 'normal':
-        return (fora_de_rimes(publicades('normal'), dialecte)
-                | {generador.rima_de_clau(clau) for clau in exclou})
+    if tipus == 'joc':
+        return set(publicades('joc')) | exclou
 
     return set(publicades('naufragues')) | exclou
+
+
+def un_altre(tipus, dialecte, data, exclou):
+    """Un tuit per canviar-ne un del lot: mateix tipus, dialecte i dia."""
+    return un_tuit(tipus, dialecte, netejar_data(data), fora_del_lot(tipus, dialecte, exclou))
 
 
 def triat(tipus, dialecte, clau, data):
     """El tuit que s'ha triat al cercador, per al dia que ocupava aquell lloc."""
     data = netejar_data(data)
 
-    if tipus == 'normal':
-        return tuit_de_rima(dialecte, generador.rima_de_clau(clau), data)
+    if tipus == 'joc':
+        data_iso, dificultat, dialecte_clau = generador.parts_clau_de_joc(clau)
+        return tuit_de_joc_data(data_iso, dificultat, dialecte_clau or dialecte, data)
 
     return tuit_de_naufraga(dialecte, clau, data)
 
 
+def tuit_de_joc_data(data_iso, dificultat, dialecte, data):
+    dades = generador.dades_tuit_joc_ahir(dialecte, data_iso, dificultat,
+                                          DADES.paraules_joc, DADES.columna_rima_joc,
+                                          DADES.rimes_joc, DADES.noms_propis_joc)
+    return {
+        'tipus': 'joc',
+        'dialecte': dialecte,
+        'nom_dialecte': generador.nom_dialecte(dialecte),
+        'clau': generador.clau_de_joc(data_iso, dificultat, dialecte),
+        'etiqueta': dades['paraula'],
+        'detall': f"/{dades['rima']}/ · {generador.nom_dificultat(dificultat)}",
+        'altres_exemples': dades['quantes_rimen'] > generador.EXEMPLES_PER_TUIT_JOC + 1,
+        'data': data,
+        'text': generador.tuit_joc_ahir(dialecte, data_iso, dificultat, data, dades=dades),
+    }
+
+
 def cercar(tipus, dialecte, text, exclou):
-    """Quines rimes o quines nàufragues d'aquest dialecte casen amb una paraula.
+    """Quines nàufragues d'aquest dialecte casen amb una paraula."""
+    if tipus == 'joc':
+        return []
 
-    Es cerquen PARAULES i prou: de les rimes, una que hi rimi ("casa" dona
-    /azə/); de les nàufragues, la paraula. La rima en AFI no s'hi busca
-    —s'havia pogut— perquè qui programa els tuits sap quina paraula vol dir
-    aquell dia i no pas com se'n diu la rima, i buscar-hi les dues coses
-    omplia la llista de rimes que no hi tenien res a veure.
-
-    Els accents no compten (vegeu aplanar()): "porfir" troba "pòrfir" i
-    "agalloc", "agàl·loc".
-
-    El que ja s'ha dit i el que ja és a la pantalla no hi surt: si sortís,
-    triar-ho deixaria el lot amb dos tuits que diuen el mateix.
-    """
     cru = str(text or '').strip().lower()
     text = generador.aplanar(cru)
     if len(text) < MINIM_A_CERCAR:
@@ -439,87 +340,39 @@ def cercar(tipus, dialecte, text, exclou):
 
     fora = fora_del_lot(tipus, dialecte, exclou)
     trobats = []
+    per_paraula = generador.naufragues_disponibles(DADES.naufragues.get(dialecte, []), fora)
 
-    if tipus == 'normal':
-        # Una sola passada per les files del diccionari, no pas rima per rima:
-        # el que es busca és una paraula, i de la fila se'n va a la rima per la
-        # columna. Amb les paraules ja aplanades (DADES.planes) la comprovació
-        # de cada fila és un "in" i prou, i la cerca costa una dècima de segon.
-        millors = {}
+    for paraula, items in per_paraula.items():
+        plana = generador.aplanar(paraula)
+        if plana == text:
+            pes = 0
+        elif plana.startswith(text):
+            pes = 1
+        elif text in plana:
+            pes = 2
+        else:
+            continue
 
-        propis = DADES.noms_propis.get(dialecte, set())
-        for paraula, plana, rima in zip(DADES.paraules.get(dialecte, []),
-                                        DADES.planes.get(dialecte, []),
-                                        DADES.columna_rima.get(dialecte, [])):
-            if text not in plana or not rima or rima in fora:
-                continue
+        dialectes_naufraga = DADES.dialectes_de_naufraga.get(paraula, [dialecte])
+        trobats.append((pes, paraula, {
+            'clau': paraula,
+            'etiqueta': paraula,
+            'detall': f"/{items[0].get('rimacons')}/ · nàufraga en"
+                      f" {len(dialectes_naufraga)} de {len(DADES.dialectes)} dialectes",
+        }))
 
-            # Com casa, de millor a pitjor: la paraula tal com s'ha escrit
-            # ("casa" i "casà" s'aplanen igual, i qui escriu "casa" vol la
-            # casa), la paraula sense accents, una que comenci igual i una que
-            # el dugui pel mig. A igualtat, la que NO és nom propi: als tuits
-            # els noms propis no hi surten, i ensenyar "Sol" per la rima /ɔl/
-            # seria ensenyar una paraula que després no hi serà.
-            if plana == text:
-                pes = 0 if paraula.lower() == cru else 1
-            elif plana.startswith(text):
-                pes = 2
-            else:
-                pes = 3
-            pes = (pes, paraula in propis)
-
-            # D'una rima, la paraula que hi casa millor: és la que es mostra
-            # perquè es reconegui de què va una rima escrita en AFI.
-            anterior = millors.get(rima)
-            if anterior is None or pes < anterior[0]:
-                millors[rima] = (pes, paraula)
-
-        for rima, (pes, mostra) in millors.items():
-            # Al davant la PARAULA i no pas la rima: és el que s'ha escrit al
-            # cercador, el que es llegeix per saber de què va una rima en AFI i
-            # el que ordena la llista.
-            trobats.append((pes, rima, {
-                'clau': generador.clau_de_rima(dialecte, rima),
-                'etiqueta': mostra,
-                'detall': f'/{rima}/ · {generador.quantes_hi_rimen(DADES.rimes[dialecte][rima])}'
-                          f' paraules hi rimen',
-            }))
-    else:
-        per_paraula = generador.naufragues_disponibles(DADES.naufragues.get(dialecte, []), fora)
-
-        for paraula, items in per_paraula.items():
-            plana = generador.aplanar(paraula)
-            if plana == text:
-                pes = 0
-            elif plana.startswith(text):
-                pes = 1
-            elif text in plana:
-                pes = 2
-            else:
-                continue
-
-            dialectes_naufraga = DADES.dialectes_de_naufraga.get(paraula, [dialecte])
-            trobats.append((pes, paraula, {
-                'clau': paraula,
-                'etiqueta': paraula,
-                'detall': f"/{items[0].get('rimacons')}/ · nàufraga en"
-                          f" {len(dialectes_naufraga)} de {len(DADES.dialectes)} dialectes",
-            }))
-
-    # Es TRIEN pels que hi casen millor i es MOSTREN per ordre alfabètic. Les
-    # dues coses per separat a posta: ordenant alfabèticament abans de tallar a
-    # dotze, la paraula que s'ha escrit es podria quedar fora (busca "sol" i
-    # "absolut" li passaria al davant).
     trobats.sort(key=lambda trobat: (trobat[0], trobat[1]))
     millors = trobats[:MAXIM_RESULTATS]
-
-    # Per ordre alfabètic de la paraula, amb la "c" i la "C" juntes i els
-    # accents on toca (vegeu aplanar()): "Càndia" va entre "canco" i "candir",
-    # no pas al capdavant de tot per ser majúscula. La rima desempata, que dues
-    # paraules es poden aplanar igual.
     millors.sort(key=lambda trobat: (generador.aplanar(trobat[2]['etiqueta']), trobat[1]))
 
     return [resultat for _, _, resultat in millors]
+
+
+def netejar_data(data):
+    """La data que ve del navegador, ja escrita ("5/9/26"), tal com surt al tuit."""
+    if not isinstance(data, str) or not data.strip():
+        return generador.data_curta()
+    return data.strip()[:16]
 
 
 def marcar(tipus, clau, programat):

@@ -1,12 +1,16 @@
 import json
 import os
 import random
+import sys
 import unicodedata
 import urllib.parse
-from datetime import datetime
-import predictor
+from datetime import date, datetime, timedelta
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DIR_EINES_JOC = os.path.join(BASE_DIR, '..', 'joc', 'eines')
+sys.path.insert(0, DIR_EINES_JOC)
+
+import predictor  # noqa: E402  (cal el sys.path de sobre)
 
 # Noves rutes per als fitxers del joc
 FITXER_INDEX_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'index.json')
@@ -25,9 +29,17 @@ DIR_DIALECTES = os.path.join(BASE_DIR, '..', 'dialectes_col')
 DIR_LLISTES = os.path.join(BASE_DIR, '..', 'llistes')
 
 FITXER_PUBLICADES_NORMAL = os.path.join(BASE_DIR, 'publicades_normal.json')
+FITXER_PUBLICADES_JOC = os.path.join(BASE_DIR, 'publicades_joc.json')
 FITXER_PUBLICADES_NAUFRAGUES = os.path.join(BASE_DIR, 'publicades_naufragues.json')
 
 PARAULES_PER_TUIT = 5
+EXEMPLES_PER_TUIT_JOC = 3
+DIALECTE_JOC_PER_DEFECTE = 'ca'
+DIFICULTAT_JOC_PER_DEFECTE = 'dificil'
+NOMS_DIFICULTATS = {
+    'facil': 'fàcil',
+    'dificil': 'difícil',
+}
 
 # Com es diu cada dialecte al tuit, i en quin ordre surten al lot. Els codis no
 # es declaren enlloc —són les subcarpetes de dialectes_col/, vegeu dialectes(),
@@ -438,29 +450,28 @@ def quantes_hi_rimen(paraules):
     return len(set(paraules))
 
 
-def paraules_del_tuit(paraules, noms_propis=()):
-    """Les que surten a la llista del tuit: cinc, i els noms propis els últims.
+def triar_paraules_de_rima(paraules, quantes, noms_propis=(), excloses=()):
+    """Tria exemples d'una rima amb el mateix criteri que els tuits antics.
 
-    Manen les dues coses alhora: cinc paraules sempre que la rima en tingui
-    cinc, i els noms propis com més lluny millor. Per tant, primer les paraules
-    de debò; i si no arriben a cinc, s'omple amb noms propis fins que hi
-    arribin. La rima de "càndia" en central en té una de sola i trenta i escaig
-    de topònims: dir-ne una i prou faria un tuit pobre quan la rima no ho és.
-
-    Si no s'hi arriba ni amb tot, en surten les que hi hagi (n'hi ha 5.663 amb
-    dues paraules i prou); i si totes són noms propis, tots són noms propis.
+    Primer paraules comunes i, si no n'hi ha prou, noms propis. Les repeticions
+    del diccionari compten una sola vegada i la paraula objectiu es pot excloure
+    perquè no surti com a exemple de si mateixa.
     """
-    distintes = sorted(set(paraules))
-    quantes = min(PARAULES_PER_TUIT, len(distintes))
+    excloses = set(excloses or ())
+    distintes = sorted(set(paraules).difference(excloses))
+    quantes = min(quantes, len(distintes))
     normals = [paraula for paraula in distintes if paraula not in noms_propis]
 
     if len(normals) >= quantes:
         return sorted(random.sample(normals, quantes))
 
-    # Totes les de debò que hi ha, i la resta de noms propis a l'atzar.
     propis = [paraula for paraula in distintes if paraula in noms_propis]
-
     return sorted(normals + random.sample(propis, quantes - len(normals)))
+
+
+def paraules_del_tuit(paraules, noms_propis=()):
+    """Les que surten a la llista del tuit antic de rima: cinc exemples."""
+    return triar_paraules_de_rima(paraules, PARAULES_PER_TUIT, noms_propis)
 
 
 # L'adreça del lloc amb el dialecte a dins, que és com han d'anar TOTS els
@@ -552,46 +563,97 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
 
     return tuit
 
-def tuit_joc_ahir(dialecte):
-    """El tuit de la paraula del joc d'ahir, la seva fonètica i 3 exemples."""
-    ahir = date.today() - timedelta(days=1)
-    data_iso = ahir.strftime("%Y-%m-%d")
+def nom_dificultat(dificultat):
+    return NOMS_DIFICULTATS.get(dificultat, dificultat)
 
-    # 1. Obtenir les dades i predir la paraula d'ahir
+
+def clau_de_joc(data_iso, dificultat=DIFICULTAT_JOC_PER_DEFECTE,
+                dialecte=DIALECTE_JOC_PER_DEFECTE):
+    """La clau que es desa a publicades_joc.json: '2026-09-12:dificil:ca'."""
+    return f'{data_iso}:{dificultat}:{dialecte}'
+
+
+def parts_clau_de_joc(clau):
+    data_iso, _, resta = str(clau or '').partition(':')
+    dificultat, _, dialecte = resta.partition(':')
+    return data_iso, dificultat or DIFICULTAT_JOC_PER_DEFECTE, dialecte or DIALECTE_JOC_PER_DEFECTE
+
+
+def paraula_del_joc(data_iso, dificultat=DIFICULTAT_JOC_PER_DEFECTE):
+    """La paraula del dia del joc, calculada amb la mateixa roda que el JS."""
     index_json = carregar_json(FITXER_INDEX_JOC, {'diaries': {'claus': [], 'paraules': []}})
     manuals_json = carregar_json(FITXER_MANUALS_JOC, {})
-    
-    paraules_predites = predictor.predir_paraula_del_dia(index_json, data_iso, manuals=manuals_json)
-    paraula_joc = paraules_predites.get('facil') # Pots canviar-ho per 'dificil'
 
-    # 2. Cercar la paraula i la seva rima en el dialecte actual
-    paraules_dialecte = carregar_paraules(dialecte)
-    rimes_dialecte = carregar_columna_rima(dialecte)
-    
+    paraules = predictor.predir_paraula_del_dia(index_json, data_iso, manuals=manuals_json)
+    paraula = paraules.get(dificultat)
+    if not paraula:
+        raise ValueError(f"No s'ha pogut predir la paraula del joc del {data_iso}")
+    return paraula
+
+
+def posicio_de_paraula(paraula, paraules):
+    """On cau una paraula dins la columna del diccionari d'un dialecte."""
     try:
-        # Agafem el primer índex coincident per trobar la rima
-        index_paraula = paraules_dialecte.index(paraula_joc)
-        rima_joc = rimes_dialecte[index_paraula]
+        return paraules.index(paraula)
     except ValueError:
-        rima_joc = None
-        
-    # 3. Obtenir 3 exemples de paraules que hi rimen (excloent la del joc)
-    dicc_rimes = carregar_rimes(dialecte, paraules_dialecte, rimes_dialecte)
-    paraules_que_rimen = dicc_rimes.get(rima_joc, []) if rima_joc else []
-    
-    exemples_disponibles = [p for p in set(paraules_que_rimen) if p != paraula_joc]
-    quantes = min(3, len(exemples_disponibles))
-    exemples = random.sample(exemples_disponibles, quantes) if quantes > 0 else []
+        buscada = aplanar(paraula)
+        for i, candidata in enumerate(paraules):
+            if aplanar(candidata) == buscada:
+                return i
+    return None
 
-    # 4. Construir el text del tuit
-    tuit = f"La paraula del joc d'ahir en {nom_dialecte(dialecte)} era «{paraula_joc}».\n\n"
+
+def dades_tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
+                         dificultat=DIFICULTAT_JOC_PER_DEFECTE, paraules=None,
+                         columna=None, rimes=None, noms_propis=()):
+    """Les peces del tuit de la paraula del joc d'ahir.
+
+    `data_iso` és el dia que es revela, no pas el dia de publicació del tuit. Si
+    no es passa, es calcula amb el dia d'ahir del rellotge del servidor.
+    """
+    data_iso = data_iso or (date.today() - timedelta(days=1)).strftime('%Y-%m-%d')
+    paraula_joc = paraula_del_joc(data_iso, dificultat)
+
+    paraules = carregar_paraules(dialecte) if paraules is None else paraules
+    columna = carregar_columna_rima(dialecte) if columna is None else columna
+    posicio = posicio_de_paraula(paraula_joc, paraules)
+    rima_joc = columna[posicio] if posicio is not None and posicio < len(columna) else None
+
+    rimes = carregar_rimes(dialecte, paraules, columna) if rimes is None else rimes
+    paraules_que_rimen = rimes.get(rima_joc, []) if rima_joc else []
+    exemples = triar_paraules_de_rima(paraules_que_rimen, EXEMPLES_PER_TUIT_JOC,
+                                      noms_propis, excloses={paraula_joc})
+
+    return {
+        'data_joc': data_iso,
+        'dificultat': dificultat,
+        'paraula': paraula_joc,
+        'rima': rima_joc,
+        'exemples': exemples,
+        'quantes_rimen': quantes_hi_rimen(paraules_que_rimen),
+    }
+
+
+def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
+                  dificultat=DIFICULTAT_JOC_PER_DEFECTE, data=None,
+                  paraules=None, columna=None, rimes=None, noms_propis=(), dades=None):
+    """El tuit de la paraula del joc d'ahir, amb rima fonètica i 3 exemples."""
+    dades = dades or dades_tuit_joc_ahir(dialecte, data_iso, dificultat, paraules,
+                                         columna, rimes, noms_propis)
+    paraula_joc = dades['paraula']
+    rima_joc = dades['rima']
+    exemples = dades['exemples']
+    dificultat = dades['dificultat']
+
+    tuit = (f"La paraula del joc d'ahir ({nom_dificultat(dificultat)}) era "
+            f"«{paraula_joc}».\n\n")
     if rima_joc:
-        tuit += f"Transcipció fonètica: /{rima_joc}/\n"
+        tuit += f"Transcripció fonètica en {nom_dialecte(dialecte)}: /{rima_joc}/\n"
         if exemples:
-            tuit += "3 exemples de paraules que hi rimen:\n"
-            for ex in exemples:
-                tuit += f"- {ex}\n"
-    
-    tuit += f"\nTroba-la aquí: {enllac('/joc', dialecte)}"
-    
+            titol = 'Tres exemples de paraules que hi rimen' if len(exemples) == 3 else 'Exemples de paraules que hi rimen'
+            tuit += titol + ':\n'
+            for exemple in exemples:
+                tuit += f"- {exemple}\n"
+
+    tuit += f"\nTroba-la aquí: {enllac('/joc/', dialecte)}"
     return tuit

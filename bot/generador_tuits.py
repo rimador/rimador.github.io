@@ -1,43 +1,17 @@
-"""D'on surten els tuits: quines rimes queden per dir i què hi diu cadascun.
-
-Ho fa servir el programador manual (programador/servidor.py), que és l'única
-manera com es publica ara. Abans hi havia dos bots que ho penjaven sols amb
-l'API de Twitter (bot/script_normal.py i bot/script_naufragues.py, amb els
-seus dos workflows): l'API val diners, la web de X deixa programar tuits de
-franc, i es van esborrar. Al git hi són, si mai calen.
-
-Això és a part del servidor a posta: aquí no hi ha res de HTTP ni de navegador,
-només el diccionari i el text dels tuits, que és el que un dia es voldrà tornar
-a llegir o a canviar.
-
-TOTS ELS DIALECTES: abans això només deia el central. Ara el lot és una rima i
-una paraula nàufraga de cada dialecte, i per això aquí dins el dialecte és
-sempre un paràmetre i mai una constant. Compte amb el nom "codi", que al
-diccionari ja vol dir una altra cosa (la categoria gramatical, "NCMS000"): el
-del dialecte se'n diu `dialecte` a tot arreu.
-
-I CADA DIALECTE TÉ LES SEVES PARAULES. No només rimen diferent: n'hi ha que
-només es diuen en un lloc ("cante", "servisc", "tenc"). Cada dialecte és, per
-tant, dues llistes seguides:
-
-    el diccionari   diccionaris/separat/col_*, igual per a tothom, amb la rima
-                    d'aquell dialecte al costat (trans_dicc/col_3_rimacons_*)
-    el seu apendix  dialectes_col/<codi>/apendix/col_*_<codi>, files pròpies i
-                    totes les columnes seves, rima inclosa
-
-Per això carregar_paraules() vol saber de quin dialecte és. El tros del
-diccionari es llegeix UN sol cop i es passa a les quatre crides: així les
-quatre llistes comparteixen les mateixes cadenes i són 90 MB i no pas 240.
-"""
-
 import json
 import os
 import random
 import unicodedata
 import urllib.parse
 from datetime import datetime
+import predictor
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Noves rutes per als fitxers del joc
+FITXER_INDEX_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'index.json')
+FITXER_MANUALS_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'diaries_manuals.json')
+
 
 # La columna de paraules del diccionari, el tros que és igual per a tots els
 # dialectes. Va fila per fila amb el trans_dicc de cadascun: la fila que fa 40
@@ -576,4 +550,48 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
     tuit += ("\nConsulta-les totes a "
              + enllac('/llistes/llista_naufragues.html', dialecte))
 
+    return tuit
+
+def tuit_joc_ahir(dialecte):
+    """El tuit de la paraula del joc d'ahir, la seva fonètica i 3 exemples."""
+    ahir = date.today() - timedelta(days=1)
+    data_iso = ahir.strftime("%Y-%m-%d")
+
+    # 1. Obtenir les dades i predir la paraula d'ahir
+    index_json = carregar_json(FITXER_INDEX_JOC, {'diaries': {'claus': [], 'paraules': []}})
+    manuals_json = carregar_json(FITXER_MANUALS_JOC, {})
+    
+    paraules_predites = predictor.predir_paraula_del_dia(index_json, data_iso, manuals=manuals_json)
+    paraula_joc = paraules_predites.get('facil') # Pots canviar-ho per 'dificil'
+
+    # 2. Cercar la paraula i la seva rima en el dialecte actual
+    paraules_dialecte = carregar_paraules(dialecte)
+    rimes_dialecte = carregar_columna_rima(dialecte)
+    
+    try:
+        # Agafem el primer índex coincident per trobar la rima
+        index_paraula = paraules_dialecte.index(paraula_joc)
+        rima_joc = rimes_dialecte[index_paraula]
+    except ValueError:
+        rima_joc = None
+        
+    # 3. Obtenir 3 exemples de paraules que hi rimen (excloent la del joc)
+    dicc_rimes = carregar_rimes(dialecte, paraules_dialecte, rimes_dialecte)
+    paraules_que_rimen = dicc_rimes.get(rima_joc, []) if rima_joc else []
+    
+    exemples_disponibles = [p for p in set(paraules_que_rimen) if p != paraula_joc]
+    quantes = min(3, len(exemples_disponibles))
+    exemples = random.sample(exemples_disponibles, quantes) if quantes > 0 else []
+
+    # 4. Construir el text del tuit
+    tuit = f"La paraula del joc d'ahir en {nom_dialecte(dialecte)} era «{paraula_joc}».\n\n"
+    if rima_joc:
+        tuit += f"Transcipció fonètica: /{rima_joc}/\n"
+        if exemples:
+            tuit += "3 exemples de paraules que hi rimen:\n"
+            for ex in exemples:
+                tuit += f"- {ex}\n"
+    
+    tuit += f"\nTroba-la aquí: {enllac('/joc', dialecte)}"
+    
     return tuit

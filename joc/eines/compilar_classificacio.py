@@ -88,13 +88,10 @@ RUTA_JSON = os.path.join(DIR_JOC, "dades", "classificacio.json")
 
 NOM_MODE = {"illimitat": "Il·limitat", "diaria": "Paraula del dia"}
 NOM_DIFICULTAT = {"facil": "Fàcil", "dificil": "Difícil"}
+
 # Els rellotges de l'il·limitat (vegeu les opcions de temps de joc/index.html).
 # Un rellotge que no sigui cap d'aquests es titula amb els segons i prou.
 NOM_TEMPS = {"30": "Llampec", "60": "Estàndard", "120": "Lent"}
-# Els noms dels dialectes no son aqui: al JSON hi va el codi i el joc el
-# tradueix amb el que digui joc/dades/versions.json (vegeu nomDialecte a
-# joc/js/ui.js). Aixi els noms es diuen en un sol lloc.
-
 
 # Les columnes que ha de dur el full. Les dues ultimes son les que es van afegir
 # quan el joc va passar a tenir dialectes: les files velles no les duen i se'ls
@@ -282,8 +279,8 @@ def main():
     df["dia"] = dia_partida.where(dia_partida.str.match(r"^\d{4}-\d{2}-\d{2}$"), dia_arribada)
 
     # Filtrem perquè no agafi les dades d'avui (equivalent al filtre de stats.py)
-    #avui_str = datetime.now(tz_espanya).strftime("%Y-%m-%d")
-    #df = df[df["dia"] < avui_str]
+    avui_str = datetime.now(tz_espanya).strftime("%Y-%m-%d")
+    df = df[df["dia"] < avui_str]
 
     # Nomes puntuacions amb sobrenom acceptable.
     df["Sobrenom"] = df["Sobrenom"].map(sobrenom_valid)

@@ -67,11 +67,11 @@ ssl._create_default_https_context = ssl._create_unverified_context
 URL_FULL_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRwuOIIAtFLHbvQpMS_gHPTBOyge4TCoXb--viKHL3tTux1qkDgv9evA_wy2aYVzGKXTDfEefqtXC4l/pub?output=csv"
 
 # Quantes posicions guardem per modalitat.
-TOP_N = 20
+TOP_N = 15
 
 # I quantes al ranquing de sempre de la paraula del dia, que va a sota del dia
 # que estiguis mirant.
-TOP_DIARIA = 10
+TOP_DIARIA = 30
 
 # Quants dies enrere de paraula del dia es publiquen. Amb 30 la pantalla te un
 # mes per mirar i el JSON no creix sense aturador.
@@ -95,16 +95,12 @@ NOM_TEMPS = {"30": "Llampec", "60": "Estàndard", "120": "Lent"}
 # tradueix amb el que digui joc/dades/versions.json (vegeu nomDialecte a
 # joc/js/ui.js). Aixi els noms es diuen en un sol lloc.
 
-# El dialecte de les files d'abans que se'n pogues triar cap. Es el mateix
-# DIALECTE_ANTIC de joc/js/magatzem.js.
-DIALECTE_ANTIC = "ca"
 
 # Les columnes que ha de dur el full. Les dues ultimes son les que es van afegir
 # quan el joc va passar a tenir dialectes: les files velles no les duen i se'ls
 # posa un valor per defecte en comptes de descartar-les.
 COLUMNES = ["Data", "Sobrenom", "Mode", "Dificultat", "Segons", "Punts",
-            "Paraula", "Usuari"]
-COLUMNES_NOVES = {"DataPartida": "", "Dialecte": DIALECTE_ANTIC}
+            "Paraula", "Usuari", "Dialecte", "DataPartida"]
 
 
 # --- Utilitats --------------------------------------------------------------
@@ -255,10 +251,6 @@ def classificacio_buida():
 
 
 def main():
-    if not URL_FULL_CSV:
-        print("URL_FULL_CSV no configurada: escric una classificacio buida.")
-        desar(classificacio_buida())
-        return
     if pd is None:
         raise SystemExit("Cal instal·lar pandas per compilar el full: pip install pandas")
 
@@ -271,13 +263,7 @@ def main():
     if falten:
         raise SystemExit(f"Al full li falten columnes: {', '.join(falten)}. "
                          "Mira les capceleres que demana apps_script_classificacio.gs.")
-    # Les noves, en canvi, poden faltar: son files d'abans que el joc tingues
-    # dialectes i no s'han de perdre.
-    for columna, per_defecte in COLUMNES_NOVES.items():
-        if columna not in df.columns:
-            print(f"  (el full no té la columna {columna}: hi poso "
-                  f"{per_defecte!r} a tot arreu)")
-            df[columna] = per_defecte
+
 
     df["Data"] = pd.to_datetime(df["Data"], format="%d/%m/%Y %H:%M:%S", errors="coerce")
     df["Punts"] = pd.to_numeric(df["Punts"], errors="coerce")
@@ -288,14 +274,16 @@ def main():
                     "Usuari", "Dialecte", "DataPartida"]:
         df[columna] = df[columna].fillna("").astype(str)
 
-    # Les files velles no duien dialecte: eren totes en central.
-    df["Dialecte"] = df["Dialecte"].str.strip().replace({"": DIALECTE_ANTIC, "nan": DIALECTE_ANTIC})
 
     # El dia de la partida: el que diu el navegador i, si no el diu (files
     # velles), el dia que va arribar l'enviament.
     dia_arribada = df["Data"].dt.strftime("%Y-%m-%d")
     dia_partida = df["DataPartida"].str.strip()
     df["dia"] = dia_partida.where(dia_partida.str.match(r"^\d{4}-\d{2}-\d{2}$"), dia_arribada)
+
+    # Filtrem perquè no agafi les dades d'avui (equivalent al filtre de stats.py)
+    #avui_str = datetime.now(tz_espanya).strftime("%Y-%m-%d")
+    #df = df[df["dia"] < avui_str]
 
     # Nomes puntuacions amb sobrenom acceptable.
     df["Sobrenom"] = df["Sobrenom"].map(sobrenom_valid)

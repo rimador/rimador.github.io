@@ -1,0 +1,61 @@
+name: Bot de Tuits (Buffer)
+
+on:
+  schedule:
+    - cron: '1 4 * * *'    # 06:01 Hora Catalana d'estiu (CEST) -> El Joc
+    - cron: '29 11 * * *'  # 13:29 Hora Catalana d'estiu (CEST) -> Paraula Nàufraga
+  workflow_dispatch:
+    inputs:
+      tipus:
+        description: 'Quin tuit vols forçar manualment?'
+        required: true
+        default: 'joc'
+        type: choice
+        options:
+          - joc
+          - naufraga
+
+permissions:
+  contents: write 
+
+jobs:
+  publicar_a_buffer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar el codi
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instal·lar dependències
+        run: pip install requests
+
+      - name: Executar el bot
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_PROFILE_ID: ${{ secrets.BUFFER_PROFILE_ID }}
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            TIPUS="${{ github.event.inputs.tipus }}"
+            echo "Llançant el bot en mode forçat: $TIPUS"
+            python bot/main.py --tipus $TIPUS
+          else
+            echo "Llançant el bot en mode automàtic"
+            python bot/main.py
+          fi
+ 
+      - name: Desar l'històric (Git Commit & Push)
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Afegim tots els json de la carpeta bot que hagin canviat
+          git add bot/publicades_*.json
+          
+          # Fem el commit només si l'script Python ha modificat algun JSON
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Actualitza el registre de tuits publicats als JSON"
+          
+          git push

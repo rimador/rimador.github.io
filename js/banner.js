@@ -5,8 +5,8 @@
 (function () {
     'use strict';
 
-    const DATA_LIMIT_GLOBAL = new Date("2026-10-31T23:59:59").getTime(); 
-    const CLAU_BANNER = 'rimador_actualitzacio_v2'; // Clau nova
+    const DATA_LIMIT_GLOBAL = new Date("2026-09-21T23:59:59").getTime(); 
+    const CLAU_BANNER = 'rimador_actualitzacio_v3'; // Clau nova
     const RETARD = 800;
 
     const LINKS = {
@@ -48,7 +48,7 @@
                 
                 <!-- 3. Les tres llistes (En una sola línia via Grid) -->
                 <div class="avis-llistes-grup">
-                    <a href="${LINKS.naufragues}" class="avis-boto-secundari" target="_blank">Paraules naufràgues</a>
+                    <a href="${LINKS.naufragues}" class="avis-boto-secundari" target="_blank">Paraules nàufragues</a>
                     <a href="${LINKS.heptasillabics}" class="avis-boto-secundari" target="_blank">Mots heptasil·làbics</a>
                     <a href="${LINKS.setSillabes}" class="avis-boto-secundari" target="_blank">Mots de 7 síl·labes</a>
                 </div>

@@ -22,11 +22,11 @@ def publicar_a_buffer(text_tuit):
         "Content-Type": "application/json"
     }
     
-    # Sintaxi GraphQL per crear una publicació a la cua
+# Sintaxi GraphQL per crear una publicació (Idea) a la cua
     query = """
-    mutation DraftCreate($channelId: String!, $text: String!) {
-      draftCreate(channelId: $channelId, draft: {text: $text}) {
-        draft {
+    mutation IdeaCreate($channelId: String!, $text: String!) {
+      ideaCreate(channelId: $channelId, text: $text) {
+        idea {
           id
         }
       }
@@ -37,7 +37,7 @@ def publicar_a_buffer(text_tuit):
         "channelId": channel_id,
         "text": text_tuit
     }
-    
+        
     # L'API GraphQL requereix rebre un JSON amb la query i les variables
     resposta = requests.post(url, headers=headers, json={"query": query, "variables": variables})
     

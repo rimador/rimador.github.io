@@ -1,8 +1,8 @@
 {
     "_ajuda": "Paraules del dia triades a ma per a dies assenyalats. Clau: data AAAA-MM-DD. Valor: una paraula (la mateixa per a facil i dificil) o un objecte {facil, dificil}. Abans de publicar, passeu eines/comprovar_diaries_manuals.py.",
     "2026-09-11": { "facil": "dialecte", "dificil": "rimes" },
+    "2026-10-04": { "dificil": "llangardaix" },
     "2026-10-12": { "facil": "genocïdi", "dificil": "colonialisme" },
-    "2026-10-25": { "facil": "manilles", "dificil": "joves" },    
     "2027-04-23": { "facil": "rosa", "dificil": "lectura" },    
     "2027-09-11": { "facil": "rimes", "dificil": "aniversari" }
 

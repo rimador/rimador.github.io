@@ -13,9 +13,12 @@ def publicar_a_buffer(text_tuit):
     token = os.environ.get("BUFFER_API_KEY")
     profile_id = os.environ.get("BUFFER_PROFILE_ID") 
     
+    print(f"Longitud del token carregat: {len(token) if token else 'CAP (és None o buit)'}")
+    print(f"ID del perfil: {profile_id if profile_id else 'CAP'}")
+    
     if not token or not profile_id:
         raise ValueError("Falten les credencials de Buffer a les variables d'entorn!")
-
+    
     headers = {"Authorization": f"Bearer {token}"}
     data = {
         "text": text_tuit,

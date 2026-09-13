@@ -3,27 +3,32 @@ import random
 import argparse
 import requests
 from datetime import datetime, date, timedelta, time
-import zoneinfo # Necessari per fixar l'hora catalana i evitar errors de GitHub (UTC)
+import zoneinfo
 
 # Importem el teu generador (com que som a la mateixa carpeta bot/, funciona directament)
 import generador_tuits
 
-def obtenir_timestamp_programacio(hora, minut):
-    """Calcula el timestamp Unix per l'hora i minut especificats en hora de Catalunya."""
+def obtenir_iso_programacio(hora, minut):
+    """Calcula el string ISO 8601 UTC per l'hora i minut especificats en hora de Catalunya."""
     tz = zoneinfo.ZoneInfo("Europe/Madrid")
     ara = datetime.now(tz)
     
     # Programem per al dia d'avui (segons hora catalana) a l'hora indicada
     data_hora_objectiu = datetime.combine(ara.date(), time(hora, minut), tzinfo=tz)
     
-    # Si per culpa de GitHub l'script s'executa quan ja ha passat l'hora
+    # Si ja ha passat l'hora (l'script s'ha endarrerit), l'enviem a l'endemà
     if ara > data_hora_objectiu:
         data_hora_objectiu += timedelta(days=1)
         
-    return int(data_hora_objectiu.timestamp())
+    # Buffer demana que l'hora "dueAt" sigui text (ISO 8601) en temps UTC absolut
+    # Així evitem errors de zona horària o d'horari d'estiu/hivern
+    utc_tz = zoneinfo.ZoneInfo("UTC")
+    data_hora_utc = data_hora_objectiu.astimezone(utc_tz)
+    
+    # Ex: "2026-09-14T06:00:00Z" (que per nosaltres equivaldria a les 08:00)
+    return data_hora_utc.strftime('%Y-%m-%dT%H:%M:%SZ')
 
-def publicar_a_buffer(text_tuit, timestamp_publicacio):
-    # Endpoint principal recomanat per la documentació
+def publicar_a_buffer(text_tuit, iso_publicacio):
     url = "https://api.buffer.com" 
     token = os.environ.get("BUFFER_API_KEY")
     channel_id = os.environ.get("BUFFER_PROFILE_ID")
@@ -56,8 +61,9 @@ def publicar_a_buffer(text_tuit, timestamp_publicacio):
         "input": {
             "channelId": channel_id,
             "text": text_tuit,
-            "schedulingType": "custom", # Afegim que volem una hora personalitzada
-            "scheduledAt": timestamp_publicacio # Li passem l'hora exacta calculada
+            "schedulingType": "automatic", # Buffer requereix que sigui així
+            "mode": "customScheduled",     # Indica que farem servir l'hora que li donem a continuació
+            "dueAt": iso_publicacio        # L'hora calculada en format ISO
         }
     }
     
@@ -79,7 +85,6 @@ def publicar_tuit_joc():
     """Genera i programa el tuit del joc d'ahir a les 08:00."""
     print("Iniciant la publicació del tuit del JOC d'ahir...")
     
-    # Forcem la zona horària catalana. GitHub corre a les 23:01 UTC, i per a nosaltres ja és l'endemà
     tz = zoneinfo.ZoneInfo("Europe/Madrid")
     avui_catalunya = datetime.now(tz).date()
     data_ahir = (avui_catalunya - timedelta(days=1)).strftime('%Y-%m-%d')
@@ -94,16 +99,16 @@ def publicar_tuit_joc():
         
     tuit = generador_tuits.tuit_joc_ahir()
     
-    # Calculem l'hora (08:00) i enviem a Buffer
-    timestamp = obtenir_timestamp_programacio(8, 0)
-    publicar_a_buffer(tuit, timestamp)
+    # Calculem l'hora (08:00) en format de text (ISO 8601) i enviem a Buffer
+    hora_iso = obtenir_iso_programacio(8, 0)
+    publicar_a_buffer(tuit, hora_iso)
     print(f"Tuit enviat i programat a Buffer per a les 08:00:\n{tuit}\n")
     
     publicades_joc.append(clau)
     generador_tuits.guardar_json(publicades_joc, path_joc)
     print(f"Fitxer {path_joc} actualitzat amb èxit.")
 
-def publicar_tuit_naufraga():
+def publicar_tuit_naufraga(paraula_forçada=None):
     """Genera i programa el tuit de la paraula nàufraga a les 15:30."""
     print("Iniciant la publicació del tuit de la paraula NÀUFRAGA...")
     
@@ -123,7 +128,15 @@ def publicar_tuit_naufraga():
         print("Atenció: No queden paraules nàufragades disponibles!")
         return
         
-    paraula_escollida = random.choice(list(disponibles.keys()))
+    # Lògica per admetre una paraula especificada des del GitHub Action
+    if paraula_forçada and paraula_forçada in disponibles:
+        paraula_escollida = paraula_forçada
+        print(f"Forçant manualment l'ús de la paraula: {paraula_escollida}")
+    else:
+        if paraula_forçada:
+            print(f"Avís: La paraula '{paraula_forçada}' no existeix o ja s'ha publicat. S'en triarà una a l'atzar.")
+        paraula_escollida = random.choice(list(disponibles.keys()))
+        
     item_escollit = random.choice(disponibles[paraula_escollida])
     
     tuit = generador_tuits.tuit_naufraga(
@@ -133,9 +146,9 @@ def publicar_tuit_naufraga():
         tots=tots_dialectes
     )
     
-    # Calculem l'hora (15:30) i enviem a Buffer
-    timestamp = obtenir_timestamp_programacio(15, 30)
-    publicar_a_buffer(tuit, timestamp)
+    # Calculem l'hora (15:30) en format de text (ISO 8601) i enviem a Buffer
+    hora_iso = obtenir_iso_programacio(15, 30)
+    publicar_a_buffer(tuit, hora_iso)
     print(f"Tuit enviat i programat a Buffer per a les 15:30:\n{tuit}\n")
     
     publicades_nau.append(paraula_escollida)
@@ -146,6 +159,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bot de tuits per Rimador")
     parser.add_argument('--tipus', choices=['joc', 'naufraga', 'tots'], default='tots', required=False, 
                         help="Quin tuit vols publicar?")
+    parser.add_argument('--paraula', required=False, type=str, 
+                        help="Força una paraula nàufraga específica (opcional)")
     args = parser.parse_args()
     
     tipus_a_executar = args.tipus
@@ -155,6 +170,6 @@ if __name__ == "__main__":
         publicar_tuit_joc()
         
     if tipus_a_executar in ['naufraga', 'tots']:
-        publicar_tuit_naufraga()
+        publicar_tuit_naufraga(args.paraula)
         
     print("Procés completat!")

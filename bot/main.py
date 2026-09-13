@@ -8,26 +8,48 @@ from datetime import date, timedelta
 import generador_tuits
 
 def publicar_a_buffer(text_tuit):
-    """Envia el text a l'API de Buffer."""
-    url = "https://api.bufferapp.com/1/updates/create.json"
+    """Envia el text a l'API de Buffer mitjançant GraphQL."""
+    url = "https://api.buffer.com/graphql"
     token = os.environ.get("BUFFER_API_KEY")
-    profile_id = os.environ.get("BUFFER_PROFILE_ID") 
+    # A la nova API l'anomenen channelId, però el valor de la variable és el mateix
+    channel_id = os.environ.get("BUFFER_PROFILE_ID") 
     
-    print(f"Longitud del token carregat: {len(token) if token else 'CAP (és None o buit)'}")
-    print(f"ID del perfil: {profile_id if profile_id else 'CAP'}")
-    
-    if not token or not profile_id:
+    if not token or not channel_id:
         raise ValueError("Falten les credencials de Buffer a les variables d'entorn!")
-    
-    headers = {"Authorization": f"Bearer {token}"}
-    data = {
-        "text": text_tuit,
-        "profile_ids[]": profile_id
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
     }
     
-    resposta = requests.post(url, headers=headers, data=data)
+    # Sintaxi GraphQL per crear una publicació a la cua
+    query = """
+    mutation DraftCreate($channelId: String!, $text: String!) {
+      draftCreate(channelId: $channelId, draft: {text: $text}) {
+        draft {
+          id
+        }
+      }
+    }
+    """
+    
+    variables = {
+        "channelId": channel_id,
+        "text": text_tuit
+    }
+    
+    # L'API GraphQL requereix rebre un JSON amb la query i les variables
+    resposta = requests.post(url, headers=headers, json={"query": query, "variables": variables})
+    
+    # Comprovem errors de xarxa o d'autenticació (ex: 401)
     resposta.raise_for_status()
-    return resposta.json()
+    
+    # Comprovem si hi ha errors interns a la resposta de GraphQL
+    resultat = resposta.json()
+    if "errors" in resultat:
+        raise ValueError(f"Error de GraphQL de Buffer: {resultat['errors']}")
+        
+    return resultat
 
 def publicar_tuit_joc():
     """Genera i publica el tuit del joc d'ahir a les 08:00."""

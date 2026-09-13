@@ -30,8 +30,20 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             TIPUS="${{ github.event.inputs.tipus }}"
-            echo "Llançant el bot en mode forçat: $TIPUS"
-            python bot/main.py --tipus $TIPUS
+            
+            # Si el tipus arriba buit per algun motiu, li assignem 'tots' per evitar l'error
+            if [ -z "$TIPUS" ]; then
+              TIPUS="tots"
+            fi
+            
+            PARAULA="${{ github.event.inputs.paraula }}"
+            echo "Llançant el bot en mode manual. Tipus: $TIPUS | Paraula forçada: $PARAULA"
+            
+            CMD="python bot/main.py --tipus $TIPUS"
+            if [ -n "$PARAULA" ]; then
+              CMD="$CMD --paraula \"$PARAULA\""
+            fi
+            eval $CMD
           else
             echo "Llançant el bot en mode automàtic"
             python bot/main.py

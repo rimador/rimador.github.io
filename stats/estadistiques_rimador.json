@@ -1,5 +1,5 @@
 {
-    "actualitzacio": "13/09/2026 00:11:27",
+    "actualitzacio": "13/09/2026 01:52:31",
     "setmana": {
         "text_dies": "6/9 > 12/9",
         "top_10_paraules": [
@@ -132,7 +132,7 @@
                 "dialectes": []
             }
         ],
-        "total_cerques": 1081,
+        "total_cerques": 1082,
         "paraules_cercades_uniques": 681,
         "numero_usuaris": 216
     },
@@ -264,11 +264,11 @@
                 "dialectes": []
             }
         ],
-        "total_cerques": 4060,
+        "total_cerques": 4061,
         "paraules_cercades_uniques": 2202,
         "numero_usuaris": 605,
         "recompte_tipus_rima": {
-            "r.consonant": 3652,
+            "r.consonant": 3653,
             "r.assonant": 408
         },
         "top_10_naufragues": [
@@ -340,6 +340,10 @@
         ],
         "top_10_typos": [
             {
+                "paraula": "antifutbol",
+                "data_cerca": "12/09/2026 23:59"
+            },
+            {
                 "paraula": "independencia",
                 "data_cerca": "12/09/2026 22:37"
             },
@@ -374,15 +378,11 @@
             {
                 "paraula": "versots",
                 "data_cerca": "12/09/2026 15:23"
-            },
-            {
-                "paraula": "ís",
-                "data_cerca": "12/09/2026 15:05"
             }
         ],
         "total_noms_propis": 66,
         "recompte_num_sil": {
-            "0": 3749,
+            "0": 3750,
             "2": 138,
             "3": 75,
             "1": 60,
@@ -391,20 +391,20 @@
             "5": 7
         },
         "recompte_comenca_per": {
-            "indiferent": 4021,
+            "indiferent": 4022,
             "consonant": 32,
             "vocal+h": 7
         },
         "recompte_incloure_np": {
-            "no": 3938,
+            "no": 3939,
             "si": 122
         },
         "recompte_incloure_pl": {
-            "si": 3865,
+            "si": 3866,
             "no": 195
         },
         "recompte_dialecte": {
-            "ca": 373,
+            "ca": 374,
             "ba": 64,
             "nw": 39,
             "va": 18
@@ -417,7 +417,7 @@
                 },
                 {
                     "data": "12/09/2026",
-                    "total": 205
+                    "total": 206
                 },
                 {
                     "data": "10/09/2026",
@@ -617,7 +617,7 @@
             },
             {
                 "data": "12/09",
-                "cerques": 205,
+                "cerques": 206,
                 "usuaris": 55
             }
         ],
@@ -628,7 +628,7 @@
             },
             {
                 "hora": "00:30",
-                "percentatge": 2.0
+                "percentatge": 1.99
             },
             {
                 "hora": "01:00",
@@ -728,7 +728,7 @@
             },
             {
                 "hora": "13:00",
-                "percentatge": 2.32
+                "percentatge": 2.31
             },
             {
                 "hora": "13:30",
@@ -812,7 +812,7 @@
             },
             {
                 "hora": "23:30",
-                "percentatge": 2.44
+                "percentatge": 2.46
             }
         ],
         "grafic_formatge_exit_assonant": [

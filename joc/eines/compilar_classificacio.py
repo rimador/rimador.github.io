@@ -204,9 +204,7 @@ def main():
     df = df[df["Sobrenom"] != ""]
 
     # La "persona" per desduplicar la taula del TOP
-    df["clau_persona"] = df["Usuari"].where(
-        df["Usuari"].str.startswith("usr_"), df["Sobrenom"].map(sense_accents)
-    )
+    df["clau_persona"] = df["Sobrenom"].map(sense_accents)
 
     resultat = classificacio_buida()
 

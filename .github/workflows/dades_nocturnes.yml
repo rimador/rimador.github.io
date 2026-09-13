@@ -29,7 +29,7 @@ name: Actualització nocturna de dades (estadístiques i classificació)
 
 on:
   schedule:
-    - cron: '01 22 * * *'
+    - cron: '01 23 * * *'
   workflow_dispatch:
 
 # Una execució a la vegada, pel mateix que abans hi havia la cursa entre els dos

@@ -28,7 +28,7 @@ def obtenir_iso_programacio(hora, minut):
     # Ex: "2026-09-14T06:00:00Z" (que per nosaltres equivaldria a les 08:00)
     return data_hora_utc.strftime('%Y-%m-%dT%H:%M:%SZ')
 
-def publicar_a_buffer(text_tuit, iso_publicacio):
+def publicar_a_buffer(text_tuit):
     url = "https://api.buffer.com" 
     token = os.environ.get("BUFFER_API_KEY")
     channel_id = os.environ.get("BUFFER_PROFILE_ID")
@@ -57,13 +57,13 @@ def publicar_a_buffer(text_tuit, iso_publicacio):
     }
     """
     
+    # Ara l'enviem directament a la cua de Buffer
     variables = {
         "input": {
             "channelId": channel_id,
             "text": text_tuit,
-            "schedulingType": "automatic", # Buffer requereix que sigui així
-            "mode": "customScheduled",     # Indica que farem servir l'hora que li donem a continuació
-            "dueAt": iso_publicacio        # L'hora calculada en format ISO
+            "schedulingType": "automatic",
+            "mode": "addToQueue"
         }
     }
     
@@ -101,8 +101,8 @@ def publicar_tuit_joc():
     
     # Calculem l'hora (08:00) en format de text (ISO 8601) i enviem a Buffer
     hora_iso = obtenir_iso_programacio(8, 0)
-    publicar_a_buffer(tuit, hora_iso)
-    print(f"Tuit enviat i programat a Buffer per a les 08:00:\n{tuit}\n")
+    publicar_a_buffer(tuit)
+    print(f"Tuit enviat a la cua de Buffer:\n{tuit}\n")
     
     publicades_joc.append(clau)
     generador_tuits.guardar_json(publicades_joc, path_joc)
@@ -148,9 +148,9 @@ def publicar_tuit_naufraga(paraula_forçada=None):
     
     # Calculem l'hora (15:30) en format de text (ISO 8601) i enviem a Buffer
     hora_iso = obtenir_iso_programacio(15, 30)
-    publicar_a_buffer(tuit, hora_iso)
-    print(f"Tuit enviat i programat a Buffer per a les 15:30:\n{tuit}\n")
-    
+    publicar_a_buffer(tuit)
+    print(f"Tuit enviat a la cua de Buffer:\n{tuit}\n")    
+
     publicades_nau.append(paraula_escollida)
     generador_tuits.guardar_json(publicades_nau, path_nau)
     print(f"Fitxer {path_nau} actualitzat amb èxit.")

@@ -106,28 +106,27 @@ class Dades:
         self.paraules_base = generador.carregar_paraules_del_diccionari()
         del_diccionari = len(self.paraules_base)
 
-        self.paraules_joc = []
-        self.noms_propis_joc = set()
-        self.columna_rima_joc = []
+        self.paraules_joc = {}
+        self.noms_propis_joc = {}
+        self.columna_rima_joc = {}
         self.rimes_joc = {}
-        if self.dialecte_joc:
-            self.paraules_joc = generador.carregar_paraules(self.dialecte_joc, self.paraules_base)
-            self.noms_propis_joc = generador.carregar_noms_propis(self.dialecte_joc,
-                                                                  self.paraules_joc)
-            self.columna_rima_joc = generador.carregar_columna_rima(self.dialecte_joc)
-            self.rimes_joc = generador.carregar_rimes(self.dialecte_joc, self.paraules_joc,
-                                                      self.columna_rima_joc)
 
-        self.naufragues = {dialecte: generador.carregar_naufragues(dialecte)
-                           for dialecte in self.dialectes}
+        self.naufragues = {dialecte: generador.carregar_naufragues(dialecte) for dialecte in self.dialectes}
         self.dialectes_de_naufraga = generador.dialectes_de_cada_naufraga(self.naufragues)
 
-        if self.dialecte_joc:
-            propies = len(self.paraules_joc) - del_diccionari
-            print(f'  Joc: {generador.nom_dialecte(self.dialecte_joc)}, '
-                  f'{len(self.rimes_joc)} rimes'
-                  f'{f", {propies} paraules pròpies" if propies else ""}.')
+        for dialecte in self.dialectes:
+            paraules = generador.carregar_paraules(dialecte, self.paraules_base)
+            self.paraules_joc[dialecte] = paraules
+            self.noms_propis_joc[dialecte] = generador.carregar_noms_propis(dialecte, paraules)
+            col = generador.carregar_columna_rima(dialecte)
+            self.columna_rima_joc[dialecte] = col
+            self.rimes_joc[dialecte] = generador.carregar_rimes(dialecte, paraules, col)
 
+            propies = len(self.paraules_joc[dialecte]) - del_diccionari
+            print(f'  Joc: {generador.nom_dialecte(dialecte)}, '
+                f'{len(self.rimes_joc[dialecte])} rimes'
+                f'{f", {propies} paraules pròpies" if propies else ""}.')
+            
         for dialecte in self.dialectes:
             diuen = generador.naufragues_disponibles(self.naufragues[dialecte], set())
             print(f'  {generador.nom_dialecte(dialecte)}: {len(diuen)} paraules nàufragues.')
@@ -185,29 +184,35 @@ def estat():
 
 def tuit_de_joc(data_publicacio, data):
     """La targeta del tuit que revela la paraula del joc d'ahir."""
-    if not DADES.dialecte_joc:
+    if not DADES.dialectes:
         return None
+
+    # Rotació de dialecte: iterem la llista segons el número del dia
+    index_dia = data_publicacio.toordinal()
+    dialecte = DADES.dialectes[index_dia % len(DADES.dialectes)]
 
     data_joc = (data_publicacio - timedelta(days=1)).strftime('%Y-%m-%d')
     dificultat = generador.DIFICULTAT_JOC_PER_DEFECTE
-    clau = generador.clau_de_joc(data_joc, dificultat, DADES.dialecte_joc)
-    dades = generador.dades_tuit_joc_ahir(DADES.dialecte_joc, data_joc, dificultat,
-                                          DADES.paraules_joc, DADES.columna_rima_joc,
-                                          DADES.rimes_joc, DADES.noms_propis_joc)
+    clau = generador.clau_de_joc(data_joc, dificultat, dialecte)
+    
+    dades = generador.dades_tuit_joc_ahir(dialecte, data_joc, dificultat,
+                                          DADES.paraules_joc[dialecte], 
+                                          DADES.columna_rima_joc[dialecte],
+                                          DADES.rimes_joc[dialecte], 
+                                          DADES.noms_propis_joc[dialecte])
 
     return {
         'tipus': 'joc',
-        'dialecte': DADES.dialecte_joc,
-        'nom_dialecte': generador.nom_dialecte(DADES.dialecte_joc),
+        'dialecte': dialecte,
+        'nom_dialecte': generador.nom_dialecte(dialecte),
         'clau': clau,
         'etiqueta': dades['paraula'],
         'detall': f"/{dades['rima']}/ · {generador.nom_dificultat(dificultat)}",
         'altres_exemples': dades['quantes_rimen'] > generador.EXEMPLES_PER_TUIT_JOC + 1,
         'data': data,
-        'text': generador.tuit_joc_ahir(DADES.dialecte_joc, data_joc, dificultat,
+        'text': generador.tuit_joc_ahir(dialecte, data_joc, dificultat,
                                         data, dades=dades),
     }
-
 
 def tuit_de_naufraga(dialecte, paraula, data, items=None):
     """La targeta d'una nàufraga concreta, o None si en aquell dialecte no ho és.
@@ -258,26 +263,31 @@ def tuit_de_naufraga_random(data, fora, dialecte=None):
 
 
 def generar(data_inici):
-    """El lot d'un dia: joc d'ahir i nàufraga random. No toca cap fitxer."""
+    """El lot per als propers 8 dies a partir de la data introduïda."""
     try:
-        dia = datetime.strptime(data_inici, '%Y-%m-%d')
+        dia_inicial = datetime.strptime(data_inici, '%Y-%m-%d')
     except (TypeError, ValueError):
-        dia = datetime.now()
+        dia_inicial = datetime.now()
 
-    data = generador.data_curta(dia)
     tuits = []
+    dites_naufragues = set(publicades('naufragues'))
+    dites_joc = set(publicades('joc'))
 
-    tuit_joc = tuit_de_joc(dia, data)
-    if tuit_joc and tuit_joc['clau'] not in set(publicades('joc')):
-        tuits.append(tuit_joc)
+    for i in range(8):
+        dia = dia_inicial + timedelta(days=i)
+        data = generador.data_curta(dia)
 
-    dites = set(publicades('naufragues'))
-    tuit_naufraga = tuit_de_naufraga_random(data, dites)
-    if tuit_naufraga:
-        tuits.append(tuit_naufraga)
+        tuit_joc = tuit_de_joc(dia, data)
+        if tuit_joc and tuit_joc['clau'] not in dites_joc:
+            tuits.append(tuit_joc)
+            dites_joc.add(tuit_joc['clau'])
+
+        tuit_naufraga = tuit_de_naufraga_random(data, dites_naufragues)
+        if tuit_naufraga:
+            tuits.append(tuit_naufraga)
+            dites_naufragues.add(tuit_naufraga['clau'])
 
     return tuits
-
 
 def un_tuit(tipus, dialecte, data, fora):
     if tipus == 'joc':
@@ -313,8 +323,10 @@ def triat(tipus, dialecte, clau, data):
 
 def tuit_de_joc_data(data_iso, dificultat, dialecte, data):
     dades = generador.dades_tuit_joc_ahir(dialecte, data_iso, dificultat,
-                                          DADES.paraules_joc, DADES.columna_rima_joc,
-                                          DADES.rimes_joc, DADES.noms_propis_joc)
+                                          DADES.paraules_joc[dialecte], 
+                                          DADES.columna_rima_joc[dialecte],
+                                          DADES.rimes_joc[dialecte], 
+                                          DADES.noms_propis_joc[dialecte])
     return {
         'tipus': 'joc',
         'dialecte': dialecte,
@@ -326,7 +338,6 @@ def tuit_de_joc_data(data_iso, dificultat, dialecte, data):
         'data': data,
         'text': generador.tuit_joc_ahir(dialecte, data_iso, dificultat, data, dades=dades),
     }
-
 
 def cercar(tipus, dialecte, text, exclou):
     """Quines nàufragues d'aquest dialecte casen amb una paraula."""

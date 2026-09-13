@@ -487,20 +487,10 @@ def paraules_del_tuit(paraules, noms_propis=()):
 # I no costa cap caràcter: a X cada enllaç en compta 23 per llarg que sigui,
 # que és el que fa el compta() del programador.html.
 def enllac(cami, dialecte):
-    return f'https://rimador.cat{cami}?d={dialecte}'
-
-
-def tuit_normal(rima, paraules, dialecte, data=None, noms_propis=()):
-    """El tuit de la rima: una rima d'un dialecte i cinc paraules que hi rimen."""
-    paraules_escollides = paraules_del_tuit(paraules, noms_propis)
-
-    tuit = (f"Rima del dia en {nom_dialecte(dialecte)} ({data or data_curta()}): "
-            f"/{rima}/ ({quantes_hi_rimen(paraules)} paraules hi rimen)\n\n")
-    for paraula in paraules_escollides:
-        tuit += f"- {paraula}\n"
-    tuit += f"\nConsulta totes les rimes a {enllac('/', dialecte)}"
-
-    return tuit
+    if dialecte == '':
+        return f'https://rimador.cat/{cami}'
+    else:
+        return f'https://rimador.cat/{cami}?d={dialecte}'
 
 
 def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
@@ -532,8 +522,8 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
     es_VIQ = item.get("viq") == "Viq"
     es_VICC = item.get("vicc") == "Vicc"
 
-    tuit = (f"Paraula nàufraga del dia ({data or data_curta()}): {paraula_escollida} "
-            f"(/{rima_escollida}/ en {nom_dialecte(dialecte)})\n\n")
+    tuit = (f"Paraula nàufraga del dia ({data or data_curta()}): {paraula_escollida}, "
+            f"/{rima_escollida}/ en {nom_dialecte(dialecte)}\n\n")
     if codi.startswith("NP"):
         tuit += "Aquest nom propi no rima amb cap altra paraula del diccionari. "
     else:
@@ -559,7 +549,7 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
                 tuit += f"📖 Viquipèdia: https://ca.wikipedia.org/wiki/{paraula_url}\n"
 
     tuit += ("\nConsulta-les totes a "
-             + enllac('/llistes/llista_naufragues.html', dialecte))
+             + enllac('llistes/llista_naufragues.html', dialecte))
 
     return tuit
 
@@ -645,15 +635,21 @@ def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
     exemples = dades['exemples']
     dificultat = dades['dificultat']
 
-    tuit = (f"La paraula del joc d'ahir ({nom_dificultat(dificultat)}) era "
-            f"«{paraula_joc}».\n\n")
+    # Forcem que s'imprimeixi la data del joc (ahir) en format curt
+    try:
+        dia_joc = datetime.strptime(dades['data_joc'], '%Y-%m-%d')
+        data_ahir_curta = data_curta(dia_joc)
+    except (TypeError, ValueError):
+        data_ahir_curta = data or data_curta()
+
+    tuit = (f"La paraula del joc d'ahir ({data_ahir_curta}) en mode {nom_dificultat(dificultat)} era "
+            f"«{paraula_joc}», /{rima_joc}/ en {nom_dialecte(dialecte)}.\n\n")
     if rima_joc:
-        tuit += f"Transcripció fonètica en {nom_dialecte(dialecte)}: /{rima_joc}/\n"
         if exemples:
-            titol = 'Tres exemples de paraules que hi rimen' if len(exemples) == 3 else 'Exemples de paraules que hi rimen'
-            tuit += titol + ':\n'
+            tuit += 'Hi rimen, per exemple:\n'
             for exemple in exemples:
                 tuit += f"- {exemple}\n"
 
-    tuit += f"\nTroba-la aquí: {enllac('/joc/', dialecte)}"
+   # tuit += f"\nTroba totes les altres rimes aquí: {enllac(f'?q={paraula_joc}&', dialecte)}"
+    tuit += f"\nJuga a la paraula del dia d'avui: {enllac('joc', '')}"
     return tuit

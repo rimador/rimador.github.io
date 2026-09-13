@@ -651,5 +651,5 @@ def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
                 tuit += f"- {exemple}\n"
 
    # tuit += f"\nTroba totes les altres rimes aquí: {enllac(f'?q={paraula_joc}&', dialecte)}"
-    tuit += f"\nJuga a la paraula del dia d'avui: {enllac('joc', '')}"
+    tuit += f"\nIntenta-ho amb la paraula del dia d'avui i sigues qui en troba més! {enllac('joc', '')}"
     return tuit

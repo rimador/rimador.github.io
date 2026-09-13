@@ -2,18 +2,8 @@ name: Bot de Tuits (Buffer)
 
 on:
   schedule:
-    - cron: '1 4 * * *'    # 06:01 Hora Catalana d'estiu (CEST) -> El Joc
-    - cron: '29 11 * * *'  # 13:29 Hora Catalana d'estiu (CEST) -> Paraula Nàufraga
+    - cron: '01 23 * * *'
   workflow_dispatch:
-    inputs:
-      tipus:
-        description: 'Quin tuit vols forçar manualment?'
-        required: true
-        default: 'joc'
-        type: choice
-        options:
-          - joc
-          - naufraga
 
 permissions:
   contents: write 

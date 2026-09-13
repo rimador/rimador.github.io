@@ -58,6 +58,6 @@ jobs:
           git add bot/publicades_*.json
           
           # Fem el commit només si l'script Python ha modificat algun JSON
-          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Actualitza el registre de tuits publicats als JSON"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Actualitza el registre de tuits publicats als JSON"
           
           git push

@@ -429,7 +429,7 @@ def frase_de_dialectes(dialecte, dialectes_naufraga, tots):
       la primera ratlla, al costat de la rima.
     """
     if len(dialectes_naufraga) == len(tots) > 1:
-        return 'És Nàufraga en tots els dialectes.'
+        return 'És nàufraga en tots els dialectes.'
 
     altres = [nom_dialecte(altre) for altre in dialectes_naufraga if altre != dialecte]
 

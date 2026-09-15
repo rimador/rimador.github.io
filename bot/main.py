@@ -81,14 +81,16 @@ def publicar_a_buffer(text_tuit):
         
     return resultat
 
-def publicar_tuit_joc():
+def publicar_tuit_joc(dialecte=generador_tuits.DIALECTE_JOC_PER_DEFECTE):
     """Genera i programa el tuit del joc d'ahir a les 08:00."""
-    print("Iniciant la publicació del tuit del JOC d'ahir...")
+    print(f"Iniciant la publicació del tuit del JOC d'ahir (dialecte: {dialecte})...")
     
     tz = zoneinfo.ZoneInfo("Europe/Madrid")
     avui_catalunya = datetime.now(tz).date()
     data_ahir = (avui_catalunya - timedelta(days=1)).strftime('%Y-%m-%d')
-    clau = generador_tuits.clau_de_joc(data_ahir)
+    
+    # Utilitzem el dialecte perquè cada un té la seva rima i la seva clau
+    clau = generador_tuits.clau_de_joc(data_ahir, dialecte=dialecte)
     
     path_joc = generador_tuits.FITXER_PUBLICADES_JOC
     publicades_joc = generador_tuits.carregar_json(path_joc, [])
@@ -97,7 +99,11 @@ def publicar_tuit_joc():
         print(f"El tuit del joc per a la clau '{clau}' ja estava publicat.")
         return
         
-    tuit = generador_tuits.tuit_joc_ahir()
+    # Carreguem els noms propis DEL DIALECTE ESCOLLIT
+    noms_propis_dialecte = generador_tuits.carregar_noms_propis(dialecte)
+    
+    # Passem el dialecte i els noms propis
+    tuit = generador_tuits.tuit_joc_ahir(dialecte=dialecte, noms_propis=noms_propis_dialecte)
     
     # Calculem l'hora (08:00) en format de text (ISO 8601) i enviem a Buffer
     hora_iso = obtenir_iso_programacio(8, 0)
@@ -108,9 +114,10 @@ def publicar_tuit_joc():
     generador_tuits.guardar_json(publicades_joc, path_joc)
     print(f"Fitxer {path_joc} actualitzat amb èxit.")
 
-def publicar_tuit_naufraga(paraula_forçada=None):
+
+def publicar_tuit_naufraga(dialecte=generador_tuits.DIALECTE_JOC_PER_DEFECTE, paraula_forçada=None):
     """Genera i programa el tuit de la paraula nàufraga a les 15:30."""
-    print("Iniciant la publicació del tuit de la paraula NÀUFRAGA...")
+    print(f"Iniciant la publicació del tuit de la paraula NÀUFRAGA (dialecte: {dialecte})...")
     
     tots_dialectes = generador_tuits.dialectes()
     if not tots_dialectes:
@@ -122,10 +129,11 @@ def publicar_tuit_naufraga(paraula_forçada=None):
     path_nau = generador_tuits.FITXER_PUBLICADES_NAUFRAGUES
     publicades_nau = generador_tuits.carregar_json(path_nau, [])
     
-    disponibles = generador_tuits.naufragues_disponibles(naufragues_per_dialecte['ca'], fora=publicades_nau)
+    # Ara busquem només dins l'inventari del dialecte triat
+    disponibles = generador_tuits.naufragues_disponibles(naufragues_per_dialecte[dialecte], fora=publicades_nau)
     
     if not disponibles:
-        print("Atenció: No queden paraules nàufragades disponibles!")
+        print(f"Atenció: No queden paraules nàufragades disponibles per al dialecte {dialecte}!")
         return
         
     # Lògica per admetre una paraula especificada des del GitHub Action
@@ -139,14 +147,14 @@ def publicar_tuit_naufraga(paraula_forçada=None):
         
     item_escollit = random.choice(disponibles[paraula_escollida])
     
+    # Ara el tuit es munta centrat en el dialecte correcte
     tuit = generador_tuits.tuit_naufraga(
         item=item_escollit,
-        dialecte='ca',
-        dialectes_naufraga=dialectes_naufraga.get(paraula_escollida, ['ca']),
+        dialecte=dialecte,
+        dialectes_naufraga=dialectes_naufraga.get(paraula_escollida, [dialecte]),
         tots=tots_dialectes
     )
     
-    # Calculem l'hora (15:30) en format de text (ISO 8601) i enviem a Buffer
     hora_iso = obtenir_iso_programacio(15, 30)
     publicar_a_buffer(tuit)
     print(f"Tuit enviat a la cua de Buffer:\n{tuit}\n")    
@@ -155,21 +163,26 @@ def publicar_tuit_naufraga(paraula_forçada=None):
     generador_tuits.guardar_json(publicades_nau, path_nau)
     print(f"Fitxer {path_nau} actualitzat amb èxit.")
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Bot de tuits per Rimador")
     parser.add_argument('--tipus', choices=['joc', 'naufraga', 'tots'], default='tots', required=False, 
                         help="Quin tuit vols publicar?")
     parser.add_argument('--paraula', required=False, type=str, 
                         help="Força una paraula nàufraga específica (opcional)")
+    # Afegim una bandera per decidir el dialecte
+    parser.add_argument('--dialecte', type=str, default='ca', choices=['ca', 'nw', 'va', 'ba'],
+                        help="Tria el dialecte pel tuit ('ca', 'nw', 'va', 'ba')")
     args = parser.parse_args()
     
     tipus_a_executar = args.tipus
-    print(f"Iniciant execució en mode: {tipus_a_executar.upper()}")
+    dialecte_escollit = args.dialecte
+    print(f"Iniciant execució en mode: {tipus_a_executar.upper()} amb dialecte {dialecte_escollit.upper()}")
     
     if tipus_a_executar in ['joc', 'tots']:
-        publicar_tuit_joc()
+        publicar_tuit_joc(dialecte=dialecte_escollit)
         
     if tipus_a_executar in ['naufraga', 'tots']:
-        publicar_tuit_naufraga(args.paraula)
+        publicar_tuit_naufraga(dialecte=dialecte_escollit, paraula_forçada=args.paraula)
         
     print("Procés completat!")

@@ -523,7 +523,7 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
     es_VICC = item.get("vicc") == "Vicc"
 
     tuit = (f"Paraula nàufraga del dia ({data or data_curta()}): {paraula_escollida}, "
-            f"/{rima_escollida}/ en {nom_dialecte(dialecte)}\n\n")
+            f"/{rima_escollida}/ en {nom_dialecte(dialecte)}.\n\n")
     if codi.startswith("NP"):
         tuit += "Aquest nom propi no rima amb cap altra paraula del diccionari. "
     else:
@@ -531,8 +531,12 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
 
     tuit += frase_de_dialectes(dialecte, dialectes_naufraga, tots) + "\n\n"
 
+    tuit += ("Consulta la llista sencera: "
+             + enllac('llistes/llista_naufragues.html', dialecte))
+
     paraula_url = urllib.parse.quote(lema)
 
+    tuit += "\n\n"
     if es_diec:
         tuit += f"📖 DIEC: https://dlc.iec.cat/Results?DecEntradaText={paraula_url}\n"
 
@@ -547,9 +551,6 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
                 tuit += f"📖 Viccionari: https://ca.wiktionary.org/wiki/{paraula_url}\n"
             else:
                 tuit += f"📖 Viquipèdia: https://ca.wikipedia.org/wiki/{paraula_url}\n"
-
-    tuit += ("\nConsulta-les totes a "
-             + enllac('llistes/llista_naufragues.html', dialecte))
 
     return tuit
 
@@ -642,7 +643,7 @@ def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
     except (TypeError, ValueError):
         data_ahir_curta = data or data_curta()
 
-    tuit = (f"La paraula del joc d'ahir ({data_ahir_curta}) en mode {nom_dificultat(dificultat)} era "
+    tuit = (f"La paraula del joc d'ahir ({data_ahir_curta}) en mode {nom_dificultat(dificultat)} (rima consonant) era "
             f"«{paraula_joc}», /{rima_joc}/ en {nom_dialecte(dialecte)}.\n\n")
     if rima_joc:
         if exemples:
@@ -651,5 +652,5 @@ def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
                 tuit += f"- {exemple}\n"
 
    # tuit += f"\nTroba totes les altres rimes aquí: {enllac(f'?q={paraula_joc}&', dialecte)}"
-    tuit += f"\nIntenta-ho amb la paraula del dia d'avui i sigues qui en troba més! {enllac('joc', '')}"
+    tuit += f"\nIntenta-ho amb la paraula d'avui i sigues qui en troba més! {enllac('joc', '')}"
     return tuit

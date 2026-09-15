@@ -434,9 +434,9 @@ def frase_de_dialectes(dialecte, dialectes_naufraga, tots):
     altres = [nom_dialecte(altre) for altre in dialectes_naufraga if altre != dialecte]
 
     if not altres:
-        return f'Només és Nàufraga en {nom_dialecte(dialecte)}.'
+        return f'Només és nàufraga en {nom_dialecte(dialecte)}.'
 
-    return f'També és Nàufraga en {enumerar(altres)}.'
+    return f'També és nàufraga en {enumerar(altres)}.'
 
 
 def quantes_hi_rimen(paraules):
@@ -531,7 +531,7 @@ def tuit_naufraga(item, dialecte, dialectes_naufraga, tots, data=None):
 
     tuit += frase_de_dialectes(dialecte, dialectes_naufraga, tots) + "\n\n"
 
-    tuit += ("Consulta la llista sencera: "
+    tuit += ("Consulta la llista: "
              + enllac('llistes/llista_naufragues.html', dialecte))
 
     paraula_url = urllib.parse.quote(lema)

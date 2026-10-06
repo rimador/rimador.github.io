@@ -1,18 +1,14 @@
 {
-    "actualitzacio": "05/10/2026 03:40:42",
+    "actualitzacio": "06/10/2026 04:43:50",
     "setmana": {
-        "text_dies": "28/9 > 4/10",
+        "text_dies": "29/9 > 5/10",
         "top_10_paraules": [
             {
                 "paraula": "braquíferes",
                 "cerques": 8
             },
             {
-                "paraula": "llangardaix",
-                "cerques": 5
-            },
-            {
-                "paraula": "tu",
+                "paraula": "or",
                 "cerques": 5
             },
             {
@@ -20,19 +16,19 @@
                 "cerques": 5
             },
             {
+                "paraula": "llangardaix",
+                "cerques": 5
+            },
+            {
                 "paraula": "sol",
                 "cerques": 5
             },
             {
-                "paraula": "por",
-                "cerques": 5
-            },
-            {
-                "paraula": "cos",
+                "paraula": "tu",
                 "cerques": 4
             },
             {
-                "paraula": "ol",
+                "paraula": "cos",
                 "cerques": 4
             },
             {
@@ -42,38 +38,25 @@
             {
                 "paraula": "vida",
                 "cerques": 4
+            },
+            {
+                "paraula": "silenci",
+                "cerques": 3
             }
         ],
         "top_10_rimes": [
             {
                 "paraula": "a",
                 "tipus": "r.consonant",
-                "cerques": 46,
+                "cerques": 38,
                 "dialectes": [
                     "ca"
                 ]
             },
             {
-                "paraula": "o",
+                "paraula": "i",
                 "tipus": "r.consonant",
-                "cerques": 23,
-                "dialectes": [
-                    "ca"
-                ]
-            },
-            {
-                "paraula": "ɔl",
-                "tipus": "r.consonant",
-                "cerques": 22,
-                "dialectes": [
-                    "ca",
-                    "va"
-                ]
-            },
-            {
-                "paraula": "at",
-                "tipus": "r.consonant",
-                "cerques": 19,
+                "cerques": 18,
                 "dialectes": [
                     "ca",
                     "va",
@@ -81,7 +64,16 @@
                 ]
             },
             {
-                "paraula": "i",
+                "paraula": "iə",
+                "tipus": "r.consonant",
+                "cerques": 17,
+                "dialectes": [
+                    "ca",
+                    "ba"
+                ]
+            },
+            {
+                "paraula": "at",
                 "tipus": "r.consonant",
                 "cerques": 17,
                 "dialectes": [
@@ -91,9 +83,17 @@
                 ]
             },
             {
+                "paraula": "o",
+                "tipus": "r.consonant",
+                "cerques": 16,
+                "dialectes": [
+                    "ca"
+                ]
+            },
+            {
                 "paraula": "eɾə",
                 "tipus": "r.consonant",
-                "cerques": 15,
+                "cerques": 14,
                 "dialectes": [
                     "ca"
                 ]
@@ -107,36 +107,35 @@
                 ]
             },
             {
-                "paraula": "iə",
+                "paraula": "ɔl",
                 "tipus": "r.consonant",
                 "cerques": 14,
                 "dialectes": [
                     "ca",
-                    "ba"
+                    "va"
                 ]
             },
             {
                 "paraula": "al",
                 "tipus": "r.consonant",
-                "cerques": 13,
+                "cerques": 12,
                 "dialectes": [
                     "ca",
                     "va"
                 ]
             },
             {
-                "paraula": "e",
+                "paraula": "en",
                 "tipus": "r.consonant",
                 "cerques": 11,
                 "dialectes": [
-                    "ca",
-                    "va"
+                    "ca"
                 ]
             }
         ],
-        "total_cerques": 1596,
-        "paraules_cercades_uniques": 1093,
-        "numero_usuaris": 206
+        "total_cerques": 1465,
+        "paraules_cercades_uniques": 1031,
+        "numero_usuaris": 212
     },
     "sempre": {
         "top_10_paraules": [
@@ -165,12 +164,12 @@
                 "cerques": 16
             },
             {
-                "paraula": "dia",
+                "paraula": "temps",
                 "cerques": 14
             },
             {
-                "paraula": "temps",
-                "cerques": 13
+                "paraula": "dia",
+                "cerques": 14
             },
             {
                 "paraula": "vida",
@@ -185,7 +184,7 @@
             {
                 "paraula": "o",
                 "tipus": "r.consonant",
-                "cerques": 164,
+                "cerques": 165,
                 "dialectes": [
                     "ca",
                     "nw",
@@ -196,7 +195,7 @@
             {
                 "paraula": "a",
                 "tipus": "r.consonant",
-                "cerques": 137,
+                "cerques": 141,
                 "dialectes": [
                     "ca",
                     "nw",
@@ -206,7 +205,7 @@
             {
                 "paraula": "at",
                 "tipus": "r.consonant",
-                "cerques": 130,
+                "cerques": 132,
                 "dialectes": [
                     "ca",
                     "va",
@@ -216,7 +215,7 @@
             {
                 "paraula": "i",
                 "tipus": "r.consonant",
-                "cerques": 100,
+                "cerques": 106,
                 "dialectes": [
                     "ca",
                     "va",
@@ -226,7 +225,7 @@
             {
                 "paraula": "en",
                 "tipus": "r.consonant",
-                "cerques": 80,
+                "cerques": 82,
                 "dialectes": [
                     "ca"
                 ]
@@ -254,7 +253,7 @@
             {
                 "paraula": "an",
                 "tipus": "r.consonant",
-                "cerques": 73,
+                "cerques": 75,
                 "dialectes": [
                     "ca",
                     "nw",
@@ -262,29 +261,29 @@
                 ]
             },
             {
-                "paraula": "aə",
-                "tipus": "r.assonant",
-                "cerques": 63,
-                "dialectes": [
-                    "ca"
-                ]
-            },
-            {
                 "paraula": "iə",
                 "tipus": "r.consonant",
-                "cerques": 61,
+                "cerques": 65,
                 "dialectes": [
                     "ca",
                     "ba"
                 ]
+            },
+            {
+                "paraula": "aə",
+                "tipus": "r.assonant",
+                "cerques": 65,
+                "dialectes": [
+                    "ca"
+                ]
             }
         ],
-        "total_cerques": 8540,
-        "paraules_cercades_uniques": 4249,
-        "numero_usuaris": 1113,
+        "total_cerques": 8708,
+        "paraules_cercades_uniques": 4314,
+        "numero_usuaris": 1135,
         "recompte_tipus_rima": {
-            "r.consonant": 7772,
-            "r.assonant": 768
+            "r.consonant": 7922,
+            "r.assonant": 786
         },
         "top_10_naufragues": [
             {
@@ -340,21 +339,21 @@
                 ]
             },
             {
+                "paraula": "trump",
+                "cerques": 2,
+                "dialectes": [
+                    "ca"
+                ]
+            },
+            {
+                "paraula": "perdre",
+                "cerques": 2,
+                "dialectes": [
+                    "ca"
+                ]
+            },
+            {
                 "paraula": "nàufraga",
-                "cerques": 2,
-                "dialectes": [
-                    "ca"
-                ]
-            },
-            {
-                "paraula": "limítrof",
-                "cerques": 2,
-                "dialectes": [
-                    "ca"
-                ]
-            },
-            {
-                "paraula": "èxit",
                 "cerques": 2,
                 "dialectes": [
                     "ca"
@@ -363,73 +362,73 @@
         ],
         "top_10_typos": [
             {
-                "paraula": "nica",
-                "data_cerca": "04/10/2026 23:34"
+                "paraula": "veure't",
+                "data_cerca": "05/10/2026 22:11"
             },
             {
-                "paraula": "unica",
-                "data_cerca": "04/10/2026 23:34"
+                "paraula": "ic",
+                "data_cerca": "05/10/2026 22:04"
             },
             {
-                "paraula": "llestet",
-                "data_cerca": "04/10/2026 20:03"
+                "paraula": "sebates",
+                "data_cerca": "05/10/2026 19:27"
             },
             {
-                "paraula": "drada",
-                "data_cerca": "04/10/2026 19:58"
+                "paraula": "acer+",
+                "data_cerca": "05/10/2026 17:54"
             },
             {
-                "paraula": "escoltas",
-                "data_cerca": "04/10/2026 19:49"
+                "paraula": "taquillet",
+                "data_cerca": "05/10/2026 16:05"
             },
             {
-                "paraula": "conduir-lo",
-                "data_cerca": "04/10/2026 19:23"
+                "paraula": "ir",
+                "data_cerca": "05/10/2026 15:57"
             },
             {
-                "paraula": "enar",
-                "data_cerca": "04/10/2026 18:25"
+                "paraula": "d'or",
+                "data_cerca": "05/10/2026 15:40"
             },
             {
-                "paraula": "moure's",
-                "data_cerca": "04/10/2026 18:10"
+                "paraula": "l'osset siset se'n va de vacances",
+                "data_cerca": "05/10/2026 15:25"
             },
             {
-                "paraula": "flip-flap",
-                "data_cerca": "04/10/2026 17:32"
+                "paraula": "tramp",
+                "data_cerca": "05/10/2026 14:58"
             },
             {
-                "paraula": "new york",
-                "data_cerca": "04/10/2026 17:32"
+                "paraula": "atre",
+                "data_cerca": "05/10/2026 10:29"
             }
         ],
-        "total_noms_propis": 131,
+        "total_noms_propis": 134,
         "recompte_num_sil": {
-            "0": 7935,
-            "2": 243,
+            "0": 8096,
+            "2": 249,
             "3": 181,
-            "1": 95,
+            "1": 96,
             "4": 62,
             "6": 14,
             "5": 10
         },
         "recompte_comenca_per": {
-            "indiferent": 8445,
-            "consonant": 70,
+            "indiferent": 8612,
+            "consonant": 71,
             "vocal+h": 25
         },
         "recompte_incloure_np": {
-            "no": 8301,
+            "no": 8469,
             "si": 239
         },
         "recompte_incloure_pl": {
-            "si": 8236,
-            "no": 304
+            "si": 8400,
+            "no": 308
         },
         "recompte_dialecte": {
-            "ca": 4474,
-            "ba": 272,
-            "va": 159,
+            "ca": 4622,
+            "ba": 282,
+            "va": 169,
             "nw": 69
         },
         "top_dies": {
@@ -493,11 +492,6 @@
     },
     "grafics": {
         "grafic_linia_diaria": [
-            {
-                "data": "05/09",
-                "cerques": 75,
-                "usuaris": 24
-            },
             {
                 "data": "06/09",
                 "cerques": 53,
@@ -642,12 +636,17 @@
                 "data": "04/10",
                 "cerques": 179,
                 "usuaris": 41
+            },
+            {
+                "data": "05/10",
+                "cerques": 168,
+                "usuaris": 46
             }
         ],
         "grafic_linia_hores": [
             {
                 "hora": "00:00",
-                "percentatge": 2.46
+                "percentatge": 2.5
             },
             {
                 "hora": "00:30",
@@ -655,15 +654,15 @@
             },
             {
                 "hora": "01:00",
-                "percentatge": 1.41
+                "percentatge": 1.5
             },
             {
                 "hora": "01:30",
-                "percentatge": 1.38
+                "percentatge": 1.36
             },
             {
                 "hora": "02:00",
-                "percentatge": 0.63
+                "percentatge": 0.62
             },
             {
                 "hora": "02:30",
@@ -675,7 +674,7 @@
             },
             {
                 "hora": "03:30",
-                "percentatge": 0.18
+                "percentatge": 0.17
             },
             {
                 "hora": "04:00",
@@ -691,7 +690,7 @@
             },
             {
                 "hora": "05:30",
-                "percentatge": 0.15
+                "percentatge": 0.16
             },
             {
                 "hora": "06:00",
@@ -699,87 +698,87 @@
             },
             {
                 "hora": "06:30",
-                "percentatge": 0.21
+                "percentatge": 0.22
             },
             {
                 "hora": "07:00",
-                "percentatge": 0.55
+                "percentatge": 0.56
             },
             {
                 "hora": "07:30",
-                "percentatge": 0.53
+                "percentatge": 0.54
             },
             {
                 "hora": "08:00",
-                "percentatge": 1.07
+                "percentatge": 1.13
             },
             {
                 "hora": "08:30",
-                "percentatge": 1.94
+                "percentatge": 2.02
             },
             {
                 "hora": "09:00",
-                "percentatge": 2.38
+                "percentatge": 2.37
             },
             {
                 "hora": "09:30",
-                "percentatge": 2.66
+                "percentatge": 2.62
             },
             {
                 "hora": "10:00",
-                "percentatge": 2.67
+                "percentatge": 2.77
             },
             {
                 "hora": "10:30",
-                "percentatge": 3.58
+                "percentatge": 3.51
             },
             {
                 "hora": "11:00",
-                "percentatge": 3.5
+                "percentatge": 3.46
             },
             {
                 "hora": "11:30",
-                "percentatge": 3.97
+                "percentatge": 3.93
             },
             {
                 "hora": "12:00",
-                "percentatge": 4.38
+                "percentatge": 4.32
             },
             {
                 "hora": "12:30",
-                "percentatge": 3.92
+                "percentatge": 3.85
             },
             {
                 "hora": "13:00",
-                "percentatge": 3.44
+                "percentatge": 3.45
             },
             {
                 "hora": "13:30",
-                "percentatge": 2.79
+                "percentatge": 2.73
             },
             {
                 "hora": "14:00",
-                "percentatge": 2.83
+                "percentatge": 2.78
             },
             {
                 "hora": "14:30",
-                "percentatge": 2.04
+                "percentatge": 2.1
             },
             {
                 "hora": "15:00",
-                "percentatge": 1.83
+                "percentatge": 1.93
             },
             {
                 "hora": "15:30",
-                "percentatge": 2.25
+                "percentatge": 2.43
             },
             {
                 "hora": "16:00",
-                "percentatge": 3.31
+                "percentatge": 3.28
             },
             {
                 "hora": "16:30",
-                "percentatge": 2.92
+                "percentatge": 2.86
             },
             {
                 "hora": "17:00",
@@ -791,43 +790,43 @@
             },
             {
                 "hora": "18:00",
-                "percentatge": 3.06
+                "percentatge": 3.02
             },
             {
                 "hora": "18:30",
-                "percentatge": 3.14
+                "percentatge": 3.09
             },
             {
                 "hora": "19:00",
-                "percentatge": 2.87
+                "percentatge": 2.95
             },
             {
                 "hora": "19:30",
-                "percentatge": 3.0
+                "percentatge": 2.94
             },
             {
                 "hora": "20:00",
-                "percentatge": 2.75
+                "percentatge": 2.82
             },
             {
                 "hora": "20:30",
-                "percentatge": 2.97
+                "percentatge": 2.93
             },
             {
                 "hora": "21:00",
-                "percentatge": 2.07
+                "percentatge": 2.03
             },
             {
                 "hora": "21:30",
-                "percentatge": 2.18
+                "percentatge": 2.16
             },
             {
                 "hora": "22:00",
-                "percentatge": 2.13
+                "percentatge": 2.14
             },
             {
                 "hora": "22:30",
-                "percentatge": 2.76
+                "percentatge": 2.71
             },
             {
                 "hora": "23:00",
@@ -835,13 +834,13 @@
             },
             {
                 "hora": "23:30",
-                "percentatge": 2.86
+                "percentatge": 2.82
             }
         ],
         "grafic_formatge_exit_assonant": [
             {
                 "rima": "aə",
-                "vegades": 63
+                "vegades": 65
             },
             {
                 "rima": "a",
@@ -853,7 +852,7 @@
             },
             {
                 "rima": "i",
-                "vegades": 34
+                "vegades": 35
             },
             {
                 "rima": "ɛə",
@@ -861,7 +860,7 @@
             },
             {
                 "rima": "o",
-                "vegades": 31
+                "vegades": 32
             },
             {
                 "rima": "oə",
@@ -872,11 +871,11 @@
                 "vegades": 28
             },
             {
-                "rima": "ɔ",
-                "vegades": 25
+                "rima": "ɛ",
+                "vegades": 26
             },
             {
-                "rima": "ɛ",
+                "rima": "ɔ",
                 "vegades": 25
             },
             {
@@ -885,7 +884,7 @@
             },
             {
                 "rima": "uə",
-                "vegades": 20
+                "vegades": 22
             },
             {
                 "rima": "u",
@@ -893,7 +892,7 @@
             },
             {
                 "rima": "eə",
-                "vegades": 18
+                "vegades": 19
             },
             {
                 "rima": "ai",
@@ -948,6 +947,10 @@
                 "vegades": 4
             },
             {
+                "rima": "ɛiə",
+                "vegades": 4
+            },
+            {
                 "rima": "iuə",
                 "vegades": 4
             },
@@ -960,11 +963,11 @@
                 "vegades": 3
             },
             {
-                "rima": "ɛiə",
+                "rima": "ɔii",
                 "vegades": 3
             },
             {
-                "rima": "ɔii",
+                "rima": "ee",
                 "vegades": 3
             },
             {
@@ -985,6 +988,10 @@
             },
             {
                 "rima": "oe",
+                "vegades": 2
+            },
+            {
+                "rima": "uəə",
                 "vegades": 2
             },
             {
@@ -1032,10 +1039,6 @@
                 "vegades": 1
             },
             {
-                "rima": "uəə",
-                "vegades": 1
-            },
-            {
                 "rima": "aea",
                 "vegades": 1
             },
@@ -1053,10 +1056,6 @@
             },
             {
                 "rima": "iəu",
-                "vegades": 1
-            },
-            {
-                "rima": "ee",
                 "vegades": 1
             },
             {
@@ -1078,28 +1077,40 @@
             {
                 "rima": "ae",
                 "vegades": 1
+            },
+            {
+                "rima": "ua",
+                "vegades": 1
+            },
+            {
+                "rima": "ia",
+                "vegades": 1
+            },
+            {
+                "rima": "aii",
+                "vegades": 1
             }
         ],
         "grafic_formatge_exit_consonant": [
             {
                 "rima": "o",
-                "vegades": 164
+                "vegades": 165
             },
             {
                 "rima": "a",
-                "vegades": 137
+                "vegades": 141
             },
             {
                 "rima": "at",
-                "vegades": 130
+                "vegades": 132
             },
             {
                 "rima": "i",
-                "vegades": 100
+                "vegades": 106
             },
             {
                 "rima": "en",
-                "vegades": 80
+                "vegades": 82
             },
             {
                 "rima": "al",
@@ -1111,11 +1122,11 @@
             },
             {
                 "rima": "an",
-                "vegades": 73
+                "vegades": 75
             },
             {
                 "rima": "iə",
-                "vegades": 61
+                "vegades": 65
             },
             {
                 "rima": "it",
@@ -1127,7 +1138,7 @@
             },
             {
                 "rima": "eɾə",
-                "vegades": 51
+                "vegades": 53
             },
             {
                 "rima": "es",
@@ -1143,10 +1154,14 @@
             },
             {
                 "rima": "ɛt",
-                "vegades": 42
+                "vegades": 43
             },
             {
                 "rima": "azə",
+                "vegades": 36
+            },
+            {
+                "rima": "ɛtə",
                 "vegades": 36
             },
             {
@@ -1154,23 +1169,19 @@
                 "vegades": 35
             },
             {
-                "rima": "ɛtə",
+                "rima": "os",
+                "vegades": 35
+            },
+            {
+                "rima": "ɔr",
                 "vegades": 35
             },
             {
                 "rima": "ons",
-                "vegades": 33
+                "vegades": 34
             },
             {
                 "rima": "eʎ",
-                "vegades": 33
-            },
-            {
-                "rima": "os",
-                "vegades": 33
-            },
-            {
-                "rima": "ɔr",
                 "vegades": 33
             },
             {
@@ -1190,6 +1201,10 @@
                 "vegades": 29
             },
             {
+                "rima": "iw",
+                "vegades": 29
+            },
+            {
                 "rima": "iðə",
                 "vegades": 28
             },
@@ -1198,12 +1213,16 @@
                 "vegades": 28
             },
             {
-                "rima": "iw",
+                "rima": "ɛnə",
                 "vegades": 28
             },
             {
-                "rima": "ɛnə",
-                "vegades": 27
+                "rima": "ɔlə",
+                "vegades": 26
+            },
+            {
+                "rima": "aw",
+                "vegades": 25
             },
             {
                 "rima": "ɛzə",
@@ -1218,15 +1237,19 @@
                 "vegades": 25
             },
             {
+                "rima": "ɛw",
+                "vegades": 25
+            },
+            {
                 "rima": "ɔ",
                 "vegades": 25
             },
             {
-                "rima": "ɔlə",
-                "vegades": 25
+                "rima": "ɛl",
+                "vegades": 24
             },
             {
-                "rima": "aw",
+                "rima": "ɔrt",
                 "vegades": 24
             },
             {
@@ -1246,15 +1269,7 @@
                 "vegades": 23
             },
             {
-                "rima": "ɛl",
-                "vegades": 23
-            },
-            {
                 "rima": "aɾə",
-                "vegades": 23
-            },
-            {
-                "rima": "ɔrt",
                 "vegades": 23
             },
             {
@@ -1262,16 +1277,24 @@
                 "vegades": 22
             },
             {
+                "rima": "on",
+                "vegades": 22
+            },
+            {
                 "rima": "ɔk",
                 "vegades": 22
             },
             {
-                "rima": "ɛw",
+                "rima": "ik",
                 "vegades": 22
             },
             {
                 "rima": "is",
                 "vegades": 22
+            },
+            {
+                "rima": "adʒə",
+                "vegades": 21
             },
             {
                 "rima": "um",
@@ -1282,15 +1305,7 @@
                 "vegades": 21
             },
             {
-                "rima": "on",
-                "vegades": 21
-            },
-            {
                 "rima": "oɾə",
-                "vegades": 21
-            },
-            {
-                "rima": "ik",
                 "vegades": 21
             },
             {
@@ -1299,10 +1314,6 @@
             },
             {
                 "rima": "ar",
-                "vegades": 20
-            },
-            {
-                "rima": "adʒə",
                 "vegades": 20
             },
             {
@@ -1358,6 +1369,10 @@
                 "vegades": 17
             },
             {
+                "rima": "aj",
+                "vegades": 17
+            },
+            {
                 "rima": "abblə",
                 "vegades": 16
             },
@@ -1386,7 +1401,7 @@
                 "vegades": 16
             },
             {
-                "rima": "aj",
+                "rima": "ɛts",
                 "vegades": 16
             },
             {
@@ -1394,11 +1409,23 @@
                 "vegades": 16
             },
             {
+                "rima": "eʎə",
+                "vegades": 15
+            },
+            {
                 "rima": "iŋ",
                 "vegades": 15
             },
             {
-                "rima": "ɛts",
+                "rima": "ɔbblə",
+                "vegades": 15
+            },
+            {
+                "rima": "am",
+                "vegades": 15
+            },
+            {
+                "rima": "iʎə",
                 "vegades": 15
             },
             {
@@ -1406,7 +1433,7 @@
                 "vegades": 14
             },
             {
-                "rima": "eʎə",
+                "rima": "ems",
                 "vegades": 14
             },
             {
@@ -1418,15 +1445,11 @@
                 "vegades": 14
             },
             {
-                "rima": "ɔbblə",
-                "vegades": 14
-            },
-            {
-                "rima": "iʎə",
-                "vegades": 14
-            },
-            {
                 "rima": "ɔɾə",
+                "vegades": 14
+            },
+            {
+                "rima": "ɛm",
                 "vegades": 14
             },
             {
@@ -1442,10 +1465,6 @@
                 "vegades": 13
             },
             {
-                "rima": "ems",
-                "vegades": 13
-            },
-            {
                 "rima": "imə",
                 "vegades": 13
             },
@@ -1454,15 +1473,15 @@
                 "vegades": 13
             },
             {
+                "rima": "awlə",
+                "vegades": 13
+            },
+            {
                 "rima": "ens",
                 "vegades": 13
             },
             {
                 "rima": "il",
-                "vegades": 13
-            },
-            {
-                "rima": "am",
                 "vegades": 13
             },
             {
@@ -1478,15 +1497,15 @@
                 "vegades": 13
             },
             {
-                "rima": "ɛm",
-                "vegades": 13
-            },
-            {
-                "rima": "arə",
+                "rima": "ap",
                 "vegades": 12
             },
             {
-                "rima": "awlə",
+                "rima": "iws",
+                "vegades": 12
+            },
+            {
+                "rima": "arə",
                 "vegades": 12
             },
             {
@@ -1510,7 +1529,11 @@
                 "vegades": 12
             },
             {
-                "rima": "ap",
+                "rima": "atɾə",
+                "vegades": 12
+            },
+            {
+                "rima": "ɔstɾə",
                 "vegades": 11
             },
             {
@@ -1519,6 +1542,10 @@
             },
             {
                 "rima": "atʃ",
+                "vegades": 11
+            },
+            {
+                "rima": "ist",
                 "vegades": 11
             },
             {
@@ -1534,6 +1561,10 @@
                 "vegades": 11
             },
             {
+                "rima": "altɾəs",
+                "vegades": 11
+            },
+            {
                 "rima": "unə",
                 "vegades": 11
             },
@@ -1542,19 +1573,15 @@
                 "vegades": 11
             },
             {
-                "rima": "atɾə",
-                "vegades": 11
-            },
-            {
                 "rima": "itə",
                 "vegades": 11
             },
             {
-                "rima": "aɲə",
+                "rima": "astə",
                 "vegades": 10
             },
             {
-                "rima": "ɔstɾə",
+                "rima": "aɲə",
                 "vegades": 10
             },
             {
@@ -1578,7 +1605,7 @@
                 "vegades": 10
             },
             {
-                "rima": "ist",
+                "rima": "ormə",
                 "vegades": 10
             },
             {
@@ -1606,14 +1633,6 @@
                 "vegades": 10
             },
             {
-                "rima": "astə",
-                "vegades": 9
-            },
-            {
-                "rima": "iws",
-                "vegades": 9
-            },
-            {
                 "rima": "ɛʃ",
                 "vegades": 9
             },
@@ -1630,6 +1649,10 @@
                 "vegades": 9
             },
             {
+                "rima": "ɛns",
+                "vegades": 9
+            },
+            {
                 "rima": "eʎəs",
                 "vegades": 9
             },
@@ -1642,6 +1665,14 @@
                 "vegades": 9
             },
             {
+                "rima": "ɛrðə",
+                "vegades": 9
+            },
+            {
+                "rima": "ɛrs",
+                "vegades": 9
+            },
+            {
                 "rima": "awɾə",
                 "vegades": 9
             },
@@ -1650,11 +1681,23 @@
                 "vegades": 9
             },
             {
-                "rima": "altɾəs",
+                "rima": "antə",
+                "vegades": 9
+            },
+            {
+                "rima": "iβəs",
                 "vegades": 9
             },
             {
                 "rima": "ani",
+                "vegades": 9
+            },
+            {
+                "rima": "ark",
+                "vegades": 9
+            },
+            {
+                "rima": "itʃ",
                 "vegades": 9
             },
             {
@@ -1667,6 +1710,10 @@
             },
             {
                 "rima": "ɔts",
+                "vegades": 9
+            },
+            {
+                "rima": "ajɾə",
                 "vegades": 9
             },
             {
@@ -1706,10 +1753,6 @@
                 "vegades": 8
             },
             {
-                "rima": "ɛns",
-                "vegades": 8
-            },
-            {
                 "rima": "ɛskə",
                 "vegades": 8
             },
@@ -1718,27 +1761,15 @@
                 "vegades": 8
             },
             {
-                "rima": "ɛrðə",
-                "vegades": 8
-            },
-            {
-                "rima": "ɛrs",
-                "vegades": 8
-            },
-            {
                 "rima": "eʃə",
                 "vegades": 8
             },
             {
-                "rima": "antə",
+                "rima": "ɛnsi",
                 "vegades": 8
             },
             {
-                "rima": "ormə",
-                "vegades": 8
-            },
-            {
-                "rima": "iβəs",
+                "rima": "ɛlə",
                 "vegades": 8
             },
             {
@@ -1770,15 +1801,11 @@
                 "vegades": 8
             },
             {
-                "rima": "ark",
+                "rima": "andə",
                 "vegades": 8
             },
             {
                 "rima": "ul",
-                "vegades": 8
-            },
-            {
-                "rima": "itʃ",
                 "vegades": 8
             },
             {
@@ -1803,6 +1830,10 @@
             },
             {
                 "rima": "ɔrtə",
+                "vegades": 8
+            },
+            {
+                "rima": "uʎ",
                 "vegades": 8
             },
             {
@@ -1831,6 +1862,10 @@
             },
             {
                 "rima": "entu",
+                "vegades": 7
+            },
+            {
+                "rima": "ansəs",
                 "vegades": 7
             },
             {
@@ -1902,15 +1937,11 @@
                 "vegades": 7
             },
             {
-                "rima": "ɛnsi",
+                "rima": "ɔtə",
                 "vegades": 7
             },
             {
                 "rima": "umə",
-                "vegades": 7
-            },
-            {
-                "rima": "ɛlə",
                 "vegades": 7
             },
             {
@@ -1930,19 +1961,11 @@
                 "vegades": 7
             },
             {
-                "rima": "andə",
-                "vegades": 7
-            },
-            {
                 "rima": "ilə",
                 "vegades": 7
             },
             {
                 "rima": "ɛʒə",
-                "vegades": 7
-            },
-            {
-                "rima": "uʎ",
                 "vegades": 7
             },
             {
@@ -1954,10 +1977,6 @@
                 "vegades": 7
             },
             {
-                "rima": "ajɾə",
-                "vegades": 7
-            },
-            {
                 "rima": "ɔjs",
                 "vegades": 7
             },
@@ -1966,12 +1985,12 @@
                 "vegades": 7
             },
             {
-                "rima": "afikəs",
+                "rima": "astɾə",
                 "vegades": 7
             },
             {
-                "rima": "ansəs",
-                "vegades": 6
+                "rima": "afikəs",
+                "vegades": 7
             },
             {
                 "rima": "ɔsə",
@@ -2018,11 +2037,15 @@
                 "vegades": 6
             },
             {
-                "rima": "ɔtə",
+                "rima": "ɛn",
                 "vegades": 6
             },
             {
                 "rima": "ɛðə",
+                "vegades": 6
+            },
+            {
+                "rima": "om",
                 "vegades": 6
             },
             {
@@ -2070,6 +2093,14 @@
                 "vegades": 6
             },
             {
+                "rima": "uʃə",
+                "vegades": 6
+            },
+            {
+                "rima": "er",
+                "vegades": 6
+            },
+            {
                 "rima": "istəs",
                 "vegades": 6
             },
@@ -2079,6 +2110,10 @@
             },
             {
                 "rima": "isiəs",
+                "vegades": 6
+            },
+            {
+                "rima": "ɔʒə",
                 "vegades": 6
             },
             {
@@ -2095,6 +2130,10 @@
             },
             {
                 "rima": "ɛɾiə",
+                "vegades": 6
+            },
+            {
+                "rima": "itəs",
                 "vegades": 6
             },
             {
@@ -2115,10 +2154,6 @@
             },
             {
                 "rima": "aliə",
-                "vegades": 6
-            },
-            {
-                "rima": "astɾə",
                 "vegades": 6
             },
             {
@@ -2146,6 +2181,14 @@
                 "vegades": 5
             },
             {
+                "rima": "ɛzəs",
+                "vegades": 5
+            },
+            {
+                "rima": "eʎs",
+                "vegades": 5
+            },
+            {
                 "rima": "altɾə",
                 "vegades": 5
             },
@@ -2154,15 +2197,15 @@
                 "vegades": 5
             },
             {
-                "rima": "ɛn",
-                "vegades": 5
-            },
-            {
                 "rima": "ɛʎəs",
                 "vegades": 5
             },
             {
                 "rima": "enʒə",
+                "vegades": 5
+            },
+            {
+                "rima": "ansiə",
                 "vegades": 5
             },
             {
@@ -2175,10 +2218,6 @@
             },
             {
                 "rima": "ɛjnə",
-                "vegades": 5
-            },
-            {
-                "rima": "om",
                 "vegades": 5
             },
             {
@@ -2246,6 +2285,10 @@
                 "vegades": 5
             },
             {
+                "rima": "empɾə",
+                "vegades": 5
+            },
+            {
                 "rima": "ɔks",
                 "vegades": 5
             },
@@ -2266,15 +2309,7 @@
                 "vegades": 5
             },
             {
-                "rima": "uʃə",
-                "vegades": 5
-            },
-            {
                 "rima": "izmə",
-                "vegades": 5
-            },
-            {
-                "rima": "er",
                 "vegades": 5
             },
             {
@@ -2286,10 +2321,6 @@
                 "vegades": 5
             },
             {
-                "rima": "ɔʒə",
-                "vegades": 5
-            },
-            {
                 "rima": "ɔstɾəs",
                 "vegades": 5
             },
@@ -2298,11 +2329,15 @@
                 "vegades": 5
             },
             {
+                "rima": "etə",
+                "vegades": 5
+            },
+            {
                 "rima": "ozus",
                 "vegades": 5
             },
             {
-                "rima": "itəs",
+                "rima": "atəs",
                 "vegades": 5
             },
             {
@@ -2354,15 +2389,7 @@
                 "vegades": 4
             },
             {
-                "rima": "ɛzəs",
-                "vegades": 4
-            },
-            {
                 "rima": "amikə",
-                "vegades": 4
-            },
-            {
-                "rima": "eʎs",
                 "vegades": 4
             },
             {
@@ -2390,15 +2417,15 @@
                 "vegades": 4
             },
             {
+                "rima": "ɛʃəs",
+                "vegades": 4
+            },
+            {
                 "rima": "ɔʎəs",
                 "vegades": 4
             },
             {
                 "rima": "opə",
-                "vegades": 4
-            },
-            {
-                "rima": "ansiə",
                 "vegades": 4
             },
             {
@@ -2462,10 +2489,6 @@
                 "vegades": 4
             },
             {
-                "rima": "empɾə",
-                "vegades": 4
-            },
-            {
                 "rima": "awmə",
                 "vegades": 4
             },
@@ -2491,6 +2514,10 @@
             },
             {
                 "rima": "uɾiə",
+                "vegades": 4
+            },
+            {
+                "rima": "isə",
                 "vegades": 4
             },
             {
@@ -2526,11 +2553,11 @@
                 "vegades": 4
             },
             {
-                "rima": "etə",
+                "rima": "aklə",
                 "vegades": 4
             },
             {
-                "rima": "aklə",
+                "rima": "orə",
                 "vegades": 4
             },
             {
@@ -2586,7 +2613,15 @@
                 "vegades": 4
             },
             {
+                "rima": "istik",
+                "vegades": 4
+            },
+            {
                 "rima": "ɔnik",
+                "vegades": 4
+            },
+            {
+                "rima": "ɔrtəs",
                 "vegades": 4
             },
             {
@@ -2654,6 +2689,10 @@
                 "vegades": 3
             },
             {
+                "rima": "ɔwɾə",
+                "vegades": 3
+            },
+            {
                 "rima": "awfɾək",
                 "vegades": 3
             },
@@ -2687,6 +2726,10 @@
             },
             {
                 "rima": "adʒəs",
+                "vegades": 3
+            },
+            {
+                "rima": "oʎs",
                 "vegades": 3
             },
             {
@@ -2778,6 +2821,10 @@
                 "vegades": 3
             },
             {
+                "rima": "immə",
+                "vegades": 3
+            },
+            {
                 "rima": "otʃə",
                 "vegades": 3
             },
@@ -2795,6 +2842,10 @@
             },
             {
                 "rima": "ak",
+                "vegades": 3
+            },
+            {
+                "rima": "iði",
                 "vegades": 3
             },
             {
@@ -2858,10 +2909,6 @@
                 "vegades": 3
             },
             {
-                "rima": "isə",
-                "vegades": 3
-            },
-            {
                 "rima": "ɔskus",
                 "vegades": 3
             },
@@ -2878,10 +2925,6 @@
                 "vegades": 3
             },
             {
-                "rima": "orə",
-                "vegades": 3
-            },
-            {
                 "rima": "ajs",
                 "vegades": 3
             },
@@ -2891,10 +2934,6 @@
             },
             {
                 "rima": "ɛtikə",
-                "vegades": 3
-            },
-            {
-                "rima": "atəs",
                 "vegades": 3
             },
             {
@@ -3014,10 +3053,6 @@
                 "vegades": 3
             },
             {
-                "rima": "ɔrtəs",
-                "vegades": 3
-            },
-            {
                 "rima": "ulis",
                 "vegades": 3
             },
@@ -3054,7 +3089,15 @@
                 "vegades": 3
             },
             {
+                "rima": "uɾəs",
+                "vegades": 3
+            },
+            {
                 "rima": "apit",
+                "vegades": 3
+            },
+            {
+                "rima": "azməs",
                 "vegades": 3
             },
             {
@@ -3126,6 +3169,10 @@
                 "vegades": 3
             },
             {
+                "rima": "aʎən",
+                "vegades": 3
+            },
+            {
                 "rima": "ɔfilə",
                 "vegades": 3
             },
@@ -3135,6 +3182,10 @@
             },
             {
                 "rima": "ɔrfə",
+                "vegades": 3
+            },
+            {
+                "rima": "anʒə",
                 "vegades": 3
             },
             {
@@ -3194,10 +3245,6 @@
                 "vegades": 2
             },
             {
-                "rima": "ɔwɾə",
-                "vegades": 2
-            },
-            {
                 "rima": "arləs",
                 "vegades": 2
             },
@@ -3254,10 +3301,6 @@
                 "vegades": 2
             },
             {
-                "rima": "ɛʃəs",
-                "vegades": 2
-            },
-            {
                 "rima": "ornə",
                 "vegades": 2
             },
@@ -3270,11 +3313,11 @@
                 "vegades": 2
             },
             {
-                "rima": "oʎs",
+                "rima": "awkə",
                 "vegades": 2
             },
             {
-                "rima": "awkə",
+                "rima": "ɔmən",
                 "vegades": 2
             },
             {
@@ -3303,6 +3346,10 @@
             },
             {
                 "rima": "aβis",
+                "vegades": 2
+            },
+            {
+                "rima": "ɛrðɾə",
                 "vegades": 2
             },
             {
@@ -3366,10 +3413,6 @@
                 "vegades": 2
             },
             {
-                "rima": "immə",
-                "vegades": 2
-            },
-            {
                 "rima": "afə",
                 "vegades": 2
             },
@@ -3399,10 +3442,6 @@
             },
             {
                 "rima": "aʎəs",
-                "vegades": 2
-            },
-            {
-                "rima": "iði",
                 "vegades": 2
             },
             {
@@ -3487,6 +3526,10 @@
             },
             {
                 "rima": "iðis",
+                "vegades": 2
+            },
+            {
+                "rima": "amp",
                 "vegades": 2
             },
             {
@@ -3686,15 +3729,7 @@
                 "vegades": 2
             },
             {
-                "rima": "uɾəs",
-                "vegades": 2
-            },
-            {
                 "rima": "aktə",
-                "vegades": 2
-            },
-            {
-                "rima": "azməs",
                 "vegades": 2
             },
             {
@@ -3770,6 +3805,10 @@
                 "vegades": 2
             },
             {
+                "rima": "ekəs",
+                "vegades": 2
+            },
+            {
                 "rima": "ɔʒən",
                 "vegades": 2
             },
@@ -3811,6 +3850,10 @@
             },
             {
                 "rima": "azik",
+                "vegades": 2
+            },
+            {
+                "rima": "itikə",
                 "vegades": 2
             },
             {
@@ -3874,6 +3917,10 @@
                 "vegades": 2
             },
             {
+                "rima": "inikə",
+                "vegades": 2
+            },
+            {
                 "rima": "iliks",
                 "vegades": 2
             },
@@ -3890,11 +3937,15 @@
                 "vegades": 2
             },
             {
-                "rima": "op",
+                "rima": "uβɾə",
                 "vegades": 2
             },
             {
-                "rima": "aʎən",
+                "rima": "ei",
+                "vegades": 2
+            },
+            {
+                "rima": "op",
                 "vegades": 2
             },
             {
@@ -3931,6 +3982,10 @@
             },
             {
                 "rima": "ɔfils",
+                "vegades": 2
+            },
+            {
+                "rima": "aɾiəs",
                 "vegades": 2
             },
             {
@@ -3982,15 +4037,15 @@
                 "vegades": 2
             },
             {
+                "rima": "endɾə",
+                "vegades": 2
+            },
+            {
                 "rima": "andiə",
                 "vegades": 2
             },
             {
                 "rima": "ɔlizi",
-                "vegades": 2
-            },
-            {
-                "rima": "anʒə",
                 "vegades": 2
             },
             {
@@ -4222,10 +4277,6 @@
                 "vegades": 1
             },
             {
-                "rima": "ɔmən",
-                "vegades": 1
-            },
-            {
                 "rima": "uniks",
                 "vegades": 1
             },
@@ -4363,10 +4414,6 @@
             },
             {
                 "rima": "ɔβɾən",
-                "vegades": 1
-            },
-            {
-                "rima": "ɛrðɾə",
                 "vegades": 1
             },
             {
@@ -4778,10 +4825,6 @@
                 "vegades": 1
             },
             {
-                "rima": "amp",
-                "vegades": 1
-            },
-            {
                 "rima": "eʎu",
                 "vegades": 1
             },
@@ -5146,10 +5189,6 @@
                 "vegades": 1
             },
             {
-                "rima": "istik",
-                "vegades": 1
-            },
-            {
                 "rima": "ɛrðu",
                 "vegades": 1
             },
@@ -5482,10 +5521,6 @@
                 "vegades": 1
             },
             {
-                "rima": "ekəs",
-                "vegades": 1
-            },
-            {
                 "rima": "ɔnikə",
                 "vegades": 1
             },
@@ -5607,10 +5642,6 @@
             },
             {
                 "rima": "ɔlizis",
-                "vegades": 1
-            },
-            {
-                "rima": "itikə",
                 "vegades": 1
             },
             {
@@ -5747,10 +5778,6 @@
             },
             {
                 "rima": "iləs",
-                "vegades": 1
-            },
-            {
-                "rima": "inikə",
                 "vegades": 1
             },
             {
@@ -5918,10 +5945,6 @@
                 "vegades": 1
             },
             {
-                "rima": "uβɾə",
-                "vegades": 1
-            },
-            {
                 "rima": "aðɾə",
                 "vegades": 1
             },
@@ -5939,10 +5962,6 @@
             },
             {
                 "rima": "amits",
-                "vegades": 1
-            },
-            {
-                "rima": "ei",
                 "vegades": 1
             },
             {
@@ -6142,10 +6161,6 @@
                 "vegades": 1
             },
             {
-                "rima": "aɾiəs",
-                "vegades": 1
-            },
-            {
                 "rima": "ists",
                 "vegades": 1
             },
@@ -6283,10 +6298,6 @@
             },
             {
                 "rima": "iəm",
-                "vegades": 1
-            },
-            {
-                "rima": "endɾə",
                 "vegades": 1
             },
             {
@@ -6619,6 +6630,46 @@
             },
             {
                 "rima": "aɾðə",
+                "vegades": 1
+            },
+            {
+                "rima": "astiə",
+                "vegades": 1
+            },
+            {
+                "rima": "asti",
+                "vegades": 1
+            },
+            {
+                "rima": "ifərs",
+                "vegades": 1
+            },
+            {
+                "rima": "ɔfor",
+                "vegades": 1
+            },
+            {
+                "rima": "olrə",
+                "vegades": 1
+            },
+            {
+                "rima": "ivəs",
+                "vegades": 1
+            },
+            {
+                "rima": "ɔkləs",
+                "vegades": 1
+            },
+            {
+                "rima": "empɾe",
+                "vegades": 1
+            },
+            {
+                "rima": "eɣɾe",
+                "vegades": 1
+            },
+            {
+                "rima": "əɾikəs",
                 "vegades": 1
             }
         ]

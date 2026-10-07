@@ -1,5 +1,5 @@
 {
-  "actualitzacio": "06/10/2026 04:43:52",
+  "actualitzacio": "07/10/2026 04:09:08",
   "modalitats": {
     "diaria|dificil|60": {
       "titol": "Paraula del dia · Difícil",
@@ -267,6 +267,13 @@
           "data": "21/09/2026"
         },
         {
+          "sobrenom": "maraki",
+          "punts": 11,
+          "paraula": "malencerts",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
           "sobrenom": "Joan Casas",
           "punts": 11,
           "paraula": "clemències",
@@ -279,13 +286,6 @@
           "paraula": "cureta",
           "dialecte": "ca",
           "data": "27/09/2026"
-        },
-        {
-          "sobrenom": "maraki",
-          "punts": 9,
-          "paraula": "borbòniques",
-          "dialecte": "ca",
-          "data": "29/09/2026"
         },
         {
           "sobrenom": "Martacs",
@@ -336,10 +336,10 @@
       "top": [
         {
           "sobrenom": "Ferran MB",
-          "punts": 12,
-          "paraula": "baltoeslaus",
+          "punts": 14,
+          "paraula": "tumefacta",
           "dialecte": "ca",
-          "data": "27/09/2026"
+          "data": "06/10/2026"
         },
         {
           "sobrenom": "Cami",
@@ -398,18 +398,18 @@
           "data": "13/09/2026"
         },
         {
+          "sobrenom": "maraki",
+          "punts": 6,
+          "paraula": "cubill",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
           "sobrenom": "samfaina",
           "punts": 6,
           "paraula": "all",
           "dialecte": "ca",
           "data": "30/09/2026"
-        },
-        {
-          "sobrenom": "maraki",
-          "punts": 6,
-          "paraula": "diacetil",
-          "dialecte": "ca",
-          "data": "29/09/2026"
         },
         {
           "sobrenom": "Claudi",
@@ -810,6 +810,13 @@
           "data": "29/09/2026"
         },
         {
+          "sobrenom": "PutaSpanya",
+          "punts": 14,
+          "paraula": "alafaies",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
           "sobrenom": "arev",
           "punts": 14,
           "paraula": "quadrinebodes",
@@ -850,13 +857,6 @@
           "paraula": "rulles",
           "dialecte": "ca",
           "data": "19/09/2026"
-        },
-        {
-          "sobrenom": "PutaSpanya",
-          "punts": 10,
-          "paraula": "gavarrot",
-          "dialecte": "ba",
-          "data": "29/09/2026"
         },
         {
           "sobrenom": "bernat_tvt",
@@ -5365,6 +5365,138 @@
           "data": "05/10/2026"
         }
       ]
+    },
+    "2026-10-06": {
+      "dificil": [
+        {
+          "sobrenom": "MARCVS",
+          "punts": 6,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Ferran MB",
+          "punts": 5,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "joanc",
+          "punts": 5,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Montse",
+          "punts": 4,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Melicaco",
+          "punts": 4,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "maraki",
+          "punts": 3,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Berta",
+          "punts": 3,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Trull",
+          "punts": 2,
+          "paraula": "cappont",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "PutaSpanya",
+          "punts": 2,
+          "paraula": "cappont",
+          "dialecte": "ba",
+          "data": "06/10/2026"
+        }
+      ],
+      "facil": [
+        {
+          "sobrenom": "Ferran MB",
+          "punts": 32,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "joanc",
+          "punts": 14,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Trull",
+          "punts": 10,
+          "paraula": "històrics",
+          "dialecte": "va",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "maraki",
+          "punts": 7,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Melicaco",
+          "punts": 7,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "yeeeep",
+          "punts": 4,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Montse",
+          "punts": 4,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Pau",
+          "punts": 3,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        },
+        {
+          "sobrenom": "Mònica",
+          "punts": 2,
+          "paraula": "històrics",
+          "dialecte": "ca",
+          "data": "06/10/2026"
+        }
+      ]
     }
   },
   "diaria_millors": {
@@ -5796,15 +5928,15 @@
   "estadistiques": {
     "modalitats": {
       "diaria|dificil|60": {
-        "partides": 396,
+        "partides": 405,
         "mitjana": 5.2,
         "histograma": {
           "1": 33,
-          "2": 49,
-          "3": 60,
-          "4": 47,
-          "5": 55,
-          "6": 39,
+          "2": 51,
+          "3": 62,
+          "4": 49,
+          "5": 57,
+          "6": 40,
           "7": 33,
           "8": 23,
           "9": 16,
@@ -5817,23 +5949,23 @@
         }
       },
       "diaria|facil|60": {
-        "partides": 335,
+        "partides": 344,
         "mitjana": 7.6,
         "histograma": {
           "1": 22,
-          "2": 34,
-          "3": 41,
-          "4": 33,
+          "2": 35,
+          "3": 42,
+          "4": 35,
           "5": 39,
           "6": 38,
-          "7": 22,
+          "7": 24,
           "8": 23,
           "9": 13,
-          "10": 12,
+          "10": 13,
           "11": 5,
           "12": 3,
           "13": 3,
-          "14": 6,
+          "14": 7,
           "15": 7,
           "16": 5,
           "17": 3,
@@ -5845,7 +5977,7 @@
           "27": 2,
           "28": 2,
           "31": 1,
-          "32": 1,
+          "32": 2,
           "33": 1,
           "35": 2,
           "40": 1,
@@ -5855,20 +5987,20 @@
         }
       },
       "illimitat|dificil|120": {
-        "partides": 307,
+        "partides": 313,
         "mitjana": 6.8,
         "histograma": {
           "1": 13,
           "2": 23,
           "3": 27,
-          "4": 33,
+          "4": 34,
           "5": 36,
-          "6": 31,
+          "6": 34,
           "7": 27,
-          "8": 30,
+          "8": 31,
           "9": 27,
           "10": 18,
-          "11": 7,
+          "11": 8,
           "12": 10,
           "13": 10,
           "14": 6,
@@ -5882,39 +6014,40 @@
         }
       },
       "illimitat|dificil|30": {
-        "partides": 455,
-        "mitjana": 3.4,
+        "partides": 479,
+        "mitjana": 3.5,
         "histograma": {
-          "1": 76,
-          "2": 98,
-          "3": 86,
-          "4": 70,
-          "5": 58,
-          "6": 30,
+          "1": 83,
+          "2": 101,
+          "3": 91,
+          "4": 72,
+          "5": 61,
+          "6": 32,
           "7": 21,
           "8": 8,
           "9": 4,
-          "10": 3,
-          "12": 1
+          "10": 4,
+          "12": 1,
+          "14": 1
         }
       },
       "illimitat|dificil|60": {
-        "partides": 1199,
+        "partides": 1231,
         "mitjana": 5.1,
         "histograma": {
           "0": 2,
-          "1": 105,
-          "2": 159,
-          "3": 162,
-          "4": 155,
-          "5": 158,
-          "6": 128,
-          "7": 94,
-          "8": 88,
-          "9": 46,
-          "10": 36,
+          "1": 107,
+          "2": 162,
+          "3": 165,
+          "4": 158,
+          "5": 165,
+          "6": 132,
+          "7": 96,
+          "8": 90,
+          "9": 49,
+          "10": 38,
           "11": 28,
-          "12": 10,
+          "12": 11,
           "13": 10,
           "14": 7,
           "15": 5,
@@ -5959,7 +6092,7 @@
         }
       },
       "illimitat|facil|30": {
-        "partides": 116,
+        "partides": 117,
         "mitjana": 4.2,
         "histograma": {
           "1": 9,
@@ -5967,7 +6100,7 @@
           "3": 27,
           "4": 13,
           "5": 22,
-          "6": 11,
+          "6": 12,
           "7": 6,
           "8": 2,
           "9": 3,
@@ -5977,23 +6110,23 @@
         }
       },
       "illimitat|facil|60": {
-        "partides": 442,
-        "mitjana": 5.8,
+        "partides": 452,
+        "mitjana": 5.9,
         "histograma": {
-          "1": 26,
-          "2": 54,
+          "1": 28,
+          "2": 55,
           "3": 54,
           "4": 53,
-          "5": 49,
+          "5": 50,
           "6": 45,
-          "7": 48,
+          "7": 49,
           "8": 35,
-          "9": 19,
-          "10": 21,
+          "9": 21,
+          "10": 22,
           "11": 8,
           "12": 6,
           "13": 7,
-          "14": 2,
+          "14": 4,
           "15": 1,
           "16": 3,
           "17": 3,
@@ -6722,19 +6855,45 @@
             "41": 1
           }
         }
+      },
+      "2026-10-06": {
+        "dificil": {
+          "partides": 9,
+          "mitjana": 3.8,
+          "histograma": {
+            "2": 2,
+            "3": 2,
+            "4": 2,
+            "5": 2,
+            "6": 1
+          }
+        },
+        "facil": {
+          "partides": 9,
+          "mitjana": 9.2,
+          "histograma": {
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "7": 2,
+            "10": 1,
+            "14": 1,
+            "32": 1
+          }
+        }
       }
     },
     "diaria_totals": {
       "dificil": {
-        "partides": 396,
+        "partides": 405,
         "mitjana": 5.2,
         "histograma": {
           "1": 33,
-          "2": 49,
-          "3": 60,
-          "4": 47,
-          "5": 55,
-          "6": 39,
+          "2": 51,
+          "3": 62,
+          "4": 49,
+          "5": 57,
+          "6": 40,
           "7": 33,
           "8": 23,
           "9": 16,
@@ -6747,23 +6906,23 @@
         }
       },
       "facil": {
-        "partides": 335,
+        "partides": 344,
         "mitjana": 7.6,
         "histograma": {
           "1": 22,
-          "2": 34,
-          "3": 41,
-          "4": 33,
+          "2": 35,
+          "3": 42,
+          "4": 35,
           "5": 39,
           "6": 38,
-          "7": 22,
+          "7": 24,
           "8": 23,
           "9": 13,
-          "10": 12,
+          "10": 13,
           "11": 5,
           "12": 3,
           "13": 3,
-          "14": 6,
+          "14": 7,
           "15": 7,
           "16": 5,
           "17": 3,
@@ -6775,7 +6934,7 @@
           "27": 2,
           "28": 2,
           "31": 1,
-          "32": 1,
+          "32": 2,
           "33": 1,
           "35": 2,
           "40": 1,

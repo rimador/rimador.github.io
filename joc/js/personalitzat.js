@@ -16,7 +16,7 @@
 // canvia un filtre a l'adreca, les paraules canvien i el codi de partida ja no
 // coincideix amb el de l'altre: es veu de seguida i no cal comprovar res mes.
 
-import { normalitza } from './normalitza.js?v=c469d8d';
+import { normalitza } from './normalitza.js?v=b4c9b52';
 
 // Els limits del formulari.
 export const LIMITS = {

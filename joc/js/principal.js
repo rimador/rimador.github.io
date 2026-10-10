@@ -377,6 +377,14 @@ function pintarPestanyaActiva() {
     else pintarModalitats();
 }
 
+function sEstanCompilantDades() {
+    const ara = new Date();
+    const hores = ara.getHours();
+    const minuts = ara.getMinutes();
+    // Retorna cert si són entre les 00:00 i les 01:15
+    return hores === 0 || (hores === 1 && minuts <= 15);
+}
+
 /**
  * Les modalitats d'il·limitat, juguin en el dialecte que juguin. La paraula del
  * dia no hi surt: té la seva pestanya, i barrejar-hi partides d'un minut amb un
@@ -400,9 +408,13 @@ function pintarModalitats() {
 
     if (modalitats.length === 0) {
         ui.el.classificacioSelector.replaceChildren();
-        ui.estatClassificacio(estaConfigurat()
-            ? 'Encara no hi ha cap partida il·limitada. Sigues el primer!'
-            : 'La classificació encara no està activada en aquest lloc.');
+        if (sEstanCompilantDades()) {
+            ui.estatClassificacio("Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona...");
+        } else {
+            ui.estatClassificacio(estaConfigurat()
+                ? 'Encara no hi ha cap partida il·limitada. Sigues el primer!'
+                : 'La classificació encara no està activada en aquest lloc.');
+        }
         return;
     }
 
@@ -461,9 +473,13 @@ function pintarDiaria() {
     if (dies.length === 0) {
         ui.amagarSelectorDificultat();
         ui.el.classificacioSelector.replaceChildren();
-        ui.estatClassificacio(estaConfigurat()
-            ? 'Encara no hi ha cap paraula del dia jugada.'
-            : 'La classificació encara no està activada en aquest lloc.');
+        if (sEstanCompilantDades()) {
+            ui.estatClassificacio("Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona...");
+        } else {
+            ui.estatClassificacio(estaConfigurat()
+                ? 'Encara no hi ha cap paraula del dia jugada.'
+                : 'La classificació encara no està activada en aquest lloc.');
+        }
         return;
     }
 
@@ -480,10 +496,15 @@ function pintarDiaria() {
         const diesTriables = diesAmbDades(dificultatDiaria);
         if (diesTriables.length === 0) {
             ui.el.classificacioSelector.replaceChildren();
-            ui.estatClassificacio('Encara no hi ha cap paraula del dia jugada en '
-                + 'aquesta dificultat.');
+            if (sEstanCompilantDades()) {
+                ui.estatClassificacio("Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona...");
+            } else {
+                ui.estatClassificacio('Encara no hi ha cap paraula del dia jugada en '
+                    + 'aquesta dificultat.');
+            }
             return;
         }
+
 
         // Canviar de dificultat pot deixar el dia que miraves fora de la
         // llista: aleshores cap al més nou dels que queden.

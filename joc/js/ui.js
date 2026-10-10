@@ -959,18 +959,22 @@ export function pintarAhir({ dia, dificultat, paraula, resum, top }, elMeuSobren
 
     // Sense ningú, la frase de sobre ja ho diu: repetir-ho amb un avís groc
     // seria dir dos cops el mateix amb dues cares diferents.
+    
     const files = filesRanquing(top, elMeuSobrenom);
     if (files.length === 0) {
         el.ahirEstat.hidden = Boolean(!resum);
-        el.ahirEstat.textContent = 'Ahir no va pujar cap puntuació a la classificació.';
+        
+        const ara = new Date();
+        const sEstanCompilant = ara.getHours() === 0 || (ara.getHours() === 1 && ara.getMinutes() <= 15);
+        
+        el.ahirEstat.textContent = sEstanCompilant 
+            ? "Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona..."
+            : 'Ahir no va pujar cap puntuació a la classificació.';
+            
         el.ahirLlista.replaceChildren();
         return;
     }
-    el.ahirEstat.hidden = true;
-    el.ahirLlista.replaceChildren(
-        bombolla(`Els millors d'ahir · ${NOM_DIFICULTAT[dificultat] || dificultat}`, files));
 }
-
 /** La tria de dificultat de la pantalla d'ahir. */
 export function pintarDificultatAhir(actiu, alTriar) {
     el.ahirDificultat.replaceChildren(

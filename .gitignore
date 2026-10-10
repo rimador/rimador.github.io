@@ -1,8 +1,6 @@
 # Dependències de Node.js
 node_modules/
 
-gulp-dev.command
-
 # Fitxers del sistema
 .DS_Store
 Thumbs.db
@@ -12,9 +10,3 @@ __pycache__/
 
 # Minimitzats
 dist/
-
-#carpeta pronoms
-pronoms/previa/
-
-#avis mensual
-avis/

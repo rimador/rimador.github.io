@@ -28,9 +28,11 @@ name: Actualització nocturna de dades (estadístiques i classificació)
 # canviar allà (i llavors no es desplegaria res, sense que peti res enlloc).
 
 on:
-  schedule:
-    - cron: '01 23 * * *'
+  #schedule:
+  #  - cron: '01 23 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [compilar_classificacio]
 
 # Una execució a la vegada, pel mateix que abans hi havia la cursa entre els dos
 # workflows: aquest job fa un "git push", i engegar-lo a mà mentre corre el de

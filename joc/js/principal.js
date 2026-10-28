@@ -891,11 +891,17 @@ function obrirPersonalitzat() {
     if (!pvp.config) pvp.config = configuracioInicial();
     pvp.config.dialecte = estat.dialecte;
 
-    // Primer el formulari i despres els botons: seleccionar-los dispara el
+    // Primer el formulari i despres els botons: seleccionar la rima dispara el
     // refresc, i el refresc llegeix el formulari.
+    //
+    // I DELS BOTONS, ELS ACCENTS ABANS QUE LA RIMA. El refresc torna a escriure
+    // pvp.config amb el que hi ha a la pantalla, accents inclosos: amb la rima
+    // primer, llegia els botons d'accents tal com eren (tots tres premuts, si
+    // venies d'un enllac) i la tria de l'enllac es perdia abans d'arribar a
+    // pintar-la. Els accents no disparen res en seleccionar-los.
     ui.omplirPersonalitzat(pvp.config, ui.nomDialecte(estat.dialecte));
-    opcionsPvpDificultat.seleccionar(pvp.config.dificultat);
     marquesPvpAccents.seleccionar(pvp.config.accents);
+    opcionsPvpDificultat.seleccionar(pvp.config.dificultat);
     refrescarPersonalitzat();
     ui.mostrarPantalla('personalitzat');
 }

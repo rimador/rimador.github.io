@@ -25,7 +25,11 @@
 // quan el fitxer ha canviat. El versions.json no es cacheja mai; tota la resta
 // es demana amb ?v=<resum> i per tant es pot cachejar per sempre.
 
-const BASE = 'dades/';
+// Relativa al MODUL i no pas a la pagina: aquest fitxer viu a joc/js/ i les
+// dades a joc/dades/, i el freestyle.html, que el fa servir des de l'arrel del
+// lloc, les demanaria a /dades/ amb una ruta relativa a la pagina. El ?v= de
+// l'adreca del modul no hi arriba: la ruta relativa ja el treu.
+const BASE = new URL('../dades/', import.meta.url).href;
 
 // Els resums de l'ultima vegada que el versions.json es va llegir be. Fa mig
 // quilobyte: hi cap de sobres al localStorage.

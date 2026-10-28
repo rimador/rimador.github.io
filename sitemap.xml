@@ -30,6 +30,12 @@
     <loc>https://rimador.cat/joc/</loc>
   </url>
 
+  <!-- El generador de paraules per a freestylers. Encara no és al menú
+       (js/menu.js), però sí que s'ha de poder trobar. -->
+  <url>
+    <loc>https://rimador.cat/freestyle.html</loc>
+  </url>
+
   <!-- Les llistes -->
   <url>
     <loc>https://rimador.cat/llistes/llista_heptasilabs.html</loc>

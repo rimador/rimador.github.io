@@ -91,6 +91,28 @@ export function ahir() {
     return diaAnterior(avui());
 }
 
+// 'h23' i no pas hour12: false, que en alguns navegadors dona "24" a mitjanit.
+let formatadorDHora = null;
+try {
+    formatadorDHora = new Intl.DateTimeFormat('en-GB',
+        { timeZone: FUS, hour: 'numeric', hourCycle: 'h23' });
+} catch (error) {
+    // Com amb formatadorDeDia: sense fusos horaris, l'hora local.
+}
+
+/**
+ * L'hora que es ara a Catalunya (0-23), amb el mateix rellotge que avui(). Es
+ * la que diu si el compilador de la nit ja hauria d'haver passat (vegeu
+ * obrirAhir a principal.js).
+ */
+export function horaCatalunya() {
+    if (formatadorDHora) {
+        const hora = Number(formatadorDHora.format(new Date()));
+        if (Number.isInteger(hora) && hora >= 0 && hora < 24) return hora;
+    }
+    return new Date().getHours();
+}
+
 // --------------------------------------------------------------- Records
 
 // Els records van per mode, dificultat, rellotge i dialecte: no es el mateix

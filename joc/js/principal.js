@@ -21,7 +21,7 @@ import { Partida, RESULTAT, formatarTemps } from './motor.js?v=35d90f2';
 import * as ui from './ui.js?v=35d90f2';
 import * as dialecte from './dialecte.js?v=35d90f2';
 import {
-    avui, ahir, identificadorRecord, llegirRecord, desarRecord,
+    avui, ahir, horaCatalunya, identificadorRecord, llegirRecord, desarRecord,
     resultatDiari, dificultatsJugades, desarResultatDiari,
     llegirTotsElsRecords, llegirSobrenom, desarSobrenom,
 } from './magatzem.js?v=35d90f2';
@@ -30,7 +30,7 @@ import {
 } from './compartir.js?v=35d90f2';
 import {
     validarSobrenom, enviarPuntuacio, estaConfigurat,
-    carregarClassificacio, nomsOcupats, enviarPendents, quantesPendents,
+    carregarClassificacio, diaCompilat, nomsOcupats, enviarPendents, quantesPendents,
 } from './classificacio.js?v=35d90f2';
 import {
     estadistiquesDe, estadistiquesDelDia, ranquingDelDia,
@@ -265,6 +265,12 @@ function obrirVista(vista) {
 // jugues: és la que et deus voler mirar.
 let dificultatAhir = null;
 
+// A partir de quina hora (de Catalunya) el compilador de la nit ja hauria
+// d'haver passat: va cap a les 00:45, més el desplegament. Si a aquesta hora el
+// fitxer encara no porta el dia d'ahir, ja no és que s'estigui compilant sinó
+// que s'ha encallat alguna cosa, i dir "torna d'aquí una estona" seria mentir.
+const HORA_LIMIT_COMPILACIO = 3;
+
 /**
  * La pantalla d'ahir. Existeix per tancar el forat de la paraula del dia: el
  * classificacio.json es recompila un cop al dia, o sigui que de la paraula
@@ -279,7 +285,7 @@ async function obrirAhir() {
     const dia = ahir();
 
     ui.mostrarPantalla('ahir');
-    ui.pintarAhir({ dia, dificultat: dificultatAhir, paraula: '…', resum: null, top: [] },
+    ui.pintarAhir({ dia, dificultat: dificultatAhir, paraula: '…', dades: 'carregant' },
                   llegirSobrenom());
 
     async function mostrar() {
@@ -304,10 +310,17 @@ async function obrirAhir() {
             classificacio = classificacio || null;
         }
 
+        let dades = 'llestes';
+        if (!classificacio) dades = 'error';
+        else if (!diaCompilat(classificacio, dia)) {
+            dades = horaCatalunya() < HORA_LIMIT_COMPILACIO ? 'compilant' : 'endarrerides';
+        }
+
         ui.pintarAhir({
             dia,
             dificultat: dificultatAhir,
             paraula,
+            dades,
             resum: estadistiquesDelDia(classificacio, dia, dificultatAhir),
             top: ranquingDelDia(classificacio, dia, dificultatAhir),
         }, llegirSobrenom());
@@ -377,14 +390,6 @@ function pintarPestanyaActiva() {
     else pintarModalitats();
 }
 
-function sEstanCompilantDades() {
-    const ara = new Date();
-    const hores = ara.getHours();
-    const minuts = ara.getMinutes();
-    // Retorna cert si són entre les 00:00 i les 01:15
-    return hores === 0 || (hores === 1 && minuts <= 15);
-}
-
 /**
  * Les modalitats d'il·limitat, juguin en el dialecte que juguin. La paraula del
  * dia no hi surt: té la seva pestanya, i barrejar-hi partides d'un minut amb un
@@ -408,13 +413,9 @@ function pintarModalitats() {
 
     if (modalitats.length === 0) {
         ui.el.classificacioSelector.replaceChildren();
-        if (sEstanCompilantDades()) {
-            ui.estatClassificacio("Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona...");
-        } else {
-            ui.estatClassificacio(estaConfigurat()
-                ? 'Encara no hi ha cap partida il·limitada. Sigues el primer!'
-                : 'La classificació encara no està activada en aquest lloc.');
-        }
+        ui.estatClassificacio(estaConfigurat()
+            ? 'Encara no hi ha cap partida il·limitada. Sigues el primer!'
+            : 'La classificació encara no està activada en aquest lloc.');
         return;
     }
 
@@ -473,13 +474,9 @@ function pintarDiaria() {
     if (dies.length === 0) {
         ui.amagarSelectorDificultat();
         ui.el.classificacioSelector.replaceChildren();
-        if (sEstanCompilantDades()) {
-            ui.estatClassificacio("Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona...");
-        } else {
-            ui.estatClassificacio(estaConfigurat()
-                ? 'Encara no hi ha cap paraula del dia jugada.'
-                : 'La classificació encara no està activada en aquest lloc.');
-        }
+        ui.estatClassificacio(estaConfigurat()
+            ? 'Encara no hi ha cap paraula del dia jugada.'
+            : 'La classificació encara no està activada en aquest lloc.');
         return;
     }
 
@@ -496,15 +493,10 @@ function pintarDiaria() {
         const diesTriables = diesAmbDades(dificultatDiaria);
         if (diesTriables.length === 0) {
             ui.el.classificacioSelector.replaceChildren();
-            if (sEstanCompilantDades()) {
-                ui.estatClassificacio("Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona...");
-            } else {
-                ui.estatClassificacio('Encara no hi ha cap paraula del dia jugada en '
-                    + 'aquesta dificultat.');
-            }
+            ui.estatClassificacio('Encara no hi ha cap paraula del dia jugada en '
+                + 'aquesta dificultat.');
             return;
         }
-
 
         // Canviar de dificultat pot deixar el dia que miraves fora de la
         // llista: aleshores cap al més nou dels que queden.

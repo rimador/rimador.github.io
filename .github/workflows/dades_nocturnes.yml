@@ -25,7 +25,8 @@ name: Actualització nocturna de dades (estadístiques i classificació)
 # Ara és un sol job, amb un sol commit i un sol desplegament encadenat. El
 # deploy no es fa aquí: el dispara el workflow_run de deploy.yml, que escolta
 # aquest workflow PEL NOM. Si algun dia es canvia el "name:" de dalt, s'ha de
-# canviar allà (i llavors no es desplegaria res, sense que peti res enlloc).
+# canviar allà, als dos llocs on surt: la llista del workflow_run i la condició
+# del job build (i si no, no es desplegaria res, sense que peti res enlloc).
 
 on:
   #schedule:
@@ -99,14 +100,15 @@ jobs:
           fitxers: stats/estadistiques_rimador.json stats/versions_stats.json joc/dades/classificacio.json
 
       # Va l'últim, després del commit: el que s'hagi pogut fer bé es guarda i es
-      # publica la nit vinent, però el job ha d'acabar vermell perquè el correu
+      # publica igualment, però el job ha d'acabar vermell perquè el correu
       # arribi i no es quedi res petant en silenci mes rere mes.
       #
-      # COMPTE: amb el job vermell, el workflow_run de deploy.yml se salta el
-      # desplegament (demana conclusion == 'success'). O sigui que la meitat que
-      # SÍ que ha anat bé es queda comitejada però sense publicar fins a la nit
-      # següent. Si cal publicar-la abans, s'engega el deploy a mà amb el seu
-      # workflow_dispatch.
+      # El vermell NO atura el desplegament: el build de deploy.yml deixa passar
+      # aquest workflow també quan acaba en "failure", perquè els passos de
+      # "Descartar..." ja han desfet el que hagués quedat a mitges. Abans sí que
+      # l'aturava, i que petessin les estadístiques deixava la classificació
+      # comitejada però sense publicar fins a la nit següent: el joc deia tot
+      # el dia que les dades d'ahir no havien arribat.
       - name: Posar el job vermell si algun dels dos scripts ha petat
         if: steps.estadistiques.outcome == 'failure' || steps.classificacio.outcome == 'failure'
         run: |

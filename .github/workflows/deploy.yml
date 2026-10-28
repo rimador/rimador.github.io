@@ -60,11 +60,23 @@ concurrency:
 
 jobs:
   build:
-    # Si les estadístiques (o la generació del diccionari) han petat, no hi ha
-    # res de nou per publicar i el que hi hagi al repositori pot estar a mitges.
+    # Si la generació del diccionari ha petat, no hi ha res de nou per publicar
+    # i el que hi hagi al repositori pot estar a mitges.
+    #
+    # Les dades de la nit, en canvi, es publiquen encara que el job acabi
+    # vermell: cadascun dels dos scripts desfà el que ha escrit si peta (vegeu
+    # dades_nocturnes.yml), o sigui que el que s'ha comitejat és bo, i el
+    # vermell només hi és perquè arribi el correu. Si no es publiqués, que
+    # petessin les estadístiques deixaria la classificació d'ahir comitejada
+    # però sense arribar al joc fins a la nit següent.
+    #
+    # El nom ha de ser el mateix "name:" de dades_nocturnes.yml, com a la
+    # llista del workflow_run de dalt.
     if: >-
       github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
+      github.event.workflow_run.conclusion == 'success' ||
+      (github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.name == 'Actualització nocturna de dades (estadístiques i classificació)')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

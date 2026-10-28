@@ -299,14 +299,16 @@ export function bloquejarEntrada() {
  * altra cosa deixa el cercador amb la consonant, que és el que ja fa per
  * defecte.
  */
-export function enllacDeRimes(text, { objectiu, dialecte, dificultat }) {
+export function enllacDeRimes(text, { objectiu, dialecte, dificultat, arrel = '../' }) {
     const enllac = document.createElement('a');
     const params = new URLSearchParams({ q: objectiu, d: dialecte });
-    
+
     if (dificultat !== 'dificil') params.set('rima', 'assonant');
-    
+
     enllac.className = 'enllac-rimes';
-    enllac.href = `../?${params}`;
+    // L'arrel del lloc vista des de la pagina: "../" des del joc, i "./" des
+    // del freestyle.html, que penja de l'arrel.
+    enllac.href = `${arrel}?${params}`;
     enllac.textContent = text;
     enllac.title = `Mira les rimes de «${objectiu}» al Rimador.cat`;
     

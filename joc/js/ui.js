@@ -949,34 +949,54 @@ export function estatEnviament(text, tipus) {
  * La paraula no surt del rànquing sinó que la calcula el joc (`paraulaDelDia`),
  * o sigui que hi és encara que no hi hagués jugat ningú. És la mateixa per a
  * tothom; el que canvia amb el dialecte són les rimes que valien.
+ *
+ * `dades` diu com està el rànquing: 'carregant', 'error', 'compilant' (el
+ * fitxer encara no porta el dia d'ahir, vegeu diaCompilat a classificacio.js),
+ * 'endarrerides' (tampoc, i ja hauria d'haver arribat) o 'llestes'. Fins que no
+ * són llestes, no se'n pot dir res: ni la mitjana ni qui la va fer millor, i
+ * dir que ningú no hi va jugar seria mentida.
  */
-export function pintarAhir({ dia, dificultat, paraula, resum, top }, elMeuSobrenom) {
+export function pintarAhir({ dia, dificultat, paraula, dades, resum, top }, elMeuSobrenom) {
     el.ahirData.textContent = `El ${diaLlarg(dia)}`;
     el.ahirParaula.textContent = paraula || '—';
 
-    el.ahirMitjana.textContent = resum
-        ? `De mitjana es van trobar ${decimal(resum.mitjana)} rimes, `
-          + `en ${partidesText(resum.partides)}.`
-        : 'Ahir ningú no la va jugar en aquesta dificultat.';
+    // La mitjana és una caixa amb vora: buida, quedaria un requadre sense res.
+    function textos(mitjana, avis) {
+        el.ahirMitjana.textContent = mitjana || '';
+        el.ahirMitjana.hidden = !mitjana;
+        el.ahirEstat.textContent = avis || '';
+        el.ahirEstat.hidden = !avis;
+    }
 
-    // Sense ningú, la frase de sobre ja ho diu: repetir-ho amb un avís groc
-    // seria dir dos cops el mateix amb dues cares diferents.
-    
-    const files = filesRanquing(top, elMeuSobrenom);
-    if (files.length === 0) {
-        el.ahirEstat.hidden = Boolean(!resum);
-        
-        const ara = new Date();
-        const sEstanCompilant = ara.getHours() === 0 || (ara.getHours() === 1 && ara.getMinutes() <= 15);
-        
-        el.ahirEstat.textContent = sEstanCompilant 
-            ? "Les dades s'estan compilant, torna a consultar la classificació d'aquí una estona..."
-            : 'Ahir no va pujar cap puntuació a la classificació.';
-            
+    if (dades !== 'llestes') {
+        if (dades === 'carregant') textos('Carregant la classificació…');
+        else if (dades === 'compilant') textos('', "Les dades s'estan compilant, torna a "
+            + "consultar la classificació d'aquí una estona...");
+        else if (dades === 'endarrerides') textos('', "Les dades d'ahir s'han endarrerit, "
+            + 'torna a consultar la classificació més tard.');
+        else textos('', "No s'ha pogut carregar la classificació. Torna-ho a provar més tard.");
         el.ahirLlista.replaceChildren();
         return;
     }
+
+    const mitjana = resum
+        ? `De mitjana es van trobar ${decimal(resum.mitjana)} rimes, `
+          + `en ${partidesText(resum.partides)}.`
+        : 'Ahir no hi va haver cap partida en aquesta dificultat.';
+
+    // Sense ningú, la frase de la mitjana ja ho diu: repetir-ho amb un avís
+    // groc seria dir dos cops el mateix amb dues cares diferents.
+    const files = filesRanquing(top, elMeuSobrenom);
+    if (files.length === 0) {
+        textos(mitjana, resum ? 'Ahir no va pujar cap puntuació a la classificació.' : '');
+        el.ahirLlista.replaceChildren();
+        return;
+    }
+    textos(mitjana);
+    el.ahirLlista.replaceChildren(
+        bombolla(`Els millors d'ahir · ${NOM_DIFICULTAT[dificultat] || dificultat}`, files));
 }
+
 /** La tria de dificultat de la pantalla d'ahir. */
 export function pintarDificultatAhir(actiu, alTriar) {
     el.ahirDificultat.replaceChildren(

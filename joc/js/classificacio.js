@@ -5,7 +5,9 @@
 // full de calcul. Despres, joc/eines/compilar_classificacio.py llegeix el full
 // publicat en CSV, en fa el rànquing i escriu joc/dades/classificacio.json, que
 // es el que es veu a la pantalla de classificacio.
-//
+
+import { ahir } from './magatzem.js?v=b4c9b52';
+
 // PER POSAR-HO EN MARXA cal omplir aquestes dues constants (mira el README i
 // joc/eines/apps_script_classificacio.gs):
 const URL_ENVIAMENT = 'https://script.google.com/macros/s/AKfycbz6mXph0DU7jZPKg-EAHSbVPJoFLDgvNbocAGv4HGkruOH_ZoauwNKAxUu3SaRLbxPbzg/exec';
@@ -252,8 +254,45 @@ export async function enviarPendents() {
 // llegir
 
 let classificacioPromesa = null;
+let classificacioBaixada = null;
+let classificacioBaixadaA = 0;
+
+// Cada quant, com a molt, es torna a demanar un fitxer que encara no porta el
+// dia d'ahir (vegeu carregarClassificacio).
+const ESPERA_REBAIXADA = 5 * 60 * 1000;
+
+/**
+ * Si el classificacio.json ja porta les partides d'un dia. El compilador
+ * (eines/compilar_classificacio.py) passa cada nit cap a les 00:45 i només hi
+ * posa els dies acabats, o sigui que un dia hi és sencer quan el fitxer s'ha
+ * compilat l'endemà o més tard. De mitjanit fins aleshores, el dia d'ahir
+ * encara no hi és: no és que no hi jugués ningú, és que no s'ha compilat.
+ *
+ * Es mira la data d'"actualitzacio" ("29/10/2026 00:45:27", hora de Madrid,
+ * la mateixa que avui() de magatzem.js) i no pas el rellotge: així val igual
+ * si l'Action s'endarrereix o si el mòbil va amb una altra hora.
+ */
+export function diaCompilat(classificacio, dia) {
+    const [data] = String((classificacio || {}).actualitzacio || '').split(' ');
+    const [d, m, a] = data.split('/');
+    // Sense una data que es pugui llegir, com abans: el que hi ha és el que hi ha.
+    if (!a) return true;
+    return `${a}-${m.padStart(2, '0')}-${d.padStart(2, '0')}` > dia;
+}
 
 export function carregarClassificacio() {
+    // Es baixa un cop per pàgina, llevat que el que tenim encara no porti el
+    // dia d'ahir: qui hagués obert el joc abans de la compilació de la nit
+    // veuria "s'estan compilant" fins que recarregués la pàgina.
+    //
+    // Però com a molt cada cinc minuts: si una nit el compilador peta, el dia
+    // d'ahir no arriba en tot el dia, i no cal tornar a baixar el fitxer cada
+    // cop que s'obre una pantalla.
+    if (classificacioBaixada && !diaCompilat(classificacioBaixada, ahir())
+        && Date.now() - classificacioBaixadaA >= ESPERA_REBAIXADA) {
+        classificacioPromesa = null;
+        classificacioBaixada = null;
+    }
     if (!classificacioPromesa) {
         // Amb ?t= i prou: el rànquing canvia cada cop que es passa el
         // compilador, sense que canviï cap versió de res. És la mateixa regla
@@ -263,6 +302,11 @@ export function carregarClassificacio() {
             .then((resposta) => {
                 if (!resposta.ok) throw new Error(`classificacio.json: ${resposta.status}`);
                 return resposta.json();
+            })
+            .then((dades) => {
+                classificacioBaixada = dades;
+                classificacioBaixadaA = Date.now();
+                return dades;
             })
             .catch((error) => {
                 classificacioPromesa = null;

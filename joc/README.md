@@ -249,6 +249,65 @@ rimador.cat/joc/?p=1&d=ca&m=c&t=15&r=2&n=20&x=200&a=123&s=5dawtj
 | `a` | quines paraules: `1` agudes, `2` planes, `3` esdrúixoles |
 | `s` | la llavor |
 
+## El freestyle
+
+Una pàgina a part, `freestyle.html` **a l'arrel del lloc**
+(`rimador.cat/freestyle.html`), que **no és un joc**: és un generador de
+paraules per a qui fa freestyle. Cada X segons en surt una de nova en gran, amb
+la caixa groga de la partida, i a sota quantes paraules hi rimen. No hi ha cap
+camp de text, ni punts, ni classificació. **Encara no surt al menú** (ni al del
+lloc ni a la portada del joc), però sí al `sitemap.xml` i es pot indexar.
+
+La pàgina és a l'arrel, però **tota la resta és del joc**: el full d'estil
+(`dist/css/joc.min.css`), el seu mòdul (`joc/js/freestyle.js`, al costat dels
+altres perquè s'importen entre ells i el deploy els reescriu el `?v=` junts) i
+les dades. Perquè les dades es trobin des de l'arrel, `joc/js/dades.js` les
+demana **relatives al mòdul** (`new URL('../dades/', import.meta.url)`) i no
+pas a la pàgina; per al joc no canvia res, perquè tots dos camins donen
+`joc/dades/`.
+
+Abans de començar es tria:
+
+| ajust | marge | per defecte |
+|---|---|---|
+| Segons per paraula | 2 a 120 | 10 |
+| Paraules | 1 a 200, o **sense límit** | 12 |
+| Rima | assonant o consonant | consonant |
+| Quines paraules | agudes, planes, esdrúixoles | totes tres |
+| Quantes rimes | d'1 fins on vulguis, o sense màxim | de 30 a 800 |
+
+La pantalla diu **quant durarà** (paraules × segons) i quantes paraules hi ha amb
+aquells filtres, com el recompte del personalitzat. Els ajustos es recorden en el
+navegador (`localStorage['rimador.joc.freestyle.v1']`).
+
+Durant la sessió, el marcador du **dos rellotges**: quants segons falten perquè
+canviï la paraula (el mateix que diu la barra) i quanta estona fa que
+improvises, sense les pauses. No hi ha cap compte enrere de la sessió sencera, a
+posta: mentre rimes, el que importa és la paraula d'ara. La capçalera diu
+**Freestyle del Rimador.cat** i la marca torna als ajustos.
+
+Hi ha **Pausa** (amaga la paraula i la terminació), **Següent** i **Atura**, i
+també l'espai, la fletxa → i l'Esc. Si la pestanya s'amaga, es posa en pausa
+sola, i al mòbil es demana que la pantalla no s'apagui (Wake Lock API, on n'hi
+ha). Al final surt quantes paraules han sortit i en quanta estona, i la llista
+de paraules, cadascuna amb un enllaç al cercador amb totes les seves rimes.
+
+La terminació fonètica (`\ɛsə\`) va en **pes normal**, com al joc: la lletra
+fonètica del lloc només en té aquest pes, i en negreta les lletres llatines
+sortien gruixudes al costat de les fonètiques primes.
+
+**Les paraules surten amb el codi del personalitzat**: els filtres són els de
+`opcionsDeRima` i la tira la fa `rondesPersonalitzades`, amb una llavor nova a
+cada sessió. O sigui que **no es repeteix cap rima** fins que s'han fet servir
+totes les que permeten els filtres. Sense límit, es demanen per tandes de 200
+amb la mateixa signatura, i la roda continua d'una tanda a l'altra.
+
+> **Quantes rimes, aquí, no compta la paraula mateixa.** L'índex compta les
+> paraules de cada secció, ella inclosa, i el personalitzat filtra amb aquest
+> número; el freestyle desplaça la finestra un lloc perquè el número de sota la
+> paraula (que és el `rimesPossibles` de la partida, sense ella) quedi dins del
+> mínim i el màxim que has triat.
+
 ## Els dialectes
 
 S'hi juga en els **quatre dialectes** que serveix el cercador, i es tria amb la
@@ -695,6 +754,7 @@ joc/
     objectius.js        tria de la paraula (a l'atzar o la del dia)
     estadistiques.js    percentil, mitjana i el rànquing d'ahir
     personalitzat.js    els ajustos del mode personalitzat, l'enllaç i el codi
+    freestyle.js        tot el freestyle.html de l'arrel (fa servir dades, objectius i ui)
     motor.js            rellotge, validació i puntuació (no toca el DOM)
     normalitza.js       accents fora; ha de coincidir amb el generador
     ui.js               tot el que toca el DOM

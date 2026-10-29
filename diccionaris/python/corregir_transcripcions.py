@@ -50,33 +50,75 @@ from columnes import ACCENT, INVENTARI, VOCALS, calcular_rimes
 PAGINA = os.path.join(DIR_SCRIPTS, "corregir_transcripcions.html")
 PORT = 8770
 MAX_RESULTATS = 60
+# Les de "comença per" i "acaba per" són només les paraules, i en una cerca
+# com "acaba per -ció" n'hi ha milers: les primeres i el total.
+MAX_PARAULES = 500
+MODES = ("exacta", "comenca", "acaba")
 
 NOMS_DIALECTES = {"ca": "central", "nw": "nord-occidental", "va": "valencià", "ba": "balear"}
+
+
+ENLLACOS = ("Vicc", "Viq", "Diec")
+
+
+def enllacos_del_diccionari():
+    """Els tres últims camps del diccionari: Vicc, Viq i Diec, o NO. Van fila
+    per fila amb la col_10."""
+    enllacos = []
+    for linia in camins.llegir_columna(camins.DICCIONARI):
+        if linia:
+            enllacos.append(tuple(linia.split("$")[4:7]))
+    return enllacos
+
+
+def enllacos_de_lapendix(codi):
+    """A l'apendix són les col_6, 7 i 8, que van fila per fila amb la seva col_10."""
+    return list(zip(*(camins.llegir_columna(camins.cami_apendix(codi, numero))
+                      for numero in (6, 7, 8))))
 
 
 class Fitxer:
     """Una col_10 a la memòria: les línies tal com són i un índex per paraula.
 
     Les línies no es parteixen fins que algú les demana: mig milió de llistes
-    de camps serien uns quants centenars de MB per no res."""
+    de camps serien uns quants centenars de MB per no res.
 
-    def __init__(self, clau, cami, etiqueta):
+    Al costat, si la paraula té entrada al Viccionari, a la Viquipèdia i al
+    DIEC. Això no és a la col_10 sinó al diccionari (o a les col_6 a 8 de
+    l'apendix), i per això es llegeix a part i es torna a llegir quan canvia."""
+
+    def __init__(self, clau, cami, etiqueta, camins_enllacos, llegir_enllacos):
         self.clau = clau
         self.cami = cami
         self.etiqueta = etiqueta
+        self.camins_enllacos = camins_enllacos
+        self.llegir_enllacos = llegir_enllacos
         self.carregar()
+
+    def mtimes(self):
+        return [os.path.getmtime(cami) for cami in (self.cami, *self.camins_enllacos)]
 
     def carregar(self):
         self.linies = camins.llegir_columna(self.cami)
-        self.mtime = os.path.getmtime(self.cami)
+        self.mtime = self.mtimes()
+        self.enllacos = self.llegir_enllacos()
+        if len(self.enllacos) != len(self.linies):
+            # A mig editar (una paraula donada d'alta a la col_10 i encara no al
+            # diccionari, per exemple) les files no quadren i no se sap quin
+            # enllaç és de qui. Millor no ensenyar-ne cap que ensenyar-los malament.
+            print(f"  (avís: {camins.relatiu(self.cami)} té {camins.mil(len(self.linies))} "
+                  f"línies i els enllaços {camins.mil(len(self.enllacos))}: no se n'ensenyaran)")
+            self.enllacos = None
+        self.per_paraula = {}
         self.per_clau = {}
         for fila, linia in enumerate(self.linies):
             paraula = linia.split(modul_col_10.SEPARADOR, 1)[0]
+            self.per_paraula.setdefault(paraula.lower(), []).append(fila)
             self.per_clau.setdefault(clau_dordre(paraula), []).append(fila)
 
     def al_dia(self):
         """Si algú l'ha tocat per fora des que l'hem llegida, la tornem a llegir."""
-        if os.path.getmtime(self.cami) != self.mtime:
+        if self.mtimes() != self.mtime:
             self.carregar()
 
     def entrada(self, fila):
@@ -92,6 +134,8 @@ class Fitxer:
             "lema": lema,
             "codi": codi,
             "transcripcions": dict(zip(trossos[1::2], trossos[2::2])),
+            "enllacos": None if self.enllacos is None else
+                        {nom: valor == nom for nom, valor in zip(ENLLACOS, self.enllacos[fila])},
         }
 
     def desar(self, fila, linia):
@@ -100,16 +144,19 @@ class Fitxer:
         with open(temporal, "w", encoding="utf-8") as sortida:
             sortida.write("\n".join(self.linies))
         os.replace(temporal, self.cami)
-        self.mtime = os.path.getmtime(self.cami)
+        self.mtime = self.mtimes()
 
 
 def carregar_fitxers():
-    fitxers = {"dicc": Fitxer("dicc", camins.COL_10, "diccionari")}
+    fitxers = {"dicc": Fitxer("dicc", camins.COL_10, "diccionari",
+                              [camins.DICCIONARI], enllacos_del_diccionari)}
     for codi in camins.dialectes_amb_apendix():
         cami = camins.cami_col_10_apendix(codi)
         if os.path.exists(cami):
             nom = NOMS_DIALECTES.get(codi, codi)
-            fitxers[codi] = Fitxer(codi, cami, f"apèndix {nom}")
+            fitxers[codi] = Fitxer(codi, cami, f"apèndix {nom}",
+                                   [camins.cami_apendix(codi, numero) for numero in (6, 7, 8)],
+                                   lambda codi=codi: enllacos_de_lapendix(codi))
     return fitxers
 
 
@@ -140,25 +187,44 @@ class Servidor:
         for fitxer in self.fitxers.values():
             print(f"  {camins.relatiu(fitxer.cami)}: {camins.mil(len(fitxer.linies))} línies")
 
-    def cercar(self, text):
+    def cercar(self, text, mode="exacta"):
+        """Tres maneres, i totes sense mirar majúscules:
+
+            exacta    la paraula tal com l'has escrita, accents inclosos. Si no
+                      n'hi ha cap, et proposa les que s'hi assemblen
+            comenca   les paraules que comencen així ("desfer" -> desferma, ...)
+            acaba     les paraules que acaben així ("ció" -> acció, ...)
+
+        Les dues últimes tornen paraules i no pas entrades: en tries una i
+        llavors es fa la cerca exacta."""
         text = text.strip()
         if not text:
-            return {"resultats": [], "aproximat": False}
+            return {"resultats": []}
         with self.pany:
             for fitxer in self.fitxers.values():
                 fitxer.al_dia()
-            # Sense accents ni majúscules ni guions: "pages" troba "Pages" i "pagès".
-            # Les que s'escriuen tal com les has escrit van al davant.
-            clau = clau_dordre(text)
-            resultats = self._buscar(lambda f: f.per_clau.get(clau, []))
-            resultats.sort(key=lambda entrada: entrada["paraula"].lower() != text.lower())
-            aproximat = any(entrada["paraula"].lower() != text.lower() for entrada in resultats)
+            if mode in ("comenca", "acaba"):
+                return self._paraules_que(mode, text.lower())
+
+            resultats = self._buscar(lambda f: f.per_paraula.get(text.lower(), []))
             if not resultats:
-                return {"resultats": self._que_contenen(clau), "aproximat": True}
+                return {"resultats": self._semblants(clau_dordre(text)), "suggeriments": True}
             for entrada in resultats:
                 entrada["rimes"] = {codi: rimes(valor)
                                     for codi, valor in entrada["transcripcions"].items()}
-        return {"resultats": resultats, "aproximat": aproximat}
+        return {"resultats": resultats}
+
+    def _paraules_que(self, mode, text):
+        trobades = {}
+        for fitxer in self.fitxers.values():
+            for minuscula, files in fitxer.per_paraula.items():
+                if (minuscula.startswith(text) if mode == "comenca" else minuscula.endswith(text)):
+                    paraula = fitxer.linies[files[0]].split(modul_col_10.SEPARADOR, 1)[0]
+                    trobades[paraula] = trobades.get(paraula, 0) + len(files)
+        ordenades = sorted(trobades, key=lambda paraula: (clau_dordre(paraula), paraula))
+        return {"paraules": [{"paraula": paraula, "entrades": trobades[paraula]}
+                             for paraula in ordenades[:MAX_PARAULES]],
+                "total": len(trobades)}
 
     def _buscar(self, files_de):
         resultats = []
@@ -167,18 +233,19 @@ class Servidor:
                 resultats.append(fitxer.entrada(fila))
         return resultats[:MAX_RESULTATS]
 
-    def _que_contenen(self, clau):
-        """L'últim recurs: les que ho contenen ("hertogenb" troba
-        "'s-Hertogenbosch"). Només les paraules, perquè n'hi pot haver moltes i
-        l'usuari en triarà una. Primer les que hi comencen."""
-        if len(clau) < 3:
+    def _semblants(self, clau):
+        """Quan la cerca exacta no troba res: les que només canvien d'accents,
+        majúscules o guions ("pages" -> "pagès") i les que ho contenen
+        ("hertogenb" -> "'s-Hertogenbosch"). Primer les que s'hi assemblen més."""
+        if not clau:
             return []
         trobades = set()
         for fitxer in self.fitxers.values():
             for clau_seva, files in fitxer.per_clau.items():
-                if clau in clau_seva:
+                if clau_seva == clau or (len(clau) >= 3 and clau in clau_seva):
                     trobades.add(fitxer.linies[files[0]].split(modul_col_10.SEPARADOR, 1)[0])
-        ordenades = sorted(trobades, key=lambda paraula: (not clau_dordre(paraula).startswith(clau),
+        ordenades = sorted(trobades, key=lambda paraula: (clau_dordre(paraula) != clau,
+                                                          not clau_dordre(paraula).startswith(clau),
                                                           len(paraula), paraula))
         return [{"suggeriment": paraula} for paraula in ordenades[:MAX_RESULTATS]]
 
@@ -254,8 +321,12 @@ def fer_handler(servidor):
             elif url.path == "/api/configuracio":
                 self._json(200, servidor.configuracio())
             elif url.path == "/api/cerca":
-                text = parse_qs(url.query).get("q", [""])[0]
-                self._json(200, servidor.cercar(text))
+                consulta = parse_qs(url.query)
+                text = consulta.get("q", [""])[0]
+                mode = consulta.get("mode", ["exacta"])[0]
+                if mode not in MODES:
+                    return self._json(400, {"error": f"El mode ha de ser {', '.join(MODES)}."})
+                self._json(200, servidor.cercar(text, mode))
             else:
                 self._json(404, {"error": "no hi és"})
 

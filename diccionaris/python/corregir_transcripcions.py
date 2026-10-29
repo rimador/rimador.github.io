@@ -3,7 +3,7 @@ EINA LOCAL. Cercar una paraula, veure com sona a cada dialecte i corregir-ho.
 
     python3 diccionaris/python/corregir_transcripcions.py
 
-Engega un servidor a http://localhost:8770 i obre la pàgina al navegador. No
+Engega un servidor a http://localhost:8771 i obre la pàgina al navegador. No
 porta arguments (--port i --sense-navegador si cal). Ctrl+C per aturar-lo.
 
 QUÈ TOCA. Només les transcripcions de les col_10: la del diccionari
@@ -48,11 +48,11 @@ from afegir_paraula import clau_dordre
 from columnes import ACCENT, INVENTARI, VOCALS, calcular_rimes
 
 PAGINA = os.path.join(DIR_SCRIPTS, "corregir_transcripcions.html")
-PORT = 8770
+PORT = 8771
 MAX_RESULTATS = 60
-# Les de "comença per" i "acaba per" són només les paraules, i en una cerca
-# com "acaba per -ció" n'hi ha milers: les primeres i el total.
-MAX_PARAULES = 500
+# Les de "comença per" i "acaba per" van per pàgines: en una cerca com "acaba
+# en -ció" hi ha milers d'entrades, i cada targeta són quatre camps editables.
+PER_PAGINA = 50
 MODES = ("exacta", "comenca", "acaba")
 
 NOMS_DIALECTES = {"ca": "central", "nw": "nord-occidental", "va": "valencià", "ba": "balear"}
@@ -179,6 +179,11 @@ def rimes(transcripcio):
             "sense_accent": ACCENT not in transcripcio}
 
 
+def amb_rimes(entrada):
+    entrada["rimes"] = {codi: rimes(valor) for codi, valor in entrada["transcripcions"].items()}
+    return entrada
+
+
 class Servidor:
     def __init__(self):
         print("Llegint les col_10…", flush=True)
@@ -187,16 +192,16 @@ class Servidor:
         for fitxer in self.fitxers.values():
             print(f"  {camins.relatiu(fitxer.cami)}: {camins.mil(len(fitxer.linies))} línies")
 
-    def cercar(self, text, mode="exacta"):
+    def cercar(self, text, mode="exacta", des_de=0):
         """Tres maneres, i totes sense mirar majúscules:
 
             exacta    la paraula tal com l'has escrita, accents inclosos. Si no
                       n'hi ha cap, et proposa les que s'hi assemblen
-            comenca   les paraules que comencen així ("desfer" -> desferma, ...)
-            acaba     les paraules que acaben així ("ció" -> acció, ...)
+            comenca   les entrades de les paraules que comencen així
+            acaba     les entrades de les paraules que acaben així
 
-        Les dues últimes tornen paraules i no pas entrades: en tries una i
-        llavors es fa la cerca exacta."""
+        Les dues últimes per ordre alfabètic i de PER_PAGINA en PER_PAGINA,
+        començant per la des_de."""
         text = text.strip()
         if not text:
             return {"resultats": []}
@@ -204,27 +209,27 @@ class Servidor:
             for fitxer in self.fitxers.values():
                 fitxer.al_dia()
             if mode in ("comenca", "acaba"):
-                return self._paraules_que(mode, text.lower())
+                return self._entrades_que(mode, text.lower(), des_de)
 
             resultats = self._buscar(lambda f: f.per_paraula.get(text.lower(), []))
             if not resultats:
                 return {"resultats": self._semblants(clau_dordre(text)), "suggeriments": True}
-            for entrada in resultats:
-                entrada["rimes"] = {codi: rimes(valor)
-                                    for codi, valor in entrada["transcripcions"].items()}
-        return {"resultats": resultats}
+        return {"resultats": [amb_rimes(entrada) for entrada in resultats]}
 
-    def _paraules_que(self, mode, text):
-        trobades = {}
-        for fitxer in self.fitxers.values():
+    def _entrades_que(self, mode, text, des_de):
+        trobades = []
+        for ordre, fitxer in enumerate(self.fitxers.values()):
             for minuscula, files in fitxer.per_paraula.items():
-                if (minuscula.startswith(text) if mode == "comenca" else minuscula.endswith(text)):
+                if minuscula.startswith(text) if mode == "comenca" else minuscula.endswith(text):
                     paraula = fitxer.linies[files[0]].split(modul_col_10.SEPARADOR, 1)[0]
-                    trobades[paraula] = trobades.get(paraula, 0) + len(files)
-        ordenades = sorted(trobades, key=lambda paraula: (clau_dordre(paraula), paraula))
-        return {"paraules": [{"paraula": paraula, "entrades": trobades[paraula]}
-                             for paraula in ordenades[:MAX_PARAULES]],
-                "total": len(trobades)}
+                    # Les entrades d'una mateixa paraula juntes, primer les del
+                    # diccionari i després les dels apendixs, i cadascuna per fila.
+                    clau = (clau_dordre(paraula), paraula, ordre)
+                    trobades.extend((clau, fila, fitxer) for fila in files)
+        trobades.sort(key=lambda trobada: trobada[:2])
+        pagina = trobades[des_de:des_de + PER_PAGINA]
+        return {"resultats": [amb_rimes(fitxer.entrada(fila)) for _, fila, fitxer in pagina],
+                "total": len(trobades), "des_de": des_de}
 
     def _buscar(self, files_de):
         resultats = []
@@ -283,7 +288,7 @@ class Servidor:
             fitxer.desar(fila, linia)
             nova = fitxer.entrada(fila)
 
-        nova["rimes"] = {codi: rimes(valor) for codi, valor in nova["transcripcions"].items()}
+        amb_rimes(nova)
         canvis = ", ".join(f"{codi} {actuals[codi]} → {noves[codi]}"
                            for codi in actuals if actuals[codi] != noves[codi])
         print(f"  desat: {entrada['paraula']} ({entrada['codi']}, {fitxer.etiqueta}, "
@@ -326,7 +331,11 @@ def fer_handler(servidor):
                 mode = consulta.get("mode", ["exacta"])[0]
                 if mode not in MODES:
                     return self._json(400, {"error": f"El mode ha de ser {', '.join(MODES)}."})
-                self._json(200, servidor.cercar(text, mode))
+                try:
+                    des_de = max(0, int(consulta.get("des_de", ["0"])[0]))
+                except ValueError:
+                    return self._json(400, {"error": "des_de ha de ser un número."})
+                self._json(200, servidor.cercar(text, mode, des_de))
             else:
                 self._json(404, {"error": "no hi és"})
 

@@ -207,7 +207,10 @@ function omplirLlistesHTML(idElement, arrayDades, esRima = false) {
             li.appendChild(document.createTextNode(` (${tipusNet})`));
         }
 
-        if (idElement !== 'llista-typos') {
+        // Tots els tops duen el recompte. Es mira si hi és i no s'hi dona per
+        // fet: el d'errors abans era una llista de les últimes cerques, sense
+        // número, i un JSON d'abans del canvi hi escriuria ": undefined".
+        if (item.cerques !== undefined) {
             li.appendChild(document.createTextNode(`: ${item.cerques}`));
         }
         // D'on venien les cerques que s'han comptat. Ho duen el top de rimes i

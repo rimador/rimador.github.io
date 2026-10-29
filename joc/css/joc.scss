@@ -1447,6 +1447,159 @@ main {
     color: var(--negre);
 }
 
+/* -------------------------------------------------------------- Freestyle */
+
+/* El generador de paraules (freestyle.html, a l'arrel). Fa servir les peces del joc tal
+   com són -la caixa groga de la paraula, el marcador, la barra del temps, els
+   plafons i els camps del personalitzat- i aquí només hi ha el que és seu. */
+
+/* Quant durarà la sessió, just a sota del ritme que la decideix. Blanc i no pas
+   groc com el recompte: el groc és per al que pot fer que no es pugui començar,
+   i la durada no ho fa mai. */
+.durada {
+    margin: 12px 0 0;
+    padding: 8px 12px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background: #fff;
+    border: 2px solid var(--gris-fosc);
+    border-radius: 8px;
+}
+
+.durada strong {
+    font-family: var(--tipus-titol);
+    font-weight: normal;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+/* La paraula i el rètol de la pausa a sobre. L'alçada mínima és perquè la
+   pantalla no balli quan es passa d'una paraula curta a una de llarga que fa
+   dues línies. */
+.escenari {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(7rem, 32vw, 10rem);
+    margin: 0 0 16px;
+}
+
+/* Encara més grossa que a la partida: aquí no hi ha res més a mirar, i s'ha de
+   poder llegir d'un cop d'ull des de l'altra punta de la plaça. */
+/* LES LLARGUES S'ENCONGEIXEN en comptes de partir-se: amb la mida de sempre, al
+   mòbil una paraula de catorze lletres sortia tallada pel mig («semimicroa /
+   nàlisi»), que no es llegeix d'un cop d'ull. El --lletres el posa
+   pintarParaula de js/freestyle.js, i el 0,55 és, de sobres, l'amplada d'una
+   lletra de l'Anton. El 90px són els marges de la pàgina i de la caixa. */
+.objectiu--freestyle {
+    font-size: min(clamp(2.8rem, 15vw, 5rem),
+                   calc((min(100vw, 640px) - 90px) / (var(--lletres, 1) * 0.55)));
+    margin: 4px auto;
+    padding: 8px 24px;
+}
+
+/* El 3, 2, 1 d'abans de la primera paraula, en cian perquè ningú no s'hi
+   posi a rimar. */
+.objectiu--compte {
+    min-width: 2.2em;
+    background: var(--cian);
+}
+
+.objectiu--nova { animation: rebotar 0.3s ease both; }
+
+@keyframes rebotar {
+    from { opacity: 0; transform: scale(0.8); }
+    60% { opacity: 1; transform: scale(1.05); }
+    to { transform: none; }
+}
+
+/* En pausa no es veu ni la paraula ni la terminació de sota, que la delataria.
+   Amb visibility i no pas amb display, perquè la pantalla no es mogui. */
+.generador--pausa .objectiu,
+.generador--pausa .objectiu__rimes--freestyle { visibility: hidden; }
+
+.pausa-rotul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-6deg);
+    margin: 0;
+    padding: 2px 16px;
+    font-family: var(--tipus-titol);
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #fff;
+    background: var(--vermell);
+    border: var(--vora);
+    border-radius: 6px;
+    box-shadow: var(--ombra-dura);
+}
+
+/* Quantes paraules hi rimen. A la partida és una nota petita i grisa; aquí és
+   l'única altra cosa que diu la pantalla, i el número ha de veure's. */
+.objectiu__rimes--freestyle {
+    margin: 0 0 22px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.objectiu__rimes--freestyle strong {
+    font-family: var(--tipus-titol);
+    font-weight: normal;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* La transcripció, en pes normal com a la línia del joc. La lletra fonètica
+   ('Rimador Fonetica', a css/fonts.scss) només en té aquest pes: en negreta,
+   les lletres llatines (la "s", la "ŋ", la "β") sortien gruixudes i les
+   fonètiques (la "ɛ", la "ə", la "ʎ") primes, i la terminació semblava feta de
+   trossos. No es diu .transcripcio a posta: aquella classe (css/fonts.scss) és
+   la lletra del cercador, i aquí ha de ser la mateixa que al joc. */
+.objectiu__terminacio { font-weight: normal; }
+
+/* El rellotge del mig del marcador: quants segons falten per a la paraula
+   següent. */
+.marcador__caixa--centre { text-align: center; }
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.controls .boto[aria-pressed="true"] { @include giny-triat; }
+
+/* La llista del final: cada paraula, sencera, és un enllaç al cercador amb
+   totes les seves rimes. L'enllaç omple la pastilla perquè s'hi pugui tocar a
+   qualsevol lloc, i la pastilla es torna rosa en passar-hi per sobre, com els
+   botons, que és el que diu que s'hi pot clicar. */
+.trobades--enllacos li { padding: 0; }
+
+.trobades--enllacos a {
+    display: block;
+    padding: 4px 12px;
+}
+
+.trobades--enllacos li:hover { background: var(--rosa); }
+
+/* Inline-block perquè el subratllat de l'enllaç no s'hi encomani: el que es
+   llegeix com a enllaç és la paraula, i el número és una nota al costat. */
+.trobades--enllacos .trobades__rimes { display: inline-block; }
+
+/* Les rimes de cada paraula, a la llista del final. */
+.trobades__rimes {
+    margin-left: 8px;
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: var(--text-fluix);
+}
+
 /* ------------------------------------------------------- Pantalles amples */
 
 @media (min-width: 560px) {

@@ -6,7 +6,7 @@
 // publicat en CSV, en fa el rànquing i escriu joc/dades/classificacio.json, que
 // es el que es veu a la pantalla de classificacio.
 
-import { ahir } from './magatzem.js?v=bf59be2';
+import { ahir } from './magatzem.js?v=e901b92';
 
 // PER POSAR-HO EN MARXA cal omplir aquestes dues constants (mira el README i
 // joc/eines/apps_script_classificacio.gs):

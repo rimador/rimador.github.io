@@ -103,7 +103,7 @@
                 <h4>Top 10 paraules nàufragues (usuaris únics)</h4>
                 <ol id="llista-naufragues"></ol>
 
-                <h4>Els 10 últims errors</h4>
+                <h4>Top 10 errors de cerca (usuaris únics)</h4>
                 <ol id="llista-typos"></ol>
             </div>
 
@@ -123,11 +123,11 @@
                         <ul id="podi-usuaris"></ul>
                     </div>
                     <div class="podium-box">
-                        <h4>Menys cerques</h4>
+                        <h4>Menys cerques <small>(darrers 60 dies)</small></h4>
                         <ul id="anti-podi-cerques"></ul>
                     </div>
                     <div class="podium-box">
-                        <h4>Menys usuaris</h4>
+                        <h4>Menys usuaris <small>(darrers 60 dies)</small></h4>
                         <ul id="anti-podi-usuaris"></ul>
                     </div>
 
@@ -241,8 +241,8 @@
                     les paraules sense rima més freqüents de cercar.</p>
                 <p>Quines paraules són nàufragues depèn del dialecte, perquè depèn de com sonin: <i>llenya</i> no rima amb res al central, però sí als altres tres, i <i>catorze</i> no rima enlloc excepte al central. Cada dialecte té, doncs, la seva llista, i cada cerca es compara amb la que li toca. Els codis grisos del costat diuen en quins dialectes es va cercar i la paraula no té rima. El número continua sent d'usuaris únics, i, per tant, qui cerqui la mateixa paraula en dos dialectes hi suma un sol cop, però hi deixa un codi per cada dialecte on no li va rimar, però si algú cerca <i>llenya</i> al central i al balear, només deixa el <b>ca</b>, perquè al balear sí que li rimava.</p>
 
-                <h4>Què és la llista dels 10 errors de cerca?</h4>
-                <p>Són les 10 darreres cerques fetes al Rimador.cat en què el "mot" cercat no coincideix amb cap paraula del diccionari. Són paraules mal escrites, amb errors de picatge, o trossos de paraula. Recorda que se cerquen paraules, no terminacions fonètiques! Aquestes cerques no sumen a les paraules úniques, però sí a les cerques totals.</p>
+                <h4>Què és el top d'errors de cerca?</h4>
+                <p>Són els 10 "mots" que no coincideixen amb cap paraula del diccionari més cercats des que hi ha registre. Solen ser paraules mal escrites, amb errors de picatge, trossos de paraula o mots que encara no hi són. Recorda que se cerquen paraules, no terminacions fonètiques! El número segueix el mateix criteri que el Top 10 paraules: és el nombre d'<b>usuaris únics</b> que l'han cercat, i per tant qui torni a provar el mateix error diverses vegades hi suma un sol cop. Si hi ha empat, queda primer el cercat més recentment. Aquestes cerques no sumen a les paraules úniques, però sí a les cerques totals.</p>
 
                 <h4>Com es compten els noms propis?</h4>
                 <p>El diccionari té categoritzada cada paraula amb un codi gramatical. En fer la cerca, filtrem les que consten com a nom propi, i les cataloguem seguint el mateix criteri que les "paraules úniques". El número no és de cerques, sinó de <b>noms propis diferents</b> que algú ha buscat alguna vegada. En cas de coincidir un nom propi i un nom comú o alguna altra categoria ('Esperança', per exemple), es compta sempre com a l'altra categoria, i es restringeix el nom propi a aquells mots que només són noms propis.</p>
@@ -250,6 +250,7 @@
                 <h4>Què són el nombre de cerques dels podis? I el del gràfic de línies?</h4>
                 <p>Són el nombre de "cerques úniques" d'aquell dia. El dia present queda fora.
                 Els dies amb més/menys usuaris es refereix al dia amb més/menys usuaris diferents, sense tenir en compte si havien fet cerques anteriorment o no. Si hi ha empat, queda primer el dia més recent.</p>
+                <p>Els podis de <b>més</b> cerques i usuaris miren l'històric sencer, però els de <b>menys</b> només tenen en compte els <b>darrers 60 dies</b>: si no, s'hi quedarien per sempre els dies del començament, quan el Rimador encara era poc conegut, i no dirien res de com va ara.</p>
 
                 <h4>Què són les dues ratlles horitzontals del gràfic de línies?</h4>
                 <p>Són les mitjanes diàries de cerques i d'usuaris únics, cadascuna del color de la seva línia. Es calculen sobre els 30 dies

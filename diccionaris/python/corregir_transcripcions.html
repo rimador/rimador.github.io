@@ -21,8 +21,14 @@
   main { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
   h1 { font-size: 20px; margin: 0 0 4px; }
   .nota { color: var(--suau); font-size: 13px; margin: 0 0 18px; }
-  form.cerca { display: flex; gap: 8px; position: sticky; top: 0; padding: 10px 0;
-               background: var(--fons); z-index: 2; }
+  form.cerca { display: flex; flex-direction: column; gap: 8px; position: sticky; top: 0;
+               padding: 10px 0; background: var(--fons); z-index: 2; }
+  form.cerca .fila { display: flex; flex-wrap: wrap; gap: 8px; }
+  form.cerca .modes label { padding-block: 6px; }
+  form.cerca.fonetica input[type=search] { font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                                           font-size: 18px; }
+  select { font: inherit; font-size: 14px; color: inherit; padding: 4px 8px; border: 1px solid var(--vora);
+           border-radius: 8px; background: var(--paper); }
   input, button { font: inherit; color: inherit; }
   input[type=search] { flex: 1; padding: 9px 12px; border: 1px solid var(--vora);
                        border-radius: 8px; background: var(--paper); }
@@ -50,6 +56,8 @@
               padding: 6px 0; border-top: 1px dashed var(--vora); }
   .dialecte:first-of-type { border-top: 0; }
   .dialecte label { font-weight: 600; font-size: 14px; }
+  .dialecte.coincideix label { color: var(--accent); }
+  .dialecte.coincideix label::after { content: " ●"; font-size: 10px; vertical-align: middle; }
   .dialecte input { width: 100%; padding: 6px 10px; border: 1px solid var(--vora); border-radius: 6px;
                     background: var(--paper); font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
                     font-size: 18px; }
@@ -76,9 +84,7 @@
   .suggeriments button { padding: 4px 10px; }
   button.mes { display: block; width: 100%; padding: 12px; }
   @media (max-width: 560px) {
-    form.cerca { flex-wrap: wrap; }
-    form.cerca input[type=search] { flex-basis: 100%; }
-    .modes { flex: 1; }
+    .modes { flex: 1 1 100%; }
     .modes label { flex: 1; justify-content: center; padding: 8px 6px; }
   }
   section.registre h2 { font-size: 15px; margin: 30px 0 8px; }
@@ -100,13 +106,24 @@
     en acabar, commit i push de la <code>col_10</code> i el workflow refà les rimes.</p>
 
   <form class="cerca" id="cerca">
-    <input type="search" id="text" placeholder="Paraula" autofocus autocomplete="off">
-    <div class="modes" role="radiogroup" aria-label="Com cercar">
-      <label><input type="radio" name="mode" value="exacta" checked>Exacta</label>
-      <label><input type="radio" name="mode" value="comenca">Comença per</label>
-      <label><input type="radio" name="mode" value="acaba">Acaba per</label>
+    <div class="fila">
+      <input type="search" id="text" placeholder="Paraula" autofocus autocomplete="off" spellcheck="false">
+      <button class="principal">Cerca</button>
     </div>
-    <button class="principal">Cerca</button>
+    <div class="fila">
+      <div class="modes" role="radiogroup" aria-label="On cercar">
+        <label><input type="radio" name="on" value="paraula" checked>Paraula</label>
+        <label><input type="radio" name="on" value="fonetica">Fonètica</label>
+      </div>
+      <div class="modes" role="radiogroup" aria-label="Com cercar">
+        <label><input type="radio" name="mode" value="exacta" checked>Exacta</label>
+        <label><input type="radio" name="mode" value="comenca">Comença per</label>
+        <label><input type="radio" name="mode" value="acaba">Acaba per</label>
+      </div>
+      <select id="dialecte" aria-label="Dialecte" hidden>
+        <option value="">tots els dialectes</option>
+      </select>
+    </div>
   </form>
   <div class="simbols" id="simbols" title="Insereix el símbol al camp on eres"></div>
 
@@ -151,10 +168,29 @@ function estat(text, error = false) {
   $("estat").className = "estat" + (error ? " error" : "");
 }
 
-const NOMS_MODES = { comenca: "que comencin per", acaba: "que acabin en" };
+const NOMS_MODES = { exacta: "que sonin", comenca: "que comencin per", acaba: "que acabin en" };
 
-function modeTriat() {
-  return document.querySelector('input[name="mode"]:checked').value;
+const triat = nom => document.querySelector(`input[name="${nom}"]:checked`).value;
+
+// Com es cerca: el que diuen els controls del formulari.
+function opcionsTriades() {
+  return { mode: triat("mode"), on: triat("on"), dialecte: $("dialecte").value };
+}
+
+// Posa els controls com diu una cerca (quan no l'ha feta el formulari: un
+// suggeriment, el registre, l'adreça).
+function posarOpcions({ mode, on, dialecte }) {
+  document.querySelector(`input[name="mode"][value="${mode}"]`).checked = true;
+  document.querySelector(`input[name="on"][value="${on}"]`).checked = true;
+  $("dialecte").value = dialecte;
+  refrescarFormulari();
+}
+
+function refrescarFormulari() {
+  const fonetica = triat("on") === "fonetica";
+  $("cerca").classList.toggle("fonetica", fonetica);
+  $("dialecte").hidden = !fonetica;
+  $("text").placeholder = fonetica ? "Transcripció (dˈɔnə, ɔnə, kˈant…)" : "Paraula";
 }
 
 // Quan l'exacta no troba res: les paraules semblants, per triar-ne una.
@@ -164,24 +200,32 @@ function botonsDeParaules(paraules) {
   for (const paraula of paraules) {
     const boto = document.createElement("button");
     boto.textContent = paraula;
-    boto.onclick = () => cercar(paraula, "exacta");
+    boto.onclick = () => cercar(paraula, PER_PARAULA);
     caixa.append(boto);
   }
   return caixa;
 }
 
+const PER_PARAULA = { mode: "exacta", on: "paraula", dialecte: "" };
 const nombre = n => n.toLocaleString("ca");
 
-function cercaUrl(text, mode, desDe = 0) {
-  return `/api/cerca?q=${encodeURIComponent(text)}&mode=${mode}&des_de=${desDe}`;
+function cercaUrl(text, { mode, on, dialecte }, desDe = 0) {
+  return `/api/cerca?q=${encodeURIComponent(text)}&mode=${mode}&on=${on}`
+       + `&dialecte=${dialecte}&des_de=${desDe}`;
 }
 
-// "Comença per" i "acaba per": totes les entrades per ordre alfabètic, de
+function descripcio(text, { mode, on, dialecte }) {
+  if (on !== "fonetica") return `${NOMS_MODES[mode]} «${text}»`;
+  const on_ = dialecte ? `en ${config.dialectes[dialecte] || dialecte}` : "en algun dialecte";
+  return `${NOMS_MODES[mode]} /${text}/ ${on_}`;
+}
+
+// Les cerques per pàgines: totes les entrades per ordre alfabètic, de
 // cinquanta en cinquanta, i un botó al final per carregar les següents.
-function mostrarPagina(text, mode, resposta) {
+function mostrarPagina(text, opcions, resposta) {
   const { resultats, total, des_de: desDe } = resposta;
   const fins = desDe + resultats.length;
-  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${NOMS_MODES[mode]} «${text}»`
+  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${descripcio(text, opcions)}`
         + (fins < total ? ` · en surten ${nombre(fins)}` : ""));
   for (const entrada of resultats) $("resultats").append(targeta(entrada));
   if (fins >= total) return;
@@ -192,23 +236,25 @@ function mostrarPagina(text, mode, resposta) {
   boto.onclick = async () => {
     boto.disabled = true;
     boto.textContent = "Carregant…";
-    const seguent = await fetch(cercaUrl(text, mode, fins)).then(r => r.json());
+    const seguent = await fetch(cercaUrl(text, opcions, fins)).then(r => r.json());
     boto.remove();
-    mostrarPagina(text, mode, seguent);
+    mostrarPagina(text, opcions, seguent);
   };
   $("resultats").append(boto);
 }
 
-async function cercar(text, mode = modeTriat()) {
+async function cercar(text, opcions = opcionsTriades()) {
   $("text").value = text;
-  document.querySelector(`input[name="mode"][value="${mode}"]`).checked = true;
-  estat("Cercant…");
+  posarOpcions(opcions);
+  // La primera cerca per fonètica fa que el servidor llegeixi totes les
+  // transcripcions, i triga uns segons: que no sembli penjat.
+  estat(opcions.on === "fonetica" ? "Cercant… (la primera cerca per fonètica triga uns segons)" : "Cercant…");
   $("resultats").innerHTML = "";
-  const resposta = await fetch(cercaUrl(text, mode)).then(r => r.json());
+  const resposta = await fetch(cercaUrl(text, opcions)).then(r => r.json());
 
-  if (NOMS_MODES[mode]) {
-    if (!resposta.total) return estat(`No hi ha cap paraula ${NOMS_MODES[mode]} «${text}».`, true);
-    mostrarPagina(text, mode, resposta);
+  if (opcions.on === "fonetica" || opcions.mode !== "exacta") {
+    if (!resposta.total) return estat(`No hi ha cap entrada ${descripcio(text, opcions)}.`, true);
+    mostrarPagina(text, opcions, resposta);
     darrerCamp = $("resultats").querySelector(".dialecte input");
     return;
   }
@@ -256,7 +302,7 @@ function targeta(entrada) {
       ${enllacos(entrada)}
     </div>
     ${codis.map(codi => `
-      <div class="dialecte" data-codi="${codi}">
+      <div class="dialecte${entrada.coincideixen?.includes(codi) ? " coincideix" : ""}" data-codi="${codi}">
         <label for="c-${entrada.fitxer}-${entrada.fila}-${codi}">${esc(config.dialectes[codi] || codi)}</label>
         <input id="c-${entrada.fitxer}-${entrada.fila}-${codi}" spellcheck="false" autocomplete="off">
         <div class="detall"></div>
@@ -356,7 +402,7 @@ function apuntar(entrada, abans, despres) {
   const torna = document.createElement("button");
   torna.textContent = "Torna-hi";
   torna.title = "Torna a cercar la paraula per tornar-la a mirar o desfer el canvi";
-  torna.onclick = () => cercar(entrada.paraula, "exacta");
+  torna.onclick = () => cercar(entrada.paraula, PER_PARAULA);
   li.append(torna);
   $("llista-registre").prepend(li);
 }
@@ -378,13 +424,25 @@ for (const simbol of SIMBOLS) {
 }
 
 $("cerca").addEventListener("submit", e => { e.preventDefault(); cercar($("text").value); });
+$("cerca").addEventListener("change", refrescarFormulari);
+// Els botons de símbols també serveixen per escriure la cerca per fonètica.
+$("text").addEventListener("focus", () => darrerCamp = $("text"));
 
 fetch("/api/configuracio").then(r => r.json()).then(dades => {
   config = dades;
+  for (const codi of ORDRE.filter(codi => config.dialectes[codi])) {
+    $("dialecte").append(new Option(config.dialectes[codi], codi));
+  }
   const parametres = new URLSearchParams(location.search);
   const inicial = parametres.get("q");
   const mode = parametres.get("mode");
-  if (inicial) cercar(inicial, NOMS_MODES[mode] ? mode : "exacta");
+  const on = parametres.get("on");
+  const dialecte = parametres.get("dialecte");
+  if (inicial) cercar(inicial, {
+    mode: NOMS_MODES[mode] ? mode : "exacta",
+    on: on === "fonetica" ? "fonetica" : "paraula",
+    dialecte: config.dialectes[dialecte] ? dialecte : "",
+  });
 });
 </script>
 </body>

@@ -10,6 +10,12 @@
   "theme_color": "#ff91ff",
   "background_color": "#ffffff",
   "categories": ["education", "books", "utilities"],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://rimador.cat/manifest.json"
+    }
+  ],
   "icons": [
     {
       "src": "assets/icon-192.png",

@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corregir transcripcions</title>
+<style>
+  :root {
+    --fons: #f6f5f2; --paper: #fff; --tinta: #1d1d1b; --suau: #6b6a66; --vora: #dedcd6;
+    --accent: #b5462b; --be: #2e7d4f; --mal: #b3261e; --avis: #a76a00; --canviat: #fff5d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fons: #18181a; --paper: #222225; --tinta: #ececea; --suau: #9c9b97; --vora: #38383c;
+      --accent: #e0785c; --be: #6cc391; --mal: #f08a82; --avis: #e0b25c; --canviat: #3a3320;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fons); color: var(--tinta);
+         font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .nota { color: var(--suau); font-size: 13px; margin: 0 0 18px; }
+  form.cerca { display: flex; gap: 8px; position: sticky; top: 0; padding: 10px 0;
+               background: var(--fons); z-index: 2; }
+  input, button { font: inherit; color: inherit; }
+  input[type=search] { flex: 1; padding: 9px 12px; border: 1px solid var(--vora);
+                       border-radius: 8px; background: var(--paper); }
+  button { padding: 8px 14px; border: 1px solid var(--vora); border-radius: 8px;
+           background: var(--paper); cursor: pointer; }
+  button.principal { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  .simbols { display: flex; flex-wrap: wrap; gap: 4px; margin: 4px 0 16px; }
+  .simbols button { padding: 3px 9px; font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                    font-size: 16px; min-width: 34px; }
+  .estat { color: var(--suau); margin: 8px 0; }
+  .estat.error { color: var(--mal); }
+  .targeta { background: var(--paper); border: 1px solid var(--vora); border-radius: 10px;
+             padding: 14px 16px; margin: 0 0 14px; }
+  .cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 10px; }
+  .cap strong { font-size: 18px; }
+  .cap .meta { color: var(--suau); font-size: 13px; }
+  .etiqueta { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--vora); }
+  .dialecte { display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; align-items: center;
+              padding: 6px 0; border-top: 1px dashed var(--vora); }
+  .dialecte:first-of-type { border-top: 0; }
+  .dialecte label { font-weight: 600; font-size: 14px; }
+  .dialecte input { width: 100%; padding: 6px 10px; border: 1px solid var(--vora); border-radius: 6px;
+                    background: var(--paper); font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                    font-size: 18px; }
+  .dialecte input.canviat { background: var(--canviat); }
+  .dialecte input.invalid { border-color: var(--mal); }
+  .detall { grid-column: 2; font-size: 13px; color: var(--suau); }
+  .detall .ipa { font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif; font-size: 15px; color: var(--tinta); }
+  .detall .mal { color: var(--mal); }
+  .detall .avis { color: var(--avis); }
+  .detall .abans { text-decoration: line-through; }
+  .accions { display: flex; gap: 8px; justify-content: flex-end; align-items: center; margin-top: 10px; }
+  .accions .missatge { margin-right: auto; font-size: 13px; }
+  .missatge.be { color: var(--be); }
+  .missatge.mal { color: var(--mal); }
+  .suggeriments { display: flex; flex-wrap: wrap; gap: 6px; }
+  .suggeriments button { padding: 4px 10px; }
+  section.registre h2 { font-size: 15px; margin: 30px 0 8px; }
+  section.registre ul { list-style: none; padding: 0; margin: 0; }
+  section.registre li { display: flex; gap: 10px; align-items: baseline; padding: 6px 0;
+                        border-top: 1px solid var(--vora); font-size: 14px; }
+  section.registre li span { flex: 1; }
+  section.registre li .ipa { font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif; }
+  @media (max-width: 560px) {
+    .dialecte { grid-template-columns: 1fr; }
+    .detall { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Corregir transcripcions</h1>
+  <p class="nota">Escriu directament a les <code>col_10</code>. Abans de començar, <code>git pull</code>;
+    en acabar, commit i push de la <code>col_10</code> i el workflow refà les rimes.</p>
+
+  <form class="cerca" id="cerca">
+    <input type="search" id="text" placeholder="Paraula" autofocus autocomplete="off">
+    <button class="principal">Cerca</button>
+  </form>
+  <div class="simbols" id="simbols" title="Insereix el símbol al camp on eres"></div>
+
+  <div class="estat" id="estat"></div>
+  <div id="resultats"></div>
+
+  <section class="registre" id="registre" hidden>
+    <h2>Desat en aquesta sessió</h2>
+    <ul id="llista-registre"></ul>
+  </section>
+</main>
+
+<script>
+const SIMBOLS = "ˈ ˌ ə ɛ ɔ ɾ r ʎ ɲ ŋ ʒ ʃ ɡ β ð ɣ ɱ z j w".split(" ");
+const ORDRE = ["ca", "nw", "va", "ba"];
+let config = { dialectes: {}, vocals: "", accent: "ˈ", inventari: "" };
+let darrerCamp = null;
+const registre = [];
+
+const $ = id => document.getElementById(id);
+const esc = text => String(text).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// La mateixa regla que calcular_rimes() del columnes.py: la rima consonant és
+// el que hi ha darrere l'últim accent primari, i l'assonant, les seves vocals.
+function rimes(transcripcio) {
+  const consonant = transcripcio.split(config.accent).pop();
+  const assonant = [...consonant].filter(c => config.vocals.includes(c)).join("");
+  return { consonant, assonant };
+}
+
+function problemes(valor) {
+  const errors = [];
+  if (!valor.trim()) errors.push("és buida");
+  else if (valor !== valor.trim()) errors.push("té espais al davant o al darrere");
+  const estranys = [...new Set([...valor].filter(c => !config.inventari.includes(c)))];
+  if (estranys.length) errors.push("símbols fora de l'inventari: " + estranys.join(" "));
+  return errors;
+}
+
+function estat(text, error = false) {
+  $("estat").textContent = text;
+  $("estat").className = "estat" + (error ? " error" : "");
+}
+
+async function cercar(text) {
+  $("text").value = text;
+  estat("Cercant…");
+  $("resultats").innerHTML = "";
+  const resposta = await fetch("/api/cerca?q=" + encodeURIComponent(text)).then(r => r.json());
+  const resultats = resposta.resultats;
+  if (!resultats.length) return estat(`No hi ha cap «${text}».`, true);
+
+  if (resultats[0].suggeriment) {
+    estat(`No hi ha cap «${text}». Potser volies dir:`);
+    const caixa = document.createElement("div");
+    caixa.className = "suggeriments";
+    for (const { suggeriment } of resultats) {
+      const boto = document.createElement("button");
+      boto.textContent = suggeriment;
+      boto.onclick = () => cercar(suggeriment);
+      caixa.append(boto);
+    }
+    return $("resultats").append(caixa);
+  }
+
+  const quantes = resultats.length === 1 ? "1 entrada" : `${resultats.length} entrades`;
+  estat(resposta.aproximat ? `${quantes} (comptant les que només canvien d'accents, majúscules o guions)` : quantes);
+  for (const entrada of resultats) $("resultats").append(targeta(entrada));
+  const primer = $("resultats").querySelector(".dialecte input");
+  if (primer) darrerCamp = primer;
+}
+
+function targeta(entrada) {
+  const caixa = document.createElement("div");
+  caixa.className = "targeta";
+  const lloc = codi => ORDRE.includes(codi) ? ORDRE.indexOf(codi) : ORDRE.length;
+  const codis = Object.keys(entrada.transcripcions).sort((a, b) => lloc(a) - lloc(b));
+
+  caixa.innerHTML = `
+    <div class="cap">
+      <strong>${esc(entrada.paraula)}</strong>
+      <span class="meta">lema ${esc(entrada.lema)} · ${esc(entrada.codi)} · fila ${entrada.fila + 1}</span>
+      <span class="etiqueta">${esc(entrada.etiqueta)}</span>
+    </div>
+    ${codis.map(codi => `
+      <div class="dialecte" data-codi="${codi}">
+        <label for="c-${entrada.fitxer}-${entrada.fila}-${codi}">${esc(config.dialectes[codi] || codi)}</label>
+        <input id="c-${entrada.fitxer}-${entrada.fila}-${codi}" spellcheck="false" autocomplete="off">
+        <div class="detall"></div>
+      </div>`).join("")}
+    <div class="accions">
+      <span class="missatge"></span>
+      <button data-accio="restaura" disabled>Restaura</button>
+      <button class="principal" data-accio="desa" disabled>Desa</button>
+    </div>`;
+
+  const camps = {};
+  for (const codi of codis) {
+    const input = caixa.querySelector(`[data-codi="${codi}"] input`);
+    input.value = entrada.transcripcions[codi];
+    input.addEventListener("input", refrescar);
+    input.addEventListener("focus", () => darrerCamp = input);
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") { e.preventDefault(); desar(); }
+      if (e.key === "Escape") restaurar();
+    });
+    camps[codi] = input;
+  }
+  const missatge = caixa.querySelector(".missatge");
+  const botoDesa = caixa.querySelector('[data-accio="desa"]');
+  const botoRestaura = caixa.querySelector('[data-accio="restaura"]');
+  botoDesa.onclick = desar;
+  botoRestaura.onclick = restaurar;
+
+  function refrescar() {
+    let canviat = false, valid = true;
+    for (const codi of codis) {
+      const input = camps[codi];
+      const valor = input.value, original = entrada.transcripcions[codi];
+      const errors = problemes(valor);
+      const r = rimes(valor), abans = rimes(original);
+      input.classList.toggle("canviat", valor !== original);
+      input.classList.toggle("invalid", errors.length > 0);
+      canviat ||= valor !== original;
+      valid &&= errors.length === 0;
+
+      let html = `rima <span class="ipa">-${esc(r.consonant)}</span>`
+               + ` · assonant <span class="ipa">-${esc(r.assonant)}</span>`;
+      if (valor !== original && r.consonant !== abans.consonant)
+        html += ` · abans <span class="ipa abans">-${esc(abans.consonant)}</span>`;
+      if (!valor.includes(config.accent))
+        html += ` · <span class="avis">sense accent primari: rima amb la paraula sencera</span>`;
+      if (errors.length) html += ` · <span class="mal">${esc(errors.join("; "))}</span>`;
+      input.parentElement.querySelector(".detall").innerHTML = html;
+    }
+    botoDesa.disabled = !canviat || !valid;
+    botoRestaura.disabled = !canviat;
+    if (canviat) missatge.textContent = "", missatge.className = "missatge";
+  }
+
+  function restaurar() {
+    for (const codi of codis) camps[codi].value = entrada.transcripcions[codi];
+    refrescar();
+  }
+
+  async function desar() {
+    if (botoDesa.disabled) return;
+    const noves = Object.fromEntries(codis.map(codi => [codi, camps[codi].value]));
+    botoDesa.disabled = true;
+    missatge.textContent = "Desant…";
+    missatge.className = "missatge";
+    const resposta = await fetch("/api/desa", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fitxer: entrada.fitxer, fila: entrada.fila, linia: entrada.linia, transcripcions: noves }),
+    });
+    const dades = await resposta.json();
+    if (!resposta.ok) {
+      missatge.textContent = dades.error;
+      missatge.className = "missatge mal";
+      return refrescar();
+    }
+    const abans = { ...entrada.transcripcions };
+    Object.assign(entrada, dades.entrada);
+    refrescar();
+    missatge.textContent = "Desat a la col_10.";
+    missatge.className = "missatge be";
+    apuntar(entrada, abans, { ...entrada.transcripcions });
+  }
+
+  refrescar();
+  return caixa;
+}
+
+function apuntar(entrada, abans, despres) {
+  registre.unshift({ entrada, abans, despres });
+  $("registre").hidden = false;
+  const li = document.createElement("li");
+  const canvis = Object.keys(despres).filter(codi => abans[codi] !== despres[codi])
+    .map(codi => `${esc(config.dialectes[codi] || codi)}: <span class="ipa">${esc(abans[codi])}</span> → <span class="ipa">${esc(despres[codi])}</span>`)
+    .join(" · ");
+  li.innerHTML = `<span><strong>${esc(entrada.paraula)}</strong> <small>(${esc(entrada.codi)}, ${esc(entrada.etiqueta)})</small> — ${canvis}</span>`;
+  const torna = document.createElement("button");
+  torna.textContent = "Torna-hi";
+  torna.title = "Torna a cercar la paraula per tornar-la a mirar o desfer el canvi";
+  torna.onclick = () => cercar(entrada.paraula);
+  li.append(torna);
+  $("llista-registre").prepend(li);
+}
+
+for (const simbol of SIMBOLS) {
+  const boto = document.createElement("button");
+  boto.type = "button";
+  boto.textContent = simbol;
+  boto.onmousedown = e => e.preventDefault();   // que el camp no perdi el focus
+  boto.onclick = () => {
+    if (!darrerCamp || !darrerCamp.isConnected) return;
+    const { selectionStart: a, selectionEnd: b, value } = darrerCamp;
+    darrerCamp.value = value.slice(0, a) + simbol + value.slice(b);
+    darrerCamp.setSelectionRange(a + simbol.length, a + simbol.length);
+    darrerCamp.focus();
+    darrerCamp.dispatchEvent(new Event("input"));
+  };
+  $("simbols").append(boto);
+}
+
+$("cerca").addEventListener("submit", e => { e.preventDefault(); cercar($("text").value); });
+
+fetch("/api/configuracio").then(r => r.json()).then(dades => {
+  config = dades;
+  const inicial = new URLSearchParams(location.search).get("q");
+  if (inicial) cercar(inicial);
+});
+</script>
+</body>
+</html>

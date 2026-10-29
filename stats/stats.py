@@ -71,6 +71,11 @@ ahir = avui - timedelta(days=1)
 data_inici = pd.to_datetime(inici_setmana)
 data_fi = pd.to_datetime(ahir) + timedelta(days=1, seconds=-1)
 
+# Quants dies enrere miren els dos podis de "menys" (menys cerques i menys
+# usuaris; vegeu obtenir_top_dies). Si es canvia, cal canviar també els títols i
+# l'explicació de dades.html, que diuen el número.
+DIES_PODIS_MENYS = 60
+
 # VARIABLES
 # El dialecte hi entra com un filtre més: la mateixa paraula cercada en central
 # i en valencià dona rimes diferents i són, doncs, dues cerques diferents. Amb
@@ -136,7 +141,9 @@ df_rimes_naufragues = df_rimes_naufragues[son_naufragues(df_rimes_naufragues)]
 df_rimes_naufragues = df_rimes_naufragues.drop_duplicates(subset=['Paraula', 'Usuari']).copy()
 
 
-#les dues llistes
+#els errors de cerca (mots que no són al diccionari), comptats com la resta de
+#tops: cada usuari suma un sol cop per error, encara que el repiqui deu vegades
+#seguides mirant si ara sí que surt
 df_typos = paraules_cercades_usuaris_diferents[paraules_cercades_usuaris_diferents['Rima'] == '***'].copy()
 
 
@@ -228,19 +235,27 @@ def obtenir_top_paraules(df_dades, n, paraula, df_recencia, amb_dialectes=False)
     return recompte.head(n).drop(columns='ultima_cerca')
 
 def obtenir_top_dies(df_dades):
-    df_dades = df_dades[df_dades['Dia'] < avui]  
+    df_dades = df_dades[df_dades['Dia'] < avui]
     cerques_per_dia = df_dades['Dia'].value_counts().reset_index()
     cerques_per_dia.columns = ['Dia', 'cerques']
+    usuaris_per_dia = df_dades.groupby('Dia')['Usuari'].nunique().reset_index()
+    usuaris_per_dia.columns = ['Dia', 'usuaris']
+
+    #els podis de "menys" només miren els darrers DIES_PODIS_MENYS dies (d'avui
+    #menys 60 fins a ahir, com el gràfic de línies amb els seus 30). Amb tot
+    #l'històric, s'hi quedaven per sempre els dies del començament, quan el
+    #Rimador encara no el coneixia ningú, i no deien res de com va ara.
+    primer_dia_menys = avui - timedelta(days=DIES_PODIS_MENYS)
+    cerques_recents = cerques_per_dia[cerques_per_dia['Dia'] >= primer_dia_menys]
+    usuaris_recents = usuaris_per_dia[usuaris_per_dia['Dia'] >= primer_dia_menys]
+
     #en cas d'empat, primer el dia més recent (mateix criteri que als tops de
     #paraules). Sense la clau del dia l'ordre entre empatats era el que sortia
     #de l'ordenació, que no és estable ni previsible.
     cerques_top = cerques_per_dia.sort_values(by=['cerques', 'Dia'], ascending=[False, False], kind='stable').head(3)
-    cerques_anti = cerques_per_dia.sort_values(by=['cerques', 'Dia'], ascending=[True, False], kind='stable').head(3)
-    
-    usuaris_per_dia = df_dades.groupby('Dia')['Usuari'].nunique().reset_index()
-    usuaris_per_dia.columns = ['Dia', 'usuaris']
+    cerques_anti = cerques_recents.sort_values(by=['cerques', 'Dia'], ascending=[True, False], kind='stable').head(3)
     usuaris_top = usuaris_per_dia.sort_values(by=['usuaris', 'Dia'], ascending=[False, False], kind='stable').head(3)
-    usuaris_anti = usuaris_per_dia.sort_values(by=['usuaris', 'Dia'], ascending=[True, False], kind='stable').head(3)
+    usuaris_anti = usuaris_recents.sort_values(by=['usuaris', 'Dia'], ascending=[True, False], kind='stable').head(3)
 
     return {
         "top_cerques": [{"data": d.strftime("%d/%m/%Y"), "total": int(c)} for d, c in zip(cerques_top['Dia'], cerques_top['cerques'])],
@@ -249,21 +264,6 @@ def obtenir_top_dies(df_dades):
         "anti_top_usuaris": [{"data": d.strftime("%d/%m/%Y"), "total": int(u)} for d, u in zip(usuaris_anti['Dia'], usuaris_anti['usuaris'])]
 
     }
-
-def obtenir_recents_paraules(df_recencia, n):
-    """Torna les últimes n paraules cercades ordenades de més noves a més velles."""
-    # Ordenem per la data de la cerca cronològicament (les més noves primer)
-    recents = df_recencia.sort_values(by='Data', ascending=False).copy()
-    
-    # Ens quedem només amb l'última vegada que s'ha cercat cada paraula (la primera del df ordenat)
-    recents = recents.drop_duplicates(subset=['Paraula'], keep='first')
-    
-    # Donem format a la data per si la vols aprofitar al JSON (opcional)
-    recents['data_cerca'] = recents['Data'].dt.strftime("%d/%m/%Y %H:%M")
-    
-    # Retornem les N primeres i en descartem l'excés de columnes
-    return recents.head(n)[['Paraula', 'data_cerca']]
-
 
 def dades_grafic_linia(df_dades):
     avui = datetime.now(tz_espanya).date()
@@ -344,7 +344,7 @@ dades_json = {
         "numero_usuaris": cerques_totals['Usuari'].nunique(),
         "recompte_tipus_rima": cerques_totals['Tipus de rima'].value_counts().to_dict(),
         "top_10_naufragues": formatar_top_per_json(obtenir_top_paraules(df_rimes_naufragues, 10, 'paraula', recencia_naufragues, amb_dialectes=True)),
-        "top_10_typos": formatar_top_per_json(obtenir_recents_paraules(recencia_typos, 10)),        
+        "top_10_typos": formatar_top_per_json(obtenir_top_paraules(df_typos, 10, 'paraula', recencia_typos)),
         "total_noms_propis": len(noms_propis),
         "recompte_num_sil": cerques_totals['Num. síl·'].value_counts().to_dict(),
         "recompte_comenca_per": cerques_totals['Comença per'].value_counts().to_dict(),

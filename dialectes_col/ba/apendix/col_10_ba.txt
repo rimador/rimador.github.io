@@ -24044,7 +24044,7 @@ baliguem € balir € VMSP1P0B €$ba$ bəliɣˈɛm
 baligueu € balir € VMSP2P0B €$ba$ bəliɣˈɛw
 balissin € balir € VMSI3P02 €$ba$ bəlˈisin
 balissis € balir € VMSI2S02 €$ba$ bəlˈisis
-ball € ballar € VMIP1S0B €$ba$ bˈɔl
+ball € ballar € VMIP1S0B €$ba$ bˈaj
 ballam € ballar € VMIP1P0B €$ba$ bəjˈam
 ballassen € ballar € VMSI3P06 €$ba$ bəjˈasən
 ballasses € ballar € VMSI2S06 €$ba$ bəjˈasəs

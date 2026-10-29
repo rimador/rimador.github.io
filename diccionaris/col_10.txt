@@ -60316,7 +60316,7 @@ balkar € balkar € AQ0CS0 €$ba$ bəlkˈa €$ca$ bəlkˈa €$nw$ balkˈa �
 Balkars € Balkars € NPMPG00 €$ba$ bəlkˈas €$ca$ bəlkˈas €$nw$ balkˈas €$va$ balkˈaɾs
 balkars € balkar € AQ0CP0 €$ba$ bəlkˈas €$ca$ bəlkˈas €$nw$ balkˈas €$va$ balkˈaɾs
 Balkh € Balkh € NPCSG00 €$ba$ bˈalk €$ca$ bˈalk €$nw$ bˈalk €$va$ bˈalk
-ball € ball € NCMS000 €$ba$ bˈɔl €$ca$ bˈɔl €$nw$ bˈɔl €$va$ bˈɔl
+ball € ball € NCMS000 €$ba$ bˈaj €$ca$ bˈaʎ €$nw$ bˈaʎ €$va$ bˈaʎ
 balla € balla € NCFS000 €$ba$ bˈajə €$ca$ bˈaʎə €$nw$ bˈaʎɛ €$va$ bˈaʎa
 balla € ballar € VMIP3S00 €$ba$ bˈajə €$ca$ bˈaʎə €$nw$ bˈaʎɛ €$va$ bˈaʎa
 balla € ballar € VMM02S00 €$ba$ bˈajə €$ca$ bˈaʎə €$nw$ bˈaʎɛ €$va$ bˈaʎa

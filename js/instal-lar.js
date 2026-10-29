@@ -170,9 +170,9 @@
                 + '<img class="instal-icona" src="' + icona + '" alt="" width="40" height="40">'
                 + '<div class="instal-cos">'
                 + '<p class="instal-text"><strong>Afegeix el Rimador</strong> al teu dispositiu per accedir-hi ràpidament.</p>'
-                + jaLaTinc
                 + '</div>'
                 + '<button class="instal-boto">Instal·la</button>'
+                + jaLaTinc
                 + '</div>';
         }
 

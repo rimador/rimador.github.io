@@ -74,7 +74,7 @@
   .modes label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
   .suggeriments { display: flex; flex-wrap: wrap; gap: 6px; }
   .suggeriments button { padding: 4px 10px; }
-  .suggeriments small { color: var(--suau); margin-left: 4px; }
+  button.mes { display: block; width: 100%; padding: 12px; }
   @media (max-width: 560px) {
     form.cerca { flex-wrap: wrap; }
     form.cerca input[type=search] { flex-basis: 100%; }
@@ -157,19 +157,46 @@ function modeTriat() {
   return document.querySelector('input[name="mode"]:checked').value;
 }
 
-// Una llista de paraules per triar-ne una, que es cerca llavors en exacta:
-// les de "comença per" i "acaba per", i les semblants quan l'exacta no troba res.
+// Quan l'exacta no troba res: les paraules semblants, per triar-ne una.
 function botonsDeParaules(paraules) {
   const caixa = document.createElement("div");
   caixa.className = "suggeriments";
-  for (const { paraula, entrades } of paraules) {
+  for (const paraula of paraules) {
     const boto = document.createElement("button");
     boto.textContent = paraula;
-    if (entrades > 1) boto.insertAdjacentHTML("beforeend", ` <small>×${entrades}</small>`);
     boto.onclick = () => cercar(paraula, "exacta");
     caixa.append(boto);
   }
   return caixa;
+}
+
+const nombre = n => n.toLocaleString("ca");
+
+function cercaUrl(text, mode, desDe = 0) {
+  return `/api/cerca?q=${encodeURIComponent(text)}&mode=${mode}&des_de=${desDe}`;
+}
+
+// "Comença per" i "acaba per": totes les entrades per ordre alfabètic, de
+// cinquanta en cinquanta, i un botó al final per carregar les següents.
+function mostrarPagina(text, mode, resposta) {
+  const { resultats, total, des_de: desDe } = resposta;
+  const fins = desDe + resultats.length;
+  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${NOMS_MODES[mode]} «${text}»`
+        + (fins < total ? ` · en surten ${nombre(fins)}` : ""));
+  for (const entrada of resultats) $("resultats").append(targeta(entrada));
+  if (fins >= total) return;
+
+  const boto = document.createElement("button");
+  boto.className = "mes";
+  boto.textContent = `Carrega'n ${Math.min(resultats.length, total - fins)} més`;
+  boto.onclick = async () => {
+    boto.disabled = true;
+    boto.textContent = "Carregant…";
+    const seguent = await fetch(cercaUrl(text, mode, fins)).then(r => r.json());
+    boto.remove();
+    mostrarPagina(text, mode, seguent);
+  };
+  $("resultats").append(boto);
 }
 
 async function cercar(text, mode = modeTriat()) {
@@ -177,24 +204,20 @@ async function cercar(text, mode = modeTriat()) {
   document.querySelector(`input[name="mode"][value="${mode}"]`).checked = true;
   estat("Cercant…");
   $("resultats").innerHTML = "";
-  const url = `/api/cerca?q=${encodeURIComponent(text)}&mode=${mode}`;
-  const resposta = await fetch(url).then(r => r.json());
+  const resposta = await fetch(cercaUrl(text, mode)).then(r => r.json());
 
-  if (resposta.paraules) {
-    const { paraules, total } = resposta;
-    if (!total) return estat(`No hi ha cap paraula ${NOMS_MODES[mode]} «${text}».`, true);
-    const quantes = total === 1 ? "1 paraula" : `${total.toLocaleString("ca")} paraules`;
-    estat(`${quantes} ${NOMS_MODES[mode]} «${text}»`
-          + (paraules.length < total ? ` (en surten les ${paraules.length} primeres)` : "")
-          + ". Tria'n una:");
-    return $("resultats").append(botonsDeParaules(paraules));
+  if (NOMS_MODES[mode]) {
+    if (!resposta.total) return estat(`No hi ha cap paraula ${NOMS_MODES[mode]} «${text}».`, true);
+    mostrarPagina(text, mode, resposta);
+    darrerCamp = $("resultats").querySelector(".dialecte input");
+    return;
   }
 
   const resultats = resposta.resultats;
   if (!resultats.length) return estat(`No hi ha cap «${text}».`, true);
   if (resposta.suggeriments) {
     estat(`No hi ha cap «${text}». Potser volies dir:`);
-    return $("resultats").append(botonsDeParaules(resultats.map(r => ({ paraula: r.suggeriment }))));
+    return $("resultats").append(botonsDeParaules(resultats.map(r => r.suggeriment)));
   }
 
   estat(resultats.length === 1 ? "1 entrada" : `${resultats.length} entrades`);

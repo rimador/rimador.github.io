@@ -5380,16 +5380,6 @@
     "diec": "NO"
   },
   {
-    "paraula": "bates",
-    "infinitiu": "bata",
-    "codi": "NCFP000",
-    "rimacons": "eits",
-    "sil": "2",
-    "vicc": "Vicc",
-    "viq": "NO",
-    "diec": "Diec"
-  },
-  {
     "paraula": "Bazardüzü",
     "infinitiu": "Bazardüzü",
     "codi": "NPCSG00",
@@ -49745,16 +49735,6 @@
     "codi": "VMSP3P0V",
     "rimacons": "iplen",
     "sil": "3",
-    "vicc": "Vicc",
-    "viq": "NO",
-    "diec": "Diec"
-  },
-  {
-    "paraula": "bates",
-    "infinitiu": "batre",
-    "codi": "VMSP2S0V",
-    "rimacons": "eits",
-    "sil": "2",
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"

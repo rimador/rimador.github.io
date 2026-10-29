@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Afegir paraules</title>
+<style>
+  :root {
+    --fons: #f6f5f2; --paper: #fff; --tinta: #1d1d1b; --suau: #6b6a66; --vora: #dedcd6;
+    --accent: #b5462b; --be: #2e7d4f; --mal: #b3261e; --avis: #a76a00; --canviat: #fff5d6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fons: #18181a; --paper: #222225; --tinta: #ececea; --suau: #9c9b97; --vora: #38383c;
+      --accent: #e0785c; --be: #6cc391; --mal: #f08a82; --avis: #e0b25c; --canviat: #3a3320;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fons); color: var(--tinta);
+         font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .nota { color: var(--suau); font-size: 13px; margin: 0 0 18px; }
+  input, button { font: inherit; color: inherit; }
+  button { padding: 8px 14px; border: 1px solid var(--vora); border-radius: 8px;
+           background: var(--paper); cursor: pointer; }
+  button.principal { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  .modes { display: inline-flex; border: 1px solid var(--vora); border-radius: 8px; overflow: hidden;
+           background: var(--paper); margin-bottom: 14px; }
+  .modes label { display: flex; align-items: center; padding: 6px 12px; cursor: pointer;
+                 font-size: 14px; white-space: nowrap; }
+  .modes label + label { border-left: 1px solid var(--vora); }
+  .modes input { position: absolute; opacity: 0; pointer-events: none; }
+  .modes label:has(input:checked) { background: var(--tinta); color: var(--fons); }
+  .modes label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .targeta { background: var(--paper); border: 1px solid var(--vora); border-radius: 10px;
+             padding: 14px 16px; margin: 0 0 14px; }
+  .camps { display: grid; grid-template-columns: 2fr 2fr 1.4fr 1fr; gap: 10px 12px; }
+  .camp { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; min-width: 0; }
+  .camp input { padding: 7px 10px; border: 1px solid var(--vora); border-radius: 6px;
+                background: var(--paper); font-size: 15px; font-weight: 400; width: 100%; }
+  .camp .error { font-weight: 400; color: var(--mal); }
+  .fonts { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; margin: 14px 0 6px;
+           font-size: 14px; }
+  .fonts .titol { font-size: 13px; font-weight: 600; }
+  .fonts label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .simbols { display: flex; flex-wrap: wrap; gap: 4px; margin: 12px 0 4px; }
+  .simbols button { padding: 3px 9px; font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                    font-size: 16px; min-width: 34px; }
+  .dialecte { display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; align-items: center;
+              padding: 6px 0; border-top: 1px dashed var(--vora); }
+  .dialecte:first-of-type { border-top: 0; }
+  .dialecte label { font-weight: 600; font-size: 14px; }
+  .dialecte input { width: 100%; padding: 6px 10px; border: 1px solid var(--vora); border-radius: 6px;
+                    background: var(--paper); font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                    font-size: 18px; }
+  .camp input.invalid, .dialecte input.invalid { border-color: var(--mal); }
+  .detall { grid-column: 2; font-size: 13px; color: var(--suau); min-height: 1em; }
+  .ipa { font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif; }
+  .detall .ipa { font-size: 15px; color: var(--tinta); }
+  .mal { color: var(--mal); }
+  .avis { color: var(--avis); }
+  .fila-nova { display: flex; align-items: flex-end; gap: 12px; margin-top: 12px;
+               padding-top: 12px; border-top: 1px solid var(--vora); }
+  .fila-nova .camp { width: 170px; }
+  .fila-nova .ajuda { font-size: 13px; color: var(--suau); padding-bottom: 8px; }
+  .vista { margin-top: 12px; font-size: 13px; }
+  .vista .titol { margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+  .vista .titol span { font-weight: 400; color: var(--suau); }
+  .vista .linies { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                   border: 1px solid var(--vora); border-radius: 6px; padding: 4px 0; overflow-x: auto; }
+  .vista .linia { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 1px 10px;
+                  white-space: pre; }
+  .vista .linia.nova { background: var(--canviat); font-weight: 600; }
+  .vista .num { text-align: right; color: var(--suau); }
+  .vista p { margin: 6px 0 0; }
+  .accions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: center;
+             margin-top: 12px; }
+  .accions .missatge { margin-right: auto; font-size: 13px; }
+  .missatge.be { color: var(--be); }
+  .missatge.mal { color: var(--mal); }
+  .arxius { display: grid; grid-template-columns: 200px 1fr; gap: 8px 12px; align-items: center;
+            font-size: 14px; }
+  .arxius label { font-weight: 600; }
+  .arxius input { min-width: 0; }
+  .format { font-size: 13px; color: var(--suau); margin: 0 0 12px; }
+  .format code { color: var(--tinta); }
+  ul.errors { margin: 8px 0 0; padding-left: 20px; font-size: 13px; color: var(--mal); }
+  .taula { overflow-x: auto; margin-top: 12px; }
+  table { border-collapse: collapse; font-size: 13px; width: 100%; }
+  th, td { text-align: left; padding: 4px 8px; border-top: 1px solid var(--vora); vertical-align: top; }
+  th { font-weight: 600; color: var(--suau); border-top: 0; }
+  td.entre { color: var(--suau); }
+  td.ipa { font-size: 15px; }
+  td code { white-space: nowrap; }
+  .taula p { font-size: 13px; color: var(--suau); }
+  .camps-model { grid-template-columns: 2fr 1fr 2fr; }
+  .suggeriments { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px;
+                  font-size: 13px; color: var(--suau); }
+  .suggeriments button { padding: 3px 10px; font-size: 13px; color: var(--tinta); }
+  .suggeriments button.triat { background: var(--tinta); color: var(--fons); border-color: var(--tinta); }
+  .suggeriments small { color: var(--suau); }
+  #m-formes table input { width: 100%; min-width: 70px; padding: 3px 6px; border: 1px solid var(--vora);
+                          border-radius: 4px; background: var(--paper); font-size: 14px; }
+  #m-formes table input.ipa { min-width: 120px; font-size: 15px; }
+  #m-formes table input.silabes { width: 48px; min-width: 0; }
+  #m-formes table input.codi { min-width: 92px; }
+  #m-formes table input[type=checkbox] { width: auto; min-width: 0; }
+  #m-formes table input.revisar { border-color: var(--avis); background: var(--canviat); }
+  #m-formes table input.invalid { border-color: var(--mal); }
+  #m-formes tr.existeix td { color: var(--suau); }
+  #m-formes .com { font-size: 12px; color: var(--suau); white-space: nowrap; }
+  section.registre h2 { font-size: 15px; margin: 30px 0 8px; }
+  section.registre ul { list-style: none; padding: 0; margin: 0; }
+  section.registre li { padding: 6px 0; border-top: 1px solid var(--vora); font-size: 14px; }
+  @media (max-width: 560px) {
+    .camps { grid-template-columns: 1fr 1fr; }
+    .dialecte, .arxius { grid-template-columns: 1fr; }
+    .detall { grid-column: 1; }
+    .fila-nova { flex-direction: column; align-items: stretch; }
+    .fila-nova .camp { width: auto; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Afegir paraules</h1>
+  <p class="nota">Escriu al <code>diccionari.5.2.3.txt</code> i a la <code>col_10</code> alhora, a la mateixa fila.
+    És per a paraules que es diuen a tots els dialectes: les d'un de sol van al seu apèndix.
+    Abans de començar, <code>git pull</code>; en acabar, commit dels dos fitxers junts.</p>
+
+  <div class="modes" role="radiogroup" aria-label="Quantes paraules">
+    <label><input type="radio" name="manera" value="una" checked>Una paraula</label>
+    <label><input type="radio" name="manera" value="model">Una família, com un model</label>
+    <label><input type="radio" name="manera" value="diverses">Diverses, des d'arxius</label>
+  </div>
+
+  <form class="targeta" id="una" autocomplete="off">
+    <div class="camps">
+      <label class="camp">Paraula <input id="paraula" spellcheck="false" autofocus>
+        <span class="error" data-error="paraula"></span></label>
+      <label class="camp">Lema <input id="lema" spellcheck="false" placeholder="la paraula">
+        <span class="error" data-error="lema"></span></label>
+      <label class="camp">Codi EAGLES <input id="codi" spellcheck="false" placeholder="p. ex. NCFS000">
+        <span class="error" data-error="codi"></span></label>
+      <label class="camp">Síl·labes <input id="silabes" type="number" min="1" step="1" inputmode="numeric">
+        <span class="error" data-error="silabes"></span></label>
+    </div>
+    <div class="fonts">
+      <span class="titol">Surt a:</span>
+      <label><input type="checkbox" id="vicc">Viccionari</label>
+      <label><input type="checkbox" id="viq">Viquipèdia</label>
+      <label><input type="checkbox" id="diec">DIEC</label>
+    </div>
+
+    <div class="simbols" id="simbols" title="Insereix el símbol a la transcripció on eres"></div>
+    <div id="transcripcions"></div>
+
+    <div class="fila-nova">
+      <label class="camp">Fila <input id="fila" type="number" min="1" step="1" inputmode="numeric"
+             placeholder="la que toca"></label>
+      <span class="ajuda">1 = la primera. Si no hi poses res, la que li toca per ordre alfabètic.</span>
+    </div>
+    <div class="vista" id="vista"></div>
+
+    <div class="accions">
+      <span class="missatge" id="missatge"></span>
+      <button type="button" id="buida">Buida</button>
+      <button type="button" class="principal" id="afegeix" disabled>Afegeix</button>
+    </div>
+  </form>
+
+  <section class="targeta" id="model" hidden>
+    <p class="format">Escriu el lema nou i com sona, i tria una paraula que ja hi sigui i que es
+      flexioni igual (per a <i>demoscòpic</i>, <i>microscòpic</i>). De cada forma del model se'n fan les
+      del lema nou: com s'escriu, el codi, les síl·labes i la transcripció de cada dialecte. Revisa-les
+      a la taula abans d'afegir-les: les marcades en groc mouen l'accent i la regla s'hi pot equivocar.</p>
+    <div class="camps camps-model">
+      <label class="camp">Lema nou <input id="m-lema" spellcheck="false" autocomplete="off"></label>
+      <label class="camp">Síl·labes <input id="m-silabes" type="number" min="1" step="1" inputmode="numeric"></label>
+      <label class="camp">Model <input id="m-model" spellcheck="false" autocomplete="off" placeholder="un lema que ja hi sigui"></label>
+    </div>
+    <div class="suggeriments" id="m-models"></div>
+    <div class="fonts">
+      <span class="titol">Totes surten a:</span>
+      <label><input type="checkbox" id="m-vicc">Viccionari</label>
+      <label><input type="checkbox" id="m-viq">Viquipèdia</label>
+      <label><input type="checkbox" id="m-diec">DIEC</label>
+    </div>
+    <div class="simbols" id="m-simbols" title="Insereix el símbol a la transcripció on eres"></div>
+    <div id="m-transcripcions"></div>
+
+    <div id="m-formes"></div>
+    <div class="accions">
+      <span class="missatge" id="missatge-model"></span>
+      <button type="button" class="principal" id="afegeix-model" disabled>Afegeix-les</button>
+    </div>
+  </section>
+
+  <section class="targeta" id="diverses" hidden>
+    <p class="format">Un arxiu amb les files del diccionari, una per línia
+      (<code>paraula$lema$codi$síl·labes$Vicc$Viq$Diec</code>, amb <code>NO</code> on no hi surti), i un per
+      dialecte amb la transcripció de cada paraula a la mateixa línia. Les línies en blanc no compten.
+      Cada paraula va on li toca per ordre alfabètic.</p>
+    <div class="arxius" id="arxius">
+      <label for="arxiu-paraules">Paraules</label>
+      <input type="file" id="arxiu-paraules" accept=".txt,text/plain">
+    </div>
+    <div class="accions">
+      <span class="missatge" id="missatge-diverses"></span>
+      <button type="button" id="comprova">Comprova</button>
+      <button type="button" class="principal" id="afegeix-diverses" disabled>Afegeix-les</button>
+    </div>
+    <div id="vista-diverses"></div>
+  </section>
+
+  <section class="registre" id="registre" hidden>
+    <h2>Afegit en aquesta sessió</h2>
+    <ul id="llista-registre"></ul>
+  </section>
+</main>
+
+<script>
+const SIMBOLS = "ˈ ˌ ə ɛ ɔ ɾ r ʎ ɲ ŋ ʒ ʃ ɡ β ð ɣ ɱ z j w".split(" ");
+const ORDRE = ["ca", "nw", "va", "ba"];
+const FONTS = [["vicc", "Vicc"], ["viq", "Viq"], ["diec", "Diec"]];
+let config = { codis: [], dialectes: {}, vocals: "", accent: "ˈ", inventari: "", files: 0 };
+let darrerCamp = null;
+// La darrera resposta de /api/posicio, que és el que hi ha a la pantalla, i
+// per a quina paraula i fila era.
+let vista = null;
+let esperantVista = null;
+// Els arxius tal com s'han comprovat: s'afegeixen aquests i no uns altres.
+let comprovats = null;
+
+const $ = id => document.getElementById(id);
+const esc = text => String(text).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const nombre = n => n.toLocaleString("ca");
+const nomDialecte = codi => config.dialectes[codi] || codi;
+const lloc = codi => ORDRE.includes(codi) ? ORDRE.indexOf(codi) : ORDRE.length;
+const ordenats = codis => [...codis].sort((a, b) => lloc(a) - lloc(b));
+
+// La mateixa regla que calcular_rimes() del columnes.py: la rima consonant és
+// el que hi ha darrere l'últim accent primari, i l'assonant, les seves vocals.
+function rimes(transcripcio) {
+  const consonant = transcripcio.split(config.accent).pop();
+  const assonant = [...consonant].filter(c => config.vocals.includes(c)).join("");
+  return { consonant, assonant };
+}
+
+// Les mateixes comprovacions que problemes() de l'afegir_paraula.py, que les
+// torna a fer abans de desar.
+function problemesTranscripcio(valor) {
+  const errors = [];
+  if (!valor) errors.push("és buida");
+  const estranys = [...new Set([...valor].filter(c => !config.inventari.includes(c)))];
+  if (estranys.length) errors.push("símbols fora de l'inventari: " + estranys.join(" "));
+  return errors;
+}
+
+function missatge(id, text, mena = "") {
+  $(id).textContent = text;
+  $(id).className = "missatge" + (mena ? " " + mena : "");
+}
+
+// --- Una paraula -----------------------------------------------------------
+
+function campsDelFormulari() {
+  const paraula = $("paraula").value.trim();
+  const silabes = $("silabes").value.trim();
+  const camps = {
+    paraula,
+    lema: $("lema").value.trim() || paraula,
+    codi: $("codi").value.trim(),
+    silabes: /^\d+$/.test(silabes) ? String(Number(silabes)) : silabes,
+    transcripcions: Object.fromEntries(config.codis.map(codi => [codi, $(`t-${codi}`).value.trim()])),
+  };
+  for (const [id] of FONTS) camps[id] = $(id).checked;
+  return camps;
+}
+
+function liniaDiccionari(camps) {
+  return [camps.paraula, camps.lema, camps.codi, camps.silabes,
+          ...FONTS.map(([id, nom]) => camps[id] ? nom : "NO")].join("$");
+}
+
+// {id del camp: què hi falla}. Els camps buits no es marquen en vermell: només
+// fan que no es pugui afegir.
+function errorsDelFormulari(camps) {
+  const errors = {};
+  const prohibit = valor => /[$€]/.test(valor);
+  if (!camps.paraula) errors.paraula = "";
+  else if (prohibit(camps.paraula)) errors.paraula = "no pot dur cap $ ni €";
+  if (prohibit(camps.lema)) errors.lema = "no pot dur cap $ ni €";
+  if (!camps.codi) errors.codi = "";
+  else if (prohibit(camps.codi)) errors.codi = "no pot dur cap $ ni €";
+  if (!camps.silabes) errors.silabes = "";
+  else if (!/^\d+$/.test(camps.silabes) || Number(camps.silabes) < 1) errors.silabes = "ha de ser un enter positiu";
+  for (const codi of config.codis) {
+    const valor = camps.transcripcions[codi];
+    const seus = problemesTranscripcio(valor);
+    if (seus.length) errors[`t-${codi}`] = valor ? seus.join("; ") : "";
+  }
+  return errors;
+}
+
+const clauVista = () => `${$("paraula").value.trim()}\n${$("fila").value.trim()}`;
+
+function refrescar() {
+  const camps = campsDelFormulari();
+  const errors = errorsDelFormulari(camps);
+  $("lema").placeholder = camps.paraula || "la paraula";
+
+  for (const id of ["paraula", "lema", "codi", "silabes"]) {
+    $(id).classList.toggle("invalid", Boolean(errors[id]));
+    document.querySelector(`[data-error="${id}"]`).textContent = errors[id] || "";
+  }
+  for (const codi of config.codis) {
+    const input = $(`t-${codi}`), valor = camps.transcripcions[codi];
+    const error = errors[`t-${codi}`];
+    input.classList.toggle("invalid", Boolean(error));
+    let html = "";
+    if (valor) {
+      const r = rimes(valor);
+      html = `rima <span class="ipa">-${esc(r.consonant)}</span>`
+           + ` · assonant <span class="ipa">-${esc(r.assonant)}</span>`;
+      if (!valor.includes(config.accent))
+        html += ` · <span class="avis">sense accent primari: rima amb la paraula sencera</span>`;
+      if (error) html += ` · <span class="mal">${esc(error)}</span>`;
+    }
+    input.closest(".dialecte").querySelector(".detall").innerHTML = html;
+  }
+
+  pintarVista(camps);
+  const vistaAlDia = vista && !vista.error && vista.clau === clauVista();
+  $("afegeix").disabled = Object.keys(errors).length > 0 || !vistaAlDia;
+}
+
+// On aniria, demanat al servidor quan canvien la paraula o la fila (i no a
+// cada tecla: cada vegada que s'escriu, s'espera un moment).
+function demanarVista() {
+  clearTimeout(esperantVista);
+  const clau = clauVista();
+  if (!$("paraula").value.trim()) {
+    vista = null;
+    return refrescar();
+  }
+  esperantVista = setTimeout(async () => {
+    const parametres = new URLSearchParams({ paraula: $("paraula").value.trim(), fila: $("fila").value.trim() });
+    const resposta = await fetch(`/api/posicio?${parametres}`);
+    const dades = await resposta.json();
+    if (clau !== clauVista()) return;   // mentrestant ha canviat: ja n'hi ha una altra en camí
+    vista = { ...dades, clau, error: resposta.ok ? null : dades.error };
+    refrescar();
+  }, 250);
+}
+
+function pintarVista(camps) {
+  const caixa = $("vista");
+  if (!vista) return caixa.innerHTML = "";
+  if (vista.error) return caixa.innerHTML = `<p class="mal">${esc(vista.error)}</p>`;
+
+  const quina = !$("fila").value.trim() || vista.fila === vista.proposada
+    ? "la que li toca per ordre alfabètic"
+    : `la que has dit; per ordre alfabètic li tocaria la ${nombre(vista.proposada)}`;
+  const linia = (fila, text, nova = false) =>
+    `<div class="linia${nova ? " nova" : ""}"><span class="num">${nombre(fila)}</span>`
+    + `<span>${esc(text)}${nova ? "   ← nova" : ""}</span></div>`;
+  const veines = [...vista.abans, ...vista.despres];
+  const repetides = veines.filter(v => v.linia.split("$")[0] === camps.paraula);
+
+  caixa.innerHTML = `
+    <p class="titol">A la fila ${nombre(vista.fila)} <span>· ${quina}</span></p>
+    <div class="linies">
+      ${vista.abans.map(v => linia(v.fila, v.linia)).join("")}
+      ${linia(vista.fila, liniaDiccionari(camps), true)}
+      ${vista.despres.map(v => linia(v.fila, v.linia)).join("")}
+    </div>
+    ${repetides.length ? `<p class="avis">Al costat ja hi ha «${esc(camps.paraula)}»: mira que no sigui repetida.</p>` : ""}`;
+}
+
+async function afegir() {
+  if ($("afegeix").disabled) return;
+  const camps = campsDelFormulari();
+  $("afegeix").disabled = true;
+  missatge("missatge", "Desant… (es reescriuen el diccionari i la col_10 sencers, van uns segons)");
+  const resposta = await fetch("/api/afegeix", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...camps,
+      fila: vista.fila,
+      // Les dues files entre les quals l'has vista: si ja no hi són, no es desa.
+      abans: vista.abans.at(-1)?.linia ?? null,
+      despres: vista.despres[0]?.linia ?? null,
+    }),
+  });
+  const dades = await resposta.json();
+  if (!resposta.ok) {
+    missatge("missatge", dades.error, "mal");
+    vista = null;
+    return demanarVista();
+  }
+  config.files = dades.files;
+  perLaSeguent();
+  missatge("missatge", `Afegida a la fila ${nombre(dades.fila)}. El diccionari i la col_10 tenen `
+                       + `${nombre(dades.files)} files. La resta de camps es queden per a la següent.`, "be");
+  const transcripcions = ordenats(Object.keys(dades.transcripcions))
+    .map(codi => `${esc(nomDialecte(codi))} <span class="ipa">${esc(dades.transcripcions[codi])}</span>`).join(" · ");
+  apuntar(`<strong>${esc(camps.paraula)}</strong> <small>(${esc(camps.codi)}, fila ${nombre(dades.fila)})</small> — ${transcripcions}`);
+}
+
+function buidar() {
+  for (const input of $("una").querySelectorAll("input")) {
+    if (input.type === "checkbox") input.checked = false;
+    else input.value = "";
+  }
+  vista = null;
+  missatge("missatge", "");
+  refrescar();
+  $("paraula").focus();
+}
+
+// Després d'afegir-ne una, la següent sovint és de la mateixa família
+// (demoscòpic, demoscòpica…): es queda tot menys la paraula i la fila, i la
+// paraula es deixa seleccionada perquè escriure-hi la substitueixi.
+function perLaSeguent() {
+  if (!$("lema").value.trim()) $("lema").value = $("paraula").value.trim();
+  $("fila").value = "";
+  vista = null;
+  refrescar();
+  $("paraula").focus();
+  $("paraula").select();
+}
+
+// --- Diverses, des d'arxius ------------------------------------------------
+
+async function llegirArxius() {
+  const principal = $("arxiu-paraules").files[0];
+  if (!principal) return null;
+  const transcripcions = {};
+  for (const codi of config.codis) {
+    const arxiu = $(`arxiu-${codi}`).files[0];
+    if (arxiu) transcripcions[codi] = await arxiu.text();
+  }
+  return { paraules: await principal.text(), transcripcions };
+}
+
+async function enviarDiverses(arxius, provar) {
+  const resposta = await fetch("/api/diverses", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...arxius, provar }),
+  });
+  return { ok: resposta.ok, dades: await resposta.json() };
+}
+
+function errorsDiverses(dades) {
+  missatge("missatge-diverses", dades.error, "mal");
+  $("vista-diverses").innerHTML = dades.errors
+    ? `<ul class="errors">${dades.errors.map(error => `<li>${esc(error)}</li>`).join("")}</ul>` : "";
+}
+
+async function comprovar() {
+  oblidarComprovats();
+  const arxius = await llegirArxius();
+  if (!arxius) return missatge("missatge-diverses", "Tria l'arxiu de les paraules.", "mal");
+  missatge("missatge-diverses", "Comprovant…");
+  const { ok, dades } = await enviarDiverses(arxius, true);
+  if (!ok) return errorsDiverses(dades);
+
+  comprovats = arxius;
+  missatge("missatge-diverses", `${nombre(dades.n)} ${dades.n === 1 ? "paraula" : "paraules"} a punt. `
+                                + `Mira on va cadascuna i, si va bé, afegeix-les.`, "be");
+  $("afegeix-diverses").disabled = false;
+  $("afegeix-diverses").textContent = dades.n === 1 ? "Afegeix-la" : `Afegeix-ne ${nombre(dades.n)}`;
+
+  const codis = ordenats(config.codis);
+  const vora = paraula => paraula === null ? "—" : esc(paraula);
+  $("vista-diverses").innerHTML = `
+    <div class="taula"><table>
+      <thead><tr><th>Diccionari</th><th>Entre</th>${codis.map(codi => `<th>${esc(nomDialecte(codi))}</th>`).join("")}</tr></thead>
+      <tbody>${dades.vista.map(nova => `<tr>
+        <td><code>${esc(nova.linia)}</code></td>
+        <td class="entre">${vora(nova.despres_de)} … ${vora(nova.abans_de)}</td>
+        ${codis.map(codi => `<td class="ipa">${esc(nova.transcripcions[codi])}</td>`).join("")}
+      </tr>`).join("")}</tbody>
+    </table>
+    ${dades.n > dades.vista.length ? `<p>Se n'ensenyen ${nombre(dades.vista.length)} de ${nombre(dades.n)}.</p>` : ""}
+    </div>`;
+}
+
+async function afegirDiverses() {
+  if (!comprovats) return;
+  $("afegeix-diverses").disabled = true;
+  $("comprova").disabled = true;
+  missatge("missatge-diverses", "Desant… (es reescriuen el diccionari i la col_10 sencers, van uns segons)");
+  const { ok, dades } = await enviarDiverses(comprovats, false);
+  $("comprova").disabled = false;
+  if (!ok) {
+    oblidarComprovats();
+    return errorsDiverses(dades);
+  }
+  config.files = dades.files;
+  oblidarComprovats();
+  for (const input of $("arxius").querySelectorAll("input")) input.value = "";
+  missatge("missatge-diverses", `Feta. S'han afegit ${nombre(dades.n)} paraules. El diccionari i la col_10 `
+                                + `tenen ${nombre(dades.files)} files.`, "be");
+  apuntar(`<strong>${nombre(dades.n)} ${dades.n === 1 ? "paraula" : "paraules"}</strong> des d'arxius`);
+}
+
+// Si es canvia un arxiu, el que s'havia comprovat ja no val.
+function oblidarComprovats() {
+  comprovats = null;
+  $("afegeix-diverses").disabled = true;
+  $("afegeix-diverses").textContent = "Afegeix-les";
+  $("vista-diverses").innerHTML = "";
+}
+
+// --- Una família, com un model ---------------------------------------------
+
+// Les formes que ha proposat el servidor, amb el que hi hagis canviat a la taula.
+let formes = [];
+let esperantModels = null;
+let esperantFormes = null;
+// Si el model l'has triat tu (o escrit): llavors ja no se'l canvia sol.
+let modelTriat = false;
+
+function opcionsModel() {
+  return {
+    lema: $("m-lema").value.trim(),
+    silabes: $("m-silabes").value.trim(),
+    model: $("m-model").value.trim(),
+    transcripcions: Object.fromEntries(config.codis.map(codi => [codi, $(`mt-${codi}`).value.trim()])),
+  };
+}
+
+// Els models candidats, quan canvia el lema nou.
+function demanarModels() {
+  clearTimeout(esperantModels);
+  const lema = $("m-lema").value.trim();
+  if (!lema) return $("m-models").innerHTML = "";
+  esperantModels = setTimeout(async () => {
+    const dades = await fetch(`/api/models?lema=${encodeURIComponent(lema)}`).then(r => r.json());
+    if (lema !== $("m-lema").value.trim()) return;
+    pintarModels(dades.models || []);
+    if (!modelTriat && dades.models?.length) {
+      $("m-model").value = dades.models[0].lema;
+      pintarModels(dades.models);
+      demanarFormes();
+    }
+  }, 300);
+}
+
+function pintarModels(models) {
+  const caixa = $("m-models");
+  caixa.innerHTML = models.length ? "Models que acaben igual:" : "Cap lema acaba igual: escriu-ne un tu.";
+  for (const { lema, formes: quantes } of models) {
+    const boto = document.createElement("button");
+    boto.type = "button";
+    boto.className = lema === $("m-model").value.trim() ? "triat" : "";
+    boto.innerHTML = `${esc(lema)} <small>${quantes}</small>`;
+    boto.title = `${quantes} ${quantes === 1 ? "forma" : "formes"}`;
+    boto.onclick = () => {
+      $("m-model").value = lema;
+      modelTriat = true;
+      pintarModels(models);
+      demanarFormes();
+    };
+    caixa.append(boto);
+  }
+}
+
+// Les formes derivades, quan canvia qualsevol cosa de dalt. El que hagis
+// tocat a la taula es perd: és d'unes formes que ja no són aquestes.
+function demanarFormes({ conservarMissatge = false } = {}) {
+  clearTimeout(esperantFormes);
+  esperantFormes = setTimeout(async () => {
+    const opcions = opcionsModel();
+    const clau = JSON.stringify(opcions);
+    const resposta = await fetch("/api/deriva", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: clau,
+    });
+    const dades = await resposta.json();
+    if (clau !== JSON.stringify(opcionsModel())) return;
+    if (!resposta.ok) {
+      formes = [];
+      pintarFormes();
+      // Mentre encara s'omple el de dalt no és cap error, només el que falta.
+      return missatge("missatge-model", dades.error);
+    }
+    formes = dades.formes.map(forma => ({ ...forma, triada: !forma.existeix }));
+    if (!conservarMissatge) missatge("missatge-model", "");
+    pintarFormes();
+  }, 300);
+}
+
+function pintarFormes() {
+  const codis = ordenats(config.codis);
+  if (!formes.length) {
+    $("m-formes").innerHTML = "";
+    return refrescarModel();
+  }
+  $("m-formes").innerHTML = `
+    <div class="taula"><table>
+      <thead><tr><th></th><th>Paraula</th><th>Codi</th><th>Síl.</th>
+        ${codis.map(codi => `<th>${esc(nomDialecte(codi))}</th>`).join("")}</tr></thead>
+      <tbody>${formes.map((forma, i) => `
+        <tr class="${forma.existeix ? "existeix" : ""}">
+          <td><input type="checkbox" data-i="${i}" data-camp="triada" ${forma.triada ? "checked" : ""}
+               title="${forma.existeix ? "Ja hi és" : "Afegir-la"}"></td>
+          <td><input data-i="${i}" data-camp="paraula" value="${esc(forma.paraula)}" spellcheck="false">
+              <div class="com">${forma.existeix ? "ja hi és · " : ""}com <i>${esc(forma.model)}</i></div></td>
+          <td><input class="codi" data-i="${i}" data-camp="codi" value="${esc(forma.codi)}" spellcheck="false"></td>
+          <td><input class="silabes" data-i="${i}" data-camp="silabes" value="${esc(forma.silabes)}" inputmode="numeric"></td>
+          ${codis.map(codi => `<td><input class="ipa${forma.revisar.includes(codi) ? " revisar" : ""}"
+               data-i="${i}" data-camp="t-${codi}" value="${esc(forma.transcripcions[codi])}" spellcheck="false"
+               ${forma.revisar.includes(codi) ? 'title="Aquesta forma mou l\'accent: revisa-la"' : ""}></td>`).join("")}
+        </tr>`).join("")}</tbody>
+    </table></div>`;
+  for (const input of $("m-formes").querySelectorAll("input.ipa")) {
+    input.addEventListener("focus", e => darrerCamp = e.target);
+  }
+  refrescarModel();
+}
+
+// Del que hi ha a la taula al que s'afegirà.
+function canviarForma(e) {
+  const { i, camp } = e.target.dataset;
+  if (i === undefined) return;
+  const forma = formes[Number(i)];
+  if (camp === "triada") forma.triada = e.target.checked;
+  else if (camp.startsWith("t-")) forma.transcripcions[camp.slice(2)] = e.target.value.trim();
+  else forma[camp] = e.target.value.trim();
+  if (e.target.classList.contains("ipa")) {
+    e.target.classList.toggle("invalid", problemesTranscripcio(e.target.value.trim()).length > 0);
+  }
+  refrescarModel();
+}
+
+function refrescarModel() {
+  const triades = formes.filter(forma => forma.triada);
+  const boto = $("afegeix-model");
+  boto.disabled = !triades.length;
+  boto.textContent = triades.length === 1 ? "Afegeix-la" : `Afegeix-ne ${triades.length || ""}`.trim();
+}
+
+async function afegirModel() {
+  const triades = formes.filter(forma => forma.triada);
+  if (!triades.length) return;
+  const lema = $("m-lema").value.trim();
+  const enllacos = FONTS.map(([id, nom]) => $(`m-${id}`).checked ? nom : "NO");
+  // El mateix que dos arxius de la manera "diverses": el servidor ho comprova
+  // tot igual i posa cadascuna on li toca.
+  const arxius = {
+    paraules: triades.map(forma => [forma.paraula, lema, forma.codi, forma.silabes, ...enllacos].join("$")).join("\n"),
+    transcripcions: Object.fromEntries(config.codis.map(codi =>
+      [codi, triades.map(forma => forma.transcripcions[codi]).join("\n")])),
+  };
+  $("afegeix-model").disabled = true;
+  missatge("missatge-model", "Desant… (es reescriuen el diccionari i la col_10 sencers, van uns segons)");
+  const { ok, dades } = await enviarDiverses(arxius, false);
+  if (!ok) {
+    refrescarModel();
+    return missatge("missatge-model", [dades.error, ...(dades.errors || [])].join(" "), "mal");
+  }
+  config.files = dades.files;
+  missatge("missatge-model", `Fet. S'han afegit ${nombre(dades.n)} formes de «${lema}». El diccionari i la `
+                             + `col_10 tenen ${nombre(dades.files)} files.`, "be");
+  apuntar(`<strong>${esc(lema)}</strong> com <i>${esc($("m-model").value.trim())}</i>: `
+          + triades.map(forma => esc(forma.paraula)).join(", "));
+  // Tornades a demanar, ara surten com a "ja hi és".
+  demanarFormes({ conservarMissatge: true });
+}
+
+// --- La resta --------------------------------------------------------------
+
+function apuntar(html) {
+  $("registre").hidden = false;
+  const li = document.createElement("li");
+  li.innerHTML = html;
+  $("llista-registre").prepend(li);
+}
+
+function triarManera() {
+  const manera = document.querySelector('input[name="manera"]:checked').value;
+  for (const id of ["una", "model", "diverses"]) $(id).hidden = manera !== id;
+}
+
+// Una tira de botons de símbols per a cada manera que en fa servir.
+for (const tira of [$("simbols"), $("m-simbols")]) {
+  for (const simbol of SIMBOLS) {
+    const boto = document.createElement("button");
+    boto.type = "button";
+    boto.textContent = simbol;
+    boto.onmousedown = e => e.preventDefault();   // que el camp no perdi el focus
+    boto.onclick = () => {
+      if (!darrerCamp || !darrerCamp.isConnected) return;
+      const { selectionStart: a, selectionEnd: b, value } = darrerCamp;
+      darrerCamp.value = value.slice(0, a) + simbol + value.slice(b);
+      darrerCamp.setSelectionRange(a + simbol.length, a + simbol.length);
+      darrerCamp.focus();
+      darrerCamp.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+    tira.append(boto);
+  }
+}
+
+// Ni l'Enter afegeix: com abans el «Va bé?», cal haver mirat on va i prémer el botó.
+$("una").addEventListener("submit", e => e.preventDefault());
+$("una").addEventListener("input", e => {
+  if (e.target.id === "paraula" || e.target.id === "fila") demanarVista();
+  refrescar();
+});
+$("una").addEventListener("change", refrescar);
+$("afegeix").onclick = afegir;
+$("buida").onclick = buidar;
+$("comprova").onclick = comprovar;
+$("afegeix-diverses").onclick = afegirDiverses;
+$("arxius").addEventListener("change", oblidarComprovats);
+$("m-lema").addEventListener("input", () => { demanarModels(); demanarFormes(); });
+$("m-model").addEventListener("input", () => { modelTriat = Boolean($("m-model").value.trim()); demanarFormes(); });
+$("m-silabes").addEventListener("input", demanarFormes);
+$("m-transcripcions").addEventListener("input", demanarFormes);
+$("m-formes").addEventListener("input", canviarForma);
+$("m-formes").addEventListener("change", canviarForma);
+$("afegeix-model").onclick = afegirModel;
+for (const radio of document.querySelectorAll('input[name="manera"]')) radio.addEventListener("change", triarManera);
+
+fetch("/api/configuracio").then(r => r.json()).then(dades => {
+  config = dades;
+  for (const codi of ordenats(config.codis)) {
+    const fila = document.createElement("div");
+    fila.className = "dialecte";
+    fila.innerHTML = `
+      <label for="t-${codi}">${esc(nomDialecte(codi))}</label>
+      <input id="t-${codi}" spellcheck="false" autocomplete="off">
+      <div class="detall"></div>`;
+    fila.querySelector("input").addEventListener("focus", e => darrerCamp = e.target);
+    $("transcripcions").append(fila);
+
+    const seva = document.createElement("div");
+    seva.className = "dialecte";
+    seva.innerHTML = `
+      <label for="mt-${codi}">${esc(nomDialecte(codi))}</label>
+      <input id="mt-${codi}" spellcheck="false" autocomplete="off" placeholder="com sona el lema nou">`;
+    seva.querySelector("input").addEventListener("focus", e => darrerCamp = e.target);
+    $("m-transcripcions").append(seva);
+
+    const etiqueta = document.createElement("label");
+    etiqueta.htmlFor = `arxiu-${codi}`;
+    etiqueta.textContent = `Transcripcions en ${nomDialecte(codi)}`;
+    const arxiu = document.createElement("input");
+    arxiu.type = "file";
+    arxiu.id = `arxiu-${codi}`;
+    arxiu.accept = ".txt,text/plain";
+    $("arxius").append(etiqueta, arxiu);
+  }
+  darrerCamp = $(`t-${ordenats(config.codis)[0]}`);
+  refrescar();
+});
+</script>
+</body>
+</html>

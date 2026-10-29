@@ -170591,7 +170591,7 @@ reforçàssem € reforçar € VMSI1P06 €$ba$ rəfoɾsˈasəm
 reforçàsseu € reforçar € VMSI2P06 €$ba$ rəfoɾsˈasəw
 reforçàssim € reforçar € VMSI1P04 €$ba$ rəfoɾsˈasim
 reforçàssiu € reforçar € VMSI2P04 €$ba$ rəfoɾsˈasiw
-refot € refotre € VMIP1S0Z €$ba$ rəfˈɔt
+refot € refotre € VMIP1S0Z €$ba$ rəfˈot
 refotessin € refotre € VMSI3P02 €$ba$ rəfotˈesin
 refotessis € refotre € VMSI2S02 €$ba$ rəfotˈesis
 refoti € refotre € VMM03S0Y €$ba$ rəfˈɔti

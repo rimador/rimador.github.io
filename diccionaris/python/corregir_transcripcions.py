@@ -54,6 +54,20 @@ MAX_RESULTATS = 60
 # en -ció" hi ha milers d'entrades, i cada targeta són quatre camps editables.
 PER_PAGINA = 50
 MODES = ("exacta", "comenca", "acaba")
+ON = ("paraula", "fonetica")
+ACCENTS = ("ˈ", "ˌ")
+
+
+def sense_accents(transcripcio):
+    for accent in ACCENTS:
+        transcripcio = transcripcio.replace(accent, "")
+    return transcripcio
+
+
+def normalitzar_fonetica(text):
+    """El que s'escriu fàcil amb el teclat i a les transcripcions és un altre
+    símbol: la g de l'IPA no és la g de sempre, i l'apòstrof fa d'accent."""
+    return text.replace("g", "ɡ").replace("'", "ˈ").replace("’", "ˈ")
 
 NOMS_DIALECTES = {"ca": "central", "nw": "nord-occidental", "va": "valencià", "ba": "balear"}
 
@@ -109,12 +123,32 @@ class Fitxer:
             print(f"  (avís: {camins.relatiu(self.cami)} té {camins.mil(len(self.linies))} "
                   f"línies i els enllaços {camins.mil(len(self.enllacos))}: no se n'ensenyaran)")
             self.enllacos = None
+        self._fonetica = None
         self.per_paraula = {}
         self.per_clau = {}
         for fila, linia in enumerate(self.linies):
             paraula = linia.split(modul_col_10.SEPARADOR, 1)[0]
             self.per_paraula.setdefault(paraula.lower(), []).append(fila)
             self.per_clau.setdefault(clau_dordre(paraula), []).append(fila)
+
+    def fonetica(self):
+        """{codi: [transcripció de cada fila]}, per a la cerca per fonètica.
+
+        No es fa fins que algú la demana: són més de dos milions de cadenes
+        entre tots els fitxers, uns quants segons i uns quants centenars de MB
+        que qui només corregeix paraules no ha de pagar en engegar."""
+        if self._fonetica is None:
+            self._fonetica = {}
+            for fila, linia in enumerate(self.linies):
+                self._posar_fonetica(fila, linia)
+        return self._fonetica
+
+    def _posar_fonetica(self, fila, linia):
+        trossos = modul_col_10.TROS.split(linia)
+        for codi, valor in zip(trossos[1::2], trossos[2::2]):
+            if codi not in self._fonetica:
+                self._fonetica[codi] = [""] * len(self.linies)
+            self._fonetica[codi][fila] = valor
 
     def al_dia(self):
         """Si algú l'ha tocat per fora des que l'hem llegida, la tornem a llegir."""
@@ -140,6 +174,8 @@ class Fitxer:
 
     def desar(self, fila, linia):
         self.linies[fila] = linia
+        if self._fonetica is not None:
+            self._posar_fonetica(fila, linia)
         temporal = self.cami + ".desant"
         with open(temporal, "w", encoding="utf-8") as sortida:
             sortida.write("\n".join(self.linies))
@@ -192,7 +228,7 @@ class Servidor:
         for fitxer in self.fitxers.values():
             print(f"  {camins.relatiu(fitxer.cami)}: {camins.mil(len(fitxer.linies))} línies")
 
-    def cercar(self, text, mode="exacta", des_de=0):
+    def cercar(self, text, mode="exacta", des_de=0, on="paraula", dialecte=None):
         """Tres maneres, i totes sense mirar majúscules:
 
             exacta    la paraula tal com l'has escrita, accents inclosos. Si no
@@ -201,13 +237,19 @@ class Servidor:
             acaba     les entrades de les paraules que acaben així
 
         Les dues últimes per ordre alfabètic i de PER_PAGINA en PER_PAGINA,
-        començant per la des_de."""
+        començant per la des_de.
+
+        Amb on="fonetica", el mateix però sobre les transcripcions: les de tots
+        els dialectes o només les del que diguis. Aquí la cerca exacta també va
+        per pàgines, que homòfons n'hi pot haver molts."""
         text = text.strip()
         if not text:
             return {"resultats": []}
         with self.pany:
             for fitxer in self.fitxers.values():
                 fitxer.al_dia()
+            if on == "fonetica":
+                return self._per_fonetica(mode, normalitzar_fonetica(text), des_de, dialecte)
             if mode in ("comenca", "acaba"):
                 return self._entrades_que(mode, text.lower(), des_de)
 
@@ -226,10 +268,43 @@ class Servidor:
                     # diccionari i després les dels apendixs, i cadascuna per fila.
                     clau = (clau_dordre(paraula), paraula, ordre)
                     trobades.extend((clau, fila, fitxer) for fila in files)
+        return self._pagina(trobades, des_de)
+
+    def _per_fonetica(self, mode, text, des_de, dialecte):
+        """Si no hi has posat cap accent, les transcripcions es comparen sense
+        els seus: "ɔnə" troba dˈɔnə, i "dɔnə" també. Si n'hi poses, compten."""
+        amb_accent = any(accent in text for accent in ACCENTS)
+        if mode == "exacta":
+            coincideix = lambda valor: valor == text
+        elif mode == "comenca":
+            coincideix = lambda valor: valor.startswith(text)
+        else:
+            coincideix = lambda valor: valor.endswith(text)
+
+        trobades = []
+        for ordre, fitxer in enumerate(self.fitxers.values()):
+            per_fila = {}
+            for codi, columna in fitxer.fonetica().items():
+                if dialecte and codi != dialecte:
+                    continue
+                for fila, valor in enumerate(columna):
+                    if coincideix(valor if amb_accent else sense_accents(valor)):
+                        per_fila.setdefault(fila, []).append(codi)
+            for fila, codis in per_fila.items():
+                paraula = fitxer.linies[fila].split(modul_col_10.SEPARADOR, 1)[0]
+                trobades.append(((clau_dordre(paraula), paraula, ordre), fila, fitxer, codis))
+        return self._pagina(trobades, des_de)
+
+    def _pagina(self, trobades, des_de):
+        """trobades: (clau d'ordre, fila, fitxer[, dialectes que hi coincideixen])."""
         trobades.sort(key=lambda trobada: trobada[:2])
-        pagina = trobades[des_de:des_de + PER_PAGINA]
-        return {"resultats": [amb_rimes(fitxer.entrada(fila)) for _, fila, fitxer in pagina],
-                "total": len(trobades), "des_de": des_de}
+        resultats = []
+        for clau, fila, fitxer, *codis in trobades[des_de:des_de + PER_PAGINA]:
+            entrada = amb_rimes(fitxer.entrada(fila))
+            if codis:
+                entrada["coincideixen"] = codis[0]
+            resultats.append(entrada)
+        return {"resultats": resultats, "total": len(trobades), "des_de": des_de}
 
     def _buscar(self, files_de):
         resultats = []
@@ -335,7 +410,11 @@ def fer_handler(servidor):
                     des_de = max(0, int(consulta.get("des_de", ["0"])[0]))
                 except ValueError:
                     return self._json(400, {"error": "des_de ha de ser un número."})
-                self._json(200, servidor.cercar(text, mode, des_de))
+                on = consulta.get("on", ["paraula"])[0]
+                if on not in ON:
+                    return self._json(400, {"error": f"on ha de ser {', '.join(ON)}."})
+                dialecte = consulta.get("dialecte", [""])[0] or None
+                self._json(200, servidor.cercar(text, mode, des_de, on, dialecte))
             else:
                 self._json(404, {"error": "no hi és"})
 

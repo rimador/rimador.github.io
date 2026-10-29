@@ -168,7 +168,12 @@ function estat(text, error = false) {
   $("estat").className = "estat" + (error ? " error" : "");
 }
 
-const NOMS_MODES = { exacta: "que sonin", comenca: "que comencin per", acaba: "que acabin en" };
+// [una, unes quantes]: "cap entrada que soni" i "3 entrades que sonin".
+const NOMS_MODES = {
+  exacta: ["que soni", "que sonin"],
+  comenca: ["que comenci per", "que comencin per"],
+  acaba: ["que acabi en", "que acabin en"],
+};
 
 const triat = nom => document.querySelector(`input[name="${nom}"]:checked`).value;
 
@@ -214,10 +219,11 @@ function cercaUrl(text, { mode, on, dialecte }, desDe = 0) {
        + `&dialecte=${dialecte}&des_de=${desDe}`;
 }
 
-function descripcio(text, { mode, on, dialecte }) {
-  if (on !== "fonetica") return `${NOMS_MODES[mode]} «${text}»`;
+function descripcio(text, { mode, on, dialecte }, quantes) {
+  const verb = NOMS_MODES[mode][quantes === 1 ? 0 : 1];
+  if (on !== "fonetica") return `${verb} «${text}»`;
   const on_ = dialecte ? `en ${config.dialectes[dialecte] || dialecte}` : "en algun dialecte";
-  return `${NOMS_MODES[mode]} /${text}/ ${on_}`;
+  return `${verb} /${text}/ ${on_}`;
 }
 
 // Les cerques per pàgines: totes les entrades per ordre alfabètic, de
@@ -225,7 +231,7 @@ function descripcio(text, { mode, on, dialecte }) {
 function mostrarPagina(text, opcions, resposta) {
   const { resultats, total, des_de: desDe } = resposta;
   const fins = desDe + resultats.length;
-  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${descripcio(text, opcions)}`
+  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${descripcio(text, opcions, total)}`
         + (fins < total ? ` · en surten ${nombre(fins)}` : ""));
   for (const entrada of resultats) $("resultats").append(targeta(entrada));
   if (fins >= total) return;
@@ -253,7 +259,7 @@ async function cercar(text, opcions = opcionsTriades()) {
   const resposta = await fetch(cercaUrl(text, opcions)).then(r => r.json());
 
   if (opcions.on === "fonetica" || opcions.mode !== "exacta") {
-    if (!resposta.total) return estat(`No hi ha cap entrada ${descripcio(text, opcions)}.`, true);
+    if (!resposta.total) return estat(`No hi ha cap entrada ${descripcio(text, opcions, 1)}.`, true);
     mostrarPagina(text, opcions, resposta);
     darrerCamp = $("resultats").querySelector(".dialecte input");
     return;

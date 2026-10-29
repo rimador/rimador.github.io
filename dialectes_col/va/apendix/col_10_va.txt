@@ -199802,7 +199802,7 @@ reforçàreu € reforçar € VMSI2P03 €$va$ refoɾsˈaɾew
 reforçàs € reforçar € VMSI1S07 €$va$ refoɾsˈas
 reforçàssem € reforçar € VMSI1P06 €$va$ refoɾsˈasem
 reforçàsseu € reforçar € VMSI2P06 €$va$ refoɾsˈasew
-refot € refotre € VMIP1S0Z €$va$ refˈɔt
+refot € refotre € VMIP1S0Z €$va$ refˈot
 refota € refotre € VMM03S0V €$va$ refˈɔta
 refota € refotre € VMSP1S0V €$va$ refˈɔta
 refoten € refotre € VMM03P0V €$va$ refˈɔten

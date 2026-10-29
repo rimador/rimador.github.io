@@ -41,6 +41,11 @@
   .cap strong { font-size: 18px; }
   .cap .meta { color: var(--suau); font-size: 13px; }
   .etiqueta { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--vora); }
+  .enllacos { display: flex; gap: 6px; margin-left: auto; }
+  .enllac { font-size: 12px; padding: 1px 8px; border-radius: 99px; text-decoration: none; }
+  a.enllac { border: 1px solid var(--be); color: var(--be); }
+  a.enllac:hover { background: var(--be); color: var(--paper); }
+  span.enllac { border: 1px dashed var(--vora); color: var(--suau); text-decoration: line-through; }
   .dialecte { display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; align-items: center;
               padding: 6px 0; border-top: 1px dashed var(--vora); }
   .dialecte:first-of-type { border-top: 0; }
@@ -59,8 +64,23 @@
   .accions .missatge { margin-right: auto; font-size: 13px; }
   .missatge.be { color: var(--be); }
   .missatge.mal { color: var(--mal); }
+  .modes { display: flex; border: 1px solid var(--vora); border-radius: 8px; overflow: hidden;
+           background: var(--paper); }
+  .modes label { display: flex; align-items: center; padding: 0 12px; cursor: pointer;
+                 font-size: 14px; white-space: nowrap; }
+  .modes label + label { border-left: 1px solid var(--vora); }
+  .modes input { position: absolute; opacity: 0; pointer-events: none; }
+  .modes label:has(input:checked) { background: var(--tinta); color: var(--fons); }
+  .modes label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
   .suggeriments { display: flex; flex-wrap: wrap; gap: 6px; }
   .suggeriments button { padding: 4px 10px; }
+  .suggeriments small { color: var(--suau); margin-left: 4px; }
+  @media (max-width: 560px) {
+    form.cerca { flex-wrap: wrap; }
+    form.cerca input[type=search] { flex-basis: 100%; }
+    .modes { flex: 1; }
+    .modes label { flex: 1; justify-content: center; padding: 8px 6px; }
+  }
   section.registre h2 { font-size: 15px; margin: 30px 0 8px; }
   section.registre ul { list-style: none; padding: 0; margin: 0; }
   section.registre li { display: flex; gap: 10px; align-items: baseline; padding: 6px 0;
@@ -81,6 +101,11 @@
 
   <form class="cerca" id="cerca">
     <input type="search" id="text" placeholder="Paraula" autofocus autocomplete="off">
+    <div class="modes" role="radiogroup" aria-label="Com cercar">
+      <label><input type="radio" name="mode" value="exacta" checked>Exacta</label>
+      <label><input type="radio" name="mode" value="comenca">Comença per</label>
+      <label><input type="radio" name="mode" value="acaba">Acaba per</label>
+    </div>
     <button class="principal">Cerca</button>
   </form>
   <div class="simbols" id="simbols" title="Insereix el símbol al camp on eres"></div>
@@ -126,32 +151,72 @@ function estat(text, error = false) {
   $("estat").className = "estat" + (error ? " error" : "");
 }
 
-async function cercar(text) {
+const NOMS_MODES = { comenca: "que comencin per", acaba: "que acabin en" };
+
+function modeTriat() {
+  return document.querySelector('input[name="mode"]:checked').value;
+}
+
+// Una llista de paraules per triar-ne una, que es cerca llavors en exacta:
+// les de "comença per" i "acaba per", i les semblants quan l'exacta no troba res.
+function botonsDeParaules(paraules) {
+  const caixa = document.createElement("div");
+  caixa.className = "suggeriments";
+  for (const { paraula, entrades } of paraules) {
+    const boto = document.createElement("button");
+    boto.textContent = paraula;
+    if (entrades > 1) boto.insertAdjacentHTML("beforeend", ` <small>×${entrades}</small>`);
+    boto.onclick = () => cercar(paraula, "exacta");
+    caixa.append(boto);
+  }
+  return caixa;
+}
+
+async function cercar(text, mode = modeTriat()) {
   $("text").value = text;
+  document.querySelector(`input[name="mode"][value="${mode}"]`).checked = true;
   estat("Cercant…");
   $("resultats").innerHTML = "";
-  const resposta = await fetch("/api/cerca?q=" + encodeURIComponent(text)).then(r => r.json());
-  const resultats = resposta.resultats;
-  if (!resultats.length) return estat(`No hi ha cap «${text}».`, true);
+  const url = `/api/cerca?q=${encodeURIComponent(text)}&mode=${mode}`;
+  const resposta = await fetch(url).then(r => r.json());
 
-  if (resultats[0].suggeriment) {
-    estat(`No hi ha cap «${text}». Potser volies dir:`);
-    const caixa = document.createElement("div");
-    caixa.className = "suggeriments";
-    for (const { suggeriment } of resultats) {
-      const boto = document.createElement("button");
-      boto.textContent = suggeriment;
-      boto.onclick = () => cercar(suggeriment);
-      caixa.append(boto);
-    }
-    return $("resultats").append(caixa);
+  if (resposta.paraules) {
+    const { paraules, total } = resposta;
+    if (!total) return estat(`No hi ha cap paraula ${NOMS_MODES[mode]} «${text}».`, true);
+    const quantes = total === 1 ? "1 paraula" : `${total.toLocaleString("ca")} paraules`;
+    estat(`${quantes} ${NOMS_MODES[mode]} «${text}»`
+          + (paraules.length < total ? ` (en surten les ${paraules.length} primeres)` : "")
+          + ". Tria'n una:");
+    return $("resultats").append(botonsDeParaules(paraules));
   }
 
-  const quantes = resultats.length === 1 ? "1 entrada" : `${resultats.length} entrades`;
-  estat(resposta.aproximat ? `${quantes} (comptant les que només canvien d'accents, majúscules o guions)` : quantes);
+  const resultats = resposta.resultats;
+  if (!resultats.length) return estat(`No hi ha cap «${text}».`, true);
+  if (resposta.suggeriments) {
+    estat(`No hi ha cap «${text}». Potser volies dir:`);
+    return $("resultats").append(botonsDeParaules(resultats.map(r => ({ paraula: r.suggeriment }))));
+  }
+
+  estat(resultats.length === 1 ? "1 entrada" : `${resultats.length} entrades`);
   for (const entrada of resultats) $("resultats").append(targeta(entrada));
   const primer = $("resultats").querySelector(".dialecte input");
   if (primer) darrerCamp = primer;
+}
+
+// Les mateixes adreces que el web (vegeu ADRECES a js/script.js): el
+// Viccionari i el DIEC per lema, i la Viquipèdia per la forma tal com es veu,
+// que allà els articles porten el títol sencer.
+const FONTS = [
+  { clau: "Vicc", nom: "Viccionari", adreca: e => "https://ca.wiktionary.org/wiki/" + encodeURIComponent(e.lema) },
+  { clau: "Viq", nom: "Viquipèdia", adreca: e => "https://ca.wikipedia.org/wiki/" + encodeURIComponent(e.paraula) },
+  { clau: "Diec", nom: "DIEC", adreca: e => "https://dlc.iec.cat/Results?DecEntradaText=" + encodeURIComponent(e.lema) },
+];
+
+function enllacos(entrada) {
+  if (!entrada.enllacos) return "";
+  return `<span class="enllacos">${FONTS.map(font => entrada.enllacos[font.clau]
+    ? `<a class="enllac" href="${font.adreca(entrada)}" target="_blank" rel="noopener" title="Té entrada a ${font.nom}">${font.nom}</a>`
+    : `<span class="enllac" title="No té entrada a ${font.nom}">${font.nom}</span>`).join("")}</span>`;
 }
 
 function targeta(entrada) {
@@ -165,6 +230,7 @@ function targeta(entrada) {
       <strong>${esc(entrada.paraula)}</strong>
       <span class="meta">lema ${esc(entrada.lema)} · ${esc(entrada.codi)} · fila ${entrada.fila + 1}</span>
       <span class="etiqueta">${esc(entrada.etiqueta)}</span>
+      ${enllacos(entrada)}
     </div>
     ${codis.map(codi => `
       <div class="dialecte" data-codi="${codi}">
@@ -267,7 +333,7 @@ function apuntar(entrada, abans, despres) {
   const torna = document.createElement("button");
   torna.textContent = "Torna-hi";
   torna.title = "Torna a cercar la paraula per tornar-la a mirar o desfer el canvi";
-  torna.onclick = () => cercar(entrada.paraula);
+  torna.onclick = () => cercar(entrada.paraula, "exacta");
   li.append(torna);
   $("llista-registre").prepend(li);
 }
@@ -292,8 +358,10 @@ $("cerca").addEventListener("submit", e => { e.preventDefault(); cercar($("text"
 
 fetch("/api/configuracio").then(r => r.json()).then(dades => {
   config = dades;
-  const inicial = new URLSearchParams(location.search).get("q");
-  if (inicial) cercar(inicial);
+  const parametres = new URLSearchParams(location.search);
+  const inicial = parametres.get("q");
+  const mode = parametres.get("mode");
+  if (inicial) cercar(inicial, NOMS_MODES[mode] ? mode : "exacta");
 });
 </script>
 </body>

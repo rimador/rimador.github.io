@@ -43,6 +43,12 @@
    els dos fulls surten a dist/css/, o sigui que valen igual per als dos. */
 @use "../../css/fonts";
 
+/* La barra d'instal·lar l'aplicació (js/instal-lar.js), que el joc també
+   carrega. Igual que les fonts: el seu full no arribava aquí, i la barra sortia
+   sense cap estil, amuntegada a sota del peu. Al final d'aquest fitxer es
+   vesteix com la resta del joc. */
+@use "../../css/instal-lar";
+
 /* La tipografia dels titulars. Fins ara es demanava la Impact del sistema, i
    la Impact és exactament el mateix cas que la Comic Sans: no existeix ni a
    Android ni a iOS, o sigui que al mòbil tots els títols del joc queien a la
@@ -1599,6 +1605,35 @@ main {
     font-size: 0.8rem;
     color: var(--text-fluix);
 }
+
+/* ------------------------------------------------- Barra d'instal·lació */
+
+/* Els estils base són els del lloc (vegeu el @use de dalt). Aquí només se li
+   posa l'aire del joc: la vora negra dels plafons i el botó giny gris amb
+   bisell, en comptes de la vora magenta i el botó rosa arrodonit del cercador. */
+.instal-banner {
+    background: var(--cian);
+    border-top: var(--vora);
+    box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.20);
+    color: var(--text);
+    font-family: var(--tipus);
+}
+
+.instal-boto {
+    @include giny;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.instal-boto:hover { @include giny-hover; color: var(--text); }
+.instal-boto:active { @include giny-premut; transform: none; }
+
+.instal-tanca { color: var(--text); }
+
+/* Enmig d'una partida no hi ha d'haver res tapant el camp ni el rellotge. El
+   js ja espera que s'acabi abans de treure-la, però si ja hi era quan ha
+   començat la partida, s'amaga fins que torna a la portada. */
+body:has(#pantalla-joc:not([hidden])) .instal-banner { display: none; }
 
 /* ------------------------------------------------------- Pantalles amples */
 

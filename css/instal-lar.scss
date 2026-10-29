@@ -70,6 +70,15 @@
     opacity: 0.75;
 }
 
+// A Android/escriptori va a la dreta del botó d'instal·lar, no sota el text.
+.instal-boto + .instal-ja {
+    flex-shrink: 0;
+    max-width: 6.5em;
+    margin: 0;
+    line-height: 1.2;
+    text-align: left;
+}
+
 .instal-ja:hover {
     opacity: 1;
 }

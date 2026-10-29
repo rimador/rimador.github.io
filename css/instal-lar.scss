@@ -41,11 +41,37 @@
     border-radius: 8px;
 }
 
-.instal-text {
+.instal-cos {
     flex: 1;
+    min-width: 0;
+}
+
+.instal-text {
     margin: 0;
     font-size: 0.9em;
     line-height: 1.4;
+}
+
+// "Ja tinc l'aplicació": un enllaç discret sota el text, que no competeixi
+// amb el botó d'instal·lar. El padding vertical és per fer-lo prou gros per al
+// dit sense que es vegi més gros.
+.instal-ja {
+    display: inline-block;
+    margin: 2px 0 -4px;
+    padding: 4px 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 0.8em;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.instal-ja:hover {
+    opacity: 1;
 }
 
 .instal-boto {
@@ -140,6 +166,10 @@
 
     .instal-text {
         font-size: 0.82em;
+    }
+
+    .instal-ja {
+        font-size: 0.75em;
     }
 
     .instal-boto {

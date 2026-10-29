@@ -1454,6 +1454,9 @@ var matches = [];
 var matches_provisionals = [];
 var paraulacerca = [0, 0, 0, 0, 0, 0, 0];
 var codiParaula = "";
+// La terminació fonètica amb què s'ha rimat l'última cerca (la consonant o
+// l'assonant, segons el selector), per ensenyar-la al rètol del nombre.
+let terminacioCercada = "";
 
 // Mentre el diàleg d'homògrafs és obert, la cerca està a mitges. Si
 // se'n comencés una altra, tindríem dues cerques en marxa i dos diàlegs
@@ -1518,6 +1521,7 @@ async function realitzarCerca() {
               rimaTrobada = paraulacerca[4];}
       }
       codiParaula = paraulacerca[2];
+      terminacioCercada = rimaTrobada === "***" ? "" : rimaTrobada;
 
       registrarCerca(
             paraulaCercada,
@@ -1978,7 +1982,12 @@ function textDelNombre() {
     if (paraulacerca[0] === 0) {
       return "Nombre de rimes: " + matches_provisionals.length;
     }
-    return "Paraules que rimen amb <strong>" + paraulacerca[0] + "</strong>: " + matches_provisionals.length;
+    // La transcripció va amb la classe .transcripcio (css/fonts.scss) perquè
+    // surti sencera amb la font fonètica i no barrejada amb la del rètol.
+    const transcripcio = terminacioCercada
+      ? ' (<span class="transcripcio">/' + terminacioCercada + '/</span>)'
+      : "";
+    return "Paraules que rimen amb <strong>" + paraulacerca[0] + "</strong>" + transcripcio + ": " + matches_provisionals.length;
   }
 
   let text = '';

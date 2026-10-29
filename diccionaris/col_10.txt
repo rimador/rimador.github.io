@@ -64149,7 +64149,7 @@ bateries € bateria € NCCP000 €$ba$ bətəɾˈiəs €$ca$ bətəɾˈiəs �
 baterola € baterola € NCFS000 €$ba$ bətəɾˈɔlə €$ca$ bətəɾˈɔlə €$nw$ bateɾˈɔlɛ €$va$ bateɾˈɔla
 bateroles € baterola € NCFP000 €$ba$ bətəɾˈɔləs €$ca$ bətəɾˈɔləs €$nw$ bateɾˈɔles €$va$ bateɾˈɔles
 baters € bater € NCMP000 €$ba$ bətˈes €$ca$ bətˈes €$nw$ batˈes €$va$ batˈeɾs
-bates € bata € NCFP000 €$ba$ bˈeits €$ca$ bˈeits €$nw$ bˈeits €$va$ bˈeits
+bates € bata € NCFP000 €$ba$ bˈatəs €$ca$ bˈatəs €$nw$ bˈates €$va$ bˈates
 Batet € Batet € NPCNSP0 €$ba$ bətˈət €$ca$ bətˈɛt €$nw$ batˈet €$va$ batˈet
 bateu € bateu € NCMS000 €$ba$ bətˈɛw €$ca$ bətˈɛw €$nw$ batˈew €$va$ batˈew
 bateu € batre € VMIP2P00 €$ba$ bətˈɛw €$ca$ bətˈɛw €$nw$ batˈew €$va$ batˈew

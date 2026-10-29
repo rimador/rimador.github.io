@@ -29492,7 +29492,7 @@ batent-li'ls € batre € WG0002LILS €$va$ batˈenlils
 batera € batre € VMSI1S03 €$va$ batˈeɾa
 bateren € batre € VMSI3P03 €$va$ batˈɛɾen
 bateres € batre € VMSI2S03 €$va$ batˈeɾes
-bates € batre € VMSP2S0V €$va$ bˈeits
+bates € batre € VMSP2S0V €$va$ bˈates
 batessen € batre € VMSI3P05 €$va$ batˈesen
 batesses € batre € VMSI2S05 €$va$ batˈeses
 batessin € batre € VMSI3P02 €$va$ batˈesin

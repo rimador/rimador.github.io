@@ -68,6 +68,23 @@
   .detall .mal { color: var(--mal); }
   .detall .avis { color: var(--avis); }
   .detall .abans { text-decoration: line-through; }
+  a.cerca { color: inherit; text-decoration-style: dotted; text-underline-offset: 3px; }
+  a.cerca:hover { color: var(--accent); }
+  /* Les llistes de rima i de lema: els dialectes l'un al costat de l'altre,
+     perquè d'una ullada es vegi com sona cada entrada a tot arreu. */
+  .targeta.compacta { padding: 10px 14px; margin-bottom: 10px; }
+  .compacta .cap { margin-bottom: 6px; }
+  .compacta .dialectes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .compacta .dialecte { display: flex; flex-direction: column; align-items: stretch; gap: 2px;
+                        padding: 0; border-top: 0; }
+  .compacta .dialecte label { font-size: 12px; }
+  .compacta .dialecte input { font-size: 16px; padding: 4px 8px; }
+  .compacta .detall { font-size: 12px; }
+  .compacta .detall .ipa { font-size: 14px; }
+  .compacta .accions { margin-top: 6px; }
+  @media (max-width: 700px) {
+    .compacta .dialectes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   .accions { display: flex; gap: 8px; justify-content: flex-end; align-items: center; margin-top: 10px; }
   .accions .missatge { margin-right: auto; font-size: 13px; }
   .missatge.be { color: var(--be); }
@@ -76,13 +93,15 @@
            background: var(--paper); }
   .modes label { display: flex; align-items: center; padding: 0 12px; cursor: pointer;
                  font-size: 14px; white-space: nowrap; }
+  .modes[hidden] { display: none; }
   .modes label + label { border-left: 1px solid var(--vora); }
   .modes input { position: absolute; opacity: 0; pointer-events: none; }
   .modes label:has(input:checked) { background: var(--tinta); color: var(--fons); }
   .modes label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
   .suggeriments { display: flex; flex-wrap: wrap; gap: 6px; }
   .suggeriments button { padding: 4px 10px; }
-  button.mes { display: block; width: 100%; padding: 12px; }
+  .mes { display: flex; gap: 8px; }
+  .mes button { flex: 1; padding: 12px; }
   @media (max-width: 560px) {
     .modes { flex: 1 1 100%; }
     .modes label { flex: 1; justify-content: center; padding: 8px 6px; }
@@ -113,9 +132,11 @@
     <div class="fila">
       <div class="modes" role="radiogroup" aria-label="On cercar">
         <label><input type="radio" name="on" value="paraula" checked>Paraula</label>
+        <label><input type="radio" name="on" value="lema">Lema</label>
         <label><input type="radio" name="on" value="fonetica">Fonètica</label>
+        <label><input type="radio" name="on" value="rima">Rima</label>
       </div>
-      <div class="modes" role="radiogroup" aria-label="Com cercar">
+      <div class="modes" id="com" role="radiogroup" aria-label="Com cercar">
         <label><input type="radio" name="mode" value="exacta" checked>Exacta</label>
         <label><input type="radio" name="mode" value="comenca">Comença per</label>
         <label><input type="radio" name="mode" value="acaba">Acaba per</label>
@@ -174,6 +195,22 @@ const NOMS_MODES = {
   comenca: ["que comenci per", "que comencin per"],
   acaba: ["que acabi en", "que acabin en"],
 };
+const NOMS_RIMA = ["que rimi", "que rimin"];
+
+// El que es demana al camp de text, segons on es cerqui.
+const INDICACIONS = {
+  paraula: "Paraula",
+  lema: "Lema o una de les seves formes (inepte, inepta…)",
+  fonetica: "Transcripció (dˈɔnə, ɔnə, kˈant…)",
+  rima: "Rima (ɛktə) o una transcripció (pəɾfˈɛktə)",
+};
+// Les que surten amb els dialectes l'un al costat de l'altre.
+const COMPACTES = ["lema", "rima"];
+
+// Una cerca en una altra pestanya, des d'una targeta: així no es perd el que
+// tinguis a mig corregir en aquesta.
+const enllacCerca = (text, on, dialecte = "") =>
+  `?q=${encodeURIComponent(text)}&on=${on}` + (dialecte ? `&dialecte=${dialecte}` : "");
 
 const triat = nom => document.querySelector(`input[name="${nom}"]:checked`).value;
 
@@ -192,10 +229,13 @@ function posarOpcions({ mode, on, dialecte }) {
 }
 
 function refrescarFormulari() {
-  const fonetica = triat("on") === "fonetica";
+  const on = triat("on");
+  const fonetica = on === "fonetica" || on === "rima";
   $("cerca").classList.toggle("fonetica", fonetica);
   $("dialecte").hidden = !fonetica;
-  $("text").placeholder = fonetica ? "Transcripció (dˈɔnə, ɔnə, kˈant…)" : "Paraula";
+  // La rima i el lema no tenen "comença per" ni "acaba per".
+  $("com").hidden = on === "lema" || on === "rima";
+  $("text").placeholder = INDICACIONS[on];
 }
 
 // Quan l'exacta no troba res: les paraules semblants, per triar-ne una.
@@ -214,52 +254,68 @@ function botonsDeParaules(paraules) {
 const PER_PARAULA = { mode: "exacta", on: "paraula", dialecte: "" };
 const nombre = n => n.toLocaleString("ca");
 
-function cercaUrl(text, { mode, on, dialecte }, desDe = 0) {
+function cercaUrl(text, { mode, on, dialecte }, desDe = 0, totes = false) {
   return `/api/cerca?q=${encodeURIComponent(text)}&mode=${mode}&on=${on}`
-       + `&dialecte=${dialecte}&des_de=${desDe}`;
+       + `&dialecte=${dialecte}&des_de=${desDe}` + (totes ? "&totes=1" : "");
 }
 
-function descripcio(text, { mode, on, dialecte }, quantes) {
-  const verb = NOMS_MODES[mode][quantes === 1 ? 0 : 1];
-  if (on !== "fonetica") return `${verb} «${text}»`;
+// rima i lemes són els que el servidor diu que ha cercat de debò: la rima que
+// ha tret de la transcripció, i els lemes de la forma que li has donat.
+function descripcio(text, { mode, on, dialecte }, quantes, { rima, lemes } = {}) {
+  const nombre_ = quantes === 1 ? 0 : 1;
+  if (on === "paraula") return `${NOMS_MODES[mode][nombre_]} «${text}»`;
+  if (on === "lema") {
+    if (lemes?.length > 1) return `dels lemes ${lemes.map(lema => `«${lema}»`).join(", ")}`;
+    return `del lema «${lemes?.[0] ?? text}»`;
+  }
   const on_ = dialecte ? `en ${config.dialectes[dialecte] || dialecte}` : "en algun dialecte";
-  return `${verb} /${text}/ ${on_}`;
+  if (on === "rima") return `${NOMS_RIMA[nombre_]} en -${rima ?? text} ${on_}`;
+  return `${NOMS_MODES[mode][nombre_]} /${text}/ ${on_}`;
 }
 
 // Les cerques per pàgines: totes les entrades per ordre alfabètic, de
-// cinquanta en cinquanta, i un botó al final per carregar les següents.
+// cinquanta en cinquanta, i al final un botó per carregar les següents i un
+// altre per carregar-les totes.
 function mostrarPagina(text, opcions, resposta) {
   const { resultats, total, des_de: desDe } = resposta;
   const fins = desDe + resultats.length;
-  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${descripcio(text, opcions, total)}`
+  estat(`${nombre(total)} ${total === 1 ? "entrada" : "entrades"} ${descripcio(text, opcions, total, resposta)}`
         + (fins < total ? ` · en surten ${nombre(fins)}` : ""));
-  for (const entrada of resultats) $("resultats").append(targeta(entrada));
+  const compacta = COMPACTES.includes(opcions.on);
+  for (const entrada of resultats) $("resultats").append(targeta(entrada, compacta));
   if (fins >= total) return;
 
-  const boto = document.createElement("button");
-  boto.className = "mes";
-  boto.textContent = `Carrega'n ${Math.min(resultats.length, total - fins)} més`;
-  boto.onclick = async () => {
-    boto.disabled = true;
-    boto.textContent = "Carregant…";
-    const seguent = await fetch(cercaUrl(text, opcions, fins)).then(r => r.json());
-    boto.remove();
-    mostrarPagina(text, opcions, seguent);
+  const botons = document.createElement("div");
+  botons.className = "mes";
+  const carregar = (etiqueta, totes) => {
+    const boto = document.createElement("button");
+    boto.textContent = etiqueta;
+    boto.onclick = async () => {
+      for (const altre of botons.children) altre.disabled = true;
+      boto.textContent = "Carregant…";
+      const seguent = await fetch(cercaUrl(text, opcions, fins, totes)).then(r => r.json());
+      botons.remove();
+      mostrarPagina(text, opcions, seguent);
+    };
+    botons.append(boto);
   };
-  $("resultats").append(boto);
+  carregar(`Carrega'n ${Math.min(resultats.length, total - fins)} més`, false);
+  if (total - fins > resultats.length) carregar(`Carrega-les totes (${nombre(total - fins)} més)`, true);
+  $("resultats").append(botons);
 }
 
 async function cercar(text, opcions = opcionsTriades()) {
   $("text").value = text;
   posarOpcions(opcions);
-  // La primera cerca per fonètica fa que el servidor llegeixi totes les
-  // transcripcions, i triga uns segons: que no sembli penjat.
-  estat(opcions.on === "fonetica" ? "Cercant… (la primera cerca per fonètica triga uns segons)" : "Cercant…");
+  // La primera cerca per fonètica (o per rima) fa que el servidor llegeixi
+  // totes les transcripcions, i triga uns segons: que no sembli penjat.
+  estat(opcions.on === "fonetica" || opcions.on === "rima"
+        ? "Cercant… (la primera cerca per fonètica o per rima triga uns segons)" : "Cercant…");
   $("resultats").innerHTML = "";
   const resposta = await fetch(cercaUrl(text, opcions)).then(r => r.json());
 
-  if (opcions.on === "fonetica" || opcions.mode !== "exacta") {
-    if (!resposta.total) return estat(`No hi ha cap entrada ${descripcio(text, opcions, 1)}.`, true);
+  if (opcions.on !== "paraula" || opcions.mode !== "exacta") {
+    if (!resposta.total) return estat(`No hi ha cap entrada ${descripcio(text, opcions, 1, resposta)}.`, true);
     mostrarPagina(text, opcions, resposta);
     darrerCamp = $("resultats").querySelector(".dialecte input");
     return;
@@ -294,25 +350,29 @@ function enllacos(entrada) {
     : `<span class="enllac" title="No té entrada a ${font.nom}">${font.nom}</span>`).join("")}</span>`;
 }
 
-function targeta(entrada) {
+function targeta(entrada, compacta = false) {
   const caixa = document.createElement("div");
-  caixa.className = "targeta";
+  caixa.className = "targeta" + (compacta ? " compacta" : "");
   const lloc = codi => ORDRE.includes(codi) ? ORDRE.indexOf(codi) : ORDRE.length;
   const codis = Object.keys(entrada.transcripcions).sort((a, b) => lloc(a) - lloc(b));
 
   caixa.innerHTML = `
     <div class="cap">
       <strong>${esc(entrada.paraula)}</strong>
-      <span class="meta">lema ${esc(entrada.lema)} · ${esc(entrada.codi)} · fila ${entrada.fila + 1}</span>
+      <span class="meta">lema <a class="cerca" href="${esc(enllacCerca(entrada.lema, "lema"))}" target="_blank"
+        title="Totes les formes del lema, en una altra pestanya">${esc(entrada.lema)}</a>
+        · ${esc(entrada.codi)} · fila ${entrada.fila + 1}</span>
       <span class="etiqueta">${esc(entrada.etiqueta)}</span>
       ${enllacos(entrada)}
     </div>
+    <div class="dialectes">
     ${codis.map(codi => `
       <div class="dialecte${entrada.coincideixen?.includes(codi) ? " coincideix" : ""}" data-codi="${codi}">
         <label for="c-${entrada.fitxer}-${entrada.fila}-${codi}">${esc(config.dialectes[codi] || codi)}</label>
         <input id="c-${entrada.fitxer}-${entrada.fila}-${codi}" spellcheck="false" autocomplete="off">
         <div class="detall"></div>
       </div>`).join("")}
+    </div>
     <div class="accions">
       <span class="missatge"></span>
       <button data-accio="restaura" disabled>Restaura</button>
@@ -349,8 +409,11 @@ function targeta(entrada) {
       canviat ||= valor !== original;
       valid &&= errors.length === 0;
 
-      let html = `rima <span class="ipa">-${esc(r.consonant)}</span>`
-               + ` · assonant <span class="ipa">-${esc(r.assonant)}</span>`;
+      const rima = r.consonant
+        ? `<a class="cerca ipa" href="${esc(enllacCerca(r.consonant, "rima", codi))}" target="_blank"
+             title="Totes les que rimen en -${esc(r.consonant)} en ${esc(config.dialectes[codi] || codi)}, en una altra pestanya">-${esc(r.consonant)}</a>`
+        : `<span class="ipa">-</span>`;
+      let html = `rima ${rima} · assonant <span class="ipa">-${esc(r.assonant)}</span>`;
       if (valor !== original && r.consonant !== abans.consonant)
         html += ` · abans <span class="ipa abans">-${esc(abans.consonant)}</span>`;
       if (!valor.includes(config.accent))
@@ -446,7 +509,7 @@ fetch("/api/configuracio").then(r => r.json()).then(dades => {
   const dialecte = parametres.get("dialecte");
   if (inicial) cercar(inicial, {
     mode: NOMS_MODES[mode] ? mode : "exacta",
-    on: on === "fonetica" ? "fonetica" : "paraula",
+    on: INDICACIONS[on] ? on : "paraula",
     dialecte: config.dialectes[dialecte] ? dialecte : "",
   });
 });

@@ -183,10 +183,10 @@
     </div>
     <div class="suggeriments" id="m-models"></div>
     <div class="fonts">
-      <span class="titol">Totes surten a:</span>
-      <label><input type="checkbox" id="m-vicc">Viccionari</label>
-      <label><input type="checkbox" id="m-viq">Viquipèdia</label>
-      <label><input type="checkbox" id="m-diec">DIEC</label>
+      <span class="titol">Surten a:</span>
+      <label title="L'enllaç va al lema: totes les formes el porten igual"><input type="checkbox" id="m-vicc">Viccionari (totes)</label>
+      <label title="L'enllaç va al lema: totes les formes el porten igual"><input type="checkbox" id="m-diec">DIEC (totes)</label>
+      <label title="L'enllaç va a la forma mateixa: per defecte només el lema; les altres, a la columna Viq. de la taula"><input type="checkbox" id="m-viq">Viquipèdia (el lema)</label>
     </div>
     <div class="simbols" id="m-simbols" title="Insereix el símbol a la transcripció on eres"></div>
     <div id="m-transcripcions"></div>
@@ -424,10 +424,13 @@ function buidar() {
 
 // Després d'afegir-ne una, la següent sovint és de la mateixa família
 // (demoscòpic, demoscòpica…): es queda tot menys la paraula i la fila, i la
-// paraula es deixa seleccionada perquè escriure-hi la substitueixi.
+// paraula es deixa seleccionada perquè escriure-hi la substitueixi. La
+// Viquipèdia tampoc no es queda: s'enllaça per la forma, i que en tingui
+// article una forma no vol dir que en tingui la següent.
 function perLaSeguent() {
   if (!$("lema").value.trim()) $("lema").value = $("paraula").value.trim();
   $("fila").value = "";
+  $("viq").checked = false;
   vista = null;
   refrescar();
   $("paraula").focus();
@@ -592,10 +595,18 @@ function demanarFormes({ conservarMissatge = false } = {}) {
       // Mentre encara s'omple el de dalt no és cap error, només el que falta.
       return missatge("missatge-model", dades.error);
     }
-    formes = dades.formes.map(forma => ({ ...forma, triada: !forma.existeix }));
+    formes = dades.formes.map(forma => ({ ...forma, triada: !forma.existeix, viq: viqPerDefecte(forma) }));
     if (!conservarMissatge) missatge("missatge-model", "");
     pintarFormes();
   }, 300);
+}
+
+// El Viccionari i el DIEC s'enllacen pel lema i les formes els comparteixen,
+// però la Viquipèdia s'enllaça per la forma mateixa (vegeu completarEnllac a
+// js/script.js): que el lema tingui article no vol dir que en tingui el plural.
+// Per això, per defecte, només el porta el lema, i a la taula es tria per fila.
+function viqPerDefecte(forma) {
+  return $("m-viq").checked && forma.paraula === $("m-lema").value.trim();
 }
 
 function pintarFormes() {
@@ -607,6 +618,7 @@ function pintarFormes() {
   $("m-formes").innerHTML = `
     <div class="taula"><table>
       <thead><tr><th></th><th>Paraula</th><th>Codi</th><th>Síl.</th>
+        <th title="Té article propi a la Viquipèdia (l'enllaç va a la forma, no al lema)">Viq.</th>
         ${codis.map(codi => `<th>${esc(nomDialecte(codi))}</th>`).join("")}</tr></thead>
       <tbody>${formes.map((forma, i) => `
         <tr class="${forma.existeix ? "existeix" : ""}">
@@ -616,6 +628,8 @@ function pintarFormes() {
               <div class="com">${forma.existeix ? "ja hi és · " : ""}com <i>${esc(forma.model)}</i></div></td>
           <td><input class="codi" data-i="${i}" data-camp="codi" value="${esc(forma.codi)}" spellcheck="false"></td>
           <td><input class="silabes" data-i="${i}" data-camp="silabes" value="${esc(forma.silabes)}" inputmode="numeric"></td>
+          <td><input type="checkbox" data-i="${i}" data-camp="viq" ${forma.viq ? "checked" : ""}
+               title="Té article propi a la Viquipèdia"></td>
           ${codis.map(codi => `<td><input class="ipa${forma.revisar.includes(codi) ? " revisar" : ""}"
                data-i="${i}" data-camp="t-${codi}" value="${esc(forma.transcripcions[codi])}" spellcheck="false"
                ${forma.revisar.includes(codi) ? 'title="Aquesta forma mou l\'accent: revisa-la"' : ""}></td>`).join("")}
@@ -632,7 +646,7 @@ function canviarForma(e) {
   const { i, camp } = e.target.dataset;
   if (i === undefined) return;
   const forma = formes[Number(i)];
-  if (camp === "triada") forma.triada = e.target.checked;
+  if (camp === "triada" || camp === "viq") forma[camp] = e.target.checked;
   else if (camp.startsWith("t-")) forma.transcripcions[camp.slice(2)] = e.target.value.trim();
   else forma[camp] = e.target.value.trim();
   if (e.target.classList.contains("ipa")) {
@@ -652,11 +666,13 @@ async function afegirModel() {
   const triades = formes.filter(forma => forma.triada);
   if (!triades.length) return;
   const lema = $("m-lema").value.trim();
-  const enllacos = FONTS.map(([id, nom]) => $(`m-${id}`).checked ? nom : "NO");
+  // Vicc$Viq$Diec, com al diccionari: els del lema per a totes, la Viq de cadascuna.
+  const enllacos = forma => [$("m-vicc").checked ? "Vicc" : "NO", forma.viq ? "Viq" : "NO",
+                             $("m-diec").checked ? "Diec" : "NO"];
   // El mateix que dos arxius de la manera "diverses": el servidor ho comprova
   // tot igual i posa cadascuna on li toca.
   const arxius = {
-    paraules: triades.map(forma => [forma.paraula, lema, forma.codi, forma.silabes, ...enllacos].join("$")).join("\n"),
+    paraules: triades.map(forma => [forma.paraula, lema, forma.codi, forma.silabes, ...enllacos(forma)].join("$")).join("\n"),
     transcripcions: Object.fromEntries(config.codis.map(codi =>
       [codi, triades.map(forma => forma.transcripcions[codi]).join("\n")])),
   };
@@ -728,6 +744,13 @@ $("m-transcripcions").addEventListener("input", demanarFormes);
 $("m-formes").addEventListener("input", canviarForma);
 $("m-formes").addEventListener("change", canviarForma);
 $("afegeix-model").onclick = afegirModel;
+// La de dalt només mana sobre el lema; les altres files es queden com les hagis posat.
+$("m-viq").addEventListener("change", () => {
+  for (const forma of formes) {
+    if (forma.paraula === $("m-lema").value.trim()) forma.viq = $("m-viq").checked;
+  }
+  pintarFormes();
+});
 for (const radio of document.querySelectorAll('input[name="manera"]')) radio.addEventListener("change", triarManera);
 
 fetch("/api/configuracio").then(r => r.json()).then(dades => {

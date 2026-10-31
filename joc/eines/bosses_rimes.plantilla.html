@@ -75,6 +75,7 @@ td { padding: 3px 6px; font-size: 14px; }
 .treu:hover { color: var(--alerta); background: var(--alerta-fons); }
 .fila-botons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
 .opcions { display: grid; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--graella); }
+.opcio[hidden] { display: none; }
 .opcio { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; }
 .rotul { font-size: 13px; color: var(--apagat); min-width: 110px; }
 .segment { display: inline-flex; padding: 2px; border-radius: 8px; background: var(--pla); border: 1px solid var(--vora); }
@@ -170,9 +171,14 @@ code { font-size: 12px; }
                 <div class="opcio">
                     <span class="rotul" id="rotul-regla">Altres dialectes</span>
                     <div class="segment" role="group" aria-labelledby="rotul-regla">
+                        <button type="button" data-regla="proporcional">Proporcional</button>
                         <button type="button" data-regla="costat">Bossa del costat</button>
                         <button type="button" data-regla="estricta">Estricta</button>
                     </div>
+                </div>
+                <div class="opcio" id="opcio-factor">
+                    <label class="rotul" for="factor">Factor</label>
+                    <input type="number" id="factor" class="curt" min="1" step="0.5"> entre n/factor i n·factor rimes
                 </div>
                 <p class="ajuda" id="ajuda-regla"></p>
                 <div class="opcio">
@@ -282,8 +288,15 @@ function bosses() {
 }
 
 // Entre quines rimes han de caure els altres dialectes perquè una clau valgui
-// a la bossa i: la mateixa bossa (estricta) o fins a les del costat.
-function rangPermes(bs, i) {
+// a la bossa i: la mateixa bossa (estricta), fins a les del costat, o, en la
+// proporcional, entre n/factor i n·factor rimes (n, les de la clau al central),
+// sense baixar d'on comença la primera bossa. Aquesta depèn de la clau, no de la bossa.
+function factor() { return Math.max(1, +cfg.factor || 2); }
+function rangPermes(bs, i, clau) {
+    if (cfg.regla === 'proporcional') {
+        const f = factor();
+        return [Math.max(cfg.des_de, clau.n / f - 1e-9), clau.n * f + 1e-9];
+    }
     if (cfg.regla === 'estricta') return [bs[i].de, bs[i].fins];
     return [bs[Math.max(0, i - 1)].de, bs[Math.min(bs.length - 1, i + 1)].fins];
 }
@@ -312,7 +325,7 @@ function calcular() {
         const i = bs.findIndex(b => clau.n <= b.fins);
         const b = bs[i];
         b.alCentral++;
-        const f = perfilQueVal(clau, ...rangPermes(bs, i));
+        const f = perfilQueVal(clau, ...rangPermes(bs, i, clau));
         if (f) b.claus.push({ clau, n: clau.n, paraula: f.at(-1), perfil: f });
     }
     // Les quotes es fan servir en proporció: si no sumen 100, cada una val el seu tros de la suma.
@@ -410,9 +423,14 @@ function pintarEditor(r) {
     suma.textContent = pct(r.suma);
     suma.classList.toggle('malament', Math.abs(r.suma - 100) > 0.01);
     for (const boto of document.querySelectorAll('[data-regla]')) boto.setAttribute('aria-pressed', boto.dataset.regla === cfg.regla);
-    document.getElementById('ajuda-regla').textContent = cfg.regla === 'costat'
-        ? 'La bossa la decideixen les rimes del central; als altres dialectes, la clau pot caure a la mateixa bossa o a una del costat.'
-        : 'Les rimes dels quatre dialectes han de caure dins de la mateixa bossa. Es perden les claus que queden just a la frontera.';
+    const f = factor();
+    document.getElementById('ajuda-regla').textContent = {
+        proporcional: `La bossa la decideixen les rimes del central (n). Als altres dialectes, la rima de la clau n'ha de tenir entre n/${decimal(f)} i n·${decimal(f)}, i com a mínim ${mil(cfg.des_de)} (on comença la primera bossa); on caiguin respecte de les bosses no compta.`,
+        costat: 'La bossa la decideixen les rimes del central; als altres dialectes, la clau pot caure a la mateixa bossa o a una del costat.',
+        estricta: 'Les rimes dels quatre dialectes han de caure dins de la mateixa bossa. Es perden les claus que queden just a la frontera.',
+    }[cfg.regla];
+    document.getElementById('opcio-factor').hidden = cfg.regla !== 'proporcional';
+    document.getElementById('factor').value = cfg.factor ?? 2;
     document.getElementById('objectiu').value = cfg.dies_objectiu;
 }
 
@@ -438,6 +456,7 @@ document.getElementById('iguals').addEventListener('click', () => {
     canvi();
 });
 document.querySelectorAll('[data-regla]').forEach(b => b.addEventListener('click', () => { cfg.regla = b.dataset.regla; canvi(); }));
+document.getElementById('factor').addEventListener('change', e => { cfg.factor = Math.max(1, +e.target.value || 2); canvi(); });
 document.getElementById('objectiu').addEventListener('change', e => { cfg.dies_objectiu = Math.max(1, Math.round(+e.target.value) || 365); canvi(); });
 
 const PRESETS = [

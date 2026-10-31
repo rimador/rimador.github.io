@@ -27,13 +27,19 @@ A la pàgina tries els talls de les bosses i la quota de cadascuna, i et diu:
 
 LA REGLA DELS QUATRE DIALECTES, que no desapareix: la paraula del dia és la
 mateixa per a tothom (vegeu generar_dades.py). La bossa la decideixen les rimes
-del central, i hi ha dues maneres de demanar-ho als altres dialectes:
+del central, i hi ha tres maneres de demanar-ho als altres dialectes:
 
-  estricta   les rimes dels quatre han de caure dins de la mateixa bossa;
-  del costat també valen a la bossa del costat. Recupera les claus que cauen
-             just a la frontera ("tereftàlic": 24 al central i 36 al valencià)
-             sense deixar entrar les absurdes ("batiscafs": 17 al central i
-             10.327 al balear).
+  estricta      les rimes dels quatre han de caure dins de la mateixa bossa;
+  del costat    també valen a la bossa del costat. Recupera les claus que cauen
+                just a la frontera ("tereftàlic": 24 al central i 36 al
+                valencià) sense deixar entrar les absurdes ("batiscafs": 17 al
+                central i 10.327 al balear).
+  proporcional  a cada dialecte que no és el central, la rima de la clau ha de
+                tenir entre n/factor i n·factor rimes, on n són les de la clau
+                al central (amb factor 2, entre la meitat i el doble), i com a
+                mínim les rimes on comença la primera bossa (des_de). Només
+                compta la proporció: on caiguin els altres dialectes respecte
+                de les bosses ja no importa, i el rang depèn de cada clau.
 
 Els recomptes surten de finestra_rimes.py, que compta amb les mateixes funcions
 que el generador del joc. La pàgina comença per la proposta de PER_DEFECTE i
@@ -70,7 +76,8 @@ MENES = {"consonant": "cons", "assonant": "asson"}
 # donen de si perquè durin un any, i la resta al mig.
 PER_DEFECTE_CONSONANT = {
     "des_de": 15,
-    "regla": "costat",
+    "regla": "proporcional",
+    "factor": 2,
     "dies_objectiu": 365,
     "bosses": [
         {"fins": 34, "quota": 1},
@@ -89,7 +96,8 @@ PER_DEFECTE_CONSONANT = {
 # dues rimes a gairebé cent mil: les bosses van per ordres de magnitud.
 PER_DEFECTE_ASSONANT = {
     "des_de": 15,
-    "regla": "costat",
+    "regla": "proporcional",
+    "factor": 2,
     "dies_objectiu": 30,
     "bosses": [
         {"fins": 49, "quota": 1.5},

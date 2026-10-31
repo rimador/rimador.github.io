@@ -10,3 +10,8 @@ __pycache__/
 
 # Minimitzats
 dist/
+
+# HTML autònoms generats (les dades hi van a dins; es refan amb el seu .py)
+diccionaris/python/grafic_rimes.html
+joc/eines/finestra_rimes.html
+joc/eines/bosses_rimes.html

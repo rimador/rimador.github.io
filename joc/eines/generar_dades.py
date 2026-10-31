@@ -137,8 +137,14 @@ ARREL = camins.ARREL
 # nomes les mitja dotzena de terminacions gegants d'abans. Amb 30-800 i la
 # comprovacio als quatre dialectes en queden 663 de jugables al central, i cap
 # on la resposta sigui "escriu el que sigui".
-MIN_RIMES = 30
-MAX_RIMES = 800
+#
+# AQUEST ES L'UNIC LLOC ON ES TOQUEN. Arriben al joc per dues bandes, i totes
+# dues les escriu aquest script: l'index.json (min_rimes, max_rimes), que es la
+# finestra dels modes normals, i el joc/js/finestra.js, d'on el personalitzat i
+# el freestyle treuen els seus valors per defecte (vegeu escriure_finestra_js).
+# Canviar-los aqui sense tornar a passar el generador no canvia res.
+MIN_RIMES = 50
+MAX_RIMES = 1000
 
 # QUE ES PUBLICA, que no es el mateix. La finestra de dalt es la dels modes
 # normals (paraula del dia i il·limitat), pero el mode PERSONALITZAT deixa que
@@ -208,6 +214,7 @@ DIR_JOC = os.path.basename(os.path.dirname(DIR_EINES))
 DIR_DADES = os.path.join(ARREL, DIR_JOC, "dades")
 VERSIONS = os.path.join(DIR_DADES, "versions.json")
 INDEX = os.path.join(DIR_DADES, "index.json")
+FINESTRA_JS = os.path.join(ARREL, DIR_JOC, "js", "finestra.js")
 
 # Les marques de cada mena de paraula al fitxer de rimes. Han de coincidir amb
 # l'analitzar() de joc/js/dades.js, que compara codis de caracter (35 = '#',
@@ -970,10 +977,32 @@ def main():
          "dialectes": {codi: index[codi] for codi in presents}},
         ensure_ascii=False, separators=(",", ":")))
 
+    escriure_finestra_js()
     escriure_versions(presents)
 
-    fitxers = 2 + len(presents)
+    fitxers = 3 + len(presents)
     print(f"Fet: {len(presents)} dialectes ({', '.join(presents)}) en {fitxers} fitxers.")
+
+
+def escriure_finestra_js():
+    """El joc/js/finestra.js: MIN_RIMES i MAX_RIMES per als moduls del joc que
+    els necessiten abans que arribi l'index (els valors per defecte del
+    personalitzat i del freestyle, que es llegeixen de seguida en arrencar).
+
+    Es un modul i no un JSON perque un import de JSON no funciona a tots els
+    navegadors. S'escriu a cada passada, igual que l'index: aixi tots dos
+    surten sempre dels mateixos valors.
+    """
+    contingut = (
+        "// El genera joc/eines/generar_dades.py a partir de MIN_RIMES i MAX_RIMES:\n"
+        "// no el toquis a ma, que la propera passada el trepitjaria. La finestra\n"
+        "// dels modes normals arriba per l'index.json (min_rimes, max_rimes); aqui\n"
+        "// hi ha els mateixos valors per als que els necessiten abans que arribi.\n"
+        f"export const MIN_RIMES = {MIN_RIMES};\n"
+        f"export const MAX_RIMES = {MAX_RIMES};\n"
+    )
+    if escriure_si_cal(FINESTRA_JS, contingut):
+        print(f"finestra.js: {MIN_RIMES}-{MAX_RIMES} rimes")
 
 
 def escriure_versions(codis):

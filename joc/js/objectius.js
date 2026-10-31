@@ -10,8 +10,8 @@
 // a joc/eines/generar_dades.py). El que continua canviant amb el dialecte son
 // les RIMES que valen, que es de que va el lloc.
 //
-// Nomes poden sortir paraules d'una clau de rima consonant que tingui entre 30
-// i 800 rimes (mira MIN_RIMES i MAX_RIMES a joc/eines/generar_dades.py). El
+// Nomes poden sortir paraules d'una clau de rima consonant que tingui entre
+// MIN_RIMES i MAX_RIMES rimes (es toquen a joc/eines/generar_dades.py). El
 // minim garanteix que sempre hi ha rimes de sobres -la clau consonant implica
 // l'assonant, o sigui que si val en dificil val en facil-, i el maxim es el que
 // treu del joc les terminacions on rima gairebe tot ("camio", "vent", "gos"),

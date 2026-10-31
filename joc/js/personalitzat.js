@@ -17,6 +17,7 @@
 // coincideix amb el de l'altre: es veu de seguida i no cal comprovar res mes.
 
 import { normalitza } from './normalitza.js?v=affc938';
+import { MIN_RIMES, MAX_RIMES } from './finestra.js?v=affc938';
 
 // Els limits del formulari.
 export const LIMITS = {

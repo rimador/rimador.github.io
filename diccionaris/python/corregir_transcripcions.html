@@ -47,7 +47,34 @@
   .cap strong { font-size: 18px; }
   .cap .meta { color: var(--suau); font-size: 13px; }
   .etiqueta { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--vora); }
-  .enllacos { display: flex; gap: 6px; margin-left: auto; }
+  .cap .dreta { display: flex; gap: 6px; align-items: center; margin-left: auto; }
+  .enllacos { display: flex; gap: 6px; }
+  button.edita { font-size: 12px; padding: 1px 10px; border-radius: 99px; }
+  button.edita[aria-expanded="true"] { background: var(--tinta); border-color: var(--tinta); color: var(--fons); }
+  /* La fitxa: el que no és cap transcripció. Tancada fins que la demanes, que
+     a les llistes hi ha cinquanta targetes. */
+  .fitxa { display: grid; grid-template-columns: 2fr 2fr 1.4fr 1fr; gap: 8px 10px; align-items: end;
+           padding: 4px 0 12px; margin-bottom: 4px; border-bottom: 1px dashed var(--vora); }
+  .fitxa[hidden] { display: none; }
+  .fitxa > label { display: flex; flex-direction: column; gap: 2px; font-size: 12px; font-weight: 600;
+                   color: var(--suau); min-width: 0; }
+  .fitxa > label input { width: 100%; padding: 6px 10px; border: 1px solid var(--vora); border-radius: 6px;
+                         background: var(--paper); font-size: 15px; font-weight: normal; color: var(--tinta); }
+  .fitxa input.canviat, .fitxa .caselles label.canviat { background: var(--canviat); }
+  .fitxa input.invalid { border-color: var(--mal); }
+  .fitxa .caselles { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 4px 8px; }
+  .fitxa .caselles label { display: flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px;
+                           font-size: 14px; cursor: pointer; }
+  .fitxa .detall { grid-column: 1 / -1; }
+  .fitxa .lloc { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+                 font-size: 13px; color: var(--avis); }
+  .fitxa .lloc[hidden], .fitxa .lloc label[hidden] { display: none; }
+  .fitxa .lloc label { display: flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px;
+                       font-size: 14px; color: var(--tinta); cursor: pointer; }
+  .fitxa .lloc label:has(input:checked) { background: var(--canviat); }
+  @media (max-width: 560px) {
+    .fitxa { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   .enllac { font-size: 12px; padding: 1px 8px; border-radius: 99px; text-decoration: none; }
   a.enllac { border: 1px solid var(--be); color: var(--be); }
   a.enllac:hover { background: var(--be); color: var(--paper); }
@@ -121,8 +148,9 @@
 <body>
 <main>
   <h1>Corregir transcripcions</h1>
-  <p class="nota">Escriu directament a les <code>col_10</code>. Abans de començar, <code>git pull</code>;
-    en acabar, commit i push de la <code>col_10</code> i el workflow refà les rimes.</p>
+  <p class="nota">Escriu directament a les <code>col_10</code> i, si toques la fitxa d'una entrada
+    (<em>Edita</em>), al diccionari o a les <code>col_5</code> a <code>8</code> de l'apèndix. Abans de
+    començar, <code>git pull</code>; en acabar, commit i push del que hagis tocat i el workflow refà la resta.</p>
 
   <form class="cerca" id="cerca">
     <div class="fila">
@@ -350,6 +378,64 @@ function enllacos(entrada) {
     : `<span class="enllac" title="No té entrada a ${font.nom}">${font.nom}</span>`).join("")}</span>`;
 }
 
+// La fitxa: els tres camps de la identitat, que són a la col_10, i les
+// síl·labes, que són amb els enllaços (al diccionari, o a la col_5 de l'apèndix).
+const CAMPS = [
+  { clau: "paraula", nom: "Paraula", article: "la paraula" },
+  { clau: "lema", nom: "Lema", article: "el lema" },
+  { clau: "codi", nom: "Codi", article: "el codi" },
+  { clau: "silabes", nom: "Síl·labes", article: "les síl·labes" },
+];
+
+// Els mateixos que problemes_dels_camps() del servidor, però camp per camp.
+function problemesDeLaFitxa(valors) {
+  const errors = {};
+  const apunta = (clau, text) => (errors[clau] ??= []).push(text);
+  for (const { clau, article } of CAMPS.slice(0, 3)) {
+    const valor = valors[clau];
+    if (!valor.trim()) apunta(clau, `falta ${article}`);
+    else if (valor !== valor.trim()) apunta(clau, `${article} té espais al davant o al darrere`);
+    if (/[$€]/.test(valor)) apunta(clau, `${article} no pot dur cap $ ni cap €`);
+  }
+  // Zero sí: és el que porten les formes amb pronom.
+  if (!/^[0-9]+$/.test(valors.silabes.trim())) apunta("silabes", "les síl·labes han de ser un nombre enter");
+  return errors;
+}
+
+const ON_ES_DESA = {
+  dicc: "La paraula, el lema i el codi es desen a la col_10 i al diccionari; les síl·labes i els enllaços, al diccionari.",
+  apendix: "La paraula, el lema i el codi es desen a la col_10 de l'apèndix; les síl·labes i els enllaços, a les seves col_5 a 8.",
+};
+
+// "a", "a i b", "a, b i c".
+const iLlista = textos => textos.length < 2 ? textos.join("")
+  : textos.slice(0, -1).join(", ") + " i " + textos.at(-1);
+
+function cap(entrada, oberta) {
+  const silabes = entrada.silabes === null ? ""
+    : ` · ${esc(entrada.silabes)} ${entrada.silabes === "1" ? "síl·laba" : "síl·labes"}`;
+  const sense = entrada.dades === null;
+  const titol = sense
+    ? "Les síl·labes i els enllaços no van fila per fila amb la col_10: passa el sincronitzar.py. Fins llavors, només s'hi poden corregir les transcripcions."
+    : "Corregeix la paraula, el lema, el codi, les síl·labes i els enllaços";
+  return `
+      <strong>${esc(entrada.paraula)}</strong>
+      <span class="meta">lema <a class="cerca" href="${esc(enllacCerca(entrada.lema, "lema"))}" target="_blank"
+        title="Totes les formes del lema, en una altra pestanya">${esc(entrada.lema)}</a>
+        · ${esc(entrada.codi)}${silabes} · fila ${entrada.fila + 1}</span>
+      <span class="etiqueta">${esc(entrada.etiqueta)}</span>
+      <span class="dreta">${enllacos(entrada)}<button type="button" class="edita" aria-expanded="${oberta}"
+        ${sense ? "disabled" : ""} title="${esc(titol)}">Edita</button></span>`;
+}
+
+// El que en canvia en desar, per al registre.
+const instantania = entrada => ({
+  fila: entrada.fila,
+  ...Object.fromEntries(CAMPS.map(({ clau }) => [clau, entrada[clau]])),
+  enllacos: { ...entrada.enllacos },
+  transcripcions: { ...entrada.transcripcions },
+});
+
 function targeta(entrada, compacta = false) {
   const caixa = document.createElement("div");
   caixa.className = "targeta" + (compacta ? " compacta" : "");
@@ -357,13 +443,18 @@ function targeta(entrada, compacta = false) {
   const codis = Object.keys(entrada.transcripcions).sort((a, b) => lloc(a) - lloc(b));
 
   caixa.innerHTML = `
-    <div class="cap">
-      <strong>${esc(entrada.paraula)}</strong>
-      <span class="meta">lema <a class="cerca" href="${esc(enllacCerca(entrada.lema, "lema"))}" target="_blank"
-        title="Totes les formes del lema, en una altra pestanya">${esc(entrada.lema)}</a>
-        · ${esc(entrada.codi)} · fila ${entrada.fila + 1}</span>
-      <span class="etiqueta">${esc(entrada.etiqueta)}</span>
-      ${enllacos(entrada)}
+    <div class="cap"></div>
+    <div class="fitxa" hidden>
+      ${CAMPS.map(({ clau, nom }) => `
+        <label>${nom}<input data-camp="${clau}" spellcheck="false" autocomplete="off"${clau === "silabes" ? ' inputmode="numeric"' : ""}></label>`).join("")}
+      <div class="caselles">
+        ${FONTS.map(font => `<label title="Té entrada a ${font.nom}"><input type="checkbox" data-enllac="${font.clau}">${font.nom}</label>`).join("")}
+      </div>
+      <div class="detall"></div>
+      <div class="lloc" hidden>
+        <span></span>
+        <label hidden><input type="checkbox" data-moure>Mou-la allà en desar</label>
+      </div>
     </div>
     <div class="dialectes">
     ${codis.map(codi => `
@@ -379,23 +470,133 @@ function targeta(entrada, compacta = false) {
       <button class="principal" data-accio="desa" disabled>Desa</button>
     </div>`;
 
+  const tecles = e => {
+    if (e.key === "Enter") { e.preventDefault(); desar(); }
+    if (e.key === "Escape") restaurar();
+  };
   const camps = {};
   for (const codi of codis) {
     const input = caixa.querySelector(`[data-codi="${codi}"] input`);
     input.value = entrada.transcripcions[codi];
     input.addEventListener("input", refrescar);
     input.addEventListener("focus", () => darrerCamp = input);
-    input.addEventListener("keydown", e => {
-      if (e.key === "Enter") { e.preventDefault(); desar(); }
-      if (e.key === "Escape") restaurar();
-    });
+    input.addEventListener("keydown", tecles);
     camps[codi] = input;
   }
+  const fitxa = caixa.querySelector(".fitxa");
+  const campsFitxa = Object.fromEntries(CAMPS.map(({ clau }) => [clau, fitxa.querySelector(`[data-camp="${clau}"]`)]));
+  const caselles = Object.fromEntries(FONTS.map(({ clau }) => [clau, fitxa.querySelector(`[data-enllac="${clau}"]`)]));
+  for (const input of Object.values(campsFitxa)) {
+    input.addEventListener("input", refrescar);
+    input.addEventListener("keydown", tecles);
+  }
+  for (const casella of Object.values(caselles)) casella.addEventListener("change", refrescar);
+  const blocLloc = fitxa.querySelector(".lloc");
+  const casellaMoure = fitxa.querySelector("[data-moure]");
+  // On aniria per ordre alfabètic: per a quina paraula s'ha demanat, i què
+  // n'ha dit el servidor (null mentre no se sap).
+  let llocDe = null, onAniria = null, espera = null;
   const missatge = caixa.querySelector(".missatge");
   const botoDesa = caixa.querySelector('[data-accio="desa"]');
   const botoRestaura = caixa.querySelector('[data-accio="restaura"]');
   botoDesa.onclick = desar;
   botoRestaura.onclick = restaurar;
+
+  function omplirFitxa() {
+    for (const { clau } of CAMPS) campsFitxa[clau].value = entrada[clau] ?? "";
+    for (const { clau } of FONTS) caselles[clau].checked = Boolean(entrada.enllacos?.[clau]);
+  }
+
+  function valorsDeLaFitxa() {
+    return {
+      ...Object.fromEntries(CAMPS.map(({ clau }) => [clau, campsFitxa[clau].value])),
+      enllacos: Object.fromEntries(FONTS.map(({ clau }) => [clau, caselles[clau].checked])),
+    };
+  }
+
+  function pintarCap() {
+    const capsal = caixa.querySelector(".cap");
+    capsal.innerHTML = cap(entrada, !fitxa.hidden);
+    const boto = capsal.querySelector(".edita");
+    boto.onclick = () => {
+      fitxa.hidden = !fitxa.hidden;
+      boto.setAttribute("aria-expanded", !fitxa.hidden);
+      if (!fitxa.hidden) campsFitxa.paraula.focus();
+    };
+  }
+
+  // Quan canvies com s'escriu, on li tocaria anar per ordre alfabètic. La fila
+  // no es mou si no marques el "Mou-la", i cada paraula nova el desmarca: el
+  // lloc que havies acceptat era per a una altra.
+  function demanarLloc(paraula, errors) {
+    llocDe = paraula;
+    onAniria = null;
+    casellaMoure.checked = false;
+    casellaMoure.parentElement.hidden = true;
+    clearTimeout(espera);
+    blocLloc.hidden = paraula === entrada.paraula || Boolean(errors);
+    if (blocLloc.hidden) return;
+    const text = blocLloc.querySelector("span");
+    text.textContent = "Mirant on aniria per ordre alfabètic…";
+    espera = setTimeout(async () => {
+      const resposta = await fetch(`/api/lloc?fitxer=${encodeURIComponent(entrada.fitxer)}`
+        + `&fila=${entrada.fila}&paraula=${encodeURIComponent(paraula)}`);
+      const dades = await resposta.json();
+      if (paraula !== llocDe) return;   // mentrestant l'has tornat a canviar
+      if (!resposta.ok) return text.textContent = dades.error;
+      onAniria = dades;
+      if (dades.desti === null) return text.textContent = "Per ordre alfabètic, ja li va bé on és.";
+      const entre = dades.abans === null ? `al principi, abans de «${dades.despres}»`
+        : dades.despres === null ? `al final, després de «${dades.abans}»`
+        : `entre «${dades.abans}» i «${dades.despres}»`;
+      text.textContent = `Per ordre alfabètic aniria a la fila ${dades.desti + 1}, ${entre}. `
+        + `Si no ho marques, es queda a la ${entrada.fila + 1}.`;
+      casellaMoure.parentElement.hidden = false;
+    }, 250);
+  }
+
+  // Quan una altra targeta mou la seva fila, les d'entremig es desplacen una
+  // posició. Si aquesta n'és una, se li canvia el número i, si tenia un lloc
+  // a mig demanar, es torna a demanar: el que tenia es comptava amb l'altre.
+  document.addEventListener("fila-moguda", e => {
+    const { fitxer, de, a, origen } = e.detail;
+    if (origen === entrada || fitxer !== entrada.fitxer || !caixa.isConnected) return;
+    if (de < a && entrada.fila > de && entrada.fila <= a) entrada.fila--;
+    else if (a < de && entrada.fila >= a && entrada.fila < de) entrada.fila++;
+    else return;
+    llocDe = null;
+    pintarCap();
+    refrescarFitxa();
+  });
+
+  // Torna si s'hi ha canviat res i si es pot desar.
+  function refrescarFitxa() {
+    if (entrada.dades === null) return { canviat: false, valid: true };
+    const valors = valorsDeLaFitxa();
+    const errors = problemesDeLaFitxa(valors);
+    if (valors.paraula !== llocDe) demanarLloc(valors.paraula, errors.paraula);
+    let canviat = false;
+    for (const { clau } of CAMPS) {
+      // Les síl·labes, el servidor les desa sense espais.
+      const valor = clau === "silabes" ? valors[clau].trim() : valors[clau];
+      campsFitxa[clau].classList.toggle("canviat", valor !== entrada[clau]);
+      campsFitxa[clau].classList.toggle("invalid", clau in errors);
+      canviat ||= valor !== entrada[clau];
+    }
+    for (const { clau } of FONTS) {
+      caselles[clau].parentElement.classList.toggle("canviat", valors.enllacos[clau] !== entrada.enllacos[clau]);
+      canviat ||= valors.enllacos[clau] !== entrada.enllacos[clau];
+    }
+    const llista = Object.values(errors).flat();
+    let html = esc(ON_ES_DESA[entrada.fitxer === "dicc" ? "dicc" : "apendix"]);
+    if (valors.paraula !== entrada.paraula)
+      html += ` · <span class="avis">canvia com s'escriu: mira que les transcripcions encara hi diguin.</span>`;
+    if (llista.length) html += ` · <span class="mal">${esc(llista.join("; "))}</span>`;
+    fitxa.querySelector(".detall").innerHTML = html;
+    // Amb canvis a mig fer no es tanca: el Desa desaria coses que no es veuen.
+    caixa.querySelector(".edita").disabled = canviat;
+    return { canviat, valid: llista.length === 0 };
+  }
 
   function refrescar() {
     let canviat = false, valid = true;
@@ -421,6 +622,9 @@ function targeta(entrada, compacta = false) {
       if (errors.length) html += ` · <span class="mal">${esc(errors.join("; "))}</span>`;
       input.parentElement.querySelector(".detall").innerHTML = html;
     }
+    const deLaFitxa = refrescarFitxa();
+    canviat ||= deLaFitxa.canviat;
+    valid &&= deLaFitxa.valid;
     botoDesa.disabled = !canviat || !valid;
     botoRestaura.disabled = !canviat;
     if (canviat) missatge.textContent = "", missatge.className = "missatge";
@@ -428,6 +632,7 @@ function targeta(entrada, compacta = false) {
 
   function restaurar() {
     for (const codi of codis) camps[codi].value = entrada.transcripcions[codi];
+    omplirFitxa();
     refrescar();
   }
 
@@ -440,22 +645,44 @@ function targeta(entrada, compacta = false) {
     const resposta = await fetch("/api/desa", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fitxer: entrada.fitxer, fila: entrada.fila, linia: entrada.linia, transcripcions: noves }),
+      body: JSON.stringify({
+        fitxer: entrada.fitxer, fila: entrada.fila, linia: entrada.linia, dades: entrada.dades,
+        transcripcions: noves, camps: entrada.dades === null ? null : valorsDeLaFitxa(),
+        // Només si ho has marcat; la casella només surt amb el lloc de la paraula d'ara.
+        moure: casellaMoure.checked && onAniria?.desti != null ? onAniria.desti : null,
+      }),
     });
     const dades = await resposta.json();
     if (!resposta.ok) {
+      // Primer el refrescar, que torna a activar el Desa i esborraria el missatge.
+      // Si algú ha tocat el fitxer, el lloc on aniria es torna a demanar (i a marcar).
+      if (resposta.status === 409) llocDe = null;
+      refrescar();
       missatge.textContent = dades.error;
       missatge.className = "missatge mal";
-      return refrescar();
+      return;
     }
-    const abans = { ...entrada.transcripcions };
+    const abans = instantania(entrada);
     Object.assign(entrada, dades.entrada);
+    llocDe = null;
+    omplirFitxa();
+    pintarCap();
     refrescar();
-    missatge.textContent = "Desat a la col_10.";
+    if (!dades.canviat) {
+      missatge.textContent = "No hi havia res per canviar.";
+      missatge.className = "missatge";
+      return;
+    }
+    if (dades.moguda) document.dispatchEvent(new CustomEvent("fila-moguda",
+      { detail: { fitxer: entrada.fitxer, ...dades.moguda, origen: entrada } }));
+    missatge.textContent = `Desat a ${iLlista(dades.desats)}`
+      + (dades.moguda ? `, i moguda a la fila ${dades.moguda.a + 1}.` : ".");
     missatge.className = "missatge be";
-    apuntar(entrada, abans, { ...entrada.transcripcions });
+    apuntar(entrada, abans, instantania(entrada));
   }
 
+  omplirFitxa();
+  pintarCap();
   refrescar();
   return caixa;
 }
@@ -464,9 +691,15 @@ function apuntar(entrada, abans, despres) {
   registre.unshift({ entrada, abans, despres });
   $("registre").hidden = false;
   const li = document.createElement("li");
-  const canvis = Object.keys(despres).filter(codi => abans[codi] !== despres[codi])
-    .map(codi => `${esc(config.dialectes[codi] || codi)}: <span class="ipa">${esc(abans[codi])}</span> → <span class="ipa">${esc(despres[codi])}</span>`)
-    .join(" · ");
+  const canvis = [
+    ...CAMPS.filter(({ clau }) => abans[clau] !== despres[clau])
+      .map(({ clau, nom }) => `${nom.toLowerCase()}: ${esc(abans[clau])} → ${esc(despres[clau])}`),
+    ...FONTS.filter(({ clau }) => abans.enllacos[clau] !== despres.enllacos[clau])
+      .map(({ clau, nom }) => `${nom}: ${despres.enllacos[clau] ? "no → sí" : "sí → no"}`),
+    ...Object.keys(despres.transcripcions).filter(codi => abans.transcripcions[codi] !== despres.transcripcions[codi])
+      .map(codi => `${esc(config.dialectes[codi] || codi)}: <span class="ipa">${esc(abans.transcripcions[codi])}</span> → <span class="ipa">${esc(despres.transcripcions[codi])}</span>`),
+    ...(abans.fila !== despres.fila ? [`fila: ${abans.fila + 1} → ${despres.fila + 1}`] : []),
+  ].join(" · ");
   li.innerHTML = `<span><strong>${esc(entrada.paraula)}</strong> <small>(${esc(entrada.codi)}, ${esc(entrada.etiqueta)})</small> — ${canvis}</span>`;
   const torna = document.createElement("button");
   torna.textContent = "Torna-hi";

@@ -372439,7 +372439,7 @@ nyonya € nyonya € NCFS000 €$ba$ ɲˈoɲə €$ca$ ɲˈoɲə €$nw$ ɲˈo�
 nyonyes € nyonya € NCFP000 €$ba$ ɲˈoɲəs €$ca$ ɲˈoɲəs €$nw$ ɲˈoɲes €$va$ ɲˈoɲes
 nyoques € nyoca € NCFP000 €$ba$ ɲˈɔkəs €$ca$ ɲˈɔkəs €$nw$ ɲˈɔkes €$va$ ɲˈɔkes
 nyoqui € nyoqui € NCMS000 €$ba$ ɲˈoki €$ca$ ɲˈoki €$nw$ ɲˈoki €$va$ ɲˈoki
-nyoquis € nyoqui € NCMP000 €$ba$ ɲˈokis €$ca$ ɲˈokis €$nw$ ɲˈokis €$va$ ɲˈokis
+nyoquis € nyoqui € NCMP000 €$ba$ ɲˈɔkis €$ca$ ɲˈɔkis €$nw$ ɲˈɔkis €$va$ ɲˈɔkis
 nyora € nyora € NCFS000 €$ba$ ɲˈoɾə €$ca$ ɲˈoɾə €$nw$ ɲˈɔɾɛ €$va$ ɲˈɔɾa
 nyores € nyora € NCFP000 €$ba$ ɲˈoɾəs €$ca$ ɲˈoɾəs €$nw$ ɲˈɔɾes €$va$ ɲˈɔɾes
 nyu € nyu € NCMS000 €$ba$ ɲˈu €$ca$ ɲˈu €$nw$ ɲˈu €$va$ ɲˈu
@@ -515140,7 +515140,7 @@ Wakhan € Wakhan € NPCSG00 €$ba$ bəkˈan €$ca$ bəkˈan €$nw$ bakˈan 
 Walda € Walda € NPFSSP0 €$ba$ bˈaldə €$ca$ bˈaldə €$nw$ bˈaldɛ €$va$ vˈalda
 Waldorf € Waldorf € NPCNSP0 €$ba$ bəldˈɔɾ €$ca$ bəldˈɔrf €$nw$ baldˈɔrf €$va$ valdˈɔɾf
 walkie-talkie € walkie-talkie € NCMS000 €$ba$ bəlkˈiətəlkˈiə €$ca$ bˈalkitˈalki €$nw$ balkˈietalkˈie €$va$ valkˈietalkˈie
-walkie-talkies € walkie-talkie € NCMP000 €$ba$ bəlkˈiətəlkˈiəs €$ca$ bˈalkitˈalkis €$nw$ balkˈietalkˈies €$va$ valkˈietalkˈies
+walkie-talkies € walkie-talkie € NCMP000 €$ba$ bəlkˈiətˈəlkis €$ca$ bˈalkitˈalkis €$nw$ balkˈietˈalkis €$va$ valkˈietˈalkis
 walkman € walkman € NCMS000 €$ba$ bəlkmˈan €$ca$ bəlkmˈan €$nw$ balkmˈan €$va$ valkmˈan
 Wallapop € Wallapop € NPCNO00 €$ba$ bəjəpˈop €$ca$ bəʎəpˈop €$nw$ baʎapˈop €$va$ vaʎapˈop
 Wallbox € Wallbox € NPCNO00 €$ba$ bəʎβˈots €$ca$ bəʎβˈoks €$nw$ baʎβˈoks €$va$ vaʎβˈoks

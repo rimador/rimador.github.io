@@ -16,8 +16,7 @@
 // canvia un filtre a l'adreca, les paraules canvien i el codi de partida ja no
 // coincideix amb el de l'altre: es veu de seguida i no cal comprovar res mes.
 
-import { normalitza } from './normalitza.js?v=ade07d9';
-import { MIN_RIMES, MAX_RIMES } from './finestra.js?v=ade07d9';
+import { normalitza } from './normalitza.js?v=affc938';
 
 // Els limits del formulari.
 export const LIMITS = {
@@ -33,9 +32,8 @@ export const LIMITS = {
 export const PER_DEFECTE = {
     segons: 60,
     rondes: 3,
-    // Els dels modes normals, que es toquen a joc/eines/generar_dades.py.
-    min: MIN_RIMES,
-    max: MAX_RIMES,
+    min: 30,
+    max: 800,
     accents: [1, 2, 3],
     dificultat: 'facil',
 };

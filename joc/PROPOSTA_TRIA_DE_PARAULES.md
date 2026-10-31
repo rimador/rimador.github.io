@@ -119,7 +119,7 @@ llavor va dins de l'enllaç.
 | **Variant** | Dins d'una clau del central, les paraules que tenen la mateixa combinació de rimes als altres tres dialectes. |
 | **Era** | Una data d'inici, les bosses amb les seves quotes i el contingut de cada bossa congelat. Dura fins que comença la següent. |
 | **Congelar** | Escriure al fitxer d'eres el contingut de les bosses en un moment donat. No es congelen dies: els dies es calculen. |
-| **Marge** | Els dies mínims (3 o 4) entre avui i l'inici d'una era nova, per a qui tingui una còpia desada sense xarxa. |
+| **Marge** | Els dies mínims (7) entre avui i l'inici d'una era nova, per a qui tingui una còpia desada sense xarxa. |
 
 ---
 
@@ -146,10 +146,33 @@ W = 1.000. L'script de congelar les normalitza.
 - surt la bossa que en deu més; en cas d'empat, la de número més baix;
 - a la que surt se li resten W.
 
-Al cap de W passos, com a màxim, tots els deutes tornen a zero i el patró es
-repeteix idèntic. Amb les quotes per defecte del difícil, el període és de 1.000
-dies; amb les del fàcil, de 200. És el mateix "deute" que ja fa servir la
-previsió de `bosses_rimes`.
+Un exemple amb tres bosses del 50 %, el 30 % i el 20 % (en desenes, 5, 3 i 2;
+W = 10):
+
+| Dia | Deutes després de sumar (A, B, C) | Surt | Deutes després de restar 10 |
+|---|---|---|---|
+| 1 | 5, 3, 2 | A | −5, 3, 2 |
+| 2 | 0, 6, 4 | B | 0, −4, 4 |
+| 3 | 5, −1, 6 | C | 5, −1, −4 |
+| 4 | 10, 2, −2 | A | 0, 2, −2 |
+| 5 | 5, 5, 0 | A (empat) | −5, 5, 0 |
+| 6 | 0, 8, 2 | B | 0, −2, 2 |
+| 7 | 5, 1, 4 | A | −5, 1, 4 |
+| 8 | 0, 4, 6 | C | 0, 4, −4 |
+| 9 | 5, 7, −2 | B | 5, −3, −2 |
+| 10 | 10, 0, 0 | A | **0, 0, 0** |
+
+En 10 dies, A ha sortit 5 cops, B 3 i C 2, i els deutes tornen a zero: el dia 11
+és com el dia 1. Aquesta seqüència de bosses que es repeteix és el **patró**, i
+dura com a molt W dies. És el mateix "deute" que ja fa servir la previsió de
+`bosses_rimes`.
+
+**El període del patró no és cap era** i no fa que es repeteixin les paraules:
+només es repeteix l'ordre de les bosses. Amb les quotes per defecte del difícil
+(10, 15, 40, 400, 360, 150, 14, 7 i 4 per mil, sense cap divisor comú) el patró
+dura 1.000 dies. Les del fàcil (15, 25, 285, 275, 270, 110 i 20) són totes
+múltiples de 5, equivalen a 3, 5, 57, 55, 54, 22 i 4, i el patró dura 200 dies.
+A la pràctica és el mateix: un 1,5 % són 3 dies de cada 200, o 15 de cada 1.000.
 
 **El dia *n*.**
 
@@ -164,8 +187,8 @@ exactament 10 dies de cada 1.000, a tots els blocs, per sempre.
 
 **La separació** entre aparicions no és perfectament regular, perquè les bosses
 grosses empenyen les petites: amb les quotes per defecte, la bossa de l'1 % surt
-cada 72–120 dies. Si cal, hi ha una variant que tria pel termini més proper i ho
-fa més regular (pendent, apartat 10).
+cada 72–120 dies. Hi ha una variant que tria pel termini més proper i ho fa més
+regular, però de moment no es fa servir: només afecta les bosses petites.
 
 **L'script de congelar ha de refusar** les bosses que tenen quota però cap clau:
 aquells dies no hi hauria paraula.
@@ -216,13 +239,20 @@ les vegades.
    -aɾə) i la B (*cara*, *vara*: -aɾa / -aɾa / -aɾə).
 3. Es treuen les variants que no compleixen la **tolerància**: a cada dialecte,
    la clau de la variant ha de tenir **entre ×0,5 i ×2** de les rimes que té la
-   clau al central.
+   clau al central. Al fàcil és el mateix, amb les rimes de cada grup assonant.
+   La tolerància és un paràmetre de l'era, per carril, i es tria al panell
+   (apartat 4.7). De moment, ×0,5–×2 als dos carrils.
 4. **No hi ha cap mínim de paraules per variant.** Les variants d'una sola paraula
    que passen la tolerància surten a l'informe per revisar-les a mà: n'hi ha de
    legítimes (*axis*, *bell*) i n'hi ha que fan pensar en un error de transcripció.
 5. Les variants que queden s'ordenen amb una barreja amb llavor i es guarden en
    aquest ordre. Dins de cada variant, les paraules s'ordenen com ara
-   (`barreja_estable`), i se'n guarden fins a `DIARIES_PER_CLAU` (avui, 4).
+   (`barreja_estable`), i se'n guarden fins a un **nombre de paraules per
+   variant** que és un paràmetre de l'era, per carril, i es tria al panell
+   (apartat 4.7). Per defecte, **10 al difícil i 200 al fàcil** (avui
+   `DIARIES_PER_CLAU` és 4). Al fàcil hi van primer les paraules que no són a cap
+   llista del difícil, i les altres només al final, si no n'hi ha prou: així una
+   mateixa paraula no surt als dos carrils.
 6. **Si no en queda cap**, la clau no entra a la bossa en tota l'era. Surt a
    l'informe. Continua valent com a resposta i es pot jugar a l'il·limitat i al
    personalitzat.
@@ -231,7 +261,12 @@ les vegades.
 de la seva bossa):
 
 - toca la variant `r mod nVariants`;
-- dins de la variant, la paraula `floor(r / nVariants) mod nParaules`.
+- dins de la variant, la paraula `floor(r / nVariants) mod nParaules`;
+- si aquell dia el fàcil i el difícil donen la mateixa paraula, el fàcil passa a
+  la paraula següent de la seva variant. És una regla fixa, igual per a tothom.
+
+Així, una paraula no torna fins que la seva clau ha sortit
+(variants × paraules) vegades.
 
 Així, cada rima dels altres dialectes que hi ha dins d'una clau del central té el
 seu torn, i tots els torns valen igual, tingui cada rima les paraules que tingui.
@@ -282,7 +317,10 @@ part de les seves separacions són soroll.
 - té almenys una variant que compleix la tolerància.
 
 La finestra `MIN_RIMES`–`MAX_RIMES` (50–1000) **deixa de governar** la paraula
-del dia i l'il·limitat: ho fan les bosses (apartat 10, què se'n fa).
+del dia i l'il·limitat: ho fan les bosses. Es fa en dues fases. Primer es deixa
+com està i continua fent de valor per defecte del personalitzat (`finestra.js`).
+Quan el sistema nou funcioni, es retiren la marca `*` i la passada dels quatre
+dialectes de `generar_dades.py`, que ja farà l'script de congelar.
 
 ### 4.6 Paraules manuals
 
@@ -293,11 +331,15 @@ del dia i l'il·limitat: ho fan les bosses (apartat 10, què se'n fa).
   paraula als quatre dialectes (objectiu i una sola clau a cadascun) i **falla si
   no hi és**. Mai no hi ha una paraula manual que valgui en uns dialectes i en
   altres no.
-- **El mateix script publica el fitxer xifrat.** Cada entrada s'identifica pel
-  número de dia (o per un resum de la data), de manera que les dates tampoc no es
-  veuen. El contingut es barreja (XOR) amb una seqüència de `mulberry32` sembrada
-  amb `llavor("…" + dia)`, es codifica en base64 i totes les entrades fan la
-  mateixa llargada.
+- **El mateix script publica el fitxer xifrat**, `dades/especials.json`, amb el
+  format `{"v": 1, "dies": {"<resum de la data>": "<base64>"}}`. La clau de cada
+  entrada és un resum de la data, de manera que les dates no es veuen. El valor és
+  `{f, d}` (la paraula del fàcil i la del difícil) barrejat (XOR) amb una seqüència
+  de `mulberry32` sembrada amb `llavor("…" + data)`, allargat fins a una mida fixa
+  i codificat en base64. El joc calcula el resum d'avui i el d'ahir i els busca.
+- La validació també **avisa si la manual coincideix amb la fórmula**: si la
+  mateixa paraula, o la seva clau, surt en un dia automàtic a menys de 30 dies.
+  Ho calcula la previsió (node), amb el mateix codi del joc.
 - **Al joc**, la manual mana sobre la fórmula. El dia compta igualment per a la
   bossa que tocava (el repartiment no es desquadra), i la clau que hauria sortit
   no surt en aquesta volta: tornarà a la següent. **No es mou cap altre dia.**
@@ -312,18 +354,28 @@ Una era guarda:
 
 - la **data d'inici**;
 - la **versió de l'algorisme** amb què es calcula;
-- per a cada carril, els **talls i les quotes** (en per mil);
+- per a cada carril, els **talls**, les **quotes** (en per mil), la
+  **tolerància** dels altres dialectes i el **nombre de paraules per variant**;
 - el **contingut congelat**: per a cada bossa, les claus en ordre canònic; per a
-  cada clau, les variants ordenades; per a cada variant, les paraules ordenades.
+  cada clau, les variants ordenades; per a cada variant, les paraules ordenades;
+- l'**estat de sortida de l'era anterior** (apartat 4.8).
+
+Amb 10 i 200 paraules per variant, una era ocupa uns 165 KB.
 
 Funcionament:
 
 - Una era dura **des de la seva data fins que comença la següent**. L'última dura
   per sempre.
-- **Fer una era nova** és executar en local un script de congelar (amb les dades
-  i la configuració del moment), revisar l'informe i comitejar. Sense workflow.
+- **El panell.** Abans de congelar, una pàgina com `bosses_rimes` permet triar,
+  per a cada carril, els talls de les bosses, les quotes, la tolerància i el
+  nombre de paraules per variant, i en mostra l'efecte: claus per bossa, quant
+  dura cada bossa, què queda fora i per quin dialecte, cada quan torna la mateixa
+  paraula i quant ocupa l'era. El que s'hi tria és el que congela l'script.
+- **Fer una era nova** és triar la configuració al panell, executar en local
+  l'script de congelar (amb les dades del moment), revisar l'informe i comitejar.
+  Sense workflow.
 - Una era nova pot començar **el dia que vulguis**, sempre que sigui almenys d'aquí
-  a 3–4 dies (el marge). Tallar el patró a mitges no desquadra les quotes.
+  a 7 dies (el marge). Tallar el patró a mitges no desquadra les quotes.
 - **Les eres començades no es toquen.** L'única excepció és substituir al lloc una
   paraula de l'era vigent que hagi deixat de valer (apartat 4.10).
 - **Quan convé una era nova**: quan vulguis canviar quotes o talls, o quan
@@ -352,11 +404,23 @@ un 60 % de probabilitats de repetir una clau dels últims mesos.
 - a partir de la segona volta, tot normal.
 
 **El comptador de vegades que ha sortit cada clau** (el que fa girar les
-variants) també continua d'una era a l'altra: les vegades que va sortir a les
-eres anteriors es poden calcular igual.
+variants) també continua d'una era a l'altra.
 
-Tot surt de la fórmula: cap navegador no ha de recordar res, tothom obté el mateix
-resultat i el càlcul és d'una llista per bossa.
+**L'ordre de les paraules de cada variant també continua.** En congelar l'era
+nova, les paraules que ja hi eren mantenen l'ordre i les noves van al final. Si
+es tornés a ordenar tot, la rotació podria tornar a començar per una paraula que
+acaba de sortir, i el comptador no serviria de res.
+
+**On s'havia quedat l'era anterior es calcula en congelar.** L'script de congelar
+fa calcular a node, amb el mateix mòdul del joc, l'estat final de l'era anterior:
+la volta i la posició de cada bossa, les claus que ja havien sortit i el
+comptador de cada clau. Ho desa a l'era nova. Tothom obté el mateix resultat,
+cap navegador no ha de recordar res, i el joc només necessita l'era vigent (i
+l'anterior els dies del canvi, per a la pantalla d'ahir). Les eres més velles van
+a un fitxer d'arxiu que el joc no carrega.
+
+Quan hi ha paraules noves en una era nova, la regla del fàcil (primer les que no
+són al difícil) s'aplica només a les noves: les que ja hi eren mantenen l'ordre.
 
 ### 4.9 El diccionari canvia: què es congela i què no
 
@@ -390,9 +454,12 @@ s'afegeixen o es corregeixen **altres** paraules de la mateixa clau.
   baralla. No es publica fins que està resolt.
 - **Avís**: una clau ha canviat de bossa. Si va a la del costat, només compta al
   recompte; si salta dues bosses o més, surt amb nom; si se n'han desplaçat més
-  d'un tant per cent, l'informe suggereix fer una era nova. No trenca res: l'era
-  la manté a la seva bossa i tothom continua tenint la mateixa paraula.
-- **Avís**: una variant ha sortit de la tolerància ×0,5–×2.
+  de l'**1 %** de les claus de l'era, l'informe suggereix fer una era nova. No
+  trenca res: l'era la manté a la seva bossa i tothom continua tenint la mateixa
+  paraula.
+- **Avís**: les claus noves que podrien entrar (que no són a l'era) passen de
+  l'1 % de les que hi ha. També suggereix una era nova.
+- **Avís**: una variant ha sortit de la tolerància de l'era.
 - **Avís**: una paraula ha canviat de rima en algun dialecte (pot desequilibrar la
   rotació de variants).
 
@@ -406,9 +473,9 @@ Paraules del dia congelades (era 2027-03-01): 924 claus
   avís   3 paraules han canviat de rima en algun dialecte
 ```
 
-Opcional: les eines de corregir i afegir paraules (`corregir_transcripcions.py`,
-`afegir_paraula.py`) poden avisar al moment: «aquesta paraula és paraula del dia
-el 3-5-2027».
+A la segona fase, les eines de corregir i afegir paraules
+(`corregir_transcripcions.py`, `afegir_paraula.py`) també avisaran al moment:
+«aquesta paraula és paraula del dia el 3-5-2027».
 
 ### 4.11 Ofuscació
 
@@ -480,9 +547,9 @@ té exactament les mateixes partides de cada bossa que qualsevol altre.
 
 - **Llavor**: l'identificador d'usuari + el dialecte + la dificultat.
 - **Comptador** de partides al localStorage, per dialecte i dificultat.
-- **Bossa**: el mateix patró del pas 1, aplicat al comptador. Opcionalment, amb un
-  desplaçament per jugador, perquè la primera partida de tothom no caigui a la
-  mateixa bossa.
+- **Bossa**: el mateix patró del pas 1, aplicat al comptador, amb un desplaçament
+  per jugador (`llavor(id) mod W`) perquè la primera partida de tothom no caigui a
+  la mateixa bossa.
 - **Clau**: una baralla per bossa i per volta, sembrada amb la llavor del jugador.
   No es repeteix cap clau fins que s'ha buidat la bossa.
 - Si un dialecte té una bossa **sense cap clau**, aquella bossa no entra al seu
@@ -498,8 +565,8 @@ té exactament les mateixes partides de cada bossa que qualsevol altre.
 
 ### 5.4 Quotes
 
-De moment, **les mateixes bosses i quotes que la paraula del dia** (pendent,
-apartat 10). Un avís: amb aquestes quotes, la major part de les claus és a la
+**Les mateixes bosses i quotes que la paraula del dia**, cada carril amb les
+seves: les consonants al difícil i les assonants al fàcil. Un avís: amb aquestes quotes, la major part de les claus és a la
 bossa de 15–34 rimes (entre 513 i 619 segons el dialecte), que té l'1 %. Cada una
 d'aquestes claus surt un cop cada 51.000–62.000 partides: pot sortir qualsevol
 rima, però a la pràctica un jugador no en veurà gairebé cap.
@@ -518,7 +585,7 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 1. **L'època no canvia mai** (`2026-01-01`).
 2. **Una era començada no es toca.** Només s'hi poden substituir al lloc paraules
    de l'era vigent que hagin deixat de valer.
-3. **Una era nova comença com a mínim d'aquí a 3–4 dies.**
+3. **Una era nova comença com a mínim d'aquí a 7 dies.**
 4. **Una paraula congelada no s'esborra mai**: se substitueix al lloc.
 5. **Quotes en per mil enters**, desempat per la bossa de número més baix i claus
    en ordre canònic abans de barrejar.
@@ -531,6 +598,8 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 9. **Enlloc no hi ha cap fitxer públic amb dates i paraules futures en clar.**
 10. **El dia es compta en hora de Catalunya.**
 11. **Cap pas depèn d'un workflow.**
+12. **El joc només carrega l'era vigent** (i l'anterior els dies del canvi).
+    L'estat de sortida de cada era es desa a la següent en congelar-la.
 
 ---
 
@@ -540,8 +609,9 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 
 | Fitxer | Què hi ha |
 |---|---|
-| `eres.json` (nou) | Les eres: data, versió d'algorisme, talls, quotes i contingut congelat de cada carril. També la configuració de l'il·limitat. |
-| manuals xifrades (nou, amb un nom neutre) | Una entrada opaca per dia manual. |
+| `eres.json` (nou) | L'era vigent i l'anterior: data, versió d'algorisme, talls, quotes, tolerància, paraules per variant, contingut congelat de cada carril i estat de sortida de l'era anterior. L'il·limitat en fa servir els talls i les quotes de l'era vigent. |
+| `eres_arxiu.json` (nou) | Les eres més velles. El joc no el carrega; serveix per a la història i la previsió. |
+| `especials.json` (nou) | Les manuals xifrades: una entrada opaca per dia manual. |
 | `index.json` | Hi afegeix a quina clau cau ara cada paraula congelada a cada dialecte. |
 
 **Locals** (al `.gitignore`):
@@ -553,11 +623,11 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 
 | Script | Feina |
 |---|---|
-| `congelar_era.py` (nou) | Calcula les candidates, les variants i la tolerància, normalitza les quotes, escriu l'era nova (refusant dates dins del marge o al passat) i treu l'informe. |
+| `congelar_era.py` (nou) | Calcula les candidates, les variants i la tolerància, normalitza les quotes, fa calcular a node l'estat final de l'era anterior, escriu l'era nova (refusant dates dins del marge o al passat), passa a l'arxiu les eres que ja no calen i treu l'informe. |
 | `generar_dades.py` | Escriu la resolució de les paraules congelades i fa les comprovacions de l'apartat 4.10. |
 | `comprovar_diaries_manuals.py` | Valida les manuals als quatre dialectes i en publica la versió xifrada. |
 | `previsio.mjs` (nou) | La previsió amb node, important el mòdul del joc. |
-| `bosses_rimes.py` | Hi afegeix la regla ×0,5–×2, la vista per dialecte (quines claus poden sortir), les variants de cada clau i la vista de l'il·limitat natiu. |
+| `bosses_rimes.py` | Fa de **panell de selecció**: talls, quotes, tolerància i paraules per variant de cada carril, amb la vista per dialecte (quines claus poden sortir), les variants de cada clau i la vista de l'il·limitat natiu. El que s'hi tria és el que congela `congelar_era.py`. |
 | `predictor.py` | Es retira. |
 
 **JS** (`joc/js/`):
@@ -591,30 +661,29 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 | Previsió | Node amb el mateix mòdul del joc | Port a Python | Un sol codi, cap discrepància possible |
 | Il·limitat | Natiu per dialecte, seqüència per jugador | Regla dels quatre dialectes; `Math.random` | Hi poden sortir totes les rimes del dialecte, amb quotes exactes i la classificació justa |
 | Mode personalitzat | No canvia | — | El jugador ja tria els paràmetres |
+| Quotes de l'il·limitat | Les mateixes bosses i quotes que la paraula del dia, cada carril les seves | Quotes pròpies | El mateix repartiment de dificultat als dos modes |
+| Tolerància | ×0,5–×2 als dos carrils, de moment; es tria al panell | ×¼–×4 al fàcil | Es podrà ajustar al panell quan es vegi l'efecte |
+| Talls i quotes | Els de `PER_DEFECTE` de `bosses_rimes.py` | Quotes perquè totes les bosses durin un any | Decidit així; les conseqüències són a l'apartat 11 |
+| Marge | 7 dies | 3–4 dies | No costa res i cobreix una setmana sense xarxa |
+| Separació regular de les bosses petites | No, de moment | Triar pel termini més proper | Només afecta les bosses que surten pocs dies |
+| Clau balear -ats (10.327 rimes) | Es deixa com està | Revisar-ne la transcripció | — |
+| `MIN_RIMES`/`MAX_RIMES` i la marca `*` | Es retiren en una segona fase | Retirar-ho ara | Primer ha de funcionar el sistema nou |
+| Paraules per variant | Un paràmetre per carril, que es tria al panell; per defecte, 10 al difícil i 200 al fàcil | Un nombre fix; 4, com ara | Al fàcil els grups tornen molt més sovint i calen més paraules |
+| Llistes del fàcil i del difícil | Al fàcil, primer les paraules que no són a cap llista del difícil | Llistes independents | Que la mateixa paraula no surti als dos carrils |
+| Eres que carrega el joc | Només la vigent (i l'anterior els dies del canvi); l'estat de sortida es desa en congelar | Carregar-les totes | Cada era ocupa uns 165 KB i el fitxer creixeria a cada era |
+| Llindar per suggerir una era nova | L'1 % de les claus desplaçades, o un 1 % de claus noves | 10 %; 2 % | La deriva és lenta (un 0,5 % de claus amb canvis en dos mesos) |
+| Continuïtat de les paraules entre eres | Es manté l'ordre de cada variant i les noves van al final | Tornar a ordenar | Si no, la rotació podria repetir una paraula recent |
+| Manuals i fórmula | Avís si coincideixen (paraula o clau) a menys de 30 dies | — | Que una manual no repeteixi un dia automàtic proper |
+| Fàcil i difícil el mateix dia | Si donen la mateixa paraula, el fàcil passa a la següent | — | Que no surti la mateixa paraula als dos carrils |
+| Desplaçament per jugador a l'il·limitat | Sí | — | Que no tothom comenci per la mateixa bossa |
+| Avisos a les eines de correcció | Sí, a la segona fase | — | Útils però no imprescindibles |
+| Fitxer de manuals | `dades/especials.json`, entrades per resum de la data | — | — |
 
 ## 10. Pendent de decidir
 
-1. **Quotes de l'il·limitat**: les mateixes que la paraula del dia o unes de
-   pròpies. Proposta: una configuració separada que de moment tingui els mateixos
-   valors.
-2. **Tolerància al fàcil**: si els grups assonants també fan servir ×0,5–×2.
-3. **Talls i quotes definitius** de cada carril. Els de `PER_DEFECTE` de
-   `bosses_rimes.py` són el punt de partida, però s'han de tornar a mirar amb la
-   regla ×0,5–×2.
-4. **El marge**: 3 o 4 dies.
-5. **El llindar** de paraules desplaçades a partir del qual l'informe suggereix una
-   era nova.
-6. **Separació més regular** per a les bosses petites (la variant del termini més
-   proper).
-7. **Revisar anomalies del balear**: -afs i -aks hi tenen totes dues exactament
-   10.327 rimes, que fa pensar en una clau gegant per error de transcripció.
-8. **Què es fa amb `MIN_RIMES`/`MAX_RIMES` i la marca `*`**, que deixen de
-   governar la paraula del dia i l'il·limitat. Potser només com a valors per
-   defecte del personalitzat.
-9. **Paraules per variant**: si se'n guarden 4, com ara amb les claus.
-10. **Desplaçament per jugador** del patró a l'il·limitat.
-11. **Avisos a les eines de correcció** (opcional).
-12. **Format i nom** del fitxer de manuals xifrades.
+Ara mateix no queda res pendent de decidir. Els valors de les bosses, les quotes,
+la tolerància i les paraules per variant es poden tornar a mirar al panell abans
+de congelar cada era.
 
 ---
 
@@ -655,6 +724,60 @@ de la bossa del costat, 34 de les variants vàlides eren d'una sola paraula.
 | Fins a dues bosses | 984 | 1.066 | 975 / 986 / 964 |
 | **Entre ×0,5 i ×2 (la triada)** | **924** | **951** | **926 / 928 / 926** |
 | Entre ×⅓ i ×3 | 1.000 | 1.081 | 1.018 / 1.026 / 1.003 |
+
+**Quant dura cada bossa** amb `PER_DEFECTE` i la tolerància ×0,5–×2 (cada quants
+dies torna la mateixa rima):
+
+| Difícil | Claus | Quota | Torna cada |
+|---|---|---|---|
+| 15–34 | 426 | 1 % | 42.600 dies |
+| 35–49 | 114 | 1,5 % | 7.600 |
+| 50–99 | 174 | 4 % | 4.350 |
+| 100–249 | 88 | 40 % | 220 |
+| 250–499 | 46 | 36 % | 128 |
+| 500–999 | 32 | 15 % | 213 |
+| 1.000–4.999 | 24 | 1,4 % | 1.714 |
+| 5.000–8.999 | 6 | 0,7 % | 857 |
+| 9.000–26.000 | 14 | 0,4 % | 3.500 |
+
+| Fàcil | Grups | Quota | Torna cada |
+|---|---|---|---|
+| 15–49 | 5 | 1,5 % | 333 dies |
+| 50–99 | 3 | 2,5 % | 120 |
+| 100–499 | 5 | 28,5 % | 18 |
+| 500–1.999 | 5 | 27,5 % | 18 |
+| 2.000–4.999 | 5 | 27 % | 19 |
+| 5.000–13.999 | 4 | 11 % | 36 |
+| 14.000–150.000 | 8 | 2 % | 400 |
+
+Al fàcil, la tolerància ×0,5–×2 deixa 35 dels 62 grups del central (amb la bossa
+del costat n'hi havia 52; amb ×¼–×4, 51).
+
+**Cada quan torna la mateixa paraula** (amb la rotació de variants i paraules, en
+percentatge de dies):
+
+| Paraules per variant | Paraules guardades | Mida aprox. | Torna en menys d'1 any | de 2 anys | de 5 anys | de 10 anys |
+|---|---|---|---|---|---|---|
+| Difícil, 4 | 3.704 | 43 KB | 1,6 % | 36,5 % | 91,1 % | 91,7 % |
+| **Difícil, 10** | **8.978** | **106 KB** | **1,6 %** | **2,0 %** | **38,0 %** | **90,7 %** |
+| Difícil, 20 | 16.392 | 195 KB | 1,6 % | 2,0 % | 3,5 % | 38,4 % |
+| Fàcil, 4 | 160 | 2 KB | 91,3 % | 96,8 % | 99,6 % | 100 % |
+| Fàcil, 50 | 1.417 | 17 KB | 28,0 % | 29,7 % | 78,2 % | 95,7 % |
+| Fàcil, 100 | 2.636 | 32 KB | 28,0 % | 29,7 % | 64,6 % | 79,4 % |
+| **Fàcil, 200** | **4.789** | **59 KB** | **28,0 %** | **29,7 %** | **36,9 %** | **65,9 %** |
+
+Les variants d'una sola paraula són l'1,8 % dels dies al difícil i el 4,9 % al
+fàcil. Al difícil, 847 de les 951 variants tenen 10 paraules o més; al fàcil, només
+22 de les 47 en tenen 100 o més. El 28 % de dies del fàcil en què la paraula torna
+abans d'un any surt de les variants petites, i no baixa per molt que s'apugi el
+nombre.
+
+**Deriva del diccionari**: entre les dades del joc del 8-9-2026 i les del
+31-10-2026, de les 1.646 claus del central de 15–26.000 rimes només 9 (un 0,5 %)
+van canviar de nombre de rimes, i cap no va canviar de bossa.
+
+**La clau balear -ats** (10.327 rimes) és la dels participis en plural i també hi
+cauen paraules com *aliscafs* o *addax*. Es deixa com està.
 
 **Il·limitat natiu**:
 

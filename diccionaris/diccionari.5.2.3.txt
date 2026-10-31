@@ -397400,6 +397400,7 @@ piquets$piquet$NCMP000$2$Vicc$Viq$Diec
 piqueu$picar$VMIP2P00$2$Vicc$NO$Diec
 piqueu$picar$VMSP2P00$2$Vicc$NO$Diec
 piquí$picar$VMIS1S00$2$Vicc$NO$Diec
+Pir$Pir$NPCNSP0$1$NO$NO$NO
 Pira$Pira$NPCSG00$2$NO$Viq$NO
 pira$pira$NCFS000$2$Vicc$Viq$Diec
 pira$pirar$VMIP3S00$2$Vicc$Viq$Diec
@@ -449005,6 +449006,8 @@ rima$rimar$VMM02S00$2$Vicc$Viq$Diec
 rimà$rimar$VMIS3S00$2$NO$NO$Diec
 rimada$rimar$VMP00SF0$3$NO$NO$Diec
 rimades$rimar$VMP00PF0$3$NO$NO$Diec
+rimador$rimador$NCMS000$3$NO$NO$NO
+rimadors$rimador$NCMP000$3$NO$NO$NO
 rimaia$rimaia$NCFS000$3$NO$Viq$Diec
 rimaies$rimaia$NCFP000$3$NO$NO$Diec
 rimaire$rimaire$NCCS000$3$NO$NO$Diec

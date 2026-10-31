@@ -3950,6 +3950,16 @@
     "diec": "NO"
   },
   {
+    "paraula": "au-pair",
+    "infinitiu": "au-pair",
+    "codi": "NCCS000",
+    "rimacons": "pɛɾ",
+    "sil": "2",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
     "paraula": "àudio",
     "infinitiu": "àudio",
     "codi": "NCMS000",
@@ -41738,6 +41748,16 @@
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"
+  },
+  {
+    "paraula": "walkie-talkies",
+    "infinitiu": "walkie-talkie",
+    "codi": "NCMP000",
+    "rimacons": "əlkis",
+    "sil": "6",
+    "vicc": "Vicc",
+    "viq": "NO",
+    "diec": "NO"
   },
   {
     "paraula": "Wallis",

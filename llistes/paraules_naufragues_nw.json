@@ -4380,6 +4380,16 @@
     "diec": "NO"
   },
   {
+    "paraula": "au-pair",
+    "infinitiu": "au-pair",
+    "codi": "NCCS000",
+    "rimacons": "pɛr",
+    "sil": "2",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
     "paraula": "Aubisque",
     "infinitiu": "Aubisque",
     "codi": "NPCSG00",
@@ -9848,16 +9858,6 @@
     "vicc": "NO",
     "viq": "Viq",
     "diec": "NO"
-  },
-  {
-    "paraula": "cois",
-    "infinitiu": "coi",
-    "codi": "NCMP000",
-    "rimacons": "ojs",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "NO",
-    "diec": "Diec"
   },
   {
     "paraula": "colèdoc",

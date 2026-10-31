@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import re
 import sys
 import unicodedata
 import urllib.parse
@@ -15,6 +16,9 @@ import predictor  # noqa: E402  (cal el sys.path de sobre)
 # Noves rutes per als fitxers del joc
 FITXER_INDEX_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'index.json')
 FITXER_MANUALS_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'diaries_manuals.json')
+# El que escriu joc/eines/compilar_classificacio.py cada nit: d'aquí surt quantes
+# rimes es van trobar de mitjana a la paraula del dia.
+FITXER_CLASSIFICACIO_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'classificacio.json')
 
 
 # La columna de paraules del diccionari, el tros que és igual per a tots els
@@ -33,7 +37,9 @@ FITXER_PUBLICADES_JOC = os.path.join(BASE_DIR, 'publicades_joc.json')
 FITXER_PUBLICADES_NAUFRAGUES = os.path.join(BASE_DIR, 'publicades_naufragues.json')
 
 PARAULES_PER_TUIT = 5
-EXEMPLES_PER_TUIT_JOC = 3
+LLARGADA_MAXIMA_TUIT = 280
+# A X cada enllaç compta 23 caràcters per llarg o curt que sigui.
+LLARGADA_ENLLAC = 23
 DIALECTE_JOC_PER_DEFECTE = 'ca'
 DIFICULTAT_JOC_PER_DEFECTE = 'dificil'
 NOMS_DIFICULTATS = {
@@ -469,6 +475,21 @@ def triar_paraules_de_rima(paraules, quantes, noms_propis=(), excloses=()):
     return sorted(normals + random.sample(propis, quantes - len(normals)))
 
 
+def ordre_d_exemples(paraules, noms_propis=(), excloses=()):
+    """Totes les que hi rimen, en l'ordre en què s'han de provar d'encabir al tuit.
+
+    A l'atzar, però primer les paraules comunes i després els noms propis: com
+    a triar_paraules_de_rima(), els noms propis només hi entren si les comunes
+    s'acaben abans d'omplir el tuit. Les repetides del diccionari, un cop.
+    """
+    distintes = sorted(set(paraules).difference(excloses or ()))
+    normals = [paraula for paraula in distintes if paraula not in noms_propis]
+    propis = [paraula for paraula in distintes if paraula in noms_propis]
+    random.shuffle(normals)
+    random.shuffle(propis)
+    return normals + propis
+
+
 def paraules_del_tuit(paraules, noms_propis=()):
     """Les que surten a la llista del tuit antic de rima: cinc exemples."""
     return triar_paraules_de_rima(paraules, PARAULES_PER_TUIT, noms_propis)
@@ -582,6 +603,56 @@ def paraula_del_joc(data_iso, dificultat=DIFICULTAT_JOC_PER_DEFECTE):
     return paraula
 
 
+def mitjana_del_joc(data_iso, dificultat=DIFICULTAT_JOC_PER_DEFECTE):
+    """Quantes rimes es van trobar de mitjana a la paraula del dia, o None.
+
+    Surt d'estadistiques.diaria[dia][dificultat] del classificacio.json, la
+    mateixa xifra que ensenya la pantalla «Com va anar ahir» del joc. El
+    compilador només hi posa els dies ACABATS (filtra els d'avui), o sigui que
+    si el dia hi és, hi és sencer.
+
+    None vol dir que encara no es pot dir: el compilador no hi ha passat (el bot
+    ha corregut abans que ell), o aquell dia no hi va jugar ningú en aquesta
+    dificultat. En tots dos casos el tuit surt com abans, sense la mitjana.
+    """
+    classificacio = carregar_json(FITXER_CLASSIFICACIO_JOC, {})
+    try:
+        resum = classificacio['estadistiques']['diaria'][data_iso][dificultat]
+        partides = int(resum['partides'])
+        mitjana = float(resum['mitjana'])
+    except (KeyError, TypeError, ValueError):
+        return None
+
+    if partides <= 0:
+        return None
+    return mitjana
+
+
+def format_mitjana(mitjana):
+    """3.9 -> '3,9'; 4.0 -> '4'. Amb coma, que és com s'escriu en català."""
+    text = f'{mitjana:.1f}'.replace('.', ',')
+    return text[:-2] if text.endswith(',0') else text
+
+
+# Els trossos d'Unicode que X compta com un sol caràcter (twitter-text, versió
+# 3): el llatí amb tots els accents, els símbols de l'AFI de les rimes i la
+# puntuació tipogràfica. La resta (emojis, CJK...) en compta dos.
+RANGS_D_UN_CARACTER = ((0x0000, 0x10FF), (0x2000, 0x200D),
+                       (0x2010, 0x201F), (0x2032, 0x2037))
+ENLLAC_A_X = re.compile(r'https?://\S+')
+
+
+def llargada_a_x(text):
+    """Quants caràcters compta X: cada enllaç, 23, i cada emoji, 2.
+
+    El mateix que el compta() de bot/programador/programador.html, amb els
+    caràcters que valen per dos ben comptats.
+    """
+    text = unicodedata.normalize('NFC', ENLLAC_A_X.sub('x' * LLARGADA_ENLLAC, text))
+    return sum(1 if any(inici <= ord(car) <= fi for inici, fi in RANGS_D_UN_CARACTER) else 2
+               for car in text)
+
+
 def posicio_de_paraula(paraula, paraules):
     """On cau una paraula dins la columna del diccionari d'un dialecte."""
     try:
@@ -612,29 +683,70 @@ def dades_tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
 
     rimes = carregar_rimes(dialecte, paraules, columna) if rimes is None else rimes
     paraules_que_rimen = rimes.get(rima_joc, []) if rima_joc else []
-    exemples = triar_paraules_de_rima(paraules_que_rimen, EXEMPLES_PER_TUIT_JOC,
-                                      noms_propis, excloses={paraula_joc})
+    # Tots, a l'atzar: quants en surten ho decideix exemples_del_tuit_joc(),
+    # segons el que hi càpiga.
+    candidats = ordre_d_exemples(paraules_que_rimen, noms_propis, excloses={paraula_joc})
 
     return {
         'data_joc': data_iso,
         'dificultat': dificultat,
         'paraula': paraula_joc,
         'rima': rima_joc,
-        'exemples': exemples,
+        'candidats': candidats,
         'quantes_rimen': quantes_hi_rimen(paraules_que_rimen),
+        'mitjana': mitjana_del_joc(data_iso, dificultat),
     }
 
 
 def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
                   dificultat=DIFICULTAT_JOC_PER_DEFECTE, data=None,
                   paraules=None, columna=None, rimes=None, noms_propis=(), dades=None):
-    """El tuit de la paraula del joc d'ahir, amb rima fonètica i 3 exemples."""
+    """El tuit de la paraula del joc d'ahir: la rima fonètica i tants exemples
+    com hi càpiguen."""
     dades = dades or dades_tuit_joc_ahir(dialecte, data_iso, dificultat, paraules,
                                          columna, rimes, noms_propis)
+    return text_tuit_joc(dialecte, dades, exemples_del_tuit_joc(dialecte, dades, data), data)
+
+
+def exemples_del_tuit_joc(dialecte, dades, data=None):
+    """Els exemples que caben al tuit, en ordre alfabètic.
+
+    Es proven en l'ordre de dades['candidats'], que és a l'atzar, i es queda
+    cada un que encara hi càpiga; el que no hi cap se salta i es prova el
+    següent, que pot ser més curt. Les mateixes dades donen sempre els mateixos
+    exemples: el que va a l'atzar és l'ordre, i es tria a dades_tuit_joc_ahir().
+
+    El tuit no es refà a cada prova: cada exemple hi afegeix la seva ratlla i
+    prou, o sigui que n'hi ha prou de mirar quant lloc queda amb una ratlla
+    buida (que ja porta la frase de davant) i anar-lo gastant.
+    """
+    buit = '- \n'
+    lloc = (LLARGADA_MAXIMA_TUIT
+            - llargada_a_x(text_tuit_joc(dialecte, dades, [''], data))
+            + llargada_a_x(buit))
+
+    exemples = []
+    for candidat in dades.get('candidats', []):
+        cost = llargada_a_x(f'- {candidat}\n')
+        if cost <= lloc:
+            exemples.append(candidat)
+            lloc -= cost
+        elif lloc < len(buit) + 1:
+            break
+    return sorted(exemples)
+
+
+def text_tuit_joc(dialecte, dades, exemples, data=None):
+    """El text del tuit del joc amb aquests exemples, hi càpiguen o no.
+
+    N'hi ha dues versions, que només canvien la frase de davant dels exemples:
+    la que diu quantes rimes es van trobar de mitjana, si el classificacio.json
+    ja porta el dia (vegeu mitjana_del_joc()), i la de sempre si encara no.
+    """
     paraula_joc = dades['paraula']
     rima_joc = dades['rima']
-    exemples = dades['exemples']
     dificultat = dades['dificultat']
+    mitjana = dades.get('mitjana')
 
     # Forcem que s'imprimeixi la data del joc (ahir) en format curt
     try:
@@ -645,12 +757,14 @@ def tuit_joc_ahir(dialecte=DIALECTE_JOC_PER_DEFECTE, data_iso=None,
 
     tuit = (f"La paraula del joc d'ahir ({data_ahir_curta}) en mode {nom_dificultat(dificultat)} (rima consonant) era "
             f"«{paraula_joc}», /{rima_joc}/ en {nom_dialecte(dialecte)}.\n\n")
-    if rima_joc:
-        if exemples:
-            tuit += 'Hi rimen, per exemple:\n'
-            for exemple in exemples:
-                tuit += f"- {exemple}\n"
+    if mitjana is not None:
+        tuit += f"La mitjana de rimes trobades va ser {format_mitjana(mitjana)}"
+        tuit += ", com per exemple:\n" if exemples else ".\n"
+    elif exemples:
+        tuit += 'Hi rimen, per exemple:\n'
+    for exemple in exemples:
+        tuit += f"- {exemple}\n"
 
    # tuit += f"\nTroba totes les altres rimes aquí: {enllac(f'?q={paraula_joc}&', dialecte)}"
-    tuit += f"\nIntenta-ho amb la paraula d'avui i sigues qui en troba més! {enllac('joc', '')}"
+    tuit += f"\nIntenta-ho avui i sigues qui en troba més! {enllac('joc', '')}"
     return tuit

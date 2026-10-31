@@ -102,8 +102,18 @@ def publicar_tuit_joc(dialecte=generador_tuits.DIALECTE_JOC_PER_DEFECTE):
     # Carreguem els noms propis DEL DIALECTE ESCOLLIT
     noms_propis_dialecte = generador_tuits.carregar_noms_propis(dialecte)
     
-    # Passem el dialecte i els noms propis
-    tuit = generador_tuits.tuit_joc_ahir(dialecte=dialecte, noms_propis=noms_propis_dialecte)
+    # Passem el dia d'ahir en hora catalana, el mateix de la clau: si no, el
+    # generador agafaria l'ahir del rellotge del servidor (UTC), que entre
+    # mitjanit i la una o les dues és un dia abans.
+    dades = generador_tuits.dades_tuit_joc_ahir(dialecte=dialecte, data_iso=data_ahir,
+                                                noms_propis=noms_propis_dialecte)
+    if dades['mitjana'] is None:
+        print(f"Encara no hi ha la mitjana de rimes del {data_ahir} al classificacio.json: "
+              "el tuit surt sense.")
+    else:
+        print(f"Mitjana de rimes trobades el {data_ahir}: {dades['mitjana']}")
+
+    tuit = generador_tuits.tuit_joc_ahir(dialecte=dialecte, dades=dades)
     
     # Calculem l'hora (08:00) en format de text (ISO 8601) i enviem a Buffer
     hora_iso = obtenir_iso_programacio(8, 0)

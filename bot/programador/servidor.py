@@ -200,6 +200,7 @@ def tuit_de_joc(data_publicacio, data):
                                           DADES.columna_rima_joc[dialecte],
                                           DADES.rimes_joc[dialecte], 
                                           DADES.noms_propis_joc[dialecte])
+    exemples = generador.exemples_del_tuit_joc(dialecte, dades, data)
 
     return {
         'tipus': 'joc',
@@ -208,10 +209,10 @@ def tuit_de_joc(data_publicacio, data):
         'clau': clau,
         'etiqueta': dades['paraula'],
         'detall': f"/{dades['rima']}/ · {generador.nom_dificultat(dificultat)}",
-        'altres_exemples': dades['quantes_rimen'] > generador.EXEMPLES_PER_TUIT_JOC + 1,
+        # Si n'hi ha més que no pas els que hi caben, se'n poden triar d'altres.
+        'altres_exemples': len(dades['candidats']) > len(exemples),
         'data': data,
-        'text': generador.tuit_joc_ahir(dialecte, data_joc, dificultat,
-                                        data, dades=dades),
+        'text': generador.text_tuit_joc(dialecte, dades, exemples, data),
     }
 
 def tuit_de_naufraga(dialecte, paraula, data, items=None):
@@ -327,6 +328,7 @@ def tuit_de_joc_data(data_iso, dificultat, dialecte, data):
                                           DADES.columna_rima_joc[dialecte],
                                           DADES.rimes_joc[dialecte], 
                                           DADES.noms_propis_joc[dialecte])
+    exemples = generador.exemples_del_tuit_joc(dialecte, dades, data)
     return {
         'tipus': 'joc',
         'dialecte': dialecte,
@@ -334,9 +336,9 @@ def tuit_de_joc_data(data_iso, dificultat, dialecte, data):
         'clau': generador.clau_de_joc(data_iso, dificultat, dialecte),
         'etiqueta': dades['paraula'],
         'detall': f"/{dades['rima']}/ · {generador.nom_dificultat(dificultat)}",
-        'altres_exemples': dades['quantes_rimen'] > generador.EXEMPLES_PER_TUIT_JOC + 1,
+        'altres_exemples': len(dades['candidats']) > len(exemples),
         'data': data,
-        'text': generador.tuit_joc_ahir(dialecte, data_iso, dificultat, data, dades=dades),
+        'text': generador.text_tuit_joc(dialecte, dades, exemples, data),
     }
 
 def cercar(tipus, dialecte, text, exclou):

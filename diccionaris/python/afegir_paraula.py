@@ -1,50 +1,66 @@
 """
-EINA LOCAL. Donar d'alta paraules al diccionari, als dos fitxers alhora.
+EINA LOCAL. Donar d'alta paraules al diccionari o a l'apendix d'un dialecte,
+a tots els fitxers que s'editen a mà alhora.
 
     python3 diccionaris/python/afegir_paraula.py
 
 Engega un servidor i obre la pàgina al navegador. No
 porta arguments (--port i --sense-navegador si cal). Ctrl+C per aturar-lo.
 
-ÉS PER AL DICCIONARI, o sigui per a una paraula que es diu a TOTS els
-dialectes: entra a diccionari.5.2.3.txt i a col_10.txt, i et demana com sona a
-cadascun. Una paraula que només es digui en un lloc no va aquí sinó a l'apendix
-d'aquell dialecte (dialectes_col/<codi>/apendix/), que és una llista de
-paraules a part i té la seva pròpia col_10.
+ON VA, que es tria a dalt de la pàgina:
 
-DUES MANERES, que es trien a la pàgina:
+    el diccionari   una paraula que es diu a TOTS els dialectes: entra a
+                    diccionari.5.2.3.txt i a col_10.txt, i et demana com sona
+                    a cadascun
+    un apendix      una paraula que NOMÉS es diu en un dialecte ("cante" i
+                    "servisc" en valencià, "cant" i "tenc" en balear): entra a
+                    dialectes_col/<codi>/apendix/, a la seva col_10 (identitat
+                    i transcripció d'aquell dialecte) i a les col_5 a 8
+                    (síl·labes i enllaços), totes a la mateixa fila
+
+Les col_0, 1, 2 i 9 de l'apendix no es toquen: les refà el sincronitzar.py de
+la seva col_10, igual que les columnes del diccionari.
+
+TRES MANERES, que es trien a la pàgina i valen per a tots dos:
 
     una paraula   un formulari amb la paraula, el lema, el codi, les síl·labes,
                   els enllaços i la transcripció de cada dialecte
+    una família   un lema nou fet com un que ja hi sigui (vegeu "Com un model")
     diverses      des d'arxius: un amb les files del diccionari, una per línia
                   (paraula$lema$codi$síl·labes$Vicc$Viq$Diec), i un per dialecte
                   amb la transcripció de cadascuna a la mateixa línia
+
+A l'apendix, "cada dialecte" és només el seu: un sol camp de transcripció i un
+sol arxiu de transcripcions.
 
 Una paraula nova ha d'entrar al diccionari (paraula, lema, codi, síl·labes i
 els tres enllaços) i a la col_10 (com sona a cada dialecte) A LA MATEIXA FILA i
 al mateix commit. Fer-ho a mà vol dir encertar la mateixa posició en dos fitxers
 de sis-centes mil línies, un dels quals fa 76 MB; per això hi ha aquesta eina.
+A l'apendix és el mateix amb cinc fitxers: les col_5 a 8 van fila per fila i no
+porten cap paraula a dins, o sigui que desquadrades cada paraula duria les
+síl·labes i els enllaços d'una altra.
 
-No corre mai als workflows: allà, si els dos fitxers no es corresponen, el
+No corre mai als workflows: allà, si els fitxers no es corresponen, el
 sincronitzar.py s'atura i diu quina paraula falta i on.
 
 QUÈ NO FA. Ni commit ni push. Abans d'engegar-la, un git pull; quan acabes,
-comitejes el diccionari i la col_10 junts: el workflow s'espera trobar-los
+comitejes junts els fitxers que hagi tocat: el workflow s'espera trobar-los
 d'acord.
 
-LA POSICIÓ. El diccionari està ordenat alfabèticament ignorant accents,
-majúscules, guions i punts volats, però no del tot (423 llocs de 619.783 no hi
-quadren, quasi tots per la puntuació). Per això, d'una en una, la fila es
-proposa i s'ensenya amb els veïns perquè la miris, i sempre la pots dir tu. Les
-dels arxius van cadascuna on li toca per ordre alfabètic.
+LA POSICIÓ. El diccionari i els apendixs estan ordenats alfabèticament
+ignorant accents, majúscules, guions i punts volats, però no del tot (423 llocs
+de 619.783 no hi quadren, quasi tots per la puntuació). Per això, d'una en una,
+la fila es proposa i s'ensenya amb els veïns perquè la miris, i sempre la pots
+dir tu. Les dels arxius van cadascuna on li toca per ordre alfabètic.
 
-COM DESA. Els dos fitxers es llegeixen sencers en engegar i a cada alta es
-reescriuen sencers, primer a fitxers temporals i després reemplaçant els
-originals, perquè un Ctrl+C a mitges no els deixi tallats. Abans de desar es
-mira si algú els ha tocat per fora (el git, un editor, el
-corregir_transcripcions.py): si és així es tornen a llegir, i si les files del
-voltant ja no són les que tenies a la pantalla no es desa res i et diu que hi
-tornis a mirar.
+COM DESA. El diccionari i la col_10 es llegeixen sencers en engegar, i cada
+apendix, el primer cop que el tries. A cada alta es reescriuen sencers, primer
+a fitxers temporals i després reemplaçant els originals, perquè un Ctrl+C a
+mitges no els deixi tallats. Abans de desar es mira si algú els ha tocat per
+fora (el git, un editor, el corregir_transcripcions.py, el sincronitzar.py): si
+és així es tornen a llegir, i si les files del voltant ja no són les que tenies
+a la pantalla no es desa res i et diu que hi tornis a mirar.
 
 Les transcripcions es comproven amb l'INVENTARI del columnes.py, com al
 corregir_transcripcions.py: un símbol que no hi sigui, la rima assonant se'l
@@ -72,7 +88,7 @@ from columnes import ACCENT, INVENTARI, VOCALS
 
 PAGINA = os.path.join(DIR_SCRIPTS, "afegir_paraula.html")
 # Un més que el corregir_transcripcions.py, per poder tenir-los oberts tots dos.
-PORT = 8773
+PORT = 8770
 # Quantes files s'ensenyen a cada banda de la nova.
 VEINS = 2
 # De les dels arxius, quantes se n'ensenyen abans d'afegir-les.
@@ -255,11 +271,17 @@ class Llistes:
     uns quants centenars de MB per no res, i per donar d'alta una paraula només
     cal saber on va, que surt de la paraula de cada fila."""
 
+    # Què es desa, tal com es diu als missatges.
+    nom = "el diccionari i la col_10"
+
     def __init__(self):
         self.carregar()
 
+    def fitxers(self):
+        return [camins.DICCIONARI, camins.COL_10]
+
     def mtimes(self):
-        return [os.path.getmtime(cami) for cami in (camins.DICCIONARI, camins.COL_10)]
+        return [os.path.getmtime(cami) if os.path.exists(cami) else None for cami in self.fitxers()]
 
     def carregar(self):
         self.mtime = self.mtimes()
@@ -342,15 +364,19 @@ class Llistes:
         self.paraules.insert(posicio, camps[0])
         self._per_lema = None
 
-    def desar(self):
-        """Tots dos sencers: primer els dos temporals i després els dos
-        reemplaçaments, l'un darrere l'altre. Així el que es pot quedar a
-        mitges és un rename, i no pas 76 MB."""
-        textos = {
+    def textos(self):
+        """{camí: el que hi va}, tal com han de quedar."""
+        return {
             # El diccionari acaba amb salt de línia i la col_10 no (vegeu camins.py).
             camins.DICCIONARI: "\n".join(self.diccionari) + "\n",
             camins.COL_10: "\n".join(self.col_10),
         }
+
+    def desar(self):
+        """Tots sencers: primer tots els temporals i després tots els
+        reemplaçaments, l'un darrere l'altre. Així el que es pot quedar a
+        mitges és un rename, i no pas 76 MB."""
+        textos = self.textos()
         try:
             for cami, text in textos.items():
                 with open(cami + ".desant", "w", encoding="utf-8") as sortida:
@@ -365,53 +391,171 @@ class Llistes:
         self.mtime = self.mtimes()
 
 
+class LlistesApendix(Llistes):
+    """L'apendix d'un dialecte, amb la mateixa cara que el diccionari.
+
+    A dins no hi ha cap fitxer de set camps: la identitat i la transcripció són
+    a la seva col_10 i les síl·labes i els enllaços, a les col_5 a 8, fila per
+    fila. Aquí es munten les files de set camps igual que les del diccionari
+    (diccionari, paraules, col_10) perquè tota la resta (on va, els veïns, els
+    models) sigui la mateixa, i en desar es tornen a partir."""
+
+    def __init__(self, codi):
+        self.codi = codi
+        self.nom = f"l'apèndix del {NOMS_DIALECTES.get(codi, codi)}"
+        super().__init__()
+
+    def fitxers(self):
+        return [camins.cami_col_10_apendix(self.codi)] + [camins.cami_apendix(self.codi, numero)
+                                                          for numero in camins.APENDIX_A_MA]
+
+    def carregar(self):
+        self.mtime = self.mtimes()
+        self.codis = [self.codi]
+        self.diccionari, self.col_10, self.paraules = [], [], []
+        self._per_lema = None
+        self.error = self._llegir()
+
+    def _llegir(self):
+        """Omple les llistes i torna per què no s'hi pot afegir res, o None.
+        Com al diccionari, tot és cosa del sincronitzar.py o de l'editor."""
+        cami_col_10, *camins_dades = self.fitxers()
+        for cami in self.fitxers():
+            if not os.path.exists(cami):
+                return f"falta {camins.relatiu(cami)}: primer passa el sincronitzar.py."
+        def llegir(cami):
+            # Un fitxer buit és un apendix sense files, i no pas una fila buida.
+            linies = camins.llegir_columna(cami)
+            return [] if linies == [""] else linies
+        col_10 = llegir(cami_col_10)
+        dades = [llegir(cami) for cami in camins_dades]
+
+        quantes = [len(col_10)] + [len(valors) for valors in dades]
+        if len(set(quantes)) > 1:
+            detall = ", ".join(f"{os.path.basename(cami)}: {camins.mil(n)}"
+                               for cami, n in zip(self.fitxers(), quantes))
+            return (f"els fitxers de l'apendix del '{self.codi}' no tenen el mateix nombre de "
+                    f"files ({detall}): primer passa el sincronitzar.py.")
+
+        nom = camins.relatiu(cami_col_10)
+        diccionari = []
+        for i, linia in enumerate(col_10):
+            trossos = modul_col_10.TROS.split(linia)
+            identitat = trossos[0].split(modul_col_10.SEPARADOR)
+            if (len(identitat) != camins.CAMPS_IDENTITAT or trossos[1::2] != [self.codi]
+                    or not trossos[2].strip()):
+                return (f"{nom}, línia {i + 1}: ha de ser «paraula € lema € codi "
+                        f"€${self.codi}$ transcripció», amb el seu dialecte i prou.")
+            camps = identitat + [valors[i] for valors in dades]
+            if any("$" in camp for camp in camps):
+                return f"{nom}, línia {i + 1}: hi ha un $ en algun camp."
+            diccionari.append("$".join(camps))
+
+        self.col_10 = col_10
+        self.diccionari = diccionari
+        self.paraules = [linia.split("$", 1)[0] for linia in diccionari]
+        return None
+
+    def textos(self):
+        # Totes sense salt de línia al final, com qualsevol columna (vegeu camins.py).
+        camps = [linia.split("$") for linia in self.diccionari]
+        textos = {camins.cami_col_10_apendix(self.codi): "\n".join(self.col_10)}
+        for numero, camp in zip(camins.APENDIX_A_MA, range(camins.CAMPS_IDENTITAT, camins.CAMPS)):
+            textos[camins.cami_apendix(self.codi, numero)] = "\n".join(fila[camp] for fila in camps)
+        return textos
+
+
+# Com es diu el diccionari a les peticions; els apendixs, pel codi del dialecte.
+DESTI_DICCIONARI = "diccionari"
+
+
 class Servidor:
     def __init__(self):
         print("Carregant el diccionari i la col_10 (van uns segons)…", flush=True)
-        self.llistes = Llistes()
-        if self.llistes.error:
-            avisos.plegar(self.llistes.error)
+        # {destí: Llistes}. Els apendixs no es llegeixen fins que algú els tria.
+        self.destins = {DESTI_DICCIONARI: Llistes()}
+        diccionari = self.destins[DESTI_DICCIONARI]
+        if diccionari.error:
+            avisos.plegar(diccionari.error)
         self.pany = threading.Lock()
-        print(f"  {camins.mil(len(self.llistes.diccionari))} files, "
-              f"dialectes {', '.join(self.llistes.codis)}")
+        print(f"  {camins.mil(len(diccionari.diccionari))} files, "
+              f"dialectes {', '.join(diccionari.codis)}")
+        print(f"  apendixs: {', '.join(camins.dialectes_amb_apendix()) or '(cap)'}")
 
-    def _al_dia(self):
-        """Dins del pany. Torna l'error si ara els fitxers no es corresponen."""
-        self.llistes.al_dia()
-        if self.llistes.error:
-            return 409, {"error": f"No s'hi pot afegir res: {self.llistes.error}"}
+    def _llistes(self, desti):
+        """Dins del pany. Torna (llistes, None), o (None, error) si el destí no
+        existeix o els seus fitxers ara no es corresponen."""
+        desti = str(desti or DESTI_DICCIONARI)
+        if desti not in self.destins:
+            if desti not in camins.dialectes_amb_apendix():
+                return None, (400, {"error": f"No hi ha cap apèndix «{desti}»."})
+            print(f"Carregant l'apendix del '{desti}'…", flush=True)
+            self.destins[desti] = LlistesApendix(desti)
+            print(f"  {camins.mil(len(self.destins[desti].diccionari))} files", flush=True)
+        llistes = self.destins[desti]
+        llistes.al_dia()
+        if llistes.error:
+            return None, (409, {"error": f"No s'hi pot afegir res: {llistes.error}"})
+        return llistes, None
+
+    def _base(self, llistes, model):
+        """La forma del model que és el lema mateix, (camps, {codi: transcripció}),
+        que és d'on surten les regles; o None. En un apendix sovint no hi és: el
+        lema es diu a tot arreu i només són del dialecte algunes formes (cante,
+        servisc). Llavors es pren la del diccionari, amb la transcripció d'aquell
+        dialecte."""
+        on = [llistes]
+        diccionari = self.destins[DESTI_DICCIONARI]
+        if llistes is not diccionari:
+            diccionari.al_dia()
+            if not diccionari.error:
+                on.append(diccionari)
+        for llista in on:
+            for posicio in llista.per_lema().get(model, []):
+                if llista.paraules[posicio] == model:
+                    camps, transcripcions = llista.fila(posicio)
+                    if all(codi in transcripcions for codi in llistes.codis):
+                        return camps, transcripcions
         return None
 
-    def configuracio(self):
+    def configuracio(self, desti):
+        apendixs = [{"id": codi, "nom": f"Apèndix del {NOMS_DIALECTES.get(codi, codi)}"}
+                    for codi in camins.dialectes_amb_apendix()]
+        dades = {"destins": [{"id": DESTI_DICCIONARI, "nom": "Diccionari (tots els dialectes)"}]
+                            + apendixs,
+                 "dialectes": NOMS_DIALECTES, "vocals": VOCALS, "accent": ACCENT,
+                 "inventari": "".join(sorted(INVENTARI))}
         with self.pany:
-            self.llistes.al_dia()
-            return {"codis": self.llistes.codis, "dialectes": NOMS_DIALECTES,
-                    "vocals": VOCALS, "accent": ACCENT, "inventari": "".join(sorted(INVENTARI)),
-                    "files": len(self.llistes.diccionari)}
+            llistes, error = self._llistes(desti)
+            if error:
+                codi, cos = error
+                return codi, {**dades, **cos}
+            return 200, {**dades, "desti": desti or DESTI_DICCIONARI, "codis": llistes.codis,
+                         "nom": llistes.nom, "files": len(llistes.diccionari),
+                         "fitxers": [camins.relatiu(cami) for cami in llistes.fitxers()]}
 
-    def veure(self, paraula, fila):
+    def veure(self, desti, paraula, fila):
         """On aniria i què hi ha al voltant, per ensenyar-ho abans d'afegir-la."""
         paraula = paraula.strip()
         with self.pany:
-            error = self._al_dia()
+            llistes, error = self._llistes(desti)
             if error:
                 return error
-            posicio, error = self.llistes.posicio(paraula, fila)
+            posicio, error = llistes.posicio(paraula, fila)
             if error:
                 return 400, {"error": error}
-            abans, despres = self.llistes.veins(posicio)
+            abans, despres = llistes.veins(posicio)
             return 200, {"fila": posicio + 1,
-                         "proposada": on_va(self.llistes.paraules, paraula) + 1,
-                         "files": len(self.llistes.diccionari),
+                         "proposada": on_va(llistes.paraules, paraula) + 1,
+                         "files": len(llistes.diccionari),
                          "abans": abans, "despres": despres}
 
     def afegir(self, peticio):
         """Una paraula del formulari, a la fila que t'ha ensenyat veure()."""
         with self.pany:
-            error = self._al_dia()
+            llistes, error = self._llistes(peticio.get("desti"))
             if error:
                 return error
-            llistes = self.llistes
             camps, transcripcions = del_formulari(peticio, llistes.codis)
             errors = problemes(camps, transcripcions)
             if errors:
@@ -433,10 +577,10 @@ class Servidor:
                 llistes.desar()
             except OSError as excepcio:
                 return 500, {"error": f"No s'ha pogut desar ({excepcio}). Mira amb el git com "
-                                      f"han quedat el diccionari i la col_10."}
+                                      f"han quedat {llistes.nom}."}
             files = len(llistes.diccionari)
 
-        print(f"  afegida: {'$'.join(camps)} (fila {posicio + 1}): "
+        print(f"  afegida a {llistes.nom}: {'$'.join(camps)} (fila {posicio + 1}): "
               + ", ".join(f"{codi} {valor}" for codi, valor in transcripcions.items()), flush=True)
         return 200, {"fila": posicio + 1, "files": files, "linia": "$".join(camps),
                      "transcripcions": transcripcions}
@@ -451,10 +595,9 @@ class Servidor:
         provar = bool(peticio.get("provar"))
 
         with self.pany:
-            error = self._al_dia()
+            llistes, error = self._llistes(peticio.get("desti"))
             if error:
                 return error
-            llistes = self.llistes
             noves, errors = dels_arxius(text_paraules, textos, llistes.codis)
             if errors:
                 if len(errors) > MAX_ERRORS:
@@ -463,7 +606,8 @@ class Servidor:
 
             # Cadascuna va on li toca comptant les d'abans, que ja hi seran. Per
             # provar, sobre una còpia de les paraules; per desar, sobre les de
-            # debò, que inserir() fa créixer alhora que el diccionari i la col_10.
+            # debò, que inserir() fa créixer alhora que el diccionari i la col_10
+            # (o la col_10 de l'apendix i les seves col_5 a 8).
             paraules = list(llistes.paraules) if provar else llistes.paraules
             vista = []
             for camps, seves in noves:
@@ -483,13 +627,13 @@ class Servidor:
                 llistes.desar()
             except OSError as excepcio:
                 return 500, {"error": f"No s'ha pogut desar ({excepcio}). Mira amb el git com "
-                                      f"han quedat el diccionari i la col_10."}
+                                      f"han quedat {llistes.nom}."}
             files = len(llistes.diccionari)
 
-        print(f"  afegides {camins.mil(len(noves))} paraules des d'arxius", flush=True)
+        print(f"  afegides {camins.mil(len(noves))} paraules des d'arxius a {llistes.nom}", flush=True)
         return 200, {"n": len(noves), "files": files}
 
-    def models(self, lema):
+    def models(self, desti, lema):
         """Lemes que ja hi són i que acaben com el nou, per fer-ne de model: els
         que hi comparteixen més lletres del final i, a igualtat, els de família
         més gran (els que tenen més formes per copiar)."""
@@ -497,15 +641,15 @@ class Servidor:
         if not lema:
             return 200, {"models": []}
         with self.pany:
-            error = self._al_dia()
+            llistes, error = self._llistes(desti)
             if error:
                 return error
             candidats = []
-            for model, posicions in self.llistes.per_lema().items():
+            for model, posicions in llistes.per_lema().items():
                 if model == lema:
                     continue
                 comu = sufix_comu(model, lema)
-                if comu >= 2 and any(self.llistes.paraules[p] == model for p in posicions):
+                if comu >= 2 and self._base(llistes, model):
                     candidats.append((-comu, -len(posicions), model))
             candidats.sort()
             return 200, {"models": [{"lema": model, "formes": -formes}
@@ -525,10 +669,9 @@ class Servidor:
             return 400, {"error": "Falten les síl·labes del lema nou."}
 
         with self.pany:
-            error = self._al_dia()
+            llistes, error = self._llistes(peticio.get("desti"))
             if error:
                 return error
-            llistes = self.llistes
             falten = [NOMS_DIALECTES.get(codi, codi) for codi in llistes.codis if not noves.get(codi)]
             if falten:
                 return 400, {"error": f"Falta la transcripció del lema nou en {', '.join(falten)}."}
@@ -536,12 +679,13 @@ class Servidor:
             if not posicions:
                 return 400, {"error": f"No hi ha cap paraula amb el lema «{model}»."}
             familia = [llistes.fila(posicio) for posicio in posicions]
-            # La forma del model que és el lema mateix: d'ella surten les regles.
-            bases = [(camps, trans) for camps, trans in familia if camps[0] == model]
-            if not bases:
-                return 400, {"error": f"El lema «{model}» no hi és com a paraula: no se'n "
-                                      f"poden treure les regles."}
-            base_camps, base_trans = bases[0]
+            base = self._base(llistes, model)
+            if not base:
+                return 400, {"error": f"El lema «{model}» no hi és com a paraula"
+                                      + ("" if llistes is self.destins[DESTI_DICCIONARI]
+                                         else " ni aquí ni al diccionari")
+                                      + ": no se'n poden treure les regles."}
+            base_camps, base_trans = base
 
             ja_hi_son = {(llistes.paraules[p], llistes.diccionari[p].split("$", 3)[2])
                          for p in llistes.per_lema().get(lema, [])}
@@ -590,15 +734,15 @@ def fer_handler(servidor):
                 self.send_header("Content-Length", str(len(cos)))
                 self.end_headers()
                 self.wfile.write(cos)
-            elif url.path == "/api/configuracio":
-                self._json(200, servidor.configuracio())
+                return
+            consulta = parse_qs(url.query)
+            valor = lambda clau: consulta.get(clau, [""])[0]
+            if url.path == "/api/configuracio":
+                self._json(*servidor.configuracio(valor("desti")))
             elif url.path == "/api/posicio":
-                consulta = parse_qs(url.query)
-                paraula = consulta.get("paraula", [""])[0]
-                fila = consulta.get("fila", [""])[0]
-                self._json(*servidor.veure(paraula, fila))
+                self._json(*servidor.veure(valor("desti"), valor("paraula"), valor("fila")))
             elif url.path == "/api/models":
-                self._json(*servidor.models(parse_qs(url.query).get("lema", [""])[0]))
+                self._json(*servidor.models(valor("desti"), valor("lema")))
             else:
                 self._json(404, {"error": "no hi és"})
 
@@ -621,7 +765,8 @@ def fer_handler(servidor):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Donar d'alta paraules al diccionari i a la col_10.")
+    parser = argparse.ArgumentParser(description="Donar d'alta paraules al diccionari i a la col_10, "
+                                                 "o a l'apendix d'un dialecte.")
     parser.add_argument("--port", type=int, default=PORT)
     parser.add_argument("--sense-navegador", action="store_true")
     opcions = parser.parse_args()
@@ -631,7 +776,8 @@ def main():
     http = ThreadingHTTPServer(("127.0.0.1", opcions.port), fer_handler(servidor))
     adreca = f"http://localhost:{opcions.port}"
     print(f"\nObert a {adreca}  (Ctrl+C per aturar-lo)")
-    print("Recorda: git pull abans de començar, i commit del diccionari i la col_10 junts en acabar.\n")
+    print("Recorda: git pull abans de començar, i commit de tots els fitxers que hagi tocat junts "
+          "en acabar.\n")
     if not opcions.sense_navegador:
         webbrowser.open(adreca)
     try:

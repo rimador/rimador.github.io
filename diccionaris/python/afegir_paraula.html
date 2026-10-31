@@ -26,6 +26,11 @@
            background: var(--paper); cursor: pointer; }
   button.principal { background: var(--accent); border-color: var(--accent); color: #fff; }
   button:disabled { opacity: .45; cursor: default; }
+  .desti { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 12px;
+           font-size: 14px; font-weight: 600; }
+  .desti select { font: inherit; font-weight: 400; color: inherit; padding: 6px 10px;
+                  border: 1px solid var(--vora); border-radius: 8px; background: var(--paper); }
+  .desti .carregant { font-weight: 400; font-size: 13px; color: var(--suau); }
   .modes { display: inline-flex; border: 1px solid var(--vora); border-radius: 8px; overflow: hidden;
            background: var(--paper); margin-bottom: 14px; }
   .modes label { display: flex; align-items: center; padding: 6px 12px; cursor: pointer;
@@ -126,9 +131,11 @@
 <body>
 <main>
   <h1>Afegir paraules</h1>
-  <p class="nota">Escriu al <code>diccionari.5.2.3.txt</code> i a la <code>col_10</code> alhora, a la mateixa fila.
-    És per a paraules que es diuen a tots els dialectes: les d'un de sol van al seu apèndix.
-    Abans de començar, <code>git pull</code>; en acabar, commit dels dos fitxers junts.</p>
+  <label class="desti">On va
+    <select id="desti"><option value="diccionari">Diccionari (tots els dialectes)</option></select>
+    <span class="carregant" id="carregant-desti"></span>
+  </label>
+  <p class="nota" id="nota-desti"></p>
 
   <div class="modes" role="radiogroup" aria-label="Quantes paraules">
     <label><input type="radio" name="manera" value="una" checked>Una paraula</label>
@@ -201,7 +208,8 @@
   <section class="targeta" id="diverses" hidden>
     <p class="format">Un arxiu amb les files del diccionari, una per línia
       (<code>paraula$lema$codi$síl·labes$Vicc$Viq$Diec</code>, amb <code>NO</code> on no hi surti), i un per
-      dialecte amb la transcripció de cada paraula a la mateixa línia. Les línies en blanc no compten.
+      dialecte amb la transcripció de cada paraula a la mateixa línia (a un apèndix, només el del seu
+      dialecte). Les línies en blanc no compten.
       Cada paraula va on li toca per ordre alfabètic.</p>
     <div class="arxius" id="arxius">
       <label for="arxiu-paraules">Paraules</label>
@@ -225,7 +233,8 @@
 const SIMBOLS = "ˈ ˌ ə ɛ ɔ ɾ r ʎ ɲ ŋ ʒ ʃ ɡ β ð ɣ ɱ z j w".split(" ");
 const ORDRE = ["ca", "nw", "va", "ba"];
 const FONTS = [["vicc", "Vicc"], ["viq", "Viq"], ["diec", "Diec"]];
-let config = { codis: [], dialectes: {}, vocals: "", accent: "ˈ", inventari: "", files: 0 };
+let config = { destins: [], desti: "diccionari", codis: [], nom: "", fitxers: [], dialectes: {},
+               vocals: "", accent: "ˈ", inventari: "", files: 0 };
 let darrerCamp = null;
 // La darrera resposta de /api/posicio, que és el que hi ha a la pantalla, i
 // per a quina paraula i fila era.
@@ -240,6 +249,11 @@ const nombre = n => n.toLocaleString("ca");
 const nomDialecte = codi => config.dialectes[codi] || codi;
 const lloc = codi => ORDRE.includes(codi) ? ORDRE.indexOf(codi) : ORDRE.length;
 const ordenats = codis => [...codis].sort((a, b) => lloc(a) - lloc(b));
+const majuscula = text => text.charAt(0).toUpperCase() + text.slice(1);
+// On va: "diccionari" o el codi del dialecte de l'apèndix. Va a totes les peticions.
+const desti = () => config.desti;
+const filesAra = files => `${majuscula(config.nom)}: ${nombre(files)} files.`;
+const desant = () => `Desant ${config.nom}… (es reescriu sencer, van uns segons)`;
 
 // La mateixa regla que calcular_rimes() del columnes.py: la rima consonant és
 // el que hi ha darrere l'últim accent primari, i l'assonant, les seves vocals.
@@ -305,7 +319,7 @@ function errorsDelFormulari(camps) {
   return errors;
 }
 
-const clauVista = () => `${$("paraula").value.trim()}\n${$("fila").value.trim()}`;
+const clauVista = () => `${desti()}\n${$("paraula").value.trim()}\n${$("fila").value.trim()}`;
 
 function refrescar() {
   const camps = campsDelFormulari();
@@ -347,7 +361,8 @@ function demanarVista() {
     return refrescar();
   }
   esperantVista = setTimeout(async () => {
-    const parametres = new URLSearchParams({ paraula: $("paraula").value.trim(), fila: $("fila").value.trim() });
+    const parametres = new URLSearchParams({ desti: desti(), paraula: $("paraula").value.trim(),
+                                             fila: $("fila").value.trim() });
     const resposta = await fetch(`/api/posicio?${parametres}`);
     const dades = await resposta.json();
     if (clau !== clauVista()) return;   // mentrestant ha canviat: ja n'hi ha una altra en camí
@@ -384,12 +399,13 @@ async function afegir() {
   if ($("afegeix").disabled) return;
   const camps = campsDelFormulari();
   $("afegeix").disabled = true;
-  missatge("missatge", "Desant… (es reescriuen el diccionari i la col_10 sencers, van uns segons)");
+  missatge("missatge", desant());
   const resposta = await fetch("/api/afegeix", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...camps,
+      desti: desti(),
       fila: vista.fila,
       // Les dues files entre les quals l'has vista: si ja no hi són, no es desa.
       abans: vista.abans.at(-1)?.linia ?? null,
@@ -404,11 +420,12 @@ async function afegir() {
   }
   config.files = dades.files;
   perLaSeguent();
-  missatge("missatge", `Afegida a la fila ${nombre(dades.fila)}. El diccionari i la col_10 tenen `
-                       + `${nombre(dades.files)} files. La resta de camps es queden per a la següent.`, "be");
+  missatge("missatge", `Afegida a la fila ${nombre(dades.fila)}. ${filesAra(dades.files)} `
+                       + `La resta de camps es queden per a la següent.`, "be");
   const transcripcions = ordenats(Object.keys(dades.transcripcions))
     .map(codi => `${esc(nomDialecte(codi))} <span class="ipa">${esc(dades.transcripcions[codi])}</span>`).join(" · ");
-  apuntar(`<strong>${esc(camps.paraula)}</strong> <small>(${esc(camps.codi)}, fila ${nombre(dades.fila)})</small> — ${transcripcions}`);
+  apuntar(`<strong>${esc(camps.paraula)}</strong> <small>(${esc(camps.codi)}, fila ${nombre(dades.fila)} `
+          + `de ${esc(config.nom)})</small> — ${transcripcions}`);
 }
 
 function buidar() {
@@ -454,7 +471,7 @@ async function enviarDiverses(arxius, provar) {
   const resposta = await fetch("/api/diverses", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...arxius, provar }),
+    body: JSON.stringify({ ...arxius, provar, desti: desti() }),
   });
   return { ok: resposta.ok, dades: await resposta.json() };
 }
@@ -498,7 +515,7 @@ async function afegirDiverses() {
   if (!comprovats) return;
   $("afegeix-diverses").disabled = true;
   $("comprova").disabled = true;
-  missatge("missatge-diverses", "Desant… (es reescriuen el diccionari i la col_10 sencers, van uns segons)");
+  missatge("missatge-diverses", desant());
   const { ok, dades } = await enviarDiverses(comprovats, false);
   $("comprova").disabled = false;
   if (!ok) {
@@ -508,9 +525,8 @@ async function afegirDiverses() {
   config.files = dades.files;
   oblidarComprovats();
   for (const input of $("arxius").querySelectorAll("input")) input.value = "";
-  missatge("missatge-diverses", `Feta. S'han afegit ${nombre(dades.n)} paraules. El diccionari i la col_10 `
-                                + `tenen ${nombre(dades.files)} files.`, "be");
-  apuntar(`<strong>${nombre(dades.n)} ${dades.n === 1 ? "paraula" : "paraules"}</strong> des d'arxius`);
+  missatge("missatge-diverses", `Feta. S'han afegit ${nombre(dades.n)} paraules. ${filesAra(dades.files)}`, "be");
+  apuntar(`<strong>${nombre(dades.n)} ${dades.n === 1 ? "paraula" : "paraules"}</strong> des d'arxius a ${esc(config.nom)}`);
 }
 
 // Si es canvia un arxiu, el que s'havia comprovat ja no val.
@@ -532,6 +548,7 @@ let modelTriat = false;
 
 function opcionsModel() {
   return {
+    desti: desti(),
     lema: $("m-lema").value.trim(),
     silabes: $("m-silabes").value.trim(),
     model: $("m-model").value.trim(),
@@ -542,11 +559,12 @@ function opcionsModel() {
 // Els models candidats, quan canvia el lema nou.
 function demanarModels() {
   clearTimeout(esperantModels);
-  const lema = $("m-lema").value.trim();
+  const lema = $("m-lema").value.trim(), seu = desti();
   if (!lema) return $("m-models").innerHTML = "";
   esperantModels = setTimeout(async () => {
-    const dades = await fetch(`/api/models?lema=${encodeURIComponent(lema)}`).then(r => r.json());
-    if (lema !== $("m-lema").value.trim()) return;
+    const parametres = new URLSearchParams({ desti: seu, lema });
+    const dades = await fetch(`/api/models?${parametres}`).then(r => r.json());
+    if (lema !== $("m-lema").value.trim() || seu !== desti()) return;
     pintarModels(dades.models || []);
     if (!modelTriat && dades.models?.length) {
       $("m-model").value = dades.models[0].lema;
@@ -677,15 +695,14 @@ async function afegirModel() {
       [codi, triades.map(forma => forma.transcripcions[codi]).join("\n")])),
   };
   $("afegeix-model").disabled = true;
-  missatge("missatge-model", "Desant… (es reescriuen el diccionari i la col_10 sencers, van uns segons)");
+  missatge("missatge-model", desant());
   const { ok, dades } = await enviarDiverses(arxius, false);
   if (!ok) {
     refrescarModel();
     return missatge("missatge-model", [dades.error, ...(dades.errors || [])].join(" "), "mal");
   }
   config.files = dades.files;
-  missatge("missatge-model", `Fet. S'han afegit ${nombre(dades.n)} formes de «${lema}». El diccionari i la `
-                             + `col_10 tenen ${nombre(dades.files)} files.`, "be");
+  missatge("missatge-model", `Fet. S'han afegit ${nombre(dades.n)} formes de «${lema}». ${filesAra(dades.files)}`, "be");
   apuntar(`<strong>${esc(lema)}</strong> com <i>${esc($("m-model").value.trim())}</i>: `
           + triades.map(forma => esc(forma.paraula)).join(", "));
   // Tornades a demanar, ara surten com a "ja hi és".
@@ -753,8 +770,18 @@ $("m-viq").addEventListener("change", () => {
 });
 for (const radio of document.querySelectorAll('input[name="manera"]')) radio.addEventListener("change", triarManera);
 
-fetch("/api/configuracio").then(r => r.json()).then(dades => {
-  config = dades;
+// Els camps de cada dialecte (la transcripció, la del lema nou i l'arxiu) es
+// tornen a fer quan canvia on va: al diccionari en són tots, i a un apèndix,
+// només el seu. El que ja hi havies escrit en un dialecte que hi continua, s'hi queda.
+function muntarDialectes() {
+  const escrites = {};
+  for (const input of document.querySelectorAll("#transcripcions input, #m-transcripcions input")) {
+    escrites[input.id] = input.value;
+  }
+  $("transcripcions").innerHTML = "";
+  $("m-transcripcions").innerHTML = "";
+  for (const element of $("arxius").querySelectorAll("[data-dialecte]")) element.remove();
+
   for (const codi of ordenats(config.codis)) {
     const fila = document.createElement("div");
     fila.className = "dialecte";
@@ -775,15 +802,81 @@ fetch("/api/configuracio").then(r => r.json()).then(dades => {
 
     const etiqueta = document.createElement("label");
     etiqueta.htmlFor = `arxiu-${codi}`;
+    etiqueta.dataset.dialecte = codi;
     etiqueta.textContent = `Transcripcions en ${nomDialecte(codi)}`;
     const arxiu = document.createElement("input");
     arxiu.type = "file";
     arxiu.id = `arxiu-${codi}`;
+    arxiu.dataset.dialecte = codi;
     arxiu.accept = ".txt,text/plain";
     $("arxius").append(etiqueta, arxiu);
   }
+  for (const [id, valor] of Object.entries(escrites)) if ($(id)) $(id).value = valor;
   darrerCamp = $(`t-${ordenats(config.codis)[0]}`);
+}
+
+function pintarNota() {
+  const nom = cami => `<code>${esc(cami.split("/").pop())}</code>`;
+  const carpeta = esc(config.fitxers[0].split("/").slice(0, -1).join("/"));
+  $("nota-desti").innerHTML = config.desti === "diccionari"
+    ? `Escriu al ${nom(config.fitxers[0])} i a la ${nom(config.fitxers[1])} alhora, a la mateixa fila.
+       És per a paraules que es diuen a tots els dialectes: les d'un de sol van al seu apèndix (tria'l a dalt).
+       Abans de començar, <code>git pull</code>; en acabar, commit dels dos fitxers junts.`
+    : `Escriu a <code>${carpeta}/</code>, a la ${nom(config.fitxers[0])} (identitat i transcripció) i a les
+       ${config.fitxers.slice(1).map(nom).join(" ")} (síl·labes i enllaços) alhora, a la mateixa fila.
+       És per a paraules que només es diuen
+       en ${esc(nomDialecte(config.desti))}: les que es diuen a tot arreu van al diccionari.
+       Les altres columnes de l'apèndix les refà el <code>sincronitzar.py</code>.
+       Abans de començar, <code>git pull</code>; en acabar, commit d'aquests fitxers junts.`;
+}
+
+// Demana al servidor com és el destí triat (el primer cop que es tria un
+// apèndix, el llegeix: van uns segons) i hi adapta la pàgina. Torna l'error,
+// si no s'ha pogut.
+async function carregarDesti(seu) {
+  $("desti").disabled = true;
+  $("carregant-desti").textContent = seu && seu !== "diccionari" ? "Llegint l'apèndix…" : "";
+  const resposta = await fetch(`/api/configuracio?${new URLSearchParams({ desti: seu || "" })}`);
+  const dades = await resposta.json();
+  $("desti").disabled = false;
+  $("carregant-desti").textContent = "";
+
+  $("desti").innerHTML = dades.destins.map(({ id, nom }) =>
+    `<option value="${esc(id)}">${esc(nom)}</option>`).join("");
+  if (!resposta.ok) {
+    // Es queda on era: el destí triat no s'ha pogut llegir.
+    $("desti").value = config.desti;
+    $("carregant-desti").innerHTML = `<span class="mal">${esc(dades.error)}</span>`;
+    return dades.error;
+  }
+  config = dades;
+  $("desti").value = config.desti;
+  try { localStorage.setItem("afegir_paraula.desti", config.desti); } catch {}
+
+  muntarDialectes();
+  pintarNota();
+  // El que s'havia mirat o comprovat era d'un altre destí.
+  vista = null;
+  oblidarComprovats();
+  formes = [];
+  pintarFormes();
+  for (const id of ["missatge", "missatge-diverses", "missatge-model"]) missatge(id, "");
+  demanarVista();
+  demanarModels();
+  if ($("m-lema").value.trim()) demanarFormes();
   refrescar();
+  return null;
+}
+
+$("desti").addEventListener("change", () => carregarDesti($("desti").value));
+
+let destiDesat = null;
+try { destiDesat = localStorage.getItem("afegir_paraula.desti"); } catch {}
+carregarDesti(destiDesat).then(async error => {
+  // Si el de l'altra vegada ara no es pot llegir, al diccionari, però dient per què.
+  if (!error || !destiDesat) return;
+  await carregarDesti("");
+  $("carregant-desti").innerHTML = `<span class="mal">${esc(error)}</span>`;
 });
 </script>
 </body>

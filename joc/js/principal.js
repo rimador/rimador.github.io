@@ -134,6 +134,15 @@ ui.el.formulari.addEventListener('submit', enviarParaula);
 ui.el.camp.addEventListener('keydown', (esdeveniment) => {
     if (esdeveniment.key === 'Enter') enviarParaula(esdeveniment);
 });
+// Al mòbil, tocar "Envia" fa que el camp perdi el focus i el teclat s'amagui,
+// cosa que amb la tecla de retorn no passa perquè el focus no es mou mai del
+// camp. El focus canvia al mousedown: aturant-lo, el botó no se l'emporta i el
+// click (i per tant l'enviament) arriba igual. Per als navegadors que el treuen
+// de totes maneres, enviarParaula() el torna a posar al camp.
+ui.el.formulari.querySelector('button').addEventListener('mousedown', (esdeveniment) => {
+    esdeveniment.preventDefault();
+});
+
 
 // Les puntuacions que van quedar sense poder pujar (vegeu enviarPendents a
 // classificacio.js): quan torna la connexio, i tambe en obrir el joc, que es
@@ -756,6 +765,9 @@ function enviarParaula(esdeveniment) {
     esdeveniment.preventDefault();
     const partida = estat.partida;
     if (!partida || partida.acabada) return;
+    // Dins del mateix toc al botó, perquè iOS només obre el teclat si el focus
+    // es demana durant un gest de l'usuari.
+    ui.el.camp.focus();
 
     const { resultat, mostrar } = partida.provar(ui.el.camp.value);
     if (resultat === RESULTAT.BUIT) {

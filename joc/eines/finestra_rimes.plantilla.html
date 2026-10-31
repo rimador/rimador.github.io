@@ -1,0 +1,1275 @@
+<!doctype html>
+<!--
+  Plantilla de finestra_rimes.py: el script hi posa les dades al lloc de
+  __DADES__ i n'escriu el finestra_rimes.html. Tot es calcula aquí, en temps
+  real, a partir de les parelles (lo, hi) de cada clau: vegeu el docstring del
+  script per saber què són.
+-->
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finestra de rimes</title>
+<style>
+:root {
+    color-scheme: light;
+    --pla: #f9f9f7;
+    --superficie: #fcfcfb;
+    --text: #0b0b0b;
+    --text-2: #52514e;
+    --apagat: #898781;
+    --graella: #e1e0d9;
+    --base: #c3c2b7;
+    --vora: rgba(11, 11, 11, 0.10);
+    --serie: #2a78d6;
+    --serie-activa: #1b5aa6;
+    --context: #d9d8d2;
+    --context-actiu: #bdbcb5;
+    --finestra: rgba(42, 120, 214, 0.08);
+    --ombra: 0 6px 20px rgba(11, 11, 11, 0.12);
+    /* La taula: de poc (clar) a molt (fosc), i el text que hi va a sobre. */
+    --t1: #cde2fb; --t2: #9ec5f4; --t3: #6da7ec; --t4: #2a78d6; --t5: #1c5cab; --t6: #0d366b;
+    --t-clar: #0b0b0b; --t-fosc: #ffffff;
+    /* L'estat "crític" de la paleta: la clau baixa de rimes en un altre dialecte.
+       I el "bo": en puja. */
+    --alerta: #d03b3b; --alerta-fons: rgba(208, 59, 59, 0.10);
+    --positiu: #1a7f45; --positiu-fons: rgba(26, 127, 69, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --pla: #0d0d0d; --superficie: #1a1a19; --text: #f0efec; --text-2: #c3c2b7;
+        --apagat: #898781; --graella: #2c2c2a; --base: #383835; --vora: rgba(255, 255, 255, 0.10);
+        --serie: #3987e5; --serie-activa: #79adee; --context: #3a3a37; --context-actiu: #55554f;
+        --finestra: rgba(57, 135, 229, 0.12); --ombra: 0 6px 20px rgba(0, 0, 0, 0.5);
+        --t1: #104281; --t2: #184f95; --t3: #256abf; --t4: #3987e5; --t5: #6da7ec; --t6: #b7d3f6;
+        --t-clar: #ffffff; --t-fosc: #0b0b0b;
+        --alerta-fons: rgba(208, 59, 59, 0.20);
+        --positiu: #3fb871; --positiu-fons: rgba(63, 184, 113, 0.20);
+    }
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --pla: #0d0d0d; --superficie: #1a1a19; --text: #f0efec; --text-2: #c3c2b7;
+    --apagat: #898781; --graella: #2c2c2a; --base: #383835; --vora: rgba(255, 255, 255, 0.10);
+    --serie: #3987e5; --serie-activa: #79adee; --context: #3a3a37; --context-actiu: #55554f;
+    --finestra: rgba(57, 135, 229, 0.12); --ombra: 0 6px 20px rgba(0, 0, 0, 0.5);
+    --t1: #104281; --t2: #184f95; --t3: #256abf; --t4: #3987e5; --t5: #6da7ec; --t6: #b7d3f6;
+    --t-clar: #ffffff; --t-fosc: #0b0b0b;
+    --alerta-fons: rgba(208, 59, 59, 0.20);
+    --positiu: #3fb871; --positiu-fons: rgba(63, 184, 113, 0.20);
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0; background: var(--pla); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.pagina { max-width: 1100px; margin: 0 auto; padding: 32px 16px 48px; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 20px; margin: 36px 0 4px; }
+.intro { color: var(--text-2); max-width: 75ch; margin: 0 0 20px; }
+/* El commutador de rima, a dalt de tot. */
+.rima { margin: 0 0 8px; }
+#nota-rima { margin: 0 0 20px; }
+.explica { color: var(--text-2); font-size: 14px; max-width: 80ch; margin: 0 0 12px; }
+.targeta {
+    min-width: 0; padding: 16px; border-radius: 12px;
+    background: var(--superficie); border: 1px solid var(--vora);
+}
+
+/* --- La finestra i les xifres ------------------------------------------- */
+.tauler { display: grid; gap: 16px; }
+@media (min-width: 860px) {
+    .tauler { grid-template-columns: minmax(300px, 1fr) 2fr; align-items: start; }
+    .tauler > .targeta:first-child { position: sticky; top: 16px; }
+}
+.limit + .limit { margin-top: 16px; }
+.limit label { display: block; font-size: 13px; color: var(--apagat); margin-bottom: 4px; }
+.fila { display: flex; align-items: center; gap: 12px; }
+.fila input[type="range"] { flex: 1; min-width: 0; accent-color: var(--serie); }
+.fila input[type="number"] {
+    width: 92px; font: inherit; font-size: 16px; font-variant-numeric: tabular-nums;
+    padding: 4px 8px; border-radius: 6px;
+    border: 1px solid var(--vora); background: var(--pla); color: var(--text);
+}
+.presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.presets button {
+    font: inherit; font-size: 13px; padding: 4px 10px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--vora); background: var(--pla); color: var(--text-2);
+}
+.presets button:hover { color: var(--text); border-color: var(--text-2); }
+.presets button[aria-pressed="true"] { background: var(--text); color: var(--superficie); border-color: var(--text); }
+
+.xifres { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.xifra .nom { display: block; font-size: 13px; color: var(--apagat); }
+.xifra .valor { display: block; font-size: 28px; font-weight: 650; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.xifra .sub { display: block; font-size: 13px; color: var(--text-2); }
+.xifra.principal .valor { font-size: 52px; letter-spacing: -0.02em; }
+/* La mediana i la mitjana, de costat i amb el mateix pes. */
+.parella { display: flex; flex-wrap: wrap; gap: 0 24px; }
+
+/* --- L'histograma ------------------------------------------------------- */
+.grafic svg { display: block; overflow: visible; }
+.grafic svg:focus { outline: none; }
+.grafic svg:focus-visible { outline: 2px solid var(--serie); outline-offset: 4px; border-radius: 4px; }
+.linia-graella { stroke: var(--graella); stroke-width: 1; }
+.linia-base { stroke: var(--base); stroke-width: 1; }
+.eix { fill: var(--apagat); font-size: 11px; font-variant-numeric: tabular-nums; }
+.titol-eix { fill: var(--apagat); font-size: 11px; }
+.dins { fill: var(--serie); }
+.dins.activa { fill: var(--serie-activa); }
+.fora { fill: var(--context); }
+.fora.activa { fill: var(--context-actiu); }
+.banda { fill: var(--finestra); }
+.vora-finestra { stroke: var(--serie); stroke-width: 1; }
+.etiqueta-finestra { fill: var(--text); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.zona { fill: transparent; cursor: crosshair; }
+.llegenda { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 13px; color: var(--text-2); }
+.llegenda span { display: inline-flex; align-items: center; gap: 6px; }
+.llegenda i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+
+/* --- La taula ----------------------------------------------------------- */
+.taula-caixa { overflow-x: auto; }
+table { border-collapse: separate; border-spacing: 2px; font-size: 13px; font-variant-numeric: tabular-nums; }
+th { font-weight: 500; color: var(--apagat); padding: 2px 6px; white-space: nowrap; }
+thead th { text-align: center; }
+tbody th { text-align: right; }
+th.cantonada { text-align: left; font-size: 12px; line-height: 1.2; }
+td {
+    min-width: 52px; height: 32px; padding: 0 6px; text-align: center; border-radius: 4px;
+    cursor: pointer; outline-offset: -2px;
+}
+td.buida { cursor: default; }
+td.actual { outline: 2px solid var(--text); }
+td:not(.buida):hover { outline: 2px solid var(--text-2); }
+.t1 { background: var(--t1); color: var(--t-clar); }
+.t2 { background: var(--t2); color: var(--t-clar); }
+.t3 { background: var(--t3); color: var(--t-clar); }
+.t4 { background: var(--t4); color: var(--t-fosc); }
+.t5 { background: var(--t5); color: var(--t-fosc); }
+.t6 { background: var(--t6); color: var(--t-fosc); }
+
+/* --- El detall de la finestra ------------------------------------------- */
+.accions { margin-top: 12px; }
+.accions button {
+    font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--vora); background: var(--pla); color: var(--text);
+}
+.accions button:hover { border-color: var(--text-2); }
+#detall { margin-top: 16px; }
+.capcalera-detall { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.capcalera-detall h3 { font-size: 16px; margin: 0; }
+.grup { display: inline-flex; align-items: center; gap: 8px; }
+.rotul { font-size: 13px; color: var(--apagat); }
+.segment {
+    display: inline-flex; padding: 2px; border-radius: 8px;
+    background: var(--superficie); border: 1px solid var(--vora);
+}
+.segment button {
+    font: inherit; font-size: 13px; border: 0; border-radius: 6px;
+    padding: 3px 10px; cursor: pointer; background: transparent; color: var(--text-2);
+}
+.segment button:hover { color: var(--text); }
+.segment button[aria-pressed="true"] { background: var(--text); color: var(--superficie); }
+#nota-detall { margin: 4px 0 8px; }
+.linia { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.linia.dins { stroke: var(--serie); fill: none; }
+.area-totes { fill: var(--context); }
+.punt.dins { fill: var(--serie); }
+.punt.totes { fill: var(--apagat); }
+.punt.anella { stroke: var(--superficie); stroke-width: 2; }
+.creu { stroke: var(--text-2); stroke-width: 1; }
+.quartils { fill: var(--finestra); }
+.linia-quartil { stroke: var(--text-2); stroke-width: 1; }
+.linia-mediana { stroke: var(--text); stroke-width: 2; }
+.etiqueta-quartil { fill: var(--text-2); font-size: 11px; font-variant-numeric: tabular-nums; }
+.etiqueta-quartil.mediana { fill: var(--text); font-weight: 600; }
+.clau-linia { display: inline-block; width: 16px; height: 2px; border-radius: 1px; }
+/* La franja dels quartils, com al gràfic: el fons clar entre dues ratlles. */
+.mostra-quartils { display: inline-block; width: 16px; height: 12px; background: var(--finestra); border-left: 1px solid var(--text-2); border-right: 1px solid var(--text-2); }
+.fila-grafic { display: flex; }
+.eix-y { flex: none; overflow: visible; }
+
+
+/* --- Per què en queden fora ---------------------------------------------- */
+html { scroll-behavior: smooth; }
+#per-que { scroll-margin-top: 16px; }
+.xifra a { color: var(--serie); }
+table.dades { border-collapse: collapse; border-spacing: 0; width: 100%; font-size: 14px; }
+table.dades th, table.dades td {
+    min-width: 0; height: auto; padding: 6px 10px; border-radius: 0; cursor: default;
+    text-align: right; border-bottom: 1px solid var(--graella);
+}
+table.dades th:first-child, table.dades td:first-child { text-align: left; }
+table.dades thead th { color: var(--apagat); font-weight: 500; font-size: 13px; background: var(--superficie); white-space: normal; }
+.llista th:nth-child(2), .llista td.clau { text-align: left; }
+table.dades td:not(.buida):hover { outline: none; }
+.nota { font-size: 13px; color: var(--text-2); margin: 10px 0 0; }
+details { margin-top: 12px; }
+summary { cursor: pointer; font-size: 14px; color: var(--text); }
+.llista { max-height: 460px; overflow: auto; margin-top: 8px; border: 1px solid var(--vora); border-radius: 8px; }
+.llista thead th { position: sticky; top: 0; z-index: 1; }
+.llista td:first-child { font-weight: 600; }
+table.dades tbody th { color: var(--text); font-weight: 600; text-align: left; }
+.llista td.clau { color: var(--text-2); font-family: "Rimador Fonetica", "Charis SIL", "Doulos SIL", system-ui, sans-serif; }
+/* La fletxa duu el color d'estat, vermell si la clau baixa de rimes i verd si en
+   puja; el número, el del text, que es llegeix millor. */
+span.falla { color: var(--alerta); font-weight: 650; }
+td.falla { background: var(--alerta-fons); color: var(--text); font-weight: 650; }
+span.puja { color: var(--positiu); font-weight: 650; }
+td.puja { background: var(--positiu-fons); color: var(--text); font-weight: 650; }
+td.falla, td.puja, .llista td.clau { white-space: nowrap; }
+.filtre { flex-wrap: wrap; margin-top: 4px; }
+.segment button:disabled { opacity: 0.4; cursor: default; }
+.segment button:disabled:hover { color: var(--text-2); }
+#nota-filtre:empty { display: none; }
+
+#tooltip {
+    position: fixed; z-index: 10; pointer-events: none; max-width: 320px;
+    padding: 8px 10px; border-radius: 8px; font-size: 13px;
+    background: var(--superficie); border: 1px solid var(--vora); box-shadow: var(--ombra);
+}
+#tooltip strong { display: block; font-size: 15px; color: var(--text); }
+#tooltip .que { color: var(--text-2); }
+#tooltip .exemples { margin-top: 6px; color: var(--text-2); }
+#tooltip .exemples div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#tooltip .exemples b { color: var(--text); font-weight: 600; }
+
+footer { margin-top: 40px; font-size: 13px; color: var(--apagat); }
+code { font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="pagina">
+    <header>
+        <h1>La finestra de rimes del joc</h1>
+        <div class="grup rima">
+            <span class="rotul" id="rotul-rima">Rima</span>
+            <div class="segment" role="group" aria-labelledby="rotul-rima">
+                <button type="button" data-rima="cons">Consonant</button>
+                <button type="button" data-rima="asson">Assonant</button>
+            </div>
+        </div>
+        <p class="explica" id="nota-rima"></p>
+        <p class="intro" id="intro"></p>
+    </header>
+
+    <div class="tauler">
+        <div class="targeta">
+            <div class="limit">
+                <label for="min-n">Mínim de rimes</label>
+                <div class="fila">
+                    <input type="range" id="min-r" min="0" max="1000" aria-label="Mínim de rimes">
+                    <input type="number" id="min-n" min="2" step="1">
+                </div>
+            </div>
+            <div class="limit">
+                <label for="max-n">Màxim de rimes (buit: sense límit)</label>
+                <div class="fila">
+                    <input type="range" id="max-r" min="0" max="1000" aria-label="Màxim de rimes">
+                    <input type="number" id="max-n" min="2" step="1" placeholder="sense límit">
+                </div>
+            </div>
+            <div class="presets" id="presets"></div>
+        </div>
+
+        <div class="targeta xifres" aria-live="polite">
+            <div class="xifra principal">
+                <span class="nom">Dies sense repetir cap clau</span>
+                <span class="valor" id="dies"></span>
+                <span class="sub" id="durada"></span>
+            </div>
+            <div class="xifra">
+                <span class="nom">De totes les claus possibles</span>
+                <span class="valor" id="percent"></span>
+                <span class="sub" id="de-totes"></span>
+            </div>
+            <div class="xifra">
+                <span class="nom" id="nom-dificultat"></span>
+                <div class="parella">
+                    <div><span class="valor" id="mediana"></span><span class="sub">de mediana</span></div>
+                    <div><span class="valor" id="mitjana"></span><span class="sub">de mitjana</span></div>
+                </div>
+                <span class="sub" id="quartils"></span>
+            </div>
+            <div class="xifra">
+                <span class="nom">Fora per un altre dialecte</span>
+                <span class="valor" id="fora"></span>
+                <span class="sub" id="fora-sub"></span>
+            </div>
+        </div>
+    </div>
+
+    <h2>On són les claus</h2>
+    <p class="explica" id="explica-histograma"></p>
+    <div class="targeta">
+        <div class="grafic" id="histograma"></div>
+        <div class="llegenda">
+            <span><i style="background: var(--serie)"></i>Entren a la finestra</span>
+            <span><i style="background: var(--context)"></i>No hi entren</span>
+        </div>
+        <div class="accions">
+            <button type="button" id="boto-detall" aria-expanded="false" aria-controls="detall">Mostra el detall de la finestra</button>
+        </div>
+    </div>
+
+    <div class="targeta" id="detall" hidden>
+        <div class="capcalera-detall">
+            <h3 id="titol-grafic-detall"></h3>
+            <div class="grup">
+                <span class="rotul" id="rotul-eix">Eix horitzontal</span>
+                <div class="segment" role="group" aria-labelledby="rotul-eix">
+                    <button type="button" data-eix="lineal">Lineal</button>
+                    <button type="button" data-eix="log">Logarítmic</button>
+                </div>
+            </div>
+        </div>
+        <p class="nota" id="nota-detall"></p>
+        <div class="grafic" id="grafic-detall"></div>
+        <div class="llegenda">
+            <span><b class="clau-linia" style="background: var(--serie)"></b>Entren a la finestra</span>
+            <span id="llegenda-totes"><i style="background: var(--context)"></i></span>
+            <span><b class="mostra-quartils"></b>Entre el 25% i el 75%: la meitat de les que entren</span>
+        </div>
+    </div>
+
+    <h2 id="per-que">Per què en queden fora</h2>
+    <p class="explica" id="explica-fora"></p>
+    <div class="targeta">
+        <div class="taula-caixa"><table id="resum-fora" class="dades"></table></div>
+        <p class="nota" id="nota-resum"></p>
+        <details id="detall-fora">
+            <summary id="titol-detall"></summary>
+            <p class="nota">
+                De cada clau, les rimes que té a cada dialecte. <span class="falla">▼</span> vol dir
+                que en aquell dialecte baixa per sota del mínim, i <span class="puja">▲</span>, que puja
+                per sobre del màxim. Si les paraules d'una clau es reparteixen diferent en un altre
+                dialecte, es mostra la que s'acosta més a entrar-hi.
+            </p>
+            <div class="grup filtre">
+                <span class="rotul" id="rotul-filtre">Mostra</span>
+                <div class="segment" role="group" aria-labelledby="rotul-filtre">
+                    <button type="button" data-filtre="totes"></button>
+                    <button type="button" data-filtre="pugen"></button>
+                    <button type="button" data-filtre="baixen"></button>
+                </div>
+            </div>
+            <p class="nota" id="nota-filtre"></p>
+            <div class="llista"><table id="llista-fora" class="dades"></table></div>
+        </details>
+    </div>
+
+    <h2>Quants dies dona cada finestra</h2>
+    <p class="explica">
+        Cada casella és una finestra: el mínim a l'esquerra i el màxim a dalt. El número són els
+        dies que dura el cicle sense repetir cap clau. Clica'n una per provar-la.
+    </p>
+    <div class="targeta">
+        <div class="taula-caixa"><table id="taula"></table></div>
+        <div class="llegenda" id="llegenda-taula"></div>
+    </div>
+
+    <footer id="peu"></footer>
+</div>
+<div id="tooltip" hidden></div>
+
+<script>
+const DADES = __DADES__;
+const NS = 'http://www.w3.org/2000/svg';
+const tooltip = document.getElementById('tooltip');
+
+// Les claus de cada mena de rima: les consonants, que és com tria el joc, i les
+// assonants (la rima que val en fàcil). El botó de dalt canvia d'unes a les
+// altres, i tota la pàgina es torna a calcular amb les que toquin.
+const CLAUS_DE = { cons: DADES.claus, asson: DADES.claus_asson || [] };
+
+// Cada perfil (clau.f) són les rimes de la clau a cada dialecte, en l'ordre de
+// DADES.dialectes, i al final una paraula d'exemple. Per a la finestra només
+// compten el mínim i el màxim dels quatre: es calculen un cop i van a clau.p.
+for (const claus of Object.values(CLAUS_DE)) {
+    for (const clau of claus) {
+        clau.p = [];
+        for (const f of clau.f) {
+            const rimes = f.slice(0, -1);
+            clau.p.push(Math.min(...rimes), Math.max(...rimes));
+        }
+    }
+}
+
+// La mena de rima que es mira ara, les seves claus i el màxim de rimes de cap
+// clau a cap dialecte, que és la punta dels lliscadors. Les posa posarRima.
+let rima = 'cons';
+let CLAUS = CLAUS_DE.cons;
+let SOSTRE = 2;
+
+const finestra = { min: 30, max: 800 };
+
+// --- Números en català ------------------------------------------------------
+
+function mil(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function percent(part, total) {
+    const p = 100 * part / total;
+    if (p > 0 && p < 1) return '<1%';
+    return (p < 10 ? p.toFixed(1).replace('.', ',').replace(',0', '') : Math.round(p)) + '%';
+}
+function durada(dies) {
+    if (dies < 31) return dies === 1 ? '1 dia' : `${dies} dies`;
+    let anys = Math.floor(dies / 365);
+    let mesos = Math.round((dies - anys * 365) / 30.44);
+    if (mesos === 12) { anys += 1; mesos = 0; }
+    const parts = [];
+    if (anys) parts.push(anys === 1 ? '1 any' : `${anys} anys`);
+    if (mesos) parts.push(mesos === 1 ? '1 mes' : `${mesos} mesos`);
+    return '≈ ' + parts.join(' i ');
+}
+function textMax(max) { return max === Infinity ? '∞' : mil(max); }
+function rimes(de, a) {
+    if (a === Infinity) return `${mil(de)} rimes o més`;
+    return de === a ? (de === 1 ? '1 rima' : `${mil(de)} rimes`) : `de ${mil(de)} a ${mil(a)} rimes`;
+}
+
+// --- La regla del joc ---------------------------------------------------------
+
+// Una clau entra a la finestra si alguna de les seves paraules hi entra: el
+// mínim (lo) i el màxim (hi) de rimes de la seva clau als quatre dialectes
+// han de caure dins.
+function entra(clau, min, max) {
+    const p = clau.p;
+    for (let i = 0; i < p.length; i += 2) if (p[i] >= min && p[i + 1] <= max) return true;
+    return false;
+}
+function quantesEntren(min, max) {
+    let n = 0;
+    for (const clau of CLAUS) if (entra(clau, min, max)) n++;
+    return n;
+}
+
+// Quins dialectes deixen fora un perfil, i per què.
+function motius(f, min, max) {
+    const sortida = [];
+    DADES.dialectes.forEach((_, i) => {
+        if (f[i] < min) sortida.push({ i, n: f[i], poques: true });
+        else if (f[i] > max) sortida.push({ i, n: f[i], poques: false });
+    });
+    return sortida;
+}
+
+// El perfil d'una clau que s'hi acosta més: el que falla a menys dialectes i,
+// si n'hi ha més d'un, el que en queda més a prop (en proporció, no en rimes:
+// 20 per a un mínim de 30 és més a prop que 200 per a un màxim de 100).
+function perfilMesProper(clau, min, max) {
+    let millor = null, punts = Infinity;
+    for (const f of clau.f) {
+        const m = motius(f, min, max);
+        const distancia = m.reduce((s, x) => s + Math.abs(Math.log(x.n / (x.poques ? min : max))), 0);
+        if (m.length * 1000 + distancia < punts) { millor = f; punts = m.length * 1000 + distancia; }
+    }
+    return millor;
+}
+
+// La paraula d'exemple d'una clau: una que entri a la finestra si n'hi ha cap.
+function exempleDe(clau, min, max) {
+    const i = clau.f.findIndex((_, i) => clau.p[2 * i] >= min && clau.p[2 * i + 1] <= max);
+    return (i >= 0 ? clau.f[i] : perfilMesProper(clau, min, max)).at(-1);
+}
+
+// --- Les xifres ---------------------------------------------------------------
+
+function quartil(ordenades, q) {
+    if (!ordenades.length) return 0;
+    const pos = (ordenades.length - 1) * q;
+    const baix = Math.floor(pos), dalt = Math.ceil(pos);
+    return Math.round(ordenades[baix] + (ordenades[dalt] - ordenades[baix]) * (pos - baix));
+}
+
+function pintarXifres() {
+    const { min, max } = finestra;
+    const dins = CLAUS.filter(c => entra(c, min, max));
+    const alCentral = CLAUS.filter(c => c.n >= min && c.n <= max).length;
+    const n = dins.map(c => c.n).sort((a, b) => a - b);
+
+    document.getElementById('dies').textContent = mil(dins.length);
+    document.getElementById('durada').textContent = dins.length ? durada(dins.length) : 'cap clau no hi entra';
+    document.getElementById('percent').textContent = percent(dins.length, CLAUS.length);
+    document.getElementById('de-totes').textContent = `${mil(dins.length)} de ${mil(CLAUS.length)} claus`;
+    document.getElementById('mediana').textContent = n.length ? mil(quartil(n, 0.5)) : '—';
+    document.getElementById('quartils').textContent = n.length
+        ? `la meitat de les claus, entre ${mil(quartil(n, 0.25))} i ${mil(quartil(n, 0.75))} rimes`
+        : '';
+    // La mitjana la tiben amunt les poques claus molt grosses: per això surt més alta que la mediana.
+    document.getElementById('mitjana').textContent = n.length
+        ? mil(Math.round(n.reduce((s, v) => s + v, 0) / n.length))
+        : '—';
+    const fora = alCentral - dins.length;
+    document.getElementById('fora').textContent = mil(fora);
+    const sub = document.getElementById('fora-sub');
+    if (fora) {
+        sub.replaceChildren(`al ${DADES.canonic.toLowerCase()} hi cabrien, però en algun altre dialecte tenen massa poques rimes o massa. `);
+        const enllac = document.createElement('a');
+        enllac.href = '#per-que';
+        enllac.textContent = 'Mira per què';
+        sub.appendChild(enllac);
+    } else {
+        sub.textContent = 'cap: totes les que hi caben al ' + DADES.canonic.toLowerCase() + ' hi caben arreu';
+    }
+}
+
+// --- L'histograma ---------------------------------------------------------------
+
+function el(nom, atributs, pare) {
+    const e = document.createElementNS(NS, nom);
+    for (const k in atributs) e.setAttribute(k, atributs[k]);
+    if (pare) pare.appendChild(e);
+    return e;
+}
+
+// Intervals que dupliquen: 2-3, 4-7, 8-15, 16-31... Tenen la mateixa amplada a
+// l'eix logarítmic i agafen sempre el doble de valors que l'anterior, o sigui
+// que l'alçada de les barres es pot comparar. Amb intervals més fins (de mitja
+// octava) els enters no s'hi reparteixen igual -el 2 sol, el 3 sol, 4-5, 6-7-
+// i les barres fan dents de serra sense que les claus en facin.
+function intervalDe(n) { return Math.floor(Math.log2(n) + 1e-9); }
+function iniciDe(k) { return 2 ** k; }
+
+function intervals() {
+    const { min, max } = finestra;
+    const kMax = intervalDe(Math.max(...CLAUS.map(c => c.n)));
+    const sortida = [];
+    for (let k = intervalDe(2); k <= kMax; k++) {
+        sortida.push({ k, de: iniciDe(k), a: iniciDe(k + 1) - 1, total: 0, dins: 0, exemples: [] });
+    }
+    const primer = sortida[0].k;
+    for (const clau of CLAUS) {
+        const b = sortida[intervalDe(clau.n) - primer];
+        b.total++;
+        const hiEntra = entra(clau, min, max);
+        if (hiEntra) b.dins++;
+        b.exemples.push({ clau, hiEntra });
+    }
+    // Per al requadre, primer les que entren i, dins de cada mena, les que en tenen menys.
+    for (const b of sortida) {
+        b.exemples.sort((x, y) => (y.hiEntra - x.hiEntra) || (x.clau.n - y.clau.n));
+        b.exemples = b.exemples.slice(0, 3);
+    }
+    return sortida;
+}
+
+function pasNet(x) {
+    const p = Math.pow(10, Math.floor(Math.log10(x)));
+    const f = x / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+}
+
+function camiBarra(x, y, w, h, r) {
+    r = Math.min(r, w / 2, h);
+    return `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`;
+}
+
+function dibuixarHistograma() {
+    const contenidor = document.getElementById('histograma');
+    const bs = intervals();
+    const amplada = Math.max(300, contenidor.clientWidth);
+    const m = { e: 44, d: 8, s: 34, i: 40 };
+    const w = amplada - m.e - m.d;
+    const alt = 240;
+
+    // L'eix x és logarítmic i continu: l'interval k va de 2^k a 2^(k+1).
+    const x0 = bs[0].k, x1 = bs[bs.length - 1].k + 1;
+    const x = log2 => ((log2 - x0) / (x1 - x0)) * w;
+    const xDe = n => x(Math.log2(n));
+
+    const ymax = Math.max(...bs.map(b => b.total));
+    const pas = pasNet(ymax / 4);
+    const ytop = Math.ceil(ymax / pas) * pas;
+    const y = v => alt - (v / ytop) * alt;
+
+    const svg = el('svg', {
+        width: amplada, height: alt + m.s + m.i, tabindex: 0, role: 'img',
+        'aria-label': 'Histograma de les claus segons quantes rimes tenen. Fletxes per recórrer les barres.',
+    });
+    const arrel = el('g', { transform: `translate(${m.e},${m.s})` }, svg);
+
+    // La finestra, al fons.
+    const { min, max } = finestra;
+    const xMin = Math.max(0, xDe(min));
+    const xMax = max === Infinity ? w : Math.min(w, xDe(max + 1));
+    if (xMax > xMin) {
+        el('rect', { class: 'banda', x: xMin, y: -8, width: xMax - xMin, height: alt + 8 }, arrel);
+        if (xDe(min) >= 0) el('line', { class: 'vora-finestra', x1: xMin, x2: xMin, y1: -8, y2: alt }, arrel);
+        if (max !== Infinity && xDe(max + 1) <= w) el('line', { class: 'vora-finestra', x1: xMax, x2: xMax, y1: -8, y2: alt }, arrel);
+        // Les etiquetes del mínim i el màxim, a dalt; si no hi caben totes dues, en una.
+        if (xMax - xMin > 70) {
+            el('text', { class: 'etiqueta-finestra', x: xMin, y: -14, 'text-anchor': 'middle' }, arrel).textContent = mil(min);
+            el('text', { class: 'etiqueta-finestra', x: xMax, y: -14, 'text-anchor': 'middle' }, arrel).textContent = textMax(max);
+        } else {
+            el('text', { class: 'etiqueta-finestra', x: (xMin + xMax) / 2, y: -14, 'text-anchor': 'middle' }, arrel)
+                .textContent = `${mil(min)}–${textMax(max)}`;
+        }
+    }
+
+    for (let v = 0; v <= ytop; v += pas) {
+        el('line', { class: v ? 'linia-graella' : 'linia-base', x1: 0, x2: w, y1: y(v), y2: y(v) }, arrel);
+        el('text', { class: 'eix', x: -8, y: y(v), dy: '0.32em', 'text-anchor': 'end' }, arrel).textContent = mil(v);
+    }
+    el('text', { class: 'titol-eix', x: -m.e, y: -24 }, arrel).textContent = 'Claus';
+
+    // Les barres: a baix les que entren, a sobre les que no, amb 2 px entre totes dues.
+    const banda = w / bs.length;
+    const gruix = Math.max(2, Math.min(24, banda - 3));
+    const marques = bs.map((b, i) => {
+        const xb = x(b.k) + (banda - gruix) / 2;
+        const parts = {};
+        if (b.dins) {
+            const y0 = y(b.dins);
+            parts.dins = el('path', { class: 'dins', d: camiBarra(xb, y0, gruix, alt - y0, b.dins === b.total ? 4 : 0) }, arrel);
+        }
+        if (b.total > b.dins) {
+            const sota = b.dins ? y(b.dins) - 2 : alt;
+            const y0 = y(b.total);
+            if (sota > y0) parts.fora = el('path', { class: 'fora', d: camiBarra(xb, y0, gruix, sota - y0, 4) }, arrel);
+        }
+        return parts;
+    });
+
+    // Les marques de l'eix x, saltant-ne les que no hi caben.
+    let finsOn = -Infinity;
+    for (const v of [2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000]) {
+        const xv = xDe(v);
+        const mig = mil(v).length * 3.4;
+        if (xv < -1 || xv > w + 1 || xv - mig < finsOn + 8) continue;
+        el('line', { class: 'linia-base', x1: xv, x2: xv, y1: alt, y2: alt + 4 }, arrel);
+        el('text', { class: 'eix', x: xv, y: alt + 16, 'text-anchor': 'middle' }, arrel).textContent = mil(v);
+        finsOn = xv + mig;
+    }
+    el('text', { class: 'titol-eix', x: w / 2, y: alt + 34, 'text-anchor': 'middle' }, arrel)
+        .textContent = `Rimes de la clau al ${DADES.canonic.toLowerCase()}`;
+
+    // El requadre: la zona de cada barra fa tota l'alçada.
+    let activa = -1;
+    function activar(i, posicio) {
+        for (const p of Object.values(marques[activa] || {})) p.classList.remove('activa');
+        activa = i;
+        for (const p of Object.values(marques[i])) p.classList.add('activa');
+        mostrarTooltip(bs[i], posicio);
+    }
+    function desactivar() {
+        for (const p of Object.values(marques[activa] || {})) p.classList.remove('activa');
+        activa = -1;
+        tooltip.hidden = true;
+    }
+    bs.forEach((b, i) => {
+        el('rect', { class: 'zona', x: x(b.k), y: 0, width: banda, height: alt }, arrel)
+            .addEventListener('pointermove', e => activar(i, { x: e.clientX, y: e.clientY }));
+    });
+    svg.addEventListener('pointerleave', desactivar);
+    svg.addEventListener('blur', desactivar);
+    svg.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const i = activa < 0 ? 0 : Math.max(0, Math.min(bs.length - 1, activa + (e.key === 'ArrowRight' ? 1 : -1)));
+        const caixa = svg.getBoundingClientRect();
+        activar(i, { x: caixa.left + m.e + x(bs[i].k) + banda / 2, y: caixa.top + m.s + alt / 2 });
+    });
+
+    contenidor.replaceChildren(svg);
+}
+
+function mostrarTooltip(b, posicio) {
+    const fill = (etiqueta, classe, text, pare = tooltip) => {
+        const e = document.createElement(etiqueta);
+        if (classe) e.className = classe;
+        e.textContent = text;
+        pare.appendChild(e);
+        return e;
+    };
+    tooltip.replaceChildren();
+    // Mana el que entra: és el que donarà paraules del dia.
+    fill('strong', '', b.dins === 0 ? 'Cap no entra a la finestra'
+        : `${mil(b.dins)} ${b.dins === 1 ? 'entra' : 'entren'} a la finestra`);
+    fill('div', 'que', `de ${b.total === 1 ? '1 clau' : mil(b.total) + ' claus'} amb ${rimes(b.de, b.a)}`);
+    if (b.exemples.length) {
+        const caixa = fill('div', 'exemples', 'Per exemple:');
+        for (const { clau, hiEntra } of b.exemples) {
+            const linia = fill('div', '', '', caixa);
+            fill('b', '', exempleDe(clau, finestra.min, finestra.max), linia);
+            linia.appendChild(document.createTextNode(` (-${clau.c}, ${mil(clau.n)} rimes)${hiEntra ? '' : ', no hi entra'}`));
+        }
+    }
+    tooltip.hidden = false;
+    const ample = tooltip.offsetWidth, llarg = tooltip.offsetHeight;
+    let x = posicio.x + 14, y = posicio.y + 14;
+    if (x + ample > innerWidth - 8) x = posicio.x - 14 - ample;
+    if (y + llarg > innerHeight - 8) y = posicio.y - 14 - llarg;
+    tooltip.style.left = Math.max(8, x) + 'px';
+    tooltip.style.top = Math.max(8, y) + 'px';
+}
+
+// --- El detall de la finestra ---------------------------------------------------
+
+// Un punt per a cada nombre de rimes de la finestra. Mana la línia de les claus
+// que ENTREN, amb un punt per número; les del central que no hi entren queden
+// al fons, com una àrea clara fins al total. Les ratlles verticals són el 25%,
+// la mediana i el 75% de les que entren: entre les dues de fora n'hi ha la meitat.
+const detall = { obert: false, eix: 'log' };
+
+function dadesDetall() {
+    const { min, max } = finestra;
+    // Sense màxim, fins a la clau més grossa que hi hagi.
+    let fins = max;
+    if (fins === Infinity) {
+        fins = min;
+        for (const clau of CLAUS) if (clau.n > fins) fins = clau.n;
+    }
+    const llarg = fins - min + 1;
+    const totes = new Array(llarg).fill(0);
+    const dins = new Array(llarg).fill(0);
+    const exemples = Array.from({ length: llarg }, () => []);
+    const entrants = [];
+    for (const clau of CLAUS) {
+        if (clau.n < min || clau.n > fins) continue;
+        const i = clau.n - min;
+        const hiEntra = entra(clau, min, max);
+        totes[i]++;
+        if (hiEntra) { dins[i]++; entrants.push(clau.n); }
+        exemples[i].push({ clau, hiEntra });
+    }
+    entrants.sort((a, b) => a - b);
+    return { min, fins, totes, dins, exemples, entrants };
+}
+
+function dibuixarDetall() {
+    if (!detall.obert) return;
+    for (const boto of document.querySelectorAll('[data-eix]')) boto.setAttribute('aria-pressed', boto.dataset.eix === detall.eix);
+    document.getElementById('titol-grafic-detall').textContent =
+        `Finestra de ${mil(finestra.min)}–${textMax(finestra.max)}: quantes claus hi ha amb cada nombre de rimes`;
+
+    const contenidor = document.getElementById('grafic-detall');
+    const d = dadesDetall();
+    const llarg = d.totes.length;
+    const log = detall.eix === 'log';
+    // m.e és l'eix y, que va en un svg a part; m.c, el marge perquè l'etiqueta
+    // del primer número no quedi tallada; m.s, l'espai de les etiquetes dels quartils.
+    const m = { e: 44, c: 14, d: 18, s: 50, i: 40 };
+    // Sempre a l'amplada que hi ha: es veu tot d'una tirada.
+    const w = Math.max(256, contenidor.clientWidth - m.e) - m.c - m.d;
+    const alt = 280;
+
+    const lo = log ? Math.log(d.min) : d.min;
+    const hi = log ? Math.log(d.fins) : d.fins;
+    const x = v => (hi === lo ? w / 2 : (((log ? Math.log(v) : v) - lo) / (hi - lo)) * w);
+    const deX = px => {
+        const t = lo + (Math.max(0, Math.min(w, px)) / w) * (hi - lo);
+        return Math.max(d.min, Math.min(d.fins, Math.round(log ? Math.exp(t) : t)));
+    };
+
+    const ymax = Math.max(1, ...d.totes);
+    const pas = Math.max(1, pasNet(ymax / 4));
+    const ytop = Math.ceil(ymax / pas) * pas;
+    const y = v => alt - (v / ytop) * alt;
+
+    const dens = llarg > 1 && w / (llarg - 1) < 4;
+    document.getElementById('nota-detall').textContent =
+        `${mil(llarg)} ${llarg === 1 ? 'punt' : 'punts'}, del ${mil(d.min)} al ${mil(d.fins)}.` +
+        (log && dens ? ' A l\'eix logarítmic, com més a la dreta més junts queden els números: on es toquen, passa-hi per sobre per veure\'ls un per un.'
+            : dens ? ' Amb tants números els punts es toquen: passa-hi per sobre per veure\'ls un per un, o prova l\'eix logarítmic, que dona més espai a la zona de poques rimes.'
+            : '');
+
+    const eixY = el('svg', { class: 'eix-y', width: m.e, height: alt + m.s + m.i, 'aria-hidden': 'true' });
+    const gY = el('g', { transform: `translate(${m.e},${m.s})` }, eixY);
+    el('text', { class: 'titol-eix', x: -m.e, y: -10 }, gY).textContent = 'Claus';
+
+    const svg = el('svg', {
+        width: w + m.c + m.d, height: alt + m.s + m.i, tabindex: 0, role: 'img',
+        'aria-label': 'Quantes claus hi ha amb cada nombre de rimes dins la finestra. Fletxes per recórrer els punts; amb Maj, de deu en deu.',
+    });
+    const arrel = el('g', { transform: `translate(${m.c},${m.s})` }, svg);
+
+    // La meitat de les claus que entren: la franja entre el 25% i el 75%.
+    const q = d.entrants.length
+        ? [['25%', quartil(d.entrants, 0.25)], ['mediana', quartil(d.entrants, 0.5)], ['75%', quartil(d.entrants, 0.75)]]
+        : [];
+    if (q.length) el('rect', { class: 'quartils', x: x(q[0][1]), y: 0, width: Math.max(1, x(q[2][1]) - x(q[0][1])), height: alt }, arrel);
+
+    for (let v = 0; v <= ytop; v += pas) {
+        el('line', { class: v ? 'linia-graella' : 'linia-base', x1: -m.c, x2: w, y1: y(v), y2: y(v) }, arrel);
+        el('text', { class: 'eix', x: -8, y: y(v), dy: '0.32em', 'text-anchor': 'end' }, gY).textContent = mil(v);
+    }
+
+    // L'eix x: els dos extrems sempre, i entremig els números rodons que hi càpiguen.
+    const ocupats = [];
+    const marca = (v, sempre) => {
+        const xv = x(v), mig = mil(v).length * 3.4;
+        if (!sempre && ocupats.some(([a, b]) => xv + mig + 8 > a && xv - mig - 8 < b)) return;
+        ocupats.push([xv - mig, xv + mig]);
+        el('line', { class: 'linia-base', x1: xv, x2: xv, y1: alt, y2: alt + 4 }, arrel);
+        el('text', { class: 'eix', x: xv, y: alt + 16, 'text-anchor': 'middle' }, arrel).textContent = mil(v);
+    };
+    marca(d.min, true);
+    if (d.fins !== d.min) marca(d.fins, true);
+    const rodons = [];
+    if (log) {
+        for (let p = 1; p <= d.fins; p *= 10) for (const f of [1, 2, 5]) rodons.push(f * p);
+    } else {
+        const p = Math.max(1, pasNet((d.fins - d.min) / Math.max(4, w / 80)));
+        for (let v = Math.ceil(d.min / p) * p; v <= d.fins; v += p) rodons.push(v);
+    }
+    for (const v of rodons) if (v > d.min && v < d.fins) marca(v);
+    el('text', { class: 'titol-eix', x: w / 2, y: alt + 34, 'text-anchor': 'middle' }, arrel)
+        .textContent = `Rimes de la clau al ${DADES.canonic.toLowerCase()}`;
+
+    // Al fons, el total del central com una àrea; a sobre, la línia de les que entren.
+    let area = `M${x(d.min).toFixed(2)},${y(0)}`;
+    d.totes.forEach((v, i) => { area += `L${x(d.min + i).toFixed(2)},${y(v).toFixed(2)}`; });
+    area += `L${x(d.fins).toFixed(2)},${y(0)}Z`;
+    el('path', { class: 'area-totes', d: area }, arrel);
+
+    // Les ratlles dels quartils, amb l'etiqueta a dalt. Si les etiquetes no hi
+    // caben de costat, s'apilen en files.
+    const files = [];
+    for (const [nom, valor] of q) {
+        const text = `${nom}: ${mil(valor)}`;
+        const xv = x(valor);
+        const mig = text.length * 3.2 + 4;
+        const cx = Math.max(mig - m.c, Math.min(w + m.d - mig, xv));
+        let fila = 0;
+        while ((files[fila] || []).some(([a, b]) => cx + mig > a && cx - mig < b)) fila++;
+        (files[fila] = files[fila] || []).push([cx - mig, cx + mig]);
+        const ye = -8 - fila * 13;
+        const mediana = nom === 'mediana';
+        el('line', { class: mediana ? 'linia-mediana' : 'linia-quartil', x1: xv, x2: xv, y1: ye + 3, y2: alt }, arrel);
+        el('text', { class: 'etiqueta-quartil' + (mediana ? ' mediana' : ''), x: cx, y: ye, 'text-anchor': 'middle' }, arrel).textContent = text;
+    }
+
+    let cami = '';
+    d.dins.forEach((v, i) => { cami += `${i ? 'L' : 'M'}${x(d.min + i).toFixed(2)},${y(v).toFixed(2)}`; });
+    el('path', { class: 'linia dins', d: cami }, arrel);
+    // Un punt per número. On queden a menys de tres quarts de pixel no es
+    // dibuixen: serien centenars de cercles un damunt de l'altre.
+    d.dins.forEach((v, i) => {
+        const n = d.min + i;
+        const espai = llarg === 1 ? 20 : Math.min(n < d.fins ? x(n + 1) - x(n) : Infinity, n > d.min ? x(n) - x(n - 1) : Infinity);
+        if (espai < 0.75) return;
+        const r = Math.max(1, Math.min(4, espai / 2.5));
+        el('circle', { class: `punt dins${r >= 3 ? ' anella' : ''}`, cx: x(n), cy: y(v), r }, arrel);
+    });
+
+    // El requadre: una línia vertical que va al número més proper, i els seus punts ressaltats.
+    const creu = el('line', { class: 'creu', y1: 0, y2: alt, visibility: 'hidden' }, arrel);
+    const actiuTotes = el('circle', { class: 'punt totes anella', r: 3.5, visibility: 'hidden' }, arrel);
+    const actiuDins = el('circle', { class: 'punt dins anella', r: 5, visibility: 'hidden' }, arrel);
+    const zona = el('rect', { class: 'zona', x: -m.c, y: 0, width: w + m.c + m.d, height: alt }, arrel);
+    let actiu = -1;
+    function activar(i, posicio) {
+        actiu = i;
+        const n = d.min + i, xv = x(n);
+        creu.setAttribute('x1', xv);
+        creu.setAttribute('x2', xv);
+        actiuTotes.setAttribute('cx', xv);
+        actiuTotes.setAttribute('cy', y(d.totes[i]));
+        actiuDins.setAttribute('cx', xv);
+        actiuDins.setAttribute('cy', y(d.dins[i]));
+        for (const e of [creu, actiuTotes, actiuDins]) e.setAttribute('visibility', 'visible');
+        const exemples = d.exemples[i].slice().sort((a, b) => b.hiEntra - a.hiEntra).slice(0, 3);
+        mostrarTooltip({ de: n, a: n, total: d.totes[i], dins: d.dins[i], exemples }, posicio);
+    }
+    function desactivar() {
+        actiu = -1;
+        for (const e of [creu, actiuTotes, actiuDins]) e.setAttribute('visibility', 'hidden');
+        tooltip.hidden = true;
+    }
+    zona.addEventListener('pointermove', e => {
+        const caixa = svg.getBoundingClientRect();
+        activar(deX(e.clientX - caixa.left - m.c) - d.min, { x: e.clientX, y: e.clientY });
+    });
+    svg.addEventListener('pointerleave', desactivar);
+    svg.addEventListener('blur', desactivar);
+    svg.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const salt = (e.shiftKey ? 10 : 1) * (e.key === 'ArrowRight' ? 1 : -1);
+        const i = actiu < 0 ? 0 : Math.max(0, Math.min(llarg - 1, actiu + salt));
+        const caixa = svg.getBoundingClientRect();
+        activar(i, { x: caixa.left + m.c + x(d.min + i), y: caixa.top + m.s + alt / 2 });
+    });
+
+    const fila = document.createElement('div');
+    fila.className = 'fila-grafic';
+    fila.append(eixY, svg);
+    contenidor.replaceChildren(fila);
+}
+
+document.getElementById('boto-detall').addEventListener('click', e => {
+    detall.obert = !detall.obert;
+    const caixa = document.getElementById('detall');
+    caixa.hidden = !detall.obert;
+    e.currentTarget.setAttribute('aria-expanded', detall.obert);
+    e.currentTarget.textContent = detall.obert ? 'Amaga el detall de la finestra' : 'Mostra el detall de la finestra';
+    if (detall.obert) {
+        dibuixarDetall();
+        caixa.scrollIntoView({ block: 'nearest' });
+    }
+});
+document.querySelectorAll('[data-eix]').forEach(b => b.addEventListener('click', () => { detall.eix = b.dataset.eix; dibuixarDetall(); }));
+document.getElementById('llegenda-totes').append(`Totes les del ${DADES.canonic.toLowerCase()}, també les que no entren`);
+
+// --- Per què en queden fora -----------------------------------------------------
+
+// Les claus que tenen prou rimes al central però no a tots els dialectes, amb
+// el perfil que s'hi acosta més. La llista llarga només es pinta si està oberta:
+// arrossegant el lliscador en serien centenars de files a cada pas.
+let fora = [];
+// Quines es veuen a la llista: 'totes', 'pugen' (les que tenen massa rimes en
+// algun dialecte, de la que puja més a la que menys) o 'baixen' (massa poques).
+let filtreFora = 'totes';
+const NOMS_FILTRE = { totes: 'Totes', pugen: 'Les que pugen', baixen: 'Les que baixen' };
+
+function pintarFora() {
+    const { min, max } = finestra;
+    fora = CLAUS
+        .filter(clau => clau.n >= min && clau.n <= max && !entra(clau, min, max))
+        .map(clau => {
+            const f = perfilMesProper(clau, min, max);
+            const perQue = motius(f, min, max);
+            // Quant puja i quant baixa: les rimes del dialecte que la deixa fora
+            // entre les del central. Com que al central hi cap, si té massa rimes
+            // sempre és més d'1, i si en té massa poques, menys. Si són més d'un
+            // dialecte, mana el que s'allunya més.
+            const proporcions = poques => perQue.filter(m => m.poques === poques).map(m => m.n / clau.n);
+            return {
+                clau, f, motius: perQue,
+                puja: Math.max(1, ...proporcions(false)),
+                baixa: Math.min(1, ...proporcions(true)),
+            };
+        })
+        .sort((a, b) => a.clau.n - b.clau.n || a.f.at(-1).localeCompare(b.f.at(-1), 'ca'));
+
+    const quantes = {
+        totes: fora.length,
+        pugen: fora.filter(x => x.puja > 1).length,
+        baixen: fora.filter(x => x.baixa < 1).length,
+    };
+    if (!quantes[filtreFora]) filtreFora = 'totes';
+    for (const boto of document.querySelectorAll('[data-filtre]')) {
+        boto.textContent = `${NOMS_FILTRE[boto.dataset.filtre]} (${mil(quantes[boto.dataset.filtre])})`;
+        boto.disabled = !quantes[boto.dataset.filtre];
+        boto.setAttribute('aria-pressed', boto.dataset.filtre === filtreFora);
+    }
+
+    const central = DADES.canonic.toLowerCase();
+    const text = `${mil(min)}–${textMax(max)}`;
+    document.getElementById('explica-fora').textContent = fora.length
+        ? `Amb la finestra de ${text} rimes, ${mil(fora.length)} claus en tenen prou al ${central} però no a ` +
+          `tots els dialectes. Cada dialecte pronuncia diferent i té paraules pròpies (l'apendix), o sigui que ` +
+          `la mateixa paraula pot caure en una clau amb massa poques rimes o massa. I com que la paraula del dia ` +
+          `és la mateixa per a tothom, només pot sortir si la finestra es compleix a tot arreu.`
+        : `Amb la finestra de ${text} rimes no en queda cap fora per culpa d'un altre dialecte.`;
+
+    const resum = document.getElementById('resum-fora');
+    const nota = document.getElementById('nota-resum');
+    const detall = document.getElementById('detall-fora');
+    resum.replaceChildren();
+    nota.textContent = '';
+    detall.hidden = !fora.length;
+    if (!fora.length) return;
+
+    // Quantes en deixa fora cada dialecte, i per què.
+    const cap = resum.createTHead().insertRow();
+    for (const titol of ['Dialecte', 'Massa poques rimes', 'Massa rimes', 'Només per aquest dialecte']) {
+        const th = document.createElement('th');
+        th.scope = 'col';
+        th.textContent = titol;
+        cap.appendChild(th);
+    }
+    const cos = resum.createTBody();
+    let suma = 0;
+    DADES.dialectes.forEach((nom, i) => {
+        if (i === DADES.i_canonic) return;
+        const poques = fora.filter(x => x.motius.some(m => m.i === i && m.poques)).length;
+        const moltes = fora.filter(x => x.motius.some(m => m.i === i && !m.poques)).length;
+        const nomes = fora.filter(x => x.motius.length === 1 && x.motius[0].i === i).length;
+        suma += poques + moltes;
+        const fila = cos.insertRow();
+        const th = document.createElement('th');
+        th.scope = 'row';
+        th.textContent = nom;
+        fila.appendChild(th);
+        for (const n of [poques, moltes, nomes]) fila.insertCell().textContent = mil(n);
+    });
+    if (suma > fora.length) {
+        nota.textContent = `Una clau pot quedar fora per més d'un dialecte alhora, i per això les dues primeres ` +
+            `columnes sumen més de ${mil(fora.length)}. L'última diu les que hi entrarien si no fos per aquell dialecte.`;
+    } else {
+        nota.textContent = 'L\'última columna diu les que hi entrarien si no fos per aquell dialecte.';
+    }
+
+    document.getElementById('titol-detall').textContent = `Mostra les ${mil(fora.length)} claus, una per una`;
+    if (detall.open) pintarLlistaFora();
+}
+
+// Quant puja o baixa una clau (rimes del dialecte entre les del central): si
+// puja, en vegades (×2,5), que n'hi ha que en tenen centenars de vegades més;
+// si baixa, en percentatge (−60%).
+function canvi(proporcio) {
+    if (proporcio > 1) {
+        const decimals = proporcio < 2 ? 2 : proporcio < 10 ? 1 : 0;
+        return '×' + (decimals ? proporcio.toFixed(decimals).replace('.', ',') : mil(Math.round(proporcio)));
+    }
+    const p = 100 * (1 - proporcio);
+    return '−' + (p < 1 ? '<1' : Math.round(p)) + '%';
+}
+
+function pintarLlistaFora() {
+    const { min, max } = finestra;
+    const central = DADES.canonic.toLowerCase();
+    let files = fora;
+    if (filtreFora === 'pugen') files = fora.filter(x => x.puja > 1).sort((a, b) => b.puja - a.puja);
+    if (filtreFora === 'baixen') files = fora.filter(x => x.baixa < 1).sort((a, b) => a.baixa - b.baixa);
+    document.getElementById('nota-filtre').textContent =
+        filtreFora === 'pugen' ? `De la que puja més a la que menys: l'última columna diu quantes vegades més rimes té al dialecte que la deixa fora que no pas al ${central}.`
+        : filtreFora === 'baixen' ? `De la que baixa més a la que menys: l'última columna diu quantes rimes menys té al dialecte que la deixa fora que no pas al ${central}, en percentatge.`
+        : '';
+
+    const llista = document.getElementById('llista-fora');
+    llista.replaceChildren();
+    const cap = llista.createTHead().insertRow();
+    const titols = ['Paraula', 'Clau', ...DADES.dialectes];
+    if (filtreFora !== 'totes') titols.push(filtreFora === 'pugen' ? 'Puja' : 'Baixa');
+    for (const titol of titols) {
+        const th = document.createElement('th');
+        th.scope = 'col';
+        th.textContent = titol;
+        cap.appendChild(th);
+    }
+    const cos = llista.createTBody();
+    for (const { clau, f, motius: perQue, puja, baixa } of files) {
+        const fila = cos.insertRow();
+        fila.insertCell().textContent = f.at(-1);
+        const td = fila.insertCell();
+        td.className = 'clau';
+        td.textContent = '-' + clau.c;
+        DADES.dialectes.forEach((_, i) => {
+            const cella = fila.insertCell();
+            const motiu = perQue.find(m => m.i === i);
+            if (!motiu) { cella.textContent = mil(f[i]); return; }
+            // Vermell si hi baixa de rimes, verd si n'hi puja.
+            cella.className = motiu.poques ? 'falla' : 'puja';
+            cella.title = motiu.poques ? `massa poques rimes: el mínim és ${mil(min)}` : `massa rimes: el màxim és ${mil(max)}`;
+            const fletxa = document.createElement('span');
+            fletxa.className = cella.className;
+            fletxa.textContent = motiu.poques ? '▼ ' : '▲ ';
+            cella.append(fletxa, mil(f[i]));
+        });
+        if (filtreFora !== 'totes') fila.insertCell().textContent = canvi(filtreFora === 'pugen' ? puja : baixa);
+    }
+}
+
+document.getElementById('detall-fora').addEventListener('toggle', e => { if (e.target.open) pintarLlistaFora(); });
+document.querySelectorAll('[data-filtre]').forEach(b => b.addEventListener('click', () => {
+    filtreFora = b.dataset.filtre;
+    for (const altre of document.querySelectorAll('[data-filtre]')) altre.setAttribute('aria-pressed', altre === b);
+    pintarLlistaFora();
+}));
+
+// --- La taula -------------------------------------------------------------------
+
+// Els grups assonants són molt més grossos que les claus consonants: cada mena
+// té els seus mínims i màxims.
+const FILES_I_COLUMNES = {
+    cons: {
+        minims: [2, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300],
+        maxims: [50, 100, 150, 200, 300, 400, 500, 800, 1000, 1500, 2000, 5000, Infinity],
+    },
+    asson: {
+        minims: [2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000],
+        maxims: [100, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, Infinity],
+    },
+};
+// Els trams de color, en dies: menys de 100, fins a 200, fins a un any, fins a dos, fins a tres, més.
+const TRAMS = [100, 200, 365, 730, 1095];
+const NOMS_TRAMS = ['menys de 100 dies', '100-199 dies', 'de 200 dies a 1 any', '1-2 anys', '2-3 anys', 'més de 3 anys'];
+
+function tram(dies) {
+    let i = 0;
+    while (i < TRAMS.length && dies >= TRAMS[i]) i++;
+    return i + 1;
+}
+
+const cellesTaula = [];
+function construirTaula() {
+    const { minims: MINIMS, maxims: MAXIMS } = FILES_I_COLUMNES[rima];
+    const taula = document.getElementById('taula');
+    taula.replaceChildren();
+    cellesTaula.length = 0;
+    const cap = taula.createTHead().insertRow();
+    const cantonada = document.createElement('th');
+    cantonada.className = 'cantonada';
+    cantonada.innerHTML = 'mín. ↓<br>màx. →';
+    cap.appendChild(cantonada);
+    for (const max of MAXIMS) {
+        const th = document.createElement('th');
+        th.scope = 'col';
+        th.textContent = max === Infinity ? 'sense límit' : mil(max);
+        cap.appendChild(th);
+    }
+    const cos = taula.createTBody();
+    for (const min of MINIMS) {
+        const fila = cos.insertRow();
+        const th = document.createElement('th');
+        th.scope = 'row';
+        th.textContent = mil(min);
+        fila.appendChild(th);
+        for (const max of MAXIMS) {
+            const td = fila.insertCell();
+            if (min >= max) { td.className = 'buida'; continue; }
+            const dies = quantesEntren(min, max);
+            td.className = 't' + tram(dies);
+            td.textContent = mil(dies);
+            td.title = `${mil(min)}–${textMax(max)} rimes: ${mil(dies)} dies (${durada(dies)})`;
+            td.addEventListener('click', () => posarFinestra(min, max));
+            cellesTaula.push({ td, min, max });
+        }
+    }
+}
+
+function construirLlegendaTaula() {
+    const llegenda = document.getElementById('llegenda-taula');
+    NOMS_TRAMS.forEach((nom, i) => {
+        const s = document.createElement('span');
+        const mostra = document.createElement('i');
+        mostra.style.background = `var(--t${i + 1})`;
+        s.append(mostra, nom);
+        llegenda.appendChild(s);
+    });
+}
+
+function marcarTaula() {
+    for (const { td, min, max } of cellesTaula) td.classList.toggle('actual', min === finestra.min && max === finestra.max);
+}
+
+// --- Els controls ---------------------------------------------------------------
+
+// Els lliscadors van en escala logarítmica, de 2 fins a SOSTRE; el del màxim,
+// a la punta, vol dir sense límit.
+function aLliscador(n) { return Math.round(1000 * Math.log(n / 2) / Math.log(SOSTRE / 2)); }
+function deLliscador(v) { return Math.round(2 * (SOSTRE / 2) ** (v / 1000)); }
+
+const minR = document.getElementById('min-r'), minN = document.getElementById('min-n');
+const maxR = document.getElementById('max-r'), maxN = document.getElementById('max-n');
+
+// La publicada i la del generador són de rima consonant, que és com tria el
+// joc: en assonant no voldrien dir res.
+const PRESETS = { cons: [], asson: [] };
+if (DADES.publicada) PRESETS.cons.push({ nom: 'Publicada ara', ...DADES.publicada });
+if (!DADES.publicada || DADES.generador.min !== DADES.publicada.min || DADES.generador.max !== DADES.publicada.max) {
+    PRESETS.cons.push({ nom: 'Al generador', ...DADES.generador });
+}
+for (const mena in PRESETS) PRESETS[mena].push({ nom: 'Sense límits', min: 2, max: Infinity });
+
+// costat: quin dels dos s'ha mogut ('min' o 'max'), que és el que mana si es
+// creuen. lliscador: si ha estat arrossegant, que no se li toqui la posició.
+function posarFinestra(min, max, costat, lliscador = false) {
+    min = Math.max(2, Math.round(min) || 2);
+    max = max === Infinity || Number.isNaN(max) ? Infinity : Math.max(2, Math.round(max));
+    if (min > max) { if (costat === 'max') min = max; else max = min; }
+    finestra.min = min;
+    finestra.max = max;
+    minN.value = min;
+    maxN.value = max === Infinity ? '' : max;
+    if (!(lliscador && costat === 'min')) minR.value = aLliscador(min);
+    if (!(lliscador && costat === 'max')) maxR.value = max === Infinity ? 1000 : Math.min(999, aLliscador(max));
+    pintar();
+}
+
+minR.addEventListener('input', () => posarFinestra(deLliscador(+minR.value), finestra.max, 'min', true));
+maxR.addEventListener('input', () => posarFinestra(finestra.min, +maxR.value >= 1000 ? Infinity : deLliscador(+maxR.value), 'max', true));
+// Les caselles, en acabar d'escriure: mentre escrius "800", el "8" no ha de moure res.
+minN.addEventListener('change', () => posarFinestra(+minN.value, finestra.max, 'min'));
+maxN.addEventListener('change', () => posarFinestra(finestra.min, maxN.value === '' ? Infinity : +maxN.value, 'max'));
+
+let botons = [];
+function construirPresets() {
+    const caixa = document.getElementById('presets');
+    caixa.replaceChildren();
+    botons = PRESETS[rima].map(p => {
+        const boto = document.createElement('button');
+        boto.type = 'button';
+        boto.textContent = `${p.nom}: ${mil(p.min)}–${textMax(p.max)}`;
+        boto.addEventListener('click', () => posarFinestra(p.min, p.max));
+        caixa.appendChild(boto);
+        return { boto, p };
+    });
+}
+
+function pintar() {
+    for (const { boto, p } of botons) boto.setAttribute('aria-pressed', p.min === finestra.min && p.max === finestra.max);
+    pintarXifres();
+    dibuixarHistograma();
+    dibuixarDetall();
+    pintarFora();
+    marcarTaula();
+}
+
+// --- Els textos -----------------------------------------------------------------
+
+document.getElementById('intro').textContent =
+    `La paraula del dia surt d'una clau de rima que ha de tenir entre un mínim i un màxim de rimes ` +
+    `als ${DADES.dialectes.length} dialectes alhora (${DADES.dialectes.join(', ')}). Cada dia se'n gasta una ` +
+    `per dificultat i no se'n repeteix cap fins que s'han fet servir totes: les claus que hi caben són els ` +
+    `dies que dura el cicle. Com menys rimes, més difícil: en difícil, les respostes bones són les rimes de la clau.`;
+document.getElementById('nom-dificultat').textContent = `Rimes de la clau al ${DADES.canonic.toLowerCase()}`;
+
+function pintarTextosDeRima() {
+    for (const boto of document.querySelectorAll('[data-rima]')) boto.setAttribute('aria-pressed', boto.dataset.rima === rima);
+    document.getElementById('nota-rima').textContent = rima === 'cons'
+        ? 'Les claus són de rima consonant, que és com tria el joc la paraula del dia i la rima que val en difícil.'
+        : `Les claus són de rima assonant, la que val en fàcil: cada clau és un grup assonant sencer i les rimes ` +
+          `són totes les paraules del grup. El joc no tria així, o sigui que és per veure com quedaria la finestra ` +
+          `si es mirés pels grups assonants. Cada dialecte té les seves vocals, i la mateixa paraula pot caure en ` +
+          `grups de mides molt diferents.`;
+    document.getElementById('explica-histograma').textContent =
+        `Les ${mil(CLAUS.length)} claus ${rima === 'cons' ? 'consonants' : 'assonants'} que podrien ser paraula ` +
+        `del dia amb alguna finestra, segons quantes rimes ` +
+        `tenen al ${DADES.canonic.toLowerCase()}. En blau, les que entren a la finestra de dalt. Dins de la finestra ` +
+        `també n'hi pot haver de grises: són les que en algun altre dialecte tenen massa poques rimes o massa.`;
+}
+
+// Cada mena de rima recorda la seva finestra: la consonant comença a la
+// publicada, i l'assonant, sense límits.
+const inicial = DADES.publicada || DADES.generador;
+const finestres = { cons: { min: inicial.min, max: inicial.max }, asson: { min: 2, max: Infinity } };
+
+function posarRima(mena) {
+    if (mena !== rima) finestres[rima] = { ...finestra };
+    rima = mena;
+    CLAUS = CLAUS_DE[mena];
+    SOSTRE = Math.max(2, ...CLAUS.map(c => Math.max(...c.p.filter((_, i) => i % 2))));
+    pintarTextosDeRima();
+    construirPresets();
+    construirTaula();
+    posarFinestra(finestres[mena].min, finestres[mena].max);
+}
+document.querySelectorAll('[data-rima]').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.rima !== rima) posarRima(b.dataset.rima);
+}));
+// Si el fitxer és d'abans que hi hagués les assonants, el botó no fa res.
+if (!CLAUS_DE.asson.length) document.querySelector('[data-rima="asson"]').disabled = true;
+document.getElementById('peu').append(
+    `Generat el ${DADES.generat} amb `,
+    Object.assign(document.createElement('code'), { textContent: 'joc/eines/finestra_rimes.py' }),
+    ', que compta amb les mateixes funcions que ',
+    Object.assign(document.createElement('code'), { textContent: 'generar_dades.py' }),
+    '.'
+);
+
+construirLlegendaTaula();
+posarRima('cons');
+
+let ampladaAbans = 0;
+new ResizeObserver(() => {
+    const ara = document.getElementById('histograma').clientWidth;
+    if (ara !== ampladaAbans) { ampladaAbans = ara; dibuixarHistograma(); dibuixarDetall(); }
+}).observe(document.getElementById('histograma'));
+</script>
+</body>
+</html>

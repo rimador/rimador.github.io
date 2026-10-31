@@ -1,0 +1,716 @@
+<!doctype html>
+<!--
+  Plantilla de bosses_rimes.py: el script hi posa les claus al lloc de
+  __DADES__ i n'escriu bosses_rimes.html. Tot es calcula aquí, en temps real: vegeu el docstring del script per saber què és cada cosa.
+-->
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bosses de rimes</title>
+<style>
+:root {
+    color-scheme: light;
+    --pla: #f9f9f7; --superficie: #fcfcfb; --text: #0b0b0b; --text-2: #52514e; --apagat: #898781;
+    --graella: #e1e0d9; --base: #c3c2b7; --vora: rgba(11, 11, 11, 0.10);
+    --serie: #2a78d6; --context: #d9d8d2;
+    --alerta: #d03b3b; --alerta-fons: rgba(208, 59, 59, 0.10);
+    --ombra: 0 6px 20px rgba(11, 11, 11, 0.12);
+    /* De la bossa més difícil (clar) a la més fàcil (fosc). */
+    --b1: #cde2fb; --b2: #9ec5f4; --b3: #6da7ec; --b4: #3987e5; --b5: #256abf; --b6: #184f95; --b7: #0d366b;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --pla: #0d0d0d; --superficie: #1a1a19; --text: #f0efec; --text-2: #c3c2b7; --apagat: #898781;
+        --graella: #2c2c2a; --base: #383835; --vora: rgba(255, 255, 255, 0.10);
+        --serie: #3987e5; --context: #3a3a37; --alerta-fons: rgba(208, 59, 59, 0.20);
+        --ombra: 0 6px 20px rgba(0, 0, 0, 0.5);
+        --b1: #104281; --b2: #184f95; --b3: #256abf; --b4: #3987e5; --b5: #6da7ec; --b6: #9ec5f4; --b7: #cde2fb;
+    }
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --pla: #0d0d0d; --superficie: #1a1a19; --text: #f0efec; --text-2: #c3c2b7; --apagat: #898781;
+    --graella: #2c2c2a; --base: #383835; --vora: rgba(255, 255, 255, 0.10);
+    --serie: #3987e5; --context: #3a3a37; --alerta-fons: rgba(208, 59, 59, 0.20);
+    --ombra: 0 6px 20px rgba(0, 0, 0, 0.5);
+    --b1: #104281; --b2: #184f95; --b3: #256abf; --b4: #3987e5; --b5: #6da7ec; --b6: #9ec5f4; --b7: #cde2fb;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--pla); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.pagina { max-width: 1200px; margin: 0 auto; padding: 32px 16px 48px; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+h2 { font-size: 20px; margin: 36px 0 4px; }
+.intro { color: var(--text-2); max-width: 80ch; margin: 0 0 20px; }
+.explica { color: var(--text-2); font-size: 14px; max-width: 85ch; margin: 0 0 12px; }
+.targeta { min-width: 0; padding: 16px; border-radius: 12px; background: var(--superficie); border: 1px solid var(--vora); }
+button, input, select { font: inherit; }
+.boto {
+    font-size: 13px; padding: 5px 12px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--vora); background: var(--pla); color: var(--text);
+}
+.boto:hover { border-color: var(--text-2); }
+.boto.principal { background: var(--text); color: var(--superficie); border-color: var(--text); }
+.boto:disabled { opacity: 0.45; cursor: default; }
+input[type="number"] {
+    width: 86px; font-size: 14px; font-variant-numeric: tabular-nums; padding: 3px 6px; border-radius: 6px;
+    border: 1px solid var(--vora); background: var(--pla); color: var(--text);
+}
+input.curt { width: 84px; }
+
+/* --- L'editor i el resum ------------------------------------------------- */
+.tauler { display: grid; gap: 16px; }
+@media (min-width: 980px) {
+    .tauler { grid-template-columns: minmax(420px, 1fr) 1.2fr; align-items: start; }
+    .tauler > .targeta:first-child { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }
+}
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+th { font-weight: 500; font-size: 12px; color: var(--apagat); text-align: left; padding: 4px 6px; }
+td { padding: 3px 6px; font-size: 14px; }
+.editor td.num, .editor th.num { text-align: right; }
+.editor .quin { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; }
+.treu { border: 0; background: transparent; color: var(--apagat); cursor: pointer; font-size: 15px; padding: 2px 6px; border-radius: 6px; }
+.treu:hover { color: var(--alerta); background: var(--alerta-fons); }
+.fila-botons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+.opcions { display: grid; gap: 10px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--graella); }
+.opcio { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; }
+.rotul { font-size: 13px; color: var(--apagat); min-width: 110px; }
+.segment { display: inline-flex; padding: 2px; border-radius: 8px; background: var(--pla); border: 1px solid var(--vora); }
+.segment button { font-size: 13px; border: 0; border-radius: 6px; padding: 3px 10px; cursor: pointer; background: transparent; color: var(--text-2); }
+.segment button[aria-pressed="true"] { background: var(--text); color: var(--superficie); }
+.ajuda { font-size: 12px; color: var(--text-2); margin: 2px 0 0; }
+.suma { font-weight: 650; }
+.suma.malament { color: var(--alerta); }
+
+.xifres { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.xifra .nom { display: block; font-size: 13px; color: var(--apagat); }
+.xifra .valor { display: block; font-size: 30px; font-weight: 650; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.xifra .sub { display: block; font-size: 13px; color: var(--text-2); }
+.avisos { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.avisos li { font-size: 13px; padding: 6px 10px; border-radius: 8px; background: var(--alerta-fons); }
+.avisos li::before { content: "▲ "; color: var(--alerta); }
+.avisos li.be { background: transparent; border: 1px solid var(--vora); }
+.avisos li.be::before { content: "✓ "; color: var(--serie); }
+
+/* --- Bossa per bossa ------------------------------------------------------ */
+.resultats { overflow-x: auto; }
+.resultats table { min-width: 760px; }
+.resultats thead th { border-bottom: 1px solid var(--graella); white-space: nowrap; }
+.resultats td { border-top: 1px solid var(--graella); vertical-align: top; padding: 8px 6px; }
+.resultats td.num, .resultats th.num { text-align: right; }
+.resultats tr.paraules td { border-top: 0; padding-top: 0; padding-bottom: 12px; }
+.resultats table:not(.amb-paraules) tr.paraules { display: none; }
+.boto[aria-pressed="true"] { background: var(--text); color: var(--superficie); border-color: var(--text); }
+.nom-bossa { font-weight: 650; white-space: nowrap; }
+.durada { min-width: 170px; }
+.pista { position: relative; height: 6px; margin-top: 4px; border-radius: 3px; background: var(--graella); }
+.pista .ple { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--serie); }
+.pista .ple.curt { background: var(--alerta); }
+.pista .objectiu { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--text); }
+.curt-text { color: var(--alerta); font-weight: 650; }
+.grups-paraules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; font-size: 13px; }
+.grups-paraules .titol { color: var(--apagat); font-size: 12px; }
+.grups-paraules b { font-weight: 600; }
+.grups-paraules .r { color: var(--text-2); font-variant-numeric: tabular-nums; }
+.grups-paraules span.p { white-space: nowrap; }
+
+/* --- Claus i dies ---------------------------------------------------------- */
+.barres { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: center; font-size: 13px; }
+.barres .etiqueta { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.parella { display: grid; gap: 2px; }
+.barra { display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; color: var(--text-2); }
+.barra i { display: block; height: 10px; border-radius: 0 3px 3px 0; min-width: 1px; }
+.barra.claus i { background: var(--context); }
+.barra.dies i { background: var(--serie); }
+.llegenda { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; font-size: 13px; color: var(--text-2); }
+.llegenda span { display: inline-flex; align-items: center; gap: 6px; }
+.llegenda i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+
+/* --- El calendari ---------------------------------------------------------- */
+.calendari { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.dia { border: 1px solid var(--vora); border-radius: 8px; padding: 6px 8px; font-size: 13px; background: var(--pla); }
+.dia .data { color: var(--apagat); font-size: 12px; }
+.dia .paraula { font-weight: 650; font-size: 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dia .detall { color: var(--text-2); font-variant-numeric: tabular-nums; }
+.dia .quin { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 4px; }
+.recompte-calendari { font-size: 13px; color: var(--text-2); margin-top: 10px; }
+
+details summary { cursor: pointer; font-size: 14px; }
+footer { margin-top: 40px; font-size: 13px; color: var(--apagat); }
+code { font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="pagina">
+    <h1>Les bosses de la paraula del dia</h1>
+    <div class="opcio" style="margin:0 0 12px">
+        <span class="rotul" id="rotul-mena">Mena de rima</span>
+        <div class="segment" role="group" aria-labelledby="rotul-mena">
+            <button type="button" data-mena="consonant">Consonant (difícil)</button>
+            <button type="button" data-mena="assonant">Assonant (fàcil)</button>
+        </div>
+    </div>
+    <p class="intro" id="intro"></p>
+
+    <div class="tauler">
+        <div class="targeta">
+            <table class="editor">
+                <thead><tr><th></th><th>Des de</th><th>Fins a</th><th class="num">Quota (%)</th><th></th></tr></thead>
+                <tbody id="editor"></tbody>
+                <tfoot><tr><td></td><td></td><td class="num" style="font-size:13px;color:var(--apagat)">Suma</td><td class="num"><span class="suma" id="suma"></span></td><td></td></tr></tfoot>
+            </table>
+            <div class="fila-botons">
+                <button type="button" class="boto" id="afegeix">+ Afegeix una bossa</button>
+                <button type="button" class="boto" id="normalitza">Ajusta les quotes al 100%</button>
+                <button type="button" class="boto" id="iguals">Totes iguals</button>
+            </div>
+            <div class="opcions">
+                <div class="opcio">
+                    <span class="rotul" id="rotul-regla">Altres dialectes</span>
+                    <div class="segment" role="group" aria-labelledby="rotul-regla">
+                        <button type="button" data-regla="costat">Bossa del costat</button>
+                        <button type="button" data-regla="estricta">Estricta</button>
+                    </div>
+                </div>
+                <p class="ajuda" id="ajuda-regla"></p>
+                <div class="opcio">
+                    <label class="rotul" for="objectiu">Durar com a mínim</label>
+                    <input type="number" id="objectiu" class="curt" min="1" step="1"> dies sense repetir
+                </div>
+                <div class="opcio">
+                    <span class="rotul">Partir de</span>
+                    <span id="presets" class="fila-botons" style="margin:0"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="targeta">
+            <div class="xifres">
+                <div class="xifra"><span class="nom">Primer cop que es repeteix una terminació</span><span class="valor" id="x-repeteix"></span><span class="sub" id="x-repeteix-sub"></span></div>
+                <div class="xifra"><span class="nom">Mediana de rimes (al central)</span><span class="valor" id="x-mediana"></span><span class="sub" id="x-mediana-sub"></span></div>
+                <div class="xifra"><span class="nom">Claus en joc</span><span class="valor" id="x-claus"></span><span class="sub" id="x-claus-sub"></span></div>
+                <div class="xifra"><span class="nom" id="x-ara-nom"></span><span class="valor" id="x-ara"></span><span class="sub" id="x-ara-sub"></span></div>
+            </div>
+            <ul class="avisos" id="avisos" aria-live="polite"></ul>
+        </div>
+    </div>
+
+    <h2>Bossa per bossa</h2>
+    <p class="explica">
+        «Surt» és cada quants dies toca la bossa, de mitjana. «Dura» és quants dies passen fins que la bossa s'ha buidat i torna a sortir una terminació: les claus que té
+        dividides per la seva quota. La ratlla negra és l'objectiu de dies. «Quota màxima» és la més alta que pot tenir
+        la bossa sense repetir abans de l'objectiu. De cada bossa, les tres claus amb menys rimes, les tres del mig i les
+        tres amb més, amb una paraula d'exemple i les rimes al central, si les demanes amb el botó (passa-hi per sobre per veure els altres dialectes).
+    </p>
+    <div class="fila-botons" style="margin:0 0 12px">
+        <button type="button" class="boto" id="boto-paraules" aria-pressed="false">Mostra les paraules d'exemple</button>
+    </div>
+    <div class="targeta resultats"><table id="resultats"></table></div>
+
+    <h2>Claus i dies</h2>
+    <p class="explica">
+        Quin tros de les claus hi ha a cada bossa i quin tros dels dies se n'emporta. On la barra blava és més llarga
+        que la grisa, la bossa surt més sovint del que tocaria triant a l'atzar, i al revés.
+    </p>
+    <div class="targeta">
+        <div class="barres" id="barres"></div>
+        <div class="llegenda">
+            <span><i style="background: var(--context)"></i>% de les claus en joc</span>
+            <span><i style="background: var(--serie)"></i>% dels dies (la quota)</span>
+        </div>
+    </div>
+
+    <h2>Com quedarien els propers dies</h2>
+    <p class="explica" id="explica-calendari"></p>
+    <div class="targeta">
+        <div class="opcio" style="margin-bottom:12px">
+            <label class="rotul" for="dies-calendari">Quants dies</label>
+            <select id="dies-calendari"><option value="28">4 setmanes</option><option value="91">3 mesos</option><option value="365">1 any</option></select>
+        </div>
+        <div class="calendari" id="calendari"></div>
+        <p class="recompte-calendari" id="recompte-calendari"></p>
+    </div>
+
+    <footer id="peu"></footer>
+</div>
+
+<script>
+const DADES = __DADES__;
+// Les dues configuracions, {consonant, assonant}; cfg i CLAUS són les de la
+// mena que es mira, i canvien amb el botó de dalt.
+// Es comença per la proposta del script.
+const tot = structuredClone(DADES.per_defecte);
+let mena = 'consonant';
+let cfg = tot[mena];
+let CLAUS = DADES.claus[mena];
+
+// --- Números en català ------------------------------------------------------
+
+function mil(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function decimal(x, d = 1) { return Number.isInteger(x) ? mil(x) : x.toFixed(d).replace('.', ','); }
+function pct(x) { return (x > 0 && x < 1 ? decimal(x) : x < 10 ? decimal(Math.round(x * 10) / 10) : mil(Math.round(x))) + '%'; }
+function durada(dies) {
+    if (!Number.isFinite(dies)) return 'mai';
+    if (dies < 45) return `${Math.round(dies)} dies`;
+    let anys = Math.floor(dies / 365), mesos = Math.round((dies - anys * 365) / 30.44);
+    if (mesos === 12) { anys++; mesos = 0; }
+    const parts = [];
+    if (anys) parts.push(anys === 1 ? '1 any' : `${anys} anys`);
+    if (mesos) parts.push(mesos === 1 ? '1 mes' : `${mesos} mesos`);
+    return '≈ ' + parts.join(' i ');
+}
+function nomBossa(b) { return `${mil(b.de)}–${mil(b.fins)}`; }
+function crear(etiqueta, classe, text, pare) {
+    const e = document.createElement(etiqueta);
+    if (classe) e.className = classe;
+    if (text !== undefined) e.textContent = text;
+    if (pare) pare.appendChild(e);
+    return e;
+}
+
+// --- Els càlculs ------------------------------------------------------------
+
+function bosses() {
+    let de = cfg.des_de;
+    return cfg.bosses.map((b, i) => {
+        const bossa = { i, de, fins: b.fins, quota: b.quota };
+        de = b.fins + 1;
+        return bossa;
+    });
+}
+
+// Entre quines rimes han de caure els altres dialectes perquè una clau valgui
+// a la bossa i: la mateixa bossa (estricta) o fins a les del costat.
+function rangPermes(bs, i) {
+    if (cfg.regla === 'estricta') return [bs[i].de, bs[i].fins];
+    return [bs[Math.max(0, i - 1)].de, bs[Math.min(bs.length - 1, i + 1)].fins];
+}
+
+function perfilQueVal(clau, lo, hi) {
+    return clau.f.find(f => {
+        for (let j = 0; j < f.length - 1; j++) if (f[j] < lo || f[j] > hi) return false;
+        return true;
+    });
+}
+
+function quantil(ns, p) {
+    if (!ns.length) return 0;
+    const pos = (ns.length - 1) * p, b = Math.floor(pos), a = Math.ceil(pos);
+    return Math.round(ns[b] + (ns[a] - ns[b]) * (pos - b));
+}
+
+function calcular() {
+    const bs = bosses();
+    for (const b of bs) { b.claus = []; b.alCentral = 0; }
+    let sota = 0, sobre = 0;
+    const ultim = bs[bs.length - 1].fins;
+    for (const clau of CLAUS) {
+        if (clau.n < cfg.des_de) { sota++; continue; }
+        if (clau.n > ultim) { sobre++; continue; }
+        const i = bs.findIndex(b => clau.n <= b.fins);
+        const b = bs[i];
+        b.alCentral++;
+        const f = perfilQueVal(clau, ...rangPermes(bs, i));
+        if (f) b.claus.push({ clau, n: clau.n, paraula: f.at(-1), perfil: f });
+    }
+    // Les quotes es fan servir en proporció: si no sumen 100, cada una val el seu tros de la suma.
+    const suma = bs.reduce((s, b) => s + b.quota, 0);
+    for (const b of bs) {
+        b.claus.sort((x, y) => x.n - y.n || x.paraula.localeCompare(y.paraula, 'ca'));
+        b.fora = b.alCentral - b.claus.length;
+        b.part = suma > 0 ? b.quota / suma : 0;
+        b.actiu = b.part > 0 && b.claus.length > 0;
+        b.dies = b.part > 0 ? b.claus.length / b.part : Infinity;
+        b.quotaMax = 100 * b.claus.length / cfg.dies_objectiu;
+    }
+    const enJoc = bs.filter(b => b.actiu).reduce((s, b) => s + b.claus.length, 0);
+
+    // La dificultat de tots els dies: cada clau pesa la part de la seva bossa
+    // dividida per les claus que té (les que surten més sovint pesen més).
+    const pes = [];
+    const partActiva = bs.filter(b => b.actiu).reduce((s, b) => s + b.part, 0);
+    for (const b of bs) if (b.actiu) for (const c of b.claus) pes.push([c.n, b.part / partActiva / b.claus.length]);
+    pes.sort((x, y) => x[0] - y[0]);
+    const pc = {};
+    let acc = 0, mitjana = 0;
+    for (const [n, w] of pes) {
+        acc += w;
+        mitjana += n * w;
+        for (const p of [0.1, 0.25, 0.5, 0.75, 0.9]) if (!(p in pc) && acc >= p - 1e-9) pc[p] = n;
+    }
+    const primera = bs.filter(b => b.actiu).sort((x, y) => x.dies - y.dies)[0];
+    return { bs, suma, enJoc, sota, sobre, pc, mitjana: Math.round(mitjana), primera };
+}
+
+// La finestra que es juga ara, per comparar: una sola bossa i la regla estricta.
+function ara() {
+    const p = DADES.publicada;
+    if (!p) return null;
+    const ns = DADES.claus.consonant.filter(c => perfilQueVal(c, p.min, p.max)).map(c => c.n).sort((a, b) => a - b);
+    return { ...p, claus: ns.length, p25: quantil(ns, 0.25), p50: quantil(ns, 0.5), p75: quantil(ns, 0.75) };
+}
+const ARA = ara();
+
+// --- L'editor ---------------------------------------------------------------
+
+function color(i, total) {
+    // De la bossa més difícil (la primera) a la més fàcil, amb els set tons de la rampa.
+    const pas = total > 1 ? Math.round((i / (total - 1)) * 6) + 1 : 4;
+    return `var(--b${pas})`;
+}
+
+function pintarEditor(r) {
+    const cos = document.getElementById('editor');
+    cos.replaceChildren();
+    r.bs.forEach((b, i) => {
+        const fila = cos.insertRow();
+        const quin = crear('span', 'quin', undefined, fila.insertCell());
+        quin.style.background = color(i, r.bs.length);
+        const de = fila.insertCell();
+        if (i === 0) {
+            const input = crear('input', 'curt', undefined, de);
+            Object.assign(input, { type: 'number', min: 2, step: 1, value: cfg.des_de });
+            input.setAttribute('aria-label', 'On comença la primera bossa');
+            input.addEventListener('change', () => { cfg.des_de = Math.max(2, Math.round(+input.value) || 2); canvi(); });
+        } else {
+            de.textContent = mil(b.de);
+        }
+        const fins = crear('input', 'curt', undefined, fila.insertCell());
+        Object.assign(fins, { type: 'number', min: b.de, step: 1, value: b.fins });
+        fins.setAttribute('aria-label', `On acaba la bossa ${i + 1}`);
+        fins.addEventListener('change', () => {
+            // Si es mou per sota d'on comença, la bossa es queda d'un sol número.
+            cfg.bosses[i].fins = Math.max(b.de, Math.round(+fins.value) || b.de);
+            // I les de després s'empenyen si calia.
+            for (let j = i + 1; j < cfg.bosses.length; j++) {
+                if (cfg.bosses[j].fins <= cfg.bosses[j - 1].fins) cfg.bosses[j].fins = cfg.bosses[j - 1].fins + 1;
+            }
+            canvi();
+        });
+        const tdQ = fila.insertCell();
+        tdQ.className = 'num';
+        const quota = crear('input', 'curt', undefined, tdQ);
+        Object.assign(quota, { type: 'number', min: 0, step: 0.5, value: b.quota });
+        quota.setAttribute('aria-label', `Quota de la bossa ${i + 1}`);
+        quota.addEventListener('change', () => { cfg.bosses[i].quota = Math.max(0, +quota.value || 0); canvi(); });
+        const treu = crear('button', 'treu', '✕', fila.insertCell());
+        treu.type = 'button';
+        treu.title = 'Treu aquesta bossa (les seves claus passen a la del costat)';
+        treu.disabled = cfg.bosses.length === 1;
+        treu.addEventListener('click', () => {
+            // Si és l'última, l'anterior s'allarga fins on acabava aquesta.
+            if (i === cfg.bosses.length - 1 && i > 0) cfg.bosses[i - 1].fins = cfg.bosses[i].fins;
+            cfg.bosses.splice(i, 1);
+            canvi();
+        });
+    });
+    const suma = document.getElementById('suma');
+    suma.textContent = pct(r.suma);
+    suma.classList.toggle('malament', Math.abs(r.suma - 100) > 0.01);
+    for (const boto of document.querySelectorAll('[data-regla]')) boto.setAttribute('aria-pressed', boto.dataset.regla === cfg.regla);
+    document.getElementById('ajuda-regla').textContent = cfg.regla === 'costat'
+        ? 'La bossa la decideixen les rimes del central; als altres dialectes, la clau pot caure a la mateixa bossa o a una del costat.'
+        : 'Les rimes dels quatre dialectes han de caure dins de la mateixa bossa. Es perden les claus que queden just a la frontera.';
+    document.getElementById('objectiu').value = cfg.dies_objectiu;
+}
+
+document.getElementById('afegeix').addEventListener('click', () => {
+    const ultima = cfg.bosses[cfg.bosses.length - 1];
+    cfg.bosses.push({ fins: ultima.fins * 2, quota: 0 });
+    canvi();
+});
+document.getElementById('normalitza').addEventListener('click', () => {
+    const suma = cfg.bosses.reduce((s, b) => s + b.quota, 0);
+    if (!suma) return;
+    // Arrodonides a mig punt, i el que sobri o falti a la bossa més grossa.
+    cfg.bosses.forEach(b => { b.quota = Math.round((b.quota / suma) * 200) / 2; });
+    const resta = 100 - cfg.bosses.reduce((s, b) => s + b.quota, 0);
+    const gran = cfg.bosses.reduce((m, b, i) => (b.quota > cfg.bosses[m].quota ? i : m), 0);
+    cfg.bosses[gran].quota = Math.round((cfg.bosses[gran].quota + resta) * 2) / 2;
+    canvi();
+});
+document.getElementById('iguals').addEventListener('click', () => {
+    const q = Math.floor((100 / cfg.bosses.length) * 2) / 2;
+    cfg.bosses.forEach(b => { b.quota = q; });
+    cfg.bosses[0].quota = Math.round((100 - q * (cfg.bosses.length - 1)) * 2) / 2;
+    canvi();
+});
+document.querySelectorAll('[data-regla]').forEach(b => b.addEventListener('click', () => { cfg.regla = b.dataset.regla; canvi(); }));
+document.getElementById('objectiu').addEventListener('change', e => { cfg.dies_objectiu = Math.max(1, Math.round(+e.target.value) || 365); canvi(); });
+
+const PRESETS = [
+    ['La proposta', () => structuredClone(DADES.per_defecte[mena])],
+];
+if (DADES.publicada) {
+    PRESETS.push([`Com la finestra d'ara (${mil(DADES.publicada.min)}–${mil(DADES.publicada.max)})`, () => ({
+        des_de: DADES.publicada.min, regla: 'estricta', dies_objectiu: cfg.dies_objectiu,
+        bosses: [{ fins: DADES.publicada.max, quota: 100 }],
+    })]);
+}
+PRESETS.push(['Al ritme del diccionari', () => {
+    // Les mateixes bosses, i a cadascuna la quota que li tocaria triant a l'atzar: el tros de claus que té.
+    const r = calcular();
+    const total = r.bs.reduce((s, b) => s + b.claus.length, 0) || 1;
+    return { ...structuredClone(cfg), bosses: r.bs.map(b => ({ fins: b.fins, quota: Math.round((b.claus.length / total) * 1000) / 10 })) };
+}]);
+for (const [nom, fer] of PRESETS) {
+    const boto = crear('button', 'boto', nom, document.getElementById('presets'));
+    boto.type = 'button';
+    boto.addEventListener('click', () => { cfg = tot[mena] = fer(); canvi(); });
+}
+
+// --- El resum ---------------------------------------------------------------
+
+function pintarResum(r) {
+    const p = r.primera;
+    document.getElementById('x-repeteix').textContent = p ? `${mil(Math.round(p.dies))} dies` : '—';
+    document.getElementById('x-repeteix-sub').textContent = p
+        ? `${durada(p.dies)}: la bossa ${nomBossa(p)}, que té ${mil(p.claus.length)} claus i un ${pct(p.part * 100)} dels dies`
+        : 'cap bossa no té claus i quota alhora';
+    document.getElementById('x-mediana').textContent = r.pc[0.5] !== undefined ? mil(r.pc[0.5]) : '—';
+    document.getElementById('x-mediana-sub').textContent = r.pc[0.5] !== undefined
+        ? `la meitat dels dies, entre ${mil(r.pc[0.25])} i ${mil(r.pc[0.75])} rimes; 1 dia de cada 10, menys de ${mil(r.pc[0.1])}, i 1 de cada 10, més de ${mil(r.pc[0.9])}. Mitjana: ${mil(r.mitjana)}.`
+        : '';
+    const totes = r.bs.reduce((s, b) => s + b.claus.length, 0);
+    const fora = r.bs.reduce((s, b) => s + b.fora, 0);
+    document.getElementById('x-claus').textContent = mil(r.enJoc);
+    document.getElementById('x-claus-sub').textContent =
+        `${mil(totes)} a les bosses${totes !== r.enJoc ? ` (${mil(totes - r.enJoc)} en bosses sense quota)` : ''}; ` +
+        `${mil(fora)} queden fora per un altre dialecte`;
+    if (ARA && mena !== 'consonant') {
+        document.getElementById('x-ara-nom').textContent = 'Ara es juga';
+        document.getElementById('x-ara').textContent = '—';
+        document.getElementById('x-ara-sub').textContent =
+            `la finestra d'ara (${mil(ARA.min)}–${mil(ARA.max)}) és de rima consonant i serveix per a les dues dificultats: no hi ha res a comparar en assonant`;
+    } else if (ARA) {
+        document.getElementById('x-ara-nom').textContent = `Ara es juga ${mil(ARA.min)}–${mil(ARA.max)}`;
+        document.getElementById('x-ara').textContent = `${mil(ARA.claus)} dies`;
+        document.getElementById('x-ara-sub').textContent =
+            `una sola bossa a l'atzar: mediana ${mil(ARA.p50)} rimes, la meitat entre ${mil(ARA.p25)} i ${mil(ARA.p75)}`;
+    }
+
+    const avisos = document.getElementById('avisos');
+    avisos.replaceChildren();
+    const avis = (text, be = false) => crear('li', be ? 'be' : '', text, avisos);
+    if (Math.abs(r.suma - 100) > 0.01) avis(`Les quotes sumen ${pct(r.suma)}, no 100%: es fan servir en proporció. El botó «Ajusta les quotes al 100%» les arregla.`);
+    for (const b of r.bs) {
+        if (b.part > 0 && !b.claus.length) avis(`La bossa ${nomBossa(b)} té quota però cap clau: aquests dies no hi hauria paraula. Treu-li la quota o ajunta-la amb una altra.`);
+        else if (b.actiu && b.dies < cfg.dies_objectiu) avis(`La bossa ${nomBossa(b)} es repeteix als ${mil(Math.round(b.dies))} dies, abans dels ${mil(cfg.dies_objectiu)}. Per arribar-hi, la seva quota hauria de ser com a màxim ${pct(b.quotaMax)}.`);
+    }
+    if (r.sota) avis(`${mil(r.sota)} claus tenen menys de ${mil(cfg.des_de)} rimes al central i no entren a cap bossa.`, true);
+    if (r.sobre) avis(`${mil(r.sobre)} claus tenen més de ${mil(r.bs[r.bs.length - 1].fins)} rimes i no entren a cap bossa.`, true);
+    if (!avisos.querySelector('li:not(.be)')) avis(`Cap bossa no es repeteix abans dels ${mil(cfg.dies_objectiu)} dies i les quotes sumen 100%.`, true);
+}
+
+// --- Bossa per bossa -----------------------------------------------------------
+
+function paraulaAmbRimes(c, pare) {
+    const s = crear('span', 'p', undefined, pare);
+    crear('b', '', c.paraula, s);
+    s.append(' ');
+    crear('span', 'r', `(${mil(c.n)})`, s);
+    s.title = `-${c.clau.c} · ` + DADES.dialectes.map((d, j) => `${d}: ${mil(c.perfil[j])}`).join(' · ');
+    return s;
+}
+
+function grupParaules(titol, claus, pare) {
+    const g = crear('div', '', undefined, pare);
+    crear('div', 'titol', titol, g);
+    if (!claus.length) { crear('span', 'r', '—', g); return; }
+    claus.forEach((c, i) => { if (i) g.append(' · '); paraulaAmbRimes(c, g); });
+}
+
+// "cada 20 dies": de mitjana, quants dies passen entre un cop i el següent que surt la bossa.
+function cadaQuants(part) {
+    if (!(part > 0)) return 'mai';
+    const dies = 1 / part;
+    if (dies < 1.05) return 'cada dia';
+    return `cada ${dies < 10 ? decimal(Math.round(dies * 10) / 10) : mil(Math.round(dies))} dies`;
+}
+
+let ambParaules = false;
+document.getElementById('boto-paraules').addEventListener('click', e => {
+    ambParaules = !ambParaules;
+    e.currentTarget.setAttribute('aria-pressed', ambParaules);
+    e.currentTarget.textContent = ambParaules ? "Amaga les paraules d'exemple" : "Mostra les paraules d'exemple";
+    document.getElementById('resultats').classList.toggle('amb-paraules', ambParaules);
+});
+
+function pintarResultats(r) {
+    const taula = document.getElementById('resultats');
+    taula.replaceChildren();
+    taula.classList.toggle('amb-paraules', ambParaules);
+    const cap = taula.createTHead().insertRow();
+    for (const [t, num] of [['Bossa', false], ['Claus', true], ['Fora per un altre dialecte', true], ['Quota', true], ['Surt', false], ['Dies al mes', true], ['Dura', false], ['Quota màxima', true]]) {
+        const th = crear('th', num ? 'num' : '', t, cap);
+        th.scope = 'col';
+    }
+    const cos = taula.createTBody();
+    const escala = cfg.dies_objectiu * 3;
+    r.bs.forEach((b, i) => {
+        const fila = cos.insertRow();
+        const nom = fila.insertCell();
+        const quin = crear('span', 'quin', undefined, nom);
+        Object.assign(quin.style, { display: 'inline-block', width: '10px', height: '10px', borderRadius: '2px', marginRight: '6px', background: color(i, r.bs.length) });
+        crear('span', 'nom-bossa', `${nomBossa(b)} rimes`, nom);
+        for (const [valor, classe] of [[mil(b.claus.length), 'num'], [mil(b.fora), 'num'], [pct(b.part * 100), 'num'], [cadaQuants(b.part), ''], [decimal(b.part * 30.44), 'num']]) {
+            fila.insertCell().textContent = valor;
+            fila.lastChild.className = classe;
+        }
+        const dura = fila.insertCell();
+        dura.className = 'durada';
+        if (!b.actiu) {
+            dura.textContent = b.part > 0 ? 'sense claus!' : 'no surt mai (quota 0)';
+            if (b.part > 0) dura.className += ' curt-text';
+        } else {
+            const curt = b.dies < cfg.dies_objectiu;
+            crear('span', curt ? 'curt-text' : '', `${curt ? '▼ ' : ''}${mil(Math.round(b.dies))} dies`, dura);
+            dura.append(` · ${durada(b.dies)}`);
+            const pista = crear('div', 'pista', undefined, dura);
+            const ple = crear('div', 'ple' + (curt ? ' curt' : ''), undefined, pista);
+            ple.style.width = Math.min(100, (b.dies / escala) * 100) + '%';
+            const objectiu = crear('div', 'objectiu', undefined, pista);
+            objectiu.style.left = `calc(${100 / 3}% - 1px)`;
+            objectiu.title = `${mil(cfg.dies_objectiu)} dies`;
+        }
+        const max = fila.insertCell();
+        max.className = 'num';
+        // Per sobre del 100% vol dir que, encara que sortís cada dia, duraria més que l'objectiu.
+    max.textContent = !b.claus.length ? '—' : b.quotaMax >= 100 ? 'qualsevol' : pct(b.quotaMax);
+
+        const filaP = cos.insertRow();
+        filaP.className = 'paraules';
+        filaP.insertCell();
+        const td = filaP.insertCell();
+        td.colSpan = 7;
+        const grups = crear('div', 'grups-paraules', undefined, td);
+        const k = b.claus.length;
+        const mig = Math.floor(k / 2);
+        grupParaules('Amb menys rimes', b.claus.slice(0, 3), grups);
+        grupParaules('Del mig', k > 6 ? b.claus.slice(Math.max(0, mig - 1), mig + 2) : [], grups);
+        grupParaules('Amb més rimes', k > 3 ? b.claus.slice(-3) : [], grups);
+    });
+}
+
+// --- Claus i dies ----------------------------------------------------------------
+
+function pintarBarres(r) {
+    const caixa = document.getElementById('barres');
+    caixa.replaceChildren();
+    const total = r.enJoc || 1;
+    const files = r.bs.map(b => ({ b, claus: b.actiu ? (100 * b.claus.length) / total : 0, dies: 100 * b.part }));
+    const max = Math.max(1, ...files.map(f => Math.max(f.claus, f.dies)));
+    for (const f of files) {
+        crear('div', 'etiqueta', nomBossa(f.b), caixa);
+        const parella = crear('div', 'parella', undefined, caixa);
+        for (const [classe, valor] of [['claus', f.claus], ['dies', f.dies]]) {
+            const barra = crear('div', `barra ${classe}`, undefined, parella);
+            const i = crear('i', '', undefined, barra);
+            i.style.width = `calc(${(valor / max) * 100}% - 48px)`;
+            barra.append(pct(valor));
+        }
+    }
+}
+
+// --- El calendari -------------------------------------------------------------------
+
+// Un generador de números a l'atzar amb llavor: sempre la mateixa barreja.
+function llavor(text) {
+    let h = 1779033703 ^ text.length;
+    for (let i = 0; i < text.length; i++) { h = Math.imul(h ^ text.charCodeAt(i), 3432918353); h = (h << 13) | (h >>> 19); }
+    return () => {
+        h = Math.imul(h ^ (h >>> 16), 2246822507); h = Math.imul(h ^ (h >>> 13), 3266489909);
+        return ((h ^= h >>> 16) >>> 0) / 4294967296;
+    };
+}
+function barrejar(llista, text) {
+    const atzar = llavor(text), copia = llista.slice();
+    for (let i = copia.length - 1; i > 0; i--) { const j = Math.floor(atzar() * (i + 1)); [copia[i], copia[j]] = [copia[j], copia[i]]; }
+    return copia;
+}
+
+function pintarCalendari(r) {
+    const dies = +document.getElementById('dies-calendari').value;
+    document.getElementById('explica-calendari').textContent =
+        'Una mostra de com sortirien les bosses amb aquestes quotes. Cada dia toca la bossa que més "deu" segons la seva ' +
+        'quota (un repartiment ponderat, que les escampa tan regulars com pot), i de la bossa es treu una clau a l\'atzar sense ' +
+        'repetir. És només una il·lustració: el joc encara no tria així.';
+    const actives = r.bs.map((b, i) => ({ b, i })).filter(x => x.b.actiu);
+    const caixa = document.getElementById('calendari');
+    caixa.replaceChildren();
+    if (!actives.length) return;
+    const ordres = actives.map(x => barrejar(x.b.claus, `${mena}-bossa-${x.b.de}-${x.b.fins}`));
+    const usades = actives.map(() => 0);
+    const deute = actives.map(() => 0);
+    const recompte = actives.map(() => 0);
+    const avui = new Date();
+    const format = new Intl.DateTimeFormat('ca', { weekday: 'short', day: 'numeric', month: 'short' });
+    for (let d = 0; d < dies; d++) {
+        // Repartiment ponderat suau: cada bossa acumula la seva part, i surt la que més en du.
+        actives.forEach((x, j) => { deute[j] += x.b.part; });
+        let j = 0;
+        for (let k = 1; k < actives.length; k++) if (deute[k] > deute[j]) j = k;
+        deute[j] -= actives.reduce((s, x) => s + x.b.part, 0);
+        const { b, i } = actives[j];
+        const c = ordres[j][usades[j]++ % ordres[j].length];
+        recompte[j]++;
+        const data = new Date(avui);
+        data.setDate(avui.getDate() + d);
+        const cella = crear('div', 'dia', undefined, caixa);
+        crear('span', 'data', format.format(data), cella);
+        crear('span', 'paraula', c.paraula, cella);
+        const detall = crear('span', 'detall', undefined, cella);
+        const quin = crear('span', 'quin', undefined, detall);
+        quin.style.background = color(i, r.bs.length);
+        detall.append(`${mil(c.n)} rimes · ${nomBossa(b)}`);
+        cella.title = `-${c.clau.c}`;
+    }
+    document.getElementById('recompte-calendari').textContent = `En ${mil(dies)} dies: ` +
+        actives.map((x, j) => `${nomBossa(x.b)}: ${mil(recompte[j])}`).join(' · ');
+}
+document.getElementById('dies-calendari').addEventListener('change', () => pintar());
+
+// --- Tot plegat ----------------------------------------------------------------------
+
+function pintar() {
+    for (const boto of document.querySelectorAll('[data-mena]')) boto.setAttribute('aria-pressed', boto.dataset.mena === mena);
+    document.getElementById('intro').textContent = INTRO[mena];
+    const r = calcular();
+    pintarEditor(r);
+    pintarResum(r);
+    pintarResultats(r);
+    pintarBarres(r);
+    pintarCalendari(r);
+}
+function canvi() { pintar(); }
+
+
+document.querySelectorAll('[data-mena]').forEach(b => b.addEventListener('click', () => {
+    mena = b.dataset.mena;
+    cfg = tot[mena];
+    CLAUS = DADES.claus[mena];
+    pintar();
+}));
+
+const COMU = ', i cada bossa té una quota: el percentatge de dies que li toca, tingui les claus que tingui. Dins de cada bossa, ' +
+    'les claus surten a l\'atzar i no se\'n repeteix cap fins que s\'han fet servir totes. Tria els talls i les quotes, ' +
+    'i mira quant dura cada bossa i quina dificultat en surt.';
+const INTRO = {
+    consonant: 'RIMA CONSONANT, la de la paraula del dia en difícil: les respostes bones són les rimes de la clau. ' +
+        'Les claus es reparteixen en bosses segons quantes rimes tenen al ' + DADES.canonic.toLowerCase() + COMU,
+    assonant: 'RIMA ASSONANT, la de la paraula del dia en fàcil: les respostes bones són tot el grup assonant, o sigui que ' +
+        'aquí una "clau" és un grup assonant i les seves rimes són les de tot el grup. Hi ha molts menys grups que claus ' +
+        'consonants, i per això les bosses es buiden molt abans. Els grups es reparteixen en bosses segons quantes rimes tenen al ' +
+        DADES.canonic.toLowerCase() + COMU,
+};
+document.getElementById('peu').append(
+    `Dades del ${DADES.generat}: ${mil(DADES.claus.consonant.length)} claus consonants i ${mil(DADES.claus.assonant.length)} grups assonants que poden ser paraula del dia als ${DADES.dialectes.length} dialectes. Les calcula `,
+    crear('code', '', 'joc/eines/bosses_rimes.py'), ' amb les mateixes funcions que ', crear('code', '', 'generar_dades.py'), '.'
+);
+
+pintar();
+</script>
+</body>
+</html>

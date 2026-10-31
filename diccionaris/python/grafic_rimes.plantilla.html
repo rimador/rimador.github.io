@@ -1,0 +1,623 @@
+<!doctype html>
+<!--
+  Plantilla de grafic_rimes.py: el script hi posa les dades al lloc de
+  __DADES__ i n'escriu el grafic_rimes.html. Els gràfics es dibuixen aquí, en
+  SVG i sense cap biblioteca, perquè la pàgina s'obri sense connexió.
+-->
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paraules per rima</title>
+<style>
+:root {
+    color-scheme: light;
+    --pla: #f9f9f7;
+    --superficie: #fcfcfb;
+    --text: #0b0b0b;
+    --text-2: #52514e;
+    --apagat: #898781;
+    --graella: #e1e0d9;
+    --base: #c3c2b7;
+    --vora: rgba(11, 11, 11, 0.10);
+    --serie: #2a78d6;
+    --serie-activa: #1b5aa6;
+    --ombra: 0 6px 20px rgba(11, 11, 11, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --pla: #0d0d0d;
+        --superficie: #1a1a19;
+        --text: #f0efec;
+        --text-2: #c3c2b7;
+        --apagat: #898781;
+        --graella: #2c2c2a;
+        --base: #383835;
+        --vora: rgba(255, 255, 255, 0.10);
+        --serie: #3987e5;
+        --serie-activa: #79adee;
+        --ombra: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --pla: #0d0d0d;
+    --superficie: #1a1a19;
+    --text: #f0efec;
+    --text-2: #c3c2b7;
+    --apagat: #898781;
+    --graella: #2c2c2a;
+    --base: #383835;
+    --vora: rgba(255, 255, 255, 0.10);
+    --serie: #3987e5;
+    --serie-activa: #79adee;
+    --ombra: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: var(--pla);
+    color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.pagina { max-width: 1180px; margin: 0 auto; padding: 32px 16px 48px; }
+h1 { font-size: 28px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+.intro { color: var(--text-2); max-width: 72ch; margin: 0 0 20px; }
+
+.controls {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px;
+    padding: 12px 0; background: var(--pla);
+    border-bottom: 1px solid var(--graella);
+}
+@media (min-width: 760px) {
+    .controls { position: sticky; top: 0; z-index: 2; }
+}
+.grup { display: inline-flex; align-items: center; gap: 8px; }
+.rotul { font-size: 13px; color: var(--apagat); }
+.segment {
+    display: inline-flex; padding: 2px; border-radius: 8px;
+    background: var(--superficie); border: 1px solid var(--vora);
+}
+.segment button {
+    font: inherit; font-size: 14px; border: 0; border-radius: 6px;
+    padding: 4px 12px; cursor: pointer;
+    background: transparent; color: var(--text-2);
+}
+.segment button:hover { color: var(--text); }
+.segment button[aria-pressed="true"] { background: var(--text); color: var(--superficie); }
+.segment button:disabled { opacity: 0.45; cursor: default; }
+.casella { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--text-2); cursor: pointer; }
+.casella input { margin: 0; accent-color: var(--serie); }
+.explica { font-size: 13px; color: var(--text-2); margin: 10px 0 0; max-width: 90ch; }
+
+.index { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 20px 0 0; font-size: 14px; }
+.index a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--base); }
+.index a:hover { color: var(--text); border-color: var(--text); }
+
+section { margin-top: 32px; scroll-margin-top: 72px; }
+h2 { font-size: 20px; margin: 0 0 12px; }
+.graella {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+}
+.targeta {
+    min-width: 0; padding: 16px 16px 12px; border-radius: 12px;
+    background: var(--superficie); border: 1px solid var(--vora);
+}
+h3 { font-size: 16px; margin: 0 0 10px; }
+.xifres { display: flex; flex-wrap: wrap; gap: 6px 24px; margin: 0 0 12px; }
+.xifres dt { font-size: 12px; color: var(--apagat); }
+.xifres dd { margin: 0; font-size: 18px; font-weight: 600; }
+
+.grafic svg { display: block; overflow: visible; }
+.grafic svg:focus { outline: none; }
+.grafic svg:focus-visible { outline: 2px solid var(--serie); outline-offset: 4px; border-radius: 4px; }
+.linia-graella { stroke: var(--graella); stroke-width: 1; }
+.linia-base { stroke: var(--base); stroke-width: 1; }
+.eix { fill: var(--apagat); font-size: 11px; font-variant-numeric: tabular-nums; }
+.titol-eix { fill: var(--apagat); font-size: 11px; }
+.barra { fill: var(--serie); }
+.barra.activa { fill: var(--serie-activa); }
+/* La de "més de 50": no és un valor sol sinó tots els que no hi caben. */
+.barra.agregada { fill-opacity: 0.5; }
+.barra.agregada.activa { fill-opacity: 0.75; }
+.etiqueta { fill: var(--text-2); font-size: 11px; }
+.zona { fill: transparent; cursor: crosshair; }
+
+.nota, .grans { font-size: 13px; color: var(--text-2); margin: 8px 0 0; }
+.grans b { color: var(--text); font-weight: 600; }
+details { margin-top: 8px; }
+summary { font-size: 13px; color: var(--text-2); cursor: pointer; }
+.taula { max-height: 280px; overflow: auto; margin-top: 6px; border: 1px solid var(--vora); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { padding: 3px 10px; text-align: right; border-bottom: 1px solid var(--graella); }
+th { position: sticky; top: 0; background: var(--superficie); color: var(--apagat); font-weight: 500; }
+td:first-child, th:first-child { text-align: left; }
+
+#tooltip {
+    position: fixed; z-index: 10; pointer-events: none; max-width: 300px;
+    padding: 8px 10px; border-radius: 8px; font-size: 13px;
+    background: var(--superficie); border: 1px solid var(--vora); box-shadow: var(--ombra);
+}
+#tooltip strong { display: block; font-size: 15px; color: var(--text); }
+#tooltip .que { color: var(--text-2); }
+#tooltip .exemples { margin-top: 6px; color: var(--text-2); }
+#tooltip .exemples div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#tooltip .exemples b { color: var(--text); font-weight: 600; }
+
+footer { margin-top: 40px; font-size: 13px; color: var(--apagat); }
+code { font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="pagina">
+    <header>
+        <h1>Quantes paraules té cada rima</h1>
+        <p class="intro">
+            L'eix horitzontal és quantes paraules té una rima; el vertical, quantes rimes en tenen
+            aquestes. Les rimes d'una sola paraula són les <b>nàufragues</b>: aquella paraula no
+            rima amb res. Es compten les formes diferents: <i>a</i> és una sola paraula encara que
+            surti amb tres lemes. Els gràfics del mateix tipus de rima comparteixen l'eix vertical,
+            i es poden comparar d'un dialecte a l'altre. Passa per sobre d'una barra per veure'n
+            exemples.
+        </p>
+    </header>
+
+    <div class="controls">
+        <div class="grup">
+            <span class="rotul" id="rotul-agrupa">Agrupa per</span>
+            <div class="segment" role="group" aria-labelledby="rotul-agrupa">
+                <button type="button" data-agrupa="dialecte">Dialecte</button>
+                <button type="button" data-agrupa="tipus">Tipus de rima</button>
+            </div>
+        </div>
+        <div class="grup">
+            <span class="rotul" id="rotul-escala">Escala</span>
+            <div class="segment" role="group" aria-labelledby="rotul-escala">
+                <button type="button" data-escala="lineal">Lineal</button>
+                <button type="button" data-escala="log">Logarítmica</button>
+            </div>
+        </div>
+        <div class="grup">
+            <span class="rotul" id="rotul-abast">Rimes</span>
+            <div class="segment" role="group" aria-labelledby="rotul-abast">
+                <button type="button" data-abast="fins">Fins a <span class="fins"></span> paraules</button>
+                <button type="button" data-abast="totes">Totes</button>
+            </div>
+        </div>
+        <div class="grup">
+            <span class="rotul" id="rotul-naufragues">Nàufragues</span>
+            <div class="segment" role="group" aria-labelledby="rotul-naufragues">
+                <button type="button" data-naufragues="true">Mostra-les</button>
+                <button type="button" data-naufragues="false">Amaga-les</button>
+            </div>
+        </div>
+        <div class="grup">
+            <span class="rotul" id="rotul-dues">Rimes de 2 paraules</span>
+            <div class="segment" role="group" aria-labelledby="rotul-dues">
+                <button type="button" data-dues="true">Mostra-les</button>
+                <button type="button" data-dues="false">Amaga-les</button>
+            </div>
+        </div>
+        <div class="grup">
+            <span class="rotul" id="rotul-pronoms" title="Infinitiu o gerundi + pronom(s): caure'm, vivint-se...">Verb + pronom(s)</span>
+            <div class="segment" role="group" aria-labelledby="rotul-pronoms">
+                <button type="button" data-pronoms="true">Inclou-los</button>
+                <button type="button" data-pronoms="false">Treu-los</button>
+            </div>
+        </div>
+        <label class="casella"><input type="checkbox" id="apendix" checked> Amb les paraules pròpies de cada dialecte (l'apendix)</label>
+    </div>
+    <p class="explica" id="explica"></p>
+    <nav class="index" id="index" aria-label="Seccions"></nav>
+
+    <main id="seccions"></main>
+
+    <footer id="peu"></footer>
+</div>
+<div id="tooltip" hidden></div>
+
+<script>
+const DADES = __DADES__;
+
+// abast: a l'escala lineal, si hi surten les rimes de més de DADES.fins
+// paraules ('totes') o no ('fins'). A la log sempre hi surten.
+// dues: si hi surten les rimes de dues paraules.
+// pronoms: si hi entren les formes de verb + pronom(s) (codi W).
+const estat = { agrupa: 'dialecte', escala: 'lineal', abast: 'fins', naufragues: true, dues: true, pronoms: true, apendix: true };
+const NS = 'http://www.w3.org/2000/svg';
+const tooltip = document.getElementById('tooltip');
+
+// --- Números en català ------------------------------------------------------
+
+function mil(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function decimal(x) { return Number.isInteger(x) ? mil(x) : x.toFixed(1).replace('.', ','); }
+function percentatge(part, total) {
+    const p = 100 * part / total;
+    return (p > 0 && p < 1 ? 'menys de l\'1' : Math.round(p)) + '%';
+}
+function nParaules(n) { return n === 1 ? '1 paraula' : mil(n) + ' paraules'; }
+function nRimes(n) { return n === 1 ? '1 rima' : mil(n) + ' rimes'; }
+function interval(b) {
+    if (b.mesDe) return `més de ${nParaules(b.mesDe)}`;
+    return b.de === b.a ? nParaules(b.de) : `entre ${mil(b.de)} i ${mil(b.a)} paraules`;
+}
+// La barra de les rimes d'una sola paraula.
+function esNaufraga(b) { return b.de === 1 && b.a === 1; }
+
+// --- Dades ------------------------------------------------------------------
+
+function grafic(codi, tipus) {
+    return DADES.grafics[`${codi}.${tipus}.${estat.apendix ? 1 : 0}.${estat.pronoms ? 1 : 0}`];
+}
+
+function foraDe(g) {
+    return g.mides.filter(([mida]) => mida > DADES.fins).reduce((s, [, q]) => s + q, 0);
+}
+
+// Les barres que es dibuixen: a l'escala lineal, una per a cada nombre de
+// paraules fins a DADES.fins, i amb 'totes' una última per a totes les que en
+// tenen més; a la log, intervals que dupliquen (1, 2-3, 4-7...). Sense les
+// nàufragues, tant l'una com l'altra comencen pel 2. Sense les de dues
+// paraules, a la lineal no hi ha la barra del 2 i a la log l'interval de 2 a 3
+// es queda en el 3.
+function barres(g) {
+    const primera = estat.naufragues ? 1 : 2;
+    if (estat.escala === 'lineal') {
+        const mides = new Map(g.mides);
+        const sortida = [];
+        for (let n = primera; n <= DADES.fins; n++) {
+            if (n === 2 && !estat.dues) continue;
+            sortida.push({ de: n, a: n, quantes: mides.get(n) || 0, exemples: g.exemples_mida[n] || [] });
+        }
+        if (estat.abast === 'totes' && g.maxim > DADES.fins) {
+            sortida.push({
+                mesDe: DADES.fins, de: DADES.fins + 1, a: g.maxim, quantes: foraDe(g),
+                exemples: g.grans.filter(([, n]) => n > DADES.fins).slice(0, 3).map(([r, n]) => ({ r, n })),
+            });
+        }
+        return sortida;
+    }
+    const sortida = [];
+    for (let k = 0, de = 1; de <= g.maxim; k++, de *= 2) {
+        if (de < primera) continue;
+        const a = de * 2 - 1;
+        const des = de === 2 && !estat.dues ? 3 : de;
+        let quantes = 0;
+        for (const [mida, q] of g.mides) if (mida >= des && mida <= a) quantes += q;
+        const exemples = (g.exemples_interval[k] || []).filter(ex => ex.n >= des);
+        sortida.push({ de: des, a, quantes, exemples });
+    }
+    return sortida;
+}
+
+// El màxim de l'eix vertical, compartit per tots els gràfics d'un mateix tipus.
+function maximPerTipus() {
+    const maxims = {};
+    for (const t of DADES.tipus) {
+        maxims[t.codi] = Math.max(1, ...DADES.dialectes.map(d =>
+            Math.max(...barres(grafic(d.codi, t.codi)).map(b => b.quantes))));
+    }
+    return maxims;
+}
+
+// --- Gràfic -----------------------------------------------------------------
+
+function el(nom, atributs, pare) {
+    const e = document.createElementNS(NS, nom);
+    for (const k in atributs) e.setAttribute(k, atributs[k]);
+    if (pare) pare.appendChild(e);
+    return e;
+}
+
+function pasNet(x) {
+    const p = Math.pow(10, Math.floor(Math.log10(x)));
+    const f = x / p;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p;
+}
+
+function escalaY(ymax, alt) {
+    if (estat.escala === 'lineal') {
+        const pas = pasNet(ymax / 4);
+        const max = Math.ceil(ymax / pas) * pas;
+        const marques = [];
+        for (let v = 0; v <= max; v += pas) marques.push(v);
+        return { y: v => alt - (v / max) * alt, marques };
+    }
+    // Comença una mica per sota de l'1 perquè una barra d'una sola rima es vegi.
+    const min = 0.5;
+    const max = Math.pow(10, Math.ceil(Math.log10(ymax * 1.05)));
+    const marques = [];
+    for (let v = 1; v <= max; v *= 10) marques.push(v);
+    const llarg = Math.log10(max / min);
+    return { y: v => alt - (Math.log10(v / min) / llarg) * alt, marques };
+}
+
+// Rodona de dalt, quadrada a baix.
+function camiBarra(x, y, w, h, r) {
+    r = Math.min(r, w / 2, h);
+    return `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`;
+}
+
+function dibuixar(targeta) {
+    const { contenidor, g, ymax, titol } = targeta;
+    const bs = barres(g);
+    const amplada = Math.max(260, contenidor.clientWidth);
+    const m = { e: 46, d: 6, s: 22, i: 40 };
+    const w = amplada - m.e - m.d;
+    const alt = 220;
+
+    const svg = el('svg', {
+        width: amplada, height: alt + m.s + m.i, tabindex: 0, role: 'img',
+        'aria-label': `${titol}: quantes rimes tenen cada nombre de paraules. Fletxes per recórrer les barres.`,
+    });
+    const arrel = el('g', { transform: `translate(${m.e},${m.s})` }, svg);
+    const { y, marques } = escalaY(ymax, alt);
+
+    for (const v of marques) {
+        el('line', { class: v === 0 ? 'linia-base' : 'linia-graella', x1: 0, x2: w, y1: y(v), y2: y(v) }, arrel);
+        el('text', { class: 'eix', x: -8, y: y(v), dy: '0.32em', 'text-anchor': 'end' }, arrel).textContent = mil(v);
+    }
+    el('line', { class: 'linia-base', x1: 0, x2: w, y1: alt, y2: alt }, arrel);
+    el('text', { class: 'titol-eix', x: -m.e, y: -10 }, arrel).textContent = 'Rimes';
+
+    // La barra de "més de 50" va separada de la resta per una banda buida.
+    const agregada = bs.length > 0 && Boolean(bs[bs.length - 1].mesDe);
+    const banda = w / (bs.length + (agregada ? 1 : 0));
+    const lloc = i => (agregada && i === bs.length - 1 ? i + 1 : i);
+    const gruix = Math.max(1, Math.min(24, banda - 2));
+    const camins = bs.map((b, i) => {
+        if (!b.quantes) return null;
+        const x = lloc(i) * banda + (banda - gruix) / 2;
+        const y0 = y(b.quantes);
+        return el('path', { class: b.mesDe ? 'barra agregada' : 'barra', d: camiBarra(x, y0, gruix, alt - y0, 4) }, arrel);
+    });
+
+    // Les etiquetes de l'eix x: a la lineal, al mig de la barra (1, 5, 10...);
+    // a la log, a les vores dels intervals (1, 2, 4, 8...), saltant-ne si no hi caben.
+    if (estat.escala === 'lineal') {
+        const pas = banda * 5 >= 24 ? 5 : 10;
+        const fins = agregada ? w - 64 : Infinity;
+        bs.forEach((b, i) => {
+            if (b.mesDe || (i && b.de % pas)) return;
+            const x = (lloc(i) + 0.5) * banda;
+            if (x > fins) return;
+            el('text', { class: 'eix', x, y: alt + 16, 'text-anchor': 'middle' }, arrel).textContent = b.de;
+        });
+        if (agregada) {
+            el('text', { class: 'eix', x: w, y: alt + 16, 'text-anchor': 'end' }, arrel).textContent = `més de ${DADES.fins}`;
+        }
+    } else {
+        const mesLlarga = mil(bs[bs.length - 1].a + 1).length * 6.5 + 8;
+        const salt = Math.max(1, Math.ceil(mesLlarga / banda));
+        for (let i = 0; i <= bs.length; i += salt) {
+            const vora = i < bs.length ? bs[i].de : bs[bs.length - 1].a + 1;
+            el('text', { class: 'eix', x: i * banda, y: alt + 16, 'text-anchor': 'middle' }, arrel).textContent = mil(vora);
+        }
+    }
+
+    // El nom de la barra de les nàufragues, damunt de la més alta de les que tapa.
+    const iNaufragues = bs.findIndex(b => esNaufraga(b) && b.quantes);
+    if (iNaufragues >= 0) {
+        const tapades = bs.slice(iNaufragues, iNaufragues + Math.ceil(64 / banda));
+        el('text', {
+            class: 'etiqueta', x: lloc(iNaufragues) * banda + (banda - gruix) / 2,
+            y: y(Math.max(...tapades.map(b => b.quantes))) - 6,
+        }, arrel).textContent = 'nàufragues';
+    }
+    el('text', { class: 'titol-eix', x: w / 2, y: alt + 34, 'text-anchor': 'middle' }, arrel).textContent = 'Paraules que té la rima';
+
+    // La zona de cada barra fa tota l'alçada: no cal encertar una barra baixa.
+    let activa = -1;
+    function activar(i, posicio) {
+        if (activa >= 0 && camins[activa]) camins[activa].classList.remove('activa');
+        activa = i;
+        if (camins[i]) camins[i].classList.add('activa');
+        mostrarTooltip(bs[i], posicio);
+    }
+    function desactivar() {
+        if (activa >= 0 && camins[activa]) camins[activa].classList.remove('activa');
+        activa = -1;
+        tooltip.hidden = true;
+    }
+    bs.forEach((b, i) => {
+        const zona = el('rect', { class: 'zona', x: lloc(i) * banda, y: 0, width: banda, height: alt }, arrel);
+        zona.addEventListener('pointermove', e => activar(i, { x: e.clientX, y: e.clientY }));
+    });
+    svg.addEventListener('pointerleave', desactivar);
+    svg.addEventListener('blur', desactivar);
+    svg.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const i = activa < 0 ? 0 : Math.max(0, Math.min(bs.length - 1, activa + (e.key === 'ArrowRight' ? 1 : -1)));
+        const caixa = svg.getBoundingClientRect();
+        activar(i, { x: caixa.left + m.e + (lloc(i) + 0.5) * banda, y: caixa.top + m.s + alt / 2 });
+    });
+
+    contenidor.replaceChildren(svg);
+    omplirTaula(targeta.taula, bs);
+}
+
+function mostrarTooltip(b, posicio) {
+    const fill = (etiqueta, classe, text) => {
+        const e = document.createElement(etiqueta);
+        if (classe) e.className = classe;
+        e.textContent = text;
+        tooltip.appendChild(e);
+        return e;
+    };
+    tooltip.replaceChildren();
+    if (esNaufraga(b) && b.quantes) {
+        fill('strong', '', b.quantes === 1 ? '1 nàufraga' : mil(b.quantes) + ' nàufragues');
+        fill('div', 'que', 'rimes d\'una sola paraula, que no rima amb res');
+    } else {
+        fill('strong', '', b.quantes ? nRimes(b.quantes) : 'Cap rima');
+        fill('div', 'que', 'amb ' + interval(b));
+    }
+    if (b.quantes && b.exemples.length) {
+        const caixa = fill('div', 'exemples', b.de === b.a ? 'Per exemple:' : 'Les més grans:');
+        for (const ex of b.exemples) {
+            const linia = document.createElement('div');
+            const rima = document.createElement('b');
+            rima.textContent = '-' + ex.r;
+            linia.appendChild(rima);
+            const resta = ex.p ? ex.p.join(', ') : (b.de === b.a ? '' : nParaules(ex.n));
+            if (resta) linia.appendChild(document.createTextNode(' ' + resta));
+            caixa.appendChild(linia);
+        }
+    }
+    tooltip.hidden = false;
+    const ample = tooltip.offsetWidth, llarg = tooltip.offsetHeight;
+    let x = posicio.x + 14, y = posicio.y + 14;
+    if (x + ample > innerWidth - 8) x = posicio.x - 14 - ample;
+    if (y + llarg > innerHeight - 8) y = posicio.y - 14 - llarg;
+    tooltip.style.left = Math.max(8, x) + 'px';
+    tooltip.style.top = Math.max(8, y) + 'px';
+}
+
+function omplirTaula(taula, bs) {
+    const cos = document.createElement('tbody');
+    for (const b of bs) {
+        const fila = cos.insertRow();
+        fila.insertCell().textContent = b.mesDe ? `més de ${mil(b.mesDe)}`
+            : esNaufraga(b) ? '1 (nàufragues)'
+            : b.de === b.a ? mil(b.de) : `${mil(b.de)} – ${mil(b.a)}`;
+        fila.insertCell().textContent = mil(b.quantes);
+    }
+    taula.tBodies[0].replaceWith(cos);
+}
+
+// --- Pàgina -----------------------------------------------------------------
+
+let targetes = [];
+
+function crear(etiqueta, classe, text, pare) {
+    const e = document.createElement(etiqueta);
+    if (classe) e.className = classe;
+    if (text !== undefined) e.textContent = text;
+    if (pare) pare.appendChild(e);
+    return e;
+}
+
+function targeta(dialecte, tipus, titol, ymax) {
+    const g = grafic(dialecte.codi, tipus.codi);
+    const article = crear('article', 'targeta');
+    crear('h3', '', titol, article);
+
+    const xifres = crear('dl', 'xifres', undefined, article);
+    const soles = new Map(g.mides).get(1) || 0;
+    for (const [nom, valor] of [
+        ['Rimes', mil(g.rimes)],
+        ['Paraules', mil(g.paraules)],
+        ['Nàufragues', `${mil(soles)} (${percentatge(soles, g.rimes)})`],
+        ['Mediana', decimal(g.mediana) + (g.mediana === 1 ? ' paraula' : ' paraules')],
+    ]) {
+        const parell = crear('div', '', undefined, xifres);
+        crear('dt', '', nom, parell);
+        crear('dd', '', valor, parell);
+    }
+
+    const contenidor = crear('div', 'grafic', undefined, article);
+
+    if (estat.escala === 'lineal' && estat.abast === 'fins') {
+        const fora = foraDe(g);
+        if (fora) crear('p', 'nota',
+            `I ${nRimes(fora)} (${percentatge(fora, g.rimes)}) amb més de ${DADES.fins} paraules, que no hi surten.`,
+            article);
+    }
+
+    const grans = crear('p', 'grans', 'Les més grans: ', article);
+    g.grans.forEach(([rima, n], i) => {
+        if (i) grans.appendChild(document.createTextNode(' · '));
+        crear('b', '', '-' + rima, grans);
+        grans.appendChild(document.createTextNode(' ' + mil(n)));
+    });
+
+    const detalls = crear('details', '', undefined, article);
+    crear('summary', '', 'Mostra les dades', detalls);
+    const caixa = crear('div', 'taula', undefined, detalls);
+    const taula = crear('table', '', undefined, caixa);
+    const cap = taula.createTHead().insertRow();
+    crear('th', '', 'Paraules', cap);
+    crear('th', '', 'Rimes', cap);
+    taula.appendChild(document.createElement('tbody'));
+
+    targetes.push({ contenidor, g, ymax, titol: `${tipus.nom}, ${dialecte.nom}`, taula });
+    return article;
+}
+
+function render() {
+    for (const boto of document.querySelectorAll('[data-agrupa]')) boto.setAttribute('aria-pressed', boto.dataset.agrupa === estat.agrupa);
+    for (const boto of document.querySelectorAll('[data-escala]')) boto.setAttribute('aria-pressed', boto.dataset.escala === estat.escala);
+    // A la log sempre hi surten totes: el botó ho diu i no es pot canviar.
+    const log = estat.escala === 'log';
+    for (const boto of document.querySelectorAll('[data-abast]')) {
+        boto.setAttribute('aria-pressed', boto.dataset.abast === (log ? 'totes' : estat.abast));
+        boto.disabled = log;
+        boto.title = log ? 'A l\'escala logarítmica sempre hi surten totes' : '';
+    }
+    for (const boto of document.querySelectorAll('[data-naufragues]')) boto.setAttribute('aria-pressed', boto.dataset.naufragues === String(estat.naufragues));
+    for (const boto of document.querySelectorAll('[data-dues]')) boto.setAttribute('aria-pressed', boto.dataset.dues === String(estat.dues));
+    for (const boto of document.querySelectorAll('[data-pronoms]')) boto.setAttribute('aria-pressed', boto.dataset.pronoms === String(estat.pronoms));
+
+    const des = estat.naufragues ? 'de l\'1' : estat.dues ? 'del 2' : 'del 3';
+    const fora = [estat.naufragues ? '' : 'les nàufragues', estat.dues ? '' : 'les rimes de 2 paraules'].filter(Boolean);
+    document.getElementById('explica').textContent = (
+        log ? `Els dos eixos són logarítmics i cada barra agrupa el doble de valors que l'anterior (${estat.naufragues ? '1, ' : ''}${estat.dues ? 'de 2 a 3' : '3'}, de 4 a 7, de 8 a 15…): així hi cap tot, fins a la rima més gran.`
+        : estat.abast === 'totes' ? `Una barra per a cada nombre de paraules, ${des} al ${DADES.fins}, i al final una de més clara amb totes les rimes que en tenen més.`
+        : `Una barra per a cada nombre de paraules, ${des} al ${DADES.fins}. Les rimes que en tenen més no hi surten.`
+    ) + (fora.length ? ` ${fora.join(' i ').replace(/^l/, 'L')} no hi surten.` : '')
+      + (estat.pronoms ? '' : ' Es compta com si les formes de verb + pronom(s) no existissin: una paraula que només rimava amb una d\'elles passa a ser nàufraga.');
+
+    const maxims = maximPerTipus();
+    const seccions = document.getElementById('seccions');
+    const index = document.getElementById('index');
+    seccions.replaceChildren();
+    index.replaceChildren();
+    targetes = [];
+
+    const grups = estat.agrupa === 'dialecte'
+        ? DADES.dialectes.map(d => ({ id: d.codi, nom: d.nom, parelles: DADES.tipus.map(t => [d, t, t.nom]) }))
+        : DADES.tipus.map(t => ({ id: t.codi, nom: t.nom, parelles: DADES.dialectes.map(d => [d, t, d.nom]) }));
+
+    for (const grup of grups) {
+        const seccio = crear('section', '', undefined, seccions);
+        seccio.id = grup.id;
+        crear('h2', '', grup.nom, seccio);
+        const graella = crear('div', 'graella', undefined, seccio);
+        for (const [d, t, titol] of grup.parelles) graella.appendChild(targeta(d, t, titol, maxims[t.codi]));
+        const enllac = crear('a', '', grup.nom, index);
+        enllac.href = '#' + grup.id;
+    }
+    targetes.forEach(dibuixar);
+}
+
+document.querySelectorAll('[data-agrupa]').forEach(b => b.addEventListener('click', () => { estat.agrupa = b.dataset.agrupa; render(); }));
+document.querySelectorAll('[data-escala]').forEach(b => b.addEventListener('click', () => { estat.escala = b.dataset.escala; render(); }));
+document.querySelectorAll('[data-abast]').forEach(b => b.addEventListener('click', () => { estat.abast = b.dataset.abast; render(); }));
+document.querySelectorAll('[data-naufragues]').forEach(b => b.addEventListener('click', () => { estat.naufragues = b.dataset.naufragues === 'true'; render(); }));
+document.querySelectorAll('[data-dues]').forEach(b => b.addEventListener('click', () => { estat.dues = b.dataset.dues === 'true'; render(); }));
+document.querySelectorAll('[data-pronoms]').forEach(b => b.addEventListener('click', () => { estat.pronoms = b.dataset.pronoms === 'true'; render(); }));
+document.querySelectorAll('.fins').forEach(e => { e.textContent = DADES.fins; });
+document.getElementById('apendix').addEventListener('change', e => { estat.apendix = e.target.checked; render(); });
+
+// Si l'amplada canvia, només es tornen a dibuixar els gràfics.
+let amplades = '';
+new ResizeObserver(() => {
+    const ara = targetes.map(t => t.contenidor.clientWidth).join();
+    if (ara !== amplades) { amplades = ara; targetes.forEach(dibuixar); }
+}).observe(document.getElementById('seccions'));
+
+const sense = DADES.dialectes.filter(d => !d.apendix).map(d => d.nom);
+document.getElementById('peu').append(
+    `Generat el ${DADES.generat} amb `,
+    Object.assign(document.createElement('code'), { textContent: 'diccionaris/python/grafic_rimes.py' }),
+    sense.length ? `. Sense apendix: ${sense.join(', ')}.` : '.'
+);
+
+render();
+</script>
+</body>
+</html>

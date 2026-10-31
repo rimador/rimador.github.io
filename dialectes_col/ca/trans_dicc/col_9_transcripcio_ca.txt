@@ -19249,7 +19249,7 @@ ndɾəŋɡˈɛtə
 əjɣwənˈew
 əjɣwənˈɛws
 əjɣwəpˈɔʎ
-əjɣwəpˈɔʎs
+əjɣwəpˈoʎs
 əjɣwərðˈen
 əjɣwərðəntˈe
 əjɣwərðəntˈeɾə
@@ -55879,7 +55879,7 @@ oˈpɛrs
 əwtuʒəstiunˈɛw
 əwtuʒəstiunˈi
 əwtuʒəstiˈons
-əwtuʒˈi
+əwtuʒˈir
 əwtuʒˈis
 əwtuɣˈɔl
 əwtuɣˈɔls
@@ -87680,8 +87680,8 @@ kəpˈɔləs
 kəpulˈɛw
 kəpulˈɛw
 kəpulˈi
-kəpˈɔʎ
-kəpˈɔʎs
+kəpˈoʎ
+kəpˈoʎs
 kəpˈɔls
 kəpˈɔnə
 kəpˈɔnə
@@ -182671,7 +182671,7 @@ dˈɔks
 dˈɔɣəs
 dˈɔə
 dˈɔj
-dˈɔjs
+dˈojs
 dˈɔjwðə
 dˈɔjwðə
 dˈɔjwðəs
@@ -350251,7 +350251,7 @@ mətəpəɾˈen
 mətəpəɾˈens
 mətəplˈanə
 mətəpˈɔʎ
-mətəpˈɔʎs
+mətəpˈoʎs
 mətəpˈusə
 mətəpˈusəs
 mətˈa
@@ -372439,7 +372439,7 @@ nˈuzi
 ɲˈoɲəs
 ɲˈɔkəs
 ɲˈoki
-ɲˈokis
+ɲˈɔkis
 ɲˈoɾə
 ɲˈoɾəs
 ɲˈu
@@ -395638,7 +395638,7 @@ pˌikəpˈiɲəs
 pˌikəplˈadʒəs
 pˌikəplˈets
 pˌikəpˈoʎ
-pikəpˈɔʎs
+pikəpˈoʎs
 pˌikəpˈɔrt
 pˌikəpˈɔrtə
 pikəpˈɔrtəs
@@ -397400,6 +397400,7 @@ pikˈɛts
 pikˈɛw
 pikˈɛw
 pikˈi
+pˈir
 pˈiɾə
 pˈiɾə
 pˈiɾə
@@ -449005,6 +449006,8 @@ rˈimə
 rimˈa
 rimˈaðə
 rimˈaðəs
+ɡluzəðˈo
+ɡluzəðˈos
 rimˈajə
 rimˈajəs
 rimˈajɾə

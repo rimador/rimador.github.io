@@ -3217,6 +3217,7 @@ awtu
 ɛɾils
 ɔkus
 ɔtu
+ir
 ɔβil
 ɔβils
 ɔmniβus
@@ -4154,7 +4155,6 @@ afɾəs
 aɣulə
 aɣuləs
 ajɾən
-ir
 aʃu
 aləm
 aləms

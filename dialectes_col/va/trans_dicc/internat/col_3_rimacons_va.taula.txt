@@ -3291,6 +3291,7 @@ iŋni
 edzo
 ezzos
 atʃinsk
+pɛɾ
 ajɾs
 awβe
 enas
@@ -8392,6 +8393,9 @@ indus
 ustɾjes
 ɛðita
 ɛðites
+ɛpta
+ɛpte
+ɛptes
 ɛɾme
 ame
 iɱfeɾ
@@ -8702,7 +8706,6 @@ ampit
 ampits
 astekss
 atekss
-ɛpte
 awðan
 awðans
 awðanum
@@ -9415,8 +9418,6 @@ ufaɾs
 ɔŋnat
 ɔŋnats
 atɾja
-ɛpta
-ɛptes
 unika
 uniks
 unikes
@@ -11966,6 +11967,7 @@ onedʒ
 eliŋk
 ulsi
 ulves
+alkis
 aliz
 aɾɣla
 aɾan

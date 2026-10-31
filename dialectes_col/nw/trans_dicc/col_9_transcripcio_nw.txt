@@ -19249,7 +19249,7 @@ ajɣwanˈejʃos
 ajɣwanˈew
 ajɣwanˈews
 ajɣwapˈɔʎ
-ajɣwapˈɔʎs
+ajɣwapˈoʎs
 ajɣwarðˈen
 ajɣwarðentˈe
 ajɣwarðentˈeɾɛ
@@ -54716,7 +54716,7 @@ adzuβjˈanɛ
 adzuβjˈanɛ
 ˈaw
 ˈaw
-ˈawpaˈi
+oˈpɛr
 ˈawpˈajs
 awalˈe
 awβˈanɛ
@@ -55879,7 +55879,7 @@ awtoʒestjonˈew
 awtoʒestjonˈew
 awtoʒestjonˈi
 awtoʒestjˈons
-awtoʒˈi
+awtoʒˈir
 awtoʒˈis
 awtoɣˈɔl
 awtoɣˈɔls
@@ -87680,8 +87680,8 @@ kapˈɔles
 kapolˈew
 kapolˈew
 kapolˈi
-kapˈɔʎ
-kapˈɔʎs
+kapˈoʎ
+kapˈoʎs
 kapˈɔls
 kapˈɔnɛ
 kapˈɔnɛ
@@ -182671,7 +182671,7 @@ dˈɔks
 dˈɔɣes
 dˈɔɛ
 dˈɔj
-dˈɔjs
+dˈojs
 dˈɔjwðɛ
 dˈɔjwðɛ
 dˈɔjwðes
@@ -350251,7 +350251,7 @@ matapaɾˈen
 matapaɾˈens
 mataplˈanɛ
 matapˈɔʎ
-matapˈɔʎs
+matapˈoʎs
 matapˈusɛ
 matapˈuses
 matˈa
@@ -372439,7 +372439,7 @@ nˈuzi
 ɲˈoɲes
 ɲˈɔkes
 ɲˈoki
-ɲˈokis
+ɲˈɔkis
 ɲˈɔɾɛ
 ɲˈɔɾes
 ɲˈu
@@ -395638,7 +395638,7 @@ pˌikapˈiɲes
 pˌikaplˈadʒes
 pˌikaplˈets
 pˌikapˈoʎ
-pikapˈɔʎs
+pikapˈoʎs
 pˌikapˈɔrt
 pˌikapˈɔrtɛ
 pikapˈɔrtes
@@ -397400,6 +397400,7 @@ pikˈets
 pikˈew
 pikˈew
 pikˈi
+pˈir
 pˈiɾɛ
 pˈiɾɛ
 pˈiɾɛ
@@ -449005,6 +449006,8 @@ rˈimɛ
 rimˈa
 rimˈaðɛ
 rimˈaðes
+ɡlozaðˈo
+ɡlozaðˈos
 rimˈajɛ
 rimˈajes
 rimˈajɾe
@@ -515137,7 +515140,7 @@ bakˈan
 bˈaldɛ
 baldˈɔrf
 balkˈietalkˈie
-balkˈietalkˈies
+balkˈietˈalkis
 balkmˈan
 baʎapˈop
 baʎβˈoks

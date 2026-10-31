@@ -67946,6 +67946,7 @@ Piques
 Piquet
 piquet
 piqueta
+Pir
 Pira
 pira
 pirar
@@ -76134,6 +76135,7 @@ Rillieux-la-Pape
 rim
 rima
 rimar
+rimador
 rimaia
 rimaire
 Rimbaud

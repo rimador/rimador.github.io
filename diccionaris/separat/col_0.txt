@@ -397400,6 +397400,7 @@ piquets
 piqueu
 piqueu
 piquí
+Pir
 Pira
 pira
 pira
@@ -449005,6 +449006,8 @@ rima
 rimà
 rimada
 rimades
+rimador
+rimadors
 rimaia
 rimaies
 rimaire

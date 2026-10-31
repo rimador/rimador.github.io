@@ -3278,6 +3278,7 @@ iɡni
 edzo
 ezzos
 atʃinsk
+pɛr
 awβe
 enas
 iske
@@ -3329,6 +3330,7 @@ awto
 ɛɾils
 ɔkus
 ɔto
+ir
 une
 ɔβil
 ɔβils
@@ -4305,7 +4307,6 @@ aros
 aɣolɛ
 aɣoles
 ajɾen
-ir
 ajʃo
 alam
 alams
@@ -11776,6 +11777,7 @@ oneʒ
 ɔksels
 eliŋk
 ulsi
+alkis
 aliz
 arɣlɛ
 aɾan

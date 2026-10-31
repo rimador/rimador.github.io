@@ -397400,6 +397400,7 @@ piquet
 picar
 picar
 picar
+Pir
 Pira
 pira
 pirar
@@ -449005,6 +449006,8 @@ rimar
 rimar
 rimar
 rimar
+rimador
+rimador
 rimaia
 rimaia
 rimaire

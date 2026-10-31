@@ -19249,7 +19249,7 @@ ndɾəŋɡˈətə
 əjɣwənˈew
 əjɣwənˈɛws
 əjɣwəpˈɔj
-əjɣwəpˈɔjs
+əjɣwəpˈojs
 əjɣwəɾðˈent
 əjɣwəɾðəntˈe
 əjɣwəɾðəntˈeɾə
@@ -48471,7 +48471,7 @@ ndɾəŋɡˈətə
 ˈaspə
 əspəttˈant
 əspəttˈans
-əspˈettə
+əspˈɛttə
 əspˈettəs
 əspəttˈiw
 əspəttˈiws
@@ -54716,7 +54716,7 @@ ndɾəŋɡˈətə
 ədzuviˈanə
 ˈaw
 ˈaw
-ˈawpəˈi
+oˈpɛɾ
 ˈawpˈajs
 əwəlˈe
 əwβˈanə
@@ -87680,8 +87680,8 @@ kəpˈɔləs
 kəpolˈɛw
 kəpolˈɛw
 kəpolˈi
-kəpˈɔj
-kəpˈɔjs
+kəpˈoj
+kəpˈojs
 kəpˈɔls
 kəpˈɔnə
 kəpˈɔnə
@@ -182671,7 +182671,7 @@ dˈɔks
 dˈɔɣəs
 dˈɔə
 dˈɔj
-dˈɔjs
+dˈojs
 dˈɔjwðə
 dˈɔjwðə
 dˈɔjwðəs
@@ -317940,10 +317940,10 @@ inəŋɡolˈibblə
 inəŋɡolˈibbləs
 inˈətsiə
 inˈətsiəs
-inˈettə
+inˈɛttə
 inˈettəmˈent
-inˈettə
-inˈettəs
+inˈɛttə
+inˈɛttəs
 inəttitˈut
 inəttitˈuts
 inəkwəsiˈo
@@ -320875,7 +320875,7 @@ inskultˈuɾəs
 insəkˈabblə
 insəkˈabbləs
 insəttˈaɾi
-insˈettə
+insˈɛttə
 insˈettəs
 insəttisˈiðə
 insəttisˈiðə
@@ -350251,7 +350251,7 @@ mətəpəɾˈent
 mətəpəɾˈens
 mətəplˈanə
 mətəpˈɔj
-mətəpˈɔjs
+mətəpˈojs
 mətəpˈusə
 mətəpˈusəs
 mətˈa
@@ -372439,7 +372439,7 @@ innˈɔɾsk
 ɲˈoɲəs
 ɲˈɔkəs
 ɲˈoki
-ɲˈokis
+ɲˈɔkis
 ɲˈoɾə
 ɲˈoɾəs
 ɲˈu
@@ -395638,7 +395638,7 @@ pˌikəpˈiɲəs
 pˌikəplˈadʒəs
 pˌikəplˈets
 pˌikəpˈoj
-pikəpˈɔjs
+pikəpˈojs
 pˌikəpˈɔrt
 pˌikəpˈɔrtə
 pikəpˈɔrtəs
@@ -397400,6 +397400,7 @@ pikˈəts
 pikˈɛw
 pikˈɛw
 pikˈi
+pˈi
 pˈiɾə
 pˈiɾə
 pˈiɾə
@@ -449005,6 +449006,8 @@ rˈimə
 rimˈa
 rimˈaðə
 rimˈaðəs
+ɡlozəðˈo
+ɡlozəðˈos
 rimˈajə
 rimˈajəs
 rimˈajɾə
@@ -515137,7 +515140,7 @@ bəkˈan
 bˈaldə
 bəldˈɔɾ
 bəlkˈiətəlkˈiə
-bəlkˈiətəlkˈiəs
+bəlkˈiətˈəlkis
 bəlkmˈan
 bəjəpˈop
 bəʎβˈots

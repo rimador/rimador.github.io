@@ -357802,6 +357802,7 @@ miquelistes$miquelista$NCCP000$4$NO$NO$Diec
 Miquelon$Miquelon$NPMSG00$3$NO$Viq$NO
 miquels$miquel$NCMP000$2$Vicc$NO$Diec
 miques$mica$NCFP000$2$Vicc$Viq$Diec
+miqueta$mica$NCFS000$3$NO$NO$NO
 Mir$Mir$NPCNSP0$1$Vicc$Viq$NO
 Mira$Mira$NPCNSP0$2$Vicc$Viq$NO
 mira$mira$NCFS000$2$Vicc$Viq$Diec

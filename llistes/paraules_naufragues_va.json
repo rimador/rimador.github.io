@@ -2763,7 +2763,7 @@
     "paraula": "anc",
     "infinitiu": "anc",
     "codi": "ZRG",
-    "rimacons": "enacˌe",
+    "rimacons": "aŋ",
     "sil": "1",
     "vicc": "Vicc",
     "viq": "Viq",
@@ -7373,7 +7373,7 @@
     "paraula": "Bush",
     "infinitiu": "Bush",
     "codi": "NPCNSP0",
-    "rimacons": "bwtʃ",
+    "rimacons": "uʃ",
     "sil": "1",
     "vicc": "NO",
     "viq": "Viq",
@@ -11268,16 +11268,6 @@
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"
-  },
-  {
-    "paraula": "Cook",
-    "infinitiu": "Cook",
-    "codi": "NPCNG00",
-    "rimacons": "kwk",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
   },
   {
     "paraula": "copaiba",
@@ -24848,26 +24838,6 @@
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"
-  },
-  {
-    "paraula": "Iu",
-    "infinitiu": "Iu",
-    "codi": "NPMSSP0",
-    "rimacons": "jw",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
-    "paraula": "Ius",
-    "infinitiu": "Iu",
-    "codi": "NPMPSP0",
-    "rimacons": "jws",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
   },
   {
     "paraula": "Ivano-Frankivsk",
@@ -48518,16 +48488,6 @@
     "vicc": "NO",
     "viq": "Viq",
     "diec": "Diec"
-  },
-  {
-    "paraula": "Wood",
-    "infinitiu": "Wood",
-    "codi": "NPCNSP0",
-    "rimacons": "wwt",
-    "sil": "1",
-    "vicc": "NO",
-    "viq": "Viq",
-    "diec": "NO"
   },
   {
     "paraula": "Wordle",

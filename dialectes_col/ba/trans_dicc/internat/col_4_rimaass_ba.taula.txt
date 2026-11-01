@@ -85,7 +85,6 @@ uu
 uuu
 aa
 aəe
-eəe
 əoə
 ɛu
 əuə
@@ -144,7 +143,6 @@ uoə
 ieə
 uuə
 ua
-
 ue
 ioi
 eii
@@ -222,6 +220,7 @@ aəoo
 ɔɛ
 aiəeə
 eəioo
+eəe
 aiai
 eəəeə
 iui

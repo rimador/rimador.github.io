@@ -31185,7 +31185,7 @@ anaksˈaɣoɾes
 anaksimˈandɾe
 anaksˈimenes
 anazˈaɾba
-ˌaˈenacˌe
+ˈaŋ
 ˈaŋka
 ˈaŋkaroseɣˈant
 ˈaŋkaroseɣˈans
@@ -78702,12 +78702,12 @@ bulˈimiks
 bulˈimjes
 bulˈimikes
 bulˈimikes
-bwl
-bwl
-bwl
-bwl
-bwl
-bwl
+bˈul
+bˈuʎ
+bˈuʎ
+bˈuʎ
+bˈuʎ
+bˈuʎ
 buʎaβˈesa
 buʎaβˈeses
 buʎˈaŋɡa
@@ -79374,7 +79374,7 @@ buskˈaven
 buskˈaves
 buskˈavew
 buzˈew
-bwtʃ
+bˈuʃ
 butʃˈɛl
 buzˈines
 buzˈiɾis
@@ -118423,7 +118423,7 @@ koofisjˈal
 koofisjalitˈat
 koofisjalitˈats
 koofisjˈals
-kwk
+kˈuk
 kookˈie
 kookˈies
 kookstˈovn
@@ -327337,7 +327337,7 @@ itineɾˈaɾis
 ˈitɾis
 i tˈunes
 ituɾˈea
-jw
+ˈiw
 jwˈan
 jwˈans
 jwkˈa
@@ -327357,7 +327357,7 @@ jwɾˈaks
 jwɾˈaks
 jwɾtˈa
 jwɾtˈes
-jws
+ˈiws
 ˈiva
 ivasˈos
 ivasˈoza
@@ -515318,7 +515318,7 @@ volveɾamtˈon
 volastonˈita
 volastonˈites
 vontˈon
-wwt
+wˈut
 vootstˈɔk
 voɾsestˈeɾ
 wˈoɾt

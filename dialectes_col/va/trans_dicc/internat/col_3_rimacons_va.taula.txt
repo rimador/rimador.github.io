@@ -2187,7 +2187,7 @@ atɾopa
 atɾopes
 atɾops
 imenes
-enacˌe
+aŋ
 ɔstom
 ɔstoms
 aŋkoɾa
@@ -4258,7 +4258,6 @@ ulɣaɾ
 ulɣaɾa
 ulɣaɾes
 ulɣaɾs
-bwl
 ultɾa
 ultɾes
 undel
@@ -4289,7 +4288,7 @@ uros
 uɾtʃa
 uɾtʃen
 uɾtʃes
-bwtʃ
+uʃ
 usken
 ustja
 ustjes
@@ -5502,7 +5501,6 @@ ulsos
 ɔɾtʃa
 ɔɾtʃen
 ɔɾtʃes
-kwk
 opa
 ajβa
 ajβes
@@ -8512,8 +8510,6 @@ itaka
 items
 itɾja
 itɾjes
-jw
-jws
 ivsk
 aksan
 akos
@@ -11991,7 +11987,6 @@ indawz
 onsin
 ɔlof
 ɔlofs
-wwt
 ɔɾðle
 uu
 uksi

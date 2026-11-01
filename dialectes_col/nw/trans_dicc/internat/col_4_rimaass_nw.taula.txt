@@ -116,7 +116,6 @@ uuu
 aao
 ɛeɛ
 ɛee
-eae
 aaa
 ɛoɛ
 ɛoe
@@ -179,6 +178,7 @@ eue
 ɛuo
 aia
 iiu
+eae
 iii
 uoɛ
 uoe
@@ -186,7 +186,6 @@ uaɛ
 uae
 uuɛ
 uue
-
 ioi
 eii
 auo

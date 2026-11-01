@@ -2180,16 +2180,6 @@
     "diec": "NO"
   },
   {
-    "paraula": "anc",
-    "infinitiu": "anc",
-    "codi": "ZRG",
-    "rimacons": "enəcˌe",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
     "paraula": "àncora",
     "infinitiu": "àncora",
     "codi": "NCFS000",
@@ -6170,6 +6160,56 @@
     "diec": "Diec"
   },
   {
+    "paraula": "bull",
+    "infinitiu": "bollir",
+    "codi": "VMIP3S00",
+    "rimacons": "uʎ",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "NO"
+  },
+  {
+    "paraula": "bull",
+    "infinitiu": "bollir",
+    "codi": "VMM02S00",
+    "rimacons": "uʎ",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "NO"
+  },
+  {
+    "paraula": "bull",
+    "infinitiu": "bull",
+    "codi": "NCMS000",
+    "rimacons": "uʎ",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "bull",
+    "infinitiu": "bullir",
+    "codi": "VMIP3S00",
+    "rimacons": "uʎ",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "bull",
+    "infinitiu": "bullir",
+    "codi": "VMM02S00",
+    "rimacons": "uʎ",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "Viq",
+    "diec": "Diec"
+  },
+  {
     "paraula": "búndel",
     "infinitiu": "búndel",
     "codi": "NCMS000",
@@ -6348,16 +6388,6 @@
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"
-  },
-  {
-    "paraula": "Bush",
-    "infinitiu": "Bush",
-    "codi": "NPCNSP0",
-    "rimacons": "bwʃ",
-    "sil": "1",
-    "vicc": "NO",
-    "viq": "Viq",
-    "diec": "NO"
   },
   {
     "paraula": "butla",
@@ -9478,16 +9508,6 @@
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"
-  },
-  {
-    "paraula": "Cook",
-    "infinitiu": "Cook",
-    "codi": "NPCNG00",
-    "rimacons": "kwk",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
   },
   {
     "paraula": "copaiba",
@@ -21238,26 +21258,6 @@
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"
-  },
-  {
-    "paraula": "Iu",
-    "infinitiu": "Iu",
-    "codi": "NPMSSP0",
-    "rimacons": "jw",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
-    "paraula": "Ius",
-    "infinitiu": "Iu",
-    "codi": "NPMPSP0",
-    "rimacons": "jws",
-    "sil": "1",
-    "vicc": "Vicc",
-    "viq": "Viq",
-    "diec": "NO"
   },
   {
     "paraula": "Ivano-Frankivsk",
@@ -41930,16 +41930,6 @@
     "diec": "Diec"
   },
   {
-    "paraula": "Wood",
-    "infinitiu": "Wood",
-    "codi": "NPCNSP0",
-    "rimacons": "wwt",
-    "sil": "1",
-    "vicc": "NO",
-    "viq": "Viq",
-    "diec": "NO"
-  },
-  {
     "paraula": "Wordle",
     "infinitiu": "Wordle",
     "codi": "NPMSO00",
@@ -43445,6 +43435,26 @@
     "codi": "VMSP2S0Y",
     "rimacons": "unzis",
     "sil": "2",
+    "vicc": "Vicc",
+    "viq": "NO",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "bull",
+    "infinitiu": "bollir",
+    "codi": "VMIP1S0Z",
+    "rimacons": "uʎ",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "NO",
+    "diec": "NO"
+  },
+  {
+    "paraula": "bull",
+    "infinitiu": "bullir",
+    "codi": "VMIP1S0Z",
+    "rimacons": "uʎ",
+    "sil": "1",
     "vicc": "Vicc",
     "viq": "NO",
     "diec": "Diec"

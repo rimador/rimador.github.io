@@ -2067,7 +2067,7 @@ atɾopə
 atɾopəs
 atɾots
 imənəs
-enəcˌe
+aŋ
 ɔstom
 ɔstons
 aŋkoɾə
@@ -4033,7 +4033,7 @@ ulɣˌa
 ulɣəɾə
 ulɣəɾəs
 ulɣˌas
-bwl
+uʎ
 ultɾə
 ultɾəs
 undəl
@@ -4062,7 +4062,6 @@ uros
 uɾʃə
 uɾʃən
 uɾʃəs
-bwʃ
 uskən
 ustiə
 ustiəs
@@ -5152,7 +5151,6 @@ ulsos
 ɔɾʃə
 ɔɾʃən
 ɔɾʃəs
-kwk
 opə
 ajβə
 ajβəs
@@ -5556,7 +5554,6 @@ uo
 uos
 aif
 əjɾos
-aŋ
 alβɾə
 alβɾəs
 uβik
@@ -7948,8 +7945,6 @@ itəkə
 itəns
 itɾiə
 itɾiəs
-jw
-jws
 ivsk
 akos
 uzzi
@@ -11169,7 +11164,6 @@ ildz
 indəwz
 onsin
 ɔlof
-wwt
 ɔɾðlə
 uu
 aldiɣə

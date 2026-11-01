@@ -3692,7 +3692,7 @@ isiw
 ɛw
 isin
 isis
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -12329,7 +12329,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 aj
 am
 asən
@@ -15740,7 +15740,7 @@ es
 esim
 esiw
 in
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -23207,7 +23207,7 @@ isis
 is
 isim
 isiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -25345,7 +25345,7 @@ esiw
 ij
 atin
 atin
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -37446,7 +37446,7 @@ esis
 ɔjis
 isin
 isis
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -39137,7 +39137,7 @@ esis
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -40444,7 +40444,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -40858,7 +40858,7 @@ ii
 iin
 iin
 iis
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -49217,7 +49217,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -54761,7 +54761,7 @@ ii
 iin
 iin
 iis
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -54833,7 +54833,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -83679,7 +83679,7 @@ esis
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -95191,7 +95191,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -106912,7 +106912,7 @@ asiw
 ɔrin
 ɔris
 ɔɾrs
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -118163,7 +118163,7 @@ isis
 is
 isim
 isiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -118793,7 +118793,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -168489,7 +168489,7 @@ eɣis
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -170036,7 +170036,7 @@ isis
 is
 isim
 isiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs
@@ -171799,7 +171799,7 @@ asiw
 es
 esim
 esiw
-ɔɾ
+ɔɾt
 am
 asən
 asəs

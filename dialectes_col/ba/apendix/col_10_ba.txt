@@ -3692,7 +3692,7 @@ aconduïguem € aconduir € VMSP1P0B €$ba$ əkonduiɣˈɛm
 aconduïgueu € aconduir € VMSP2P0B €$ba$ əkonduiɣˈɛw
 aconduïssin € aconduir € VMSI3P02 €$ba$ əkonduˈisin
 aconduïssis € aconduir € VMSI2S02 €$ba$ əkonduˈisis
-aconhort € aconhortar € VMIP1S0B €$ba$ əkonˈɔɾ
+aconhort € aconhortar € VMIP1S0B €$ba$ əkonˈɔɾt
 aconhortam € aconhortar € VMIP1P0B €$ba$ əkonoɾtˈam
 aconhortassen € aconhortar € VMSI3P06 €$ba$ əkonoɾtˈasən
 aconhortasses € aconhortar € VMSI2S06 €$ba$ əkonoɾtˈasəs
@@ -12329,7 +12329,7 @@ amorràssiu € amorrar € VMSI2P04 €$ba$ əmorˈasiw
 amorrés € amorrar € VMSI1S01 €$ba$ əmorˈes
 amorréssim € amorrar € VMSI1P02 €$ba$ əmorˈesim
 amorréssiu € amorrar € VMSI2P02 €$ba$ əmorˈesiw
-amort € amortar € VMIP1S0B €$ba$ əmˈɔɾ
+amort € amortar € VMIP1S0B €$ba$ əmˈɔɾt
 amortall € amortallar € VMIP1S0B €$ba$ əmoɾtˈaj
 amortallam € amortallar € VMIP1P0B €$ba$ əmoɾtəjˈam
 amortallassen € amortallar € VMSI3P06 €$ba$ əmoɾtəjˈasən
@@ -15740,7 +15740,7 @@ aporrinés € aporrinar € VMSI1S01 €$ba$ əporinˈes
 aporrinéssim € aporrinar € VMSI1P02 €$ba$ əporinˈesim
 aporrinéssiu € aporrinar € VMSI2P02 €$ba$ əporinˈesiw
 aporrín € aporrinar € VMIP1S0B €$ba$ əporˈin
-aport € aportar € VMIP1S0B €$ba$ əpˈɔɾ
+aport € aportar € VMIP1S0B €$ba$ əpˈɔɾt
 aportam € aportar € VMIP1P0B €$ba$ əpoɾtˈam
 aportassen € aportar € VMSI3P06 €$ba$ əpoɾtˈasən
 aportasses € aportar € VMSI2S06 €$ba$ əpoɾtˈasəs
@@ -23207,7 +23207,7 @@ avorrissis € avorrir € VMSI2S02 €$ba$ əvorˈisis
 avorrís € avorrir € VMSI1S01 €$ba$ əvorˈis
 avorríssim € avorrir € VMSI1P02 €$ba$ əvorˈisim
 avorríssiu € avorrir € VMSI2P02 €$ba$ əvorˈisiw
-avort € avortar € VMIP1S0B €$ba$ əvˈɔɾ
+avort € avortar € VMIP1S0B €$ba$ əvˈɔɾt
 avortam € avortar € VMIP1P0B €$ba$ əvoɾtˈam
 avortassen € avortar € VMSI3P06 €$ba$ əvoɾtˈasən
 avortasses € avortar € VMSI2S06 €$ba$ əvoɾtˈasəs
@@ -25345,7 +25345,7 @@ batifulléssiu € batifullar € VMSI2P02 €$ba$ bətifuˈesiw
 batii € batiar € VMIP1S0B €$ba$ bətˈij
 batin € batre € VMM03P0Y €$ba$ bˈatin
 batin € batre € VMSP3P0Y €$ba$ bˈatin
-batiport € batiportar € VMIP1S0B €$ba$ bətipˈɔɾ
+batiport € batiportar € VMIP1S0B €$ba$ bətipˈɔɾt
 batiportam € batiportar € VMIP1P0B €$ba$ bətipoɾtˈam
 batiportassen € batiportar € VMSI3P06 €$ba$ bətipoɾtˈasən
 batiportasses € batiportar € VMSI2S06 €$ba$ bətipoɾtˈasəs
@@ -37446,7 +37446,7 @@ collin € collar € VMSP3P0Y €$ba$ kˈɔjin
 collis € collar € VMSP2S0Y €$ba$ kˈɔjis
 collissin € collir € VMSI3P02 €$ba$ koˈisin
 collissis € collir € VMSI2S02 €$ba$ koˈisis
-collport € collportar € VMIP1S0B €$ba$ kˌɔʎpˈɔɾ
+collport € collportar € VMIP1S0B €$ba$ kˌɔʎpˈɔɾt
 collportam € collportar € VMIP1P0B €$ba$ kˌɔʎpoɾtˈam
 collportassen € collportar € VMSI3P06 €$ba$ kˌɔʎpoɾtˈasən
 collportasses € collportar € VMSI2S06 €$ba$ kˌɔʎpoɾtˈasəs
@@ -39137,7 +39137,7 @@ componguis € compondre € VMSP2S0Y €$ba$ kompˈɔŋɡis
 compongués € compondre € VMSI1S01 €$ba$ kompoŋɡˈes
 componguéssim € compondre € VMSI1P02 €$ba$ kompoŋɡˈesim
 componguéssiu € compondre € VMSI2P02 €$ba$ kompoŋɡˈesiw
-comport € comportar € VMIP1S0B €$ba$ kompˈɔɾ
+comport € comportar € VMIP1S0B €$ba$ kompˈɔɾt
 comportam € comportar € VMIP1P0B €$ba$ kompoɾtˈam
 comportassen € comportar € VMSI3P06 €$ba$ kompoɾtˈasən
 comportasses € comportar € VMSI2S06 €$ba$ kompoɾtˈasəs
@@ -40444,7 +40444,7 @@ conformàssiu € conformar € VMSI2P04 €$ba$ koɱfoɾmˈasiw
 conformés € conformar € VMSI1S01 €$ba$ koɱfoɾmˈes
 conforméssim € conformar € VMSI1P02 €$ba$ koɱfoɾmˈesim
 conforméssiu € conformar € VMSI2P02 €$ba$ koɱfoɾmˈesiw
-confort € confortar € VMIP1S0B €$ba$ koɱfˈɔɾ
+confort € confortar € VMIP1S0B €$ba$ koɱfˈɔɾt
 confortam € confortar € VMIP1P0B €$ba$ koɱfoɾtˈam
 confortassen € confortar € VMSI3P06 €$ba$ koɱfoɾtˈasən
 confortasses € confortar € VMSI2S06 €$ba$ koɱfoɾtˈasəs
@@ -40858,7 +40858,7 @@ congriï € congriar € VMSP1S0Y €$ba$ koŋɡɾˈii
 congriïn € congriar € VMM03P0Y €$ba$ koŋɡɾˈiin
 congriïn € congriar € VMSP3P0Y €$ba$ koŋɡɾˈiin
 congriïs € congriar € VMSP2S0Y €$ba$ koŋɡɾˈiis
-conhort € conhortar € VMIP1S0B €$ba$ konˈɔɾ
+conhort € conhortar € VMIP1S0B €$ba$ konˈɔɾt
 conhortam € conhortar € VMIP1P0B €$ba$ konoɾtˈam
 conhortassen € conhortar € VMSI3P06 €$ba$ konoɾtˈasən
 conhortasses € conhortar € VMSI2S06 €$ba$ konoɾtˈasəs
@@ -49217,7 +49217,7 @@ deploràssiu € deplorar € VMSI2P04 €$ba$ dəploɾˈasiw
 deplorés € deplorar € VMSI1S01 €$ba$ dəploɾˈes
 deploréssim € deplorar € VMSI1P02 €$ba$ dəploɾˈesim
 deploréssiu € deplorar € VMSI2P02 €$ba$ dəploɾˈesiw
-deport € deportar € VMIP1S0B €$ba$ dəpˈɔɾ
+deport € deportar € VMIP1S0B €$ba$ dəpˈɔɾt
 deportam € deportar € VMIP1P0B €$ba$ dəpoɾtˈam
 deportassen € deportar € VMSI3P06 €$ba$ dəpoɾtˈasən
 deportasses € deportar € VMSI2S06 €$ba$ dəpoɾtˈasəs
@@ -54761,7 +54761,7 @@ desconfiï € desconfiar € VMSP1S0Y €$ba$ dəskoɱfˈii
 desconfiïn € desconfiar € VMM03P0Y €$ba$ dəskoɱfˈiin
 desconfiïn € desconfiar € VMSP3P0Y €$ba$ dəskoɱfˈiin
 desconfiïs € desconfiar € VMSP2S0Y €$ba$ dəskoɱfˈiis
-desconfort € desconfortar € VMIP1S0B €$ba$ dəskoɱfˈɔɾ
+desconfort € desconfortar € VMIP1S0B €$ba$ dəskoɱfˈɔɾt
 desconfortam € desconfortar € VMIP1P0B €$ba$ dəskoɱfoɾtˈam
 desconfortassen € desconfortar € VMSI3P06 €$ba$ dəskoɱfoɾtˈasən
 desconfortasses € desconfortar € VMSI2S06 €$ba$ dəskoɱfoɾtˈasəs
@@ -54833,7 +54833,7 @@ descongestionàssiu € descongestionar € VMSI2P04 €$ba$ dəskonʒəstionˈa
 descongestionés € descongestionar € VMSI1S01 €$ba$ dəskonʒəstionˈes
 descongestionéssim € descongestionar € VMSI1P02 €$ba$ dəskonʒəstionˈesim
 descongestionéssiu € descongestionar € VMSI2P02 €$ba$ dəskonʒəstionˈesiw
-desconhort € desconhortar € VMIP1S0B €$ba$ dəskonˈɔɾ
+desconhort € desconhortar € VMIP1S0B €$ba$ dəskonˈɔɾt
 desconhortam € desconhortar € VMIP1P0B €$ba$ dəskonoɾtˈam
 desconhortassen € desconhortar € VMSI3P06 €$ba$ dəskonoɾtˈasən
 desconhortasses € desconhortar € VMSI2S06 €$ba$ dəskonoɾtˈasəs
@@ -83679,7 +83679,7 @@ emporquis € emporcar € VMSP2S0Y €$ba$ əmpˈɔɾkis
 emporqués € emporcar € VMSI1S01 €$ba$ əmpoɾkˈes
 emporquéssim € emporcar € VMSI1P02 €$ba$ əmpoɾkˈesim
 emporquéssiu € emporcar € VMSI2P02 €$ba$ əmpoɾkˈesiw
-emport € emportar € VMIP1S0B €$ba$ əmpˈɔɾ
+emport € emportar € VMIP1S0B €$ba$ əmpˈɔɾt
 emportam € emportar € VMIP1P0B €$ba$ əmpoɾtˈam
 emportassen € emportar € VMSI3P06 €$ba$ əmpoɾtˈasən
 emportasses € emportar € VMSI2S06 €$ba$ əmpoɾtˈasəs
@@ -95191,7 +95191,7 @@ enredoltàssiu € enredoltar € VMSI2P04 €$ba$ ənrəðoltˈasiw
 enredoltés € enredoltar € VMSI1S01 €$ba$ ənrəðoltˈes
 enredoltéssim € enredoltar € VMSI1P02 €$ba$ ənrəðoltˈesim
 enredoltéssiu € enredoltar € VMSI2P02 €$ba$ ənrəðoltˈesiw
-enredort € enredortar € VMIP1S0B €$ba$ ənrəðˈɔɾ
+enredort € enredortar € VMIP1S0B €$ba$ ənrəðˈɔɾt
 enredortam € enredortar € VMIP1P0B €$ba$ ənrəðoɾtˈam
 enredortassen € enredortar € VMSI3P06 €$ba$ ənrəðoɾtˈasən
 enredortasses € enredortar € VMSI2S06 €$ba$ ənrəðoɾtˈasəs
@@ -106912,7 +106912,7 @@ escorrin € escórrer € VMM03P0Y €$ba$ əskˈɔrin
 escorrin € escórrer € VMSP3P0Y €$ba$ əskˈɔrin
 escorris € escórrer € VMSP2S0Y €$ba$ əskˈɔris
 escorrs € escórrer € VMIP2S0B €$ba$ əskˈɔɾrs
-escort € escortar € VMIP1S0B €$ba$ əskˈɔɾ
+escort € escortar € VMIP1S0B €$ba$ əskˈɔɾt
 escortam € escortar € VMIP1P0B €$ba$ əskoɾtˈam
 escortassen € escortar € VMSI3P06 €$ba$ əskoɾtˈasən
 escortasses € escortar € VMSI2S06 €$ba$ əskoɾtˈasəs
@@ -118163,7 +118163,7 @@ exhibissis € exhibir € VMSI2S02 €$ba$ ətsiβˈisis
 exhibís € exhibir € VMSI1S01 €$ba$ ətsiβˈis
 exhibíssim € exhibir € VMSI1P02 €$ba$ ətsiβˈisim
 exhibíssiu € exhibir € VMSI2P02 €$ba$ ətsiβˈisiw
-exhort € exhortar € VMIP1S0B €$ba$ ətsˈɔɾ
+exhort € exhortar € VMIP1S0B €$ba$ ətsˈɔɾt
 exhortam € exhortar € VMIP1P0B €$ba$ ətsoɾtˈam
 exhortassen € exhortar € VMSI3P06 €$ba$ ətsoɾtˈasən
 exhortasses € exhortar € VMSI2S06 €$ba$ ətsoɾtˈasəs
@@ -118793,7 +118793,7 @@ explotàssiu € explotar € VMSI2P04 €$ba$ ətsplotˈasiw
 explotés € explotar € VMSI1S01 €$ba$ ətsplotˈes
 explotéssim € explotar € VMSI1P02 €$ba$ ətsplotˈesim
 explotéssiu € explotar € VMSI2P02 €$ba$ ətsplotˈesiw
-export € exportar € VMIP1S0B €$ba$ ətspˈɔɾ
+export € exportar € VMIP1S0B €$ba$ ətspˈɔɾt
 exportam € exportar € VMIP1P0B €$ba$ ətspoɾtˈam
 exportassen € exportar € VMSI3P06 €$ba$ ətspoɾtˈasən
 exportasses € exportar € VMSI2S06 €$ba$ ətspoɾtˈasəs
@@ -168489,7 +168489,7 @@ reconeguis € reconèixer € VMSP2S0Y €$ba$ rəkonˈeɣis
 reconegués € reconèixer € VMSI1S01 €$ba$ rəkonəɣˈes
 reconeguéssim € reconèixer € VMSI1P02 €$ba$ rəkonəɣˈesim
 reconeguéssiu € reconèixer € VMSI2P02 €$ba$ rəkonəɣˈesiw
-reconfort € reconfortar € VMIP1S0B €$ba$ rəkoɱfˈɔɾ
+reconfort € reconfortar € VMIP1S0B €$ba$ rəkoɱfˈɔɾt
 reconfortam € reconfortar € VMIP1P0B €$ba$ rəkoɱfoɾtˈam
 reconfortassen € reconfortar € VMSI3P06 €$ba$ rəkoɱfoɾtˈasən
 reconfortasses € reconfortar € VMSI2S06 €$ba$ rəkoɱfoɾtˈasəs
@@ -170036,7 +170036,7 @@ reexpedissis € reexpedir € VMSI2S02 €$ba$ reətspəðˈisis
 reexpedís € reexpedir € VMSI1S01 €$ba$ reətspəðˈis
 reexpedíssim € reexpedir € VMSI1P02 €$ba$ reətspəðˈisim
 reexpedíssiu € reexpedir € VMSI2P02 €$ba$ reətspəðˈisiw
-reexport € reexportar € VMIP1S0B €$ba$ reətspˈɔɾ
+reexport € reexportar € VMIP1S0B €$ba$ reətspˈɔɾt
 reexportam € reexportar € VMIP1P0B €$ba$ reətspoɾtˈam
 reexportassen € reexportar € VMSI3P06 €$ba$ reətspoɾtˈasən
 reexportasses € reexportar € VMSI2S06 €$ba$ reətspoɾtˈasəs
@@ -171799,7 +171799,7 @@ reimplantàssiu € reimplantar € VMSI2P04 €$ba$ rəimpləntˈasiw
 reimplantés € reimplantar € VMSI1S01 €$ba$ rəimpləntˈes
 reimplantéssim € reimplantar € VMSI1P02 €$ba$ rəimpləntˈesim
 reimplantéssiu € reimplantar € VMSI2P02 €$ba$ rəimpləntˈesiw
-reimport € reimportar € VMIP1S0B €$ba$ rəimpˈɔɾ
+reimport € reimportar € VMIP1S0B €$ba$ rəimpˈɔɾt
 reimportam € reimportar € VMIP1P0B €$ba$ rəimpoɾtˈam
 reimportassen € reimportar € VMSI3P06 €$ba$ rəimpoɾtˈasən
 reimportasses € reimportar € VMSI2S06 €$ba$ rəimpoɾtˈasəs

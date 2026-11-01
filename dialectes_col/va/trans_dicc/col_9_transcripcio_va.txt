@@ -22083,7 +22083,7 @@ alkoɾˈines
 alkoɾˈins
 alkoɾˈins
 alkoɾˈiza
-alkˈɔɾt
+alkˈoɾt
 alkosˈeβɾe
 alkosˈeɾ
 alkoseɾˈi
@@ -285950,7 +285950,7 @@ fɾˈansa
 fɾaŋkalˈet
 fɾaŋkalˈets
 fɾˈaŋkamˈent
-fɾaŋkbˈɔɾt
+fɾaŋkbˈoɾt
 fɾaŋkbˈɔɾts
 fɾaŋkkantˈo
 fɾaŋkkantˈons
@@ -357802,6 +357802,7 @@ mikelˈistes
 mikelˈon
 mikˈɛls
 mˈikes
+mikˈeta
 mˈiɾ
 mˈiɾa
 mˈiɾa
@@ -490476,8 +490477,8 @@ tˈɔɾkuls
 toɾsˈut
 toɾsˈuts
 tˈɔɾt
-tˈɔɾt
-tˈɔɾt
+tˈoɾt
+tˈoɾt
 tˈɔɾða
 toɾðˈantʃa
 toɾðˈeʎ
@@ -490979,7 +490980,7 @@ tˈɔɾkes
 toɾkˈew
 toɾkˈew
 toɾkˈi
-tˈɔɾ
+tˈɔr
 tˈɔra
 tˈɔra
 tˈɔra

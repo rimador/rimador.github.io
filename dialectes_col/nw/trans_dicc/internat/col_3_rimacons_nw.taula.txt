@@ -528,7 +528,7 @@ idzes
 ɛns
 ɔmetɾe
 ɔmetɾes
-ɔr
+ɔɾt
 ɔrtɛ
 ɔrtes
 ɔrs
@@ -4377,7 +4377,6 @@ andulɛ
 andules
 ɛrt
 arɣo
-ɔrt
 ambiwm
 ambiwms
 odʒɛ
@@ -4983,6 +4982,7 @@ itoɾis
 iβus
 ɔe
 ɔnus
+ɔr
 antjɛ
 antjes
 ilde
@@ -7642,7 +7642,6 @@ olros
 enɔw
 ɔɲɛ
 ɔɲen
-ort
 ɔbz
 orkɛ
 ɔrseps
@@ -11353,7 +11352,6 @@ oɾmo
 ɔrmos
 ɔrpiðɛ
 ɔrpiðes
-ɔɾ
 art
 ɛɣɾɛ
 ɔrrs

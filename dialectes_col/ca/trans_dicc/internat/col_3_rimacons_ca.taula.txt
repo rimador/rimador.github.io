@@ -258,7 +258,7 @@ iniə
 iniəs
 inis
 isus
-oɾt
+ort
 ektə
 ektəs
 ɔɾi
@@ -1188,7 +1188,6 @@ awtiks
 awtikəs
 aŋktun
 aŋktuns
-ɔr
 ɔstət
 ɔstəts
 ɛɡniə
@@ -3896,7 +3895,6 @@ okəs
 ɔɾəkss
 iɡmə
 iɡməs
-ort
 orðəs
 ɛəðə
 ɛəðəs
@@ -4763,6 +4761,7 @@ ipiŋ
 ipis
 ituɾis
 ɔnus
+ɔr
 antiə
 antiəs
 ɔtʃinə
@@ -10686,7 +10685,6 @@ oɾmo
 ɔrmus
 ɔrpiðə
 ɔrpiðəs
-ɔɾ
 ɔrrs
 orʃəbn
 ortuɾə

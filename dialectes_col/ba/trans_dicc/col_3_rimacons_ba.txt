@@ -12949,7 +12949,7 @@ aŋttons
 ans
 ɔɣɾəf
 ɔɣɾəts
-ɔɾ
+ɔɾt
 ɔɾs
 al
 als
@@ -12992,7 +12992,7 @@ apiəs
 əɾmikəs
 amikə
 amikəs
-ɔɾ
+ɔɾt
 ɔɾs
 ən
 en
@@ -19235,7 +19235,7 @@ inəs
 ɔʃos
 ɔj
 ɔjs
-ɔɾ
+ɔɾt
 ɔɾs
 uɾsiə
 əŋk
@@ -22083,7 +22083,7 @@ inəs
 ins
 ins
 izə
-ɔɾ
+oɾt
 eβɾə
 e
 i
@@ -28087,7 +28087,7 @@ istik
 istikə
 istits
 istikəs
-ɔɾ
+ɔɾt
 aməs
 aməs
 aməs
@@ -56728,7 +56728,7 @@ aðə
 aðəs
 at
 ats
-ɔɾ
+ɔɾt
 ɔɾs
 ozə
 ozə
@@ -58396,7 +58396,7 @@ aβol
 ɔls
 ɔls
 aβols
-oɾ
+oɾt
 oɾs
 ɔt
 izmə
@@ -61699,7 +61699,7 @@ iðə
 iðəs
 it
 its
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -64275,7 +64275,7 @@ aʒik
 aʒikə
 aʒits
 aʒikəs
-ɔɾ
+ɔɾt
 ɔɾtəs
 ɔɾs
 ɔmətɾə
@@ -64885,7 +64885,7 @@ ats
 ats
 ats
 ajɾə
-ɔɾ
+ɔɾt
 ɔwɾ
 ɔtʃəs
 ɔnt
@@ -65005,7 +65005,7 @@ ekkə
 itə
 ɛls
 ets
-ɔɾ
+ɔɾt
 ɔɾs
 uðə
 uðəs
@@ -65026,7 +65026,7 @@ ejs
 əzə
 es
 əðəs
-ɔɾ
+ɔɾt
 iɾə
 oj
 a
@@ -65324,7 +65324,7 @@ ens
 ɛw
 ɛw
 ast
-ɔɾ
+ɔɾt
 ɛlɣə
 ɛlɣə
 awm
@@ -65423,7 +65423,7 @@ ejəs
 aɾ
 a
 ət
-ɔɾ
+ɔɾt
 i
 ini
 onə
@@ -69072,7 +69072,7 @@ o
 ons
 a
 as
-ɔɾ
+ɔɾt
 ɔɾs
 izmə
 izməs
@@ -69756,7 +69756,7 @@ aŋkə
 aŋkə
 aŋkə
 ɔ
-ɔɾ
+ɔɾt
 i
 i
 i
@@ -70848,7 +70848,7 @@ uʃ
 uʃə
 uʃəs
 uʃos
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -70920,7 +70920,7 @@ ozəs
 ozos
 adʒə
 adʒəs
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -75214,7 +75214,7 @@ avən
 avəs
 avəw
 ɛʒos
-ɔɾ
+ɔɾt
 o
 ɔl
 ɔlə
@@ -75979,7 +75979,7 @@ aðə
 aðəs
 iðəs
 idʒə
-ɔɾ
+ɔɾt
 idʒəs
 obn
 o
@@ -83765,7 +83765,7 @@ adʒə
 adʒəs
 o
 ons
-ɔrt
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -87618,7 +87618,7 @@ i
 ɔʃə
 ɔʃəs
 ɔʃos
-ɔɾ
+ɔɾt
 ɔɾs
 eɣɾə
 eɣɾə
@@ -91405,7 +91405,7 @@ i
 inə
 inə
 ɔnt
-ɔrt
+ɔɾt
 aŋkə
 eməs
 an
@@ -92129,7 +92129,7 @@ it
 əŋs
 əŋkəs
 əŋkəs
-ɔɾ
+ɔɾt
 i
 inə
 i
@@ -92202,7 +92202,7 @@ at
 əŋk
 əŋkə
 əŋkə
-ɔrt
+ɔɾt
 ut
 ut
 ej
@@ -93809,7 +93809,7 @@ ajəs
 əts
 ɛw
 ɛw
-ɔɾ
+ɔɾt
 ɔɾs
 i
 i
@@ -102787,7 +102787,7 @@ avəw
 ɛw
 ɛw
 i
-ɔɾ
+ɔɾt
 iw
 iws
 ivə
@@ -107742,7 +107742,7 @@ iəw
 ent
 əns
 ɔns
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 ɔɾtə
@@ -111322,7 +111322,7 @@ istəs
 istəs
 at
 ats
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -112186,7 +112186,7 @@ at
 ats
 ɔŋɡɾus
 ɔŋɡəs
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -113961,7 +113961,7 @@ iəs
 ɛw
 i
 ɔɾsis
-ɔɾ
+ɔɾt
 ɔɾs
 ettə
 ettəs
@@ -115542,7 +115542,7 @@ izməs
 istə
 istəs
 ons
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -116237,7 +116237,7 @@ avəm
 avən
 avəs
 avəw
-ɔɾ
+ɔɾt
 ɔɾs
 uɣə
 uɣəs
@@ -119568,7 +119568,7 @@ os
 ozə
 ozəs
 ozos
-ɔɾ
+ɔɾt
 ɔɾðə
 ɔɾðə
 ɔɾðə
@@ -129183,7 +129183,7 @@ ans
 ao
 avəm
 avən
-ɔɾ
+ɔɾt
 avəs
 avəw
 eziəwts
@@ -134767,7 +134767,7 @@ ent
 ens
 o
 ons
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -144842,7 +144842,7 @@ its
 iw
 iw
 iw
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -144963,7 +144963,7 @@ iw
 iws
 ivə
 ivəs
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -176566,7 +176566,7 @@ inə
 amiə
 amiəs
 ɔɣəns
-ɔɾ
+ɔɾt
 ɔɾs
 iniə
 iniəs
@@ -179317,7 +179317,7 @@ at
 ats
 inus
 inus
-ɔɾ
+ɔɾt
 ɔɾðə
 ɔɾðə
 a
@@ -185230,7 +185230,7 @@ uɾəs
 ɛw
 ɛw
 ɛw
-ɔɾ
+ɔɾt
 uɾk
 am
 i
@@ -185254,7 +185254,7 @@ uti
 us
 us
 aj
-ɔɾ
+ɔɾt
 ɔɾ
 ut
 utə
@@ -262899,7 +262899,7 @@ ej
 ej
 ejs
 os
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -263920,7 +263920,7 @@ avəm
 avən
 avəs
 avəw
-oɾ
+oɾt
 oɾs
 ɔt
 ɔts
@@ -268791,7 +268791,7 @@ iw
 iw
 ant
 ans
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -283325,7 +283325,7 @@ o
 a
 a
 ɔɾə
-ort
+oɾt
 ɔɾs
 aðə
 aðə
@@ -285950,7 +285950,7 @@ ansə
 ət
 əts
 ent
-ɔɾ
+oɾt
 ɔɾs
 o
 ons
@@ -298422,7 +298422,7 @@ u
 ɔɾəl
 azðə
 ov
-oɾ
+oɾt
 ɔɾðə
 ɔɾðəs
 a
@@ -298666,7 +298666,7 @@ anə
 ɔspəls
 i
 i
-ɔɾ
+ɔɾt
 osə
 aðə
 aðəs
@@ -302929,7 +302929,7 @@ o
 i
 ildə
 ildəs
-ɔɾ
+ɔɾt
 əʃ
 ilin
 iə
@@ -304611,7 +304611,7 @@ iəs
 aɾis
 uɾk
 aɾisən
-ɔɾ
+ɔɾt
 ɔl
 adli
 ɛə
@@ -305655,7 +305655,7 @@ alit
 alits
 a
 o
-ɔɾ
+ɔɾt
 ɔɾs
 ɛðɾə
 aəðɾə
@@ -305946,7 +305946,7 @@ aɾiəs
 aɾis
 at
 ats
-ɔɾ
+ɔɾt
 ənsiə
 ənsiəs
 ent
@@ -306026,7 +306026,7 @@ es
 ɛws
 ɛvə
 ɛvəs
-ɔɾ
+ɔɾt
 e
 itə
 itə
@@ -306585,7 +306585,7 @@ ans
 ə
 aɾi
 aɾis
-ɔɾ
+ɔɾt
 ɔɾs
 əlliðə
 əlliðəs
@@ -334029,7 +334029,7 @@ itikəs
 itis
 ɔɾsi
 ɔɾsis
-ɔɾ
+ɔɾt
 ɔɾs
 ənsiə
 iə
@@ -338854,7 +338854,7 @@ inə
 a
 as
 ɔɾkə
-oɾ
+oɾt
 ɔɾðə
 a
 ent
@@ -342272,7 +342272,7 @@ ajo
 əzəs
 ajɾə
 ajɾəs
-ɔɾ
+ɔɾt
 ino
 ajtɾə
 ajtɾəs
@@ -346089,7 +346089,7 @@ ikə
 ant
 ɔmi
 ɔmis
-ɔɾ
+ɔɾt
 ɔɾs
 u
 uɾə
@@ -356819,7 +356819,7 @@ oŋɡə
 itə
 itəs
 ɔkəs
-ɔɾ
+ɔɾt
 ɔɾs
 ɔtʃə
 ɔtʃəs
@@ -357802,6 +357802,7 @@ istəs
 on
 ɛls
 ikəs
+ətə
 i
 iɾə
 iɾə
@@ -360829,7 +360830,7 @@ ins
 al
 als
 ɛw
-ɔɾ
+ɔɾt
 ɔɾði
 ɔɾs
 ɔni
@@ -361500,7 +361501,7 @@ e
 ɔlə
 ɔlə
 it
-ɔrt
+ɔɾt
 a
 aj
 i
@@ -362635,7 +362636,7 @@ o
 ons
 a
 ans
-ɔɾ
+ɔɾt
 ɔɾs
 oro
 oro
@@ -369300,7 +369301,7 @@ aɾk
 asdlə
 am
 umən
-ɔɾ
+ɔɾt
 e
 ek
 utən
@@ -369808,7 +369809,7 @@ ioβə
 ɔβis
 itə
 itəs
-ɔɾ
+ɔɾt
 ipis
 o
 o
@@ -371142,7 +371143,7 @@ avəm
 avən
 avəs
 avəw
-ɔɾ
+ɔɾt
 awzən
 ɔɾðik
 ɔɾðikə
@@ -379669,7 +379670,7 @@ ek
 imo
 iɾis
 ɔzlo
-ɔɾ
+ɔɾt
 i
 is
 ɔm
@@ -380416,7 +380417,7 @@ inəs
 onə
 onəs
 am
-ɔɾ
+ɔɾt
 ɔtsfoɾ
 a
 a
@@ -390232,7 +390233,7 @@ ivols
 entə
 a
 ɔl
-ɔɾ
+ɔɾt
 ɔɾs
 attil
 attilə
@@ -390624,7 +390625,7 @@ itə
 əŋk
 əŋkə
 əŋkə
-ɔɾ
+ɔɾt
 i
 i
 inə
@@ -391919,7 +391920,7 @@ al
 als
 ɔni
 ɔnis
-ɔɾ
+ɔɾt
 a
 a
 anə
@@ -395639,7 +395640,7 @@ adʒəs
 ets
 oj
 ojs
-ɔrt
+ɔɾt
 ɔrtə
 ɔrtəs
 ɔrtəs
@@ -402105,7 +402106,7 @@ al
 al
 als
 als
-ɔrt
+ɔɾt
 ɔɾs
 əst
 əstə
@@ -406430,7 +406431,7 @@ aðə
 aðəs
 at
 ats
-ɔɾ
+ɔɾt
 ɔɾs
 aðə
 o
@@ -408124,7 +408125,7 @@ iw
 iw
 iw
 os
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtəs
 ɔɾs
@@ -428042,7 +428043,7 @@ iəm
 iən
 iəs
 iəw
-ɔɾ
+ɔɾt
 ɔɾtə
 ɔɾtə
 a
@@ -445269,8 +445270,8 @@ iw
 iws
 ivə
 ivəs
-ɔɾ
-ɔɾ
+ɔɾt
+ɔɾt
 ɔɾtə
 ɔɾtə
 ɔɾtəs
@@ -448706,7 +448707,7 @@ ans
 ɔzis
 o
 os
-ɔɾ
+ɔɾt
 its
 its
 ittus
@@ -449367,7 +449368,7 @@ immits
 immikəs
 iton
 i
-ɔɾ
+ɔɾt
 itu
 al
 al
@@ -449525,7 +449526,7 @@ iəs
 iəw
 iws
 iws
-ɔɾ
+ɔɾt
 al
 al
 at
@@ -449869,8 +449870,8 @@ unə
 orβə
 eɾə
 ondə
-ɔrt
-ɔrt
+ɔɾt
+ɔɾt
 a
 anə
 i
@@ -449909,7 +449910,7 @@ onə
 ɔtʃə
 alə
 ɔtʃə
-ɔɾ
+ɔɾt
 e
 ɔk
 ɔk
@@ -449918,7 +449919,7 @@ ii
 e
 e
 e
-ɔɾ
+ɔɾt
 ɔts
 o
 o
@@ -453783,7 +453784,7 @@ ozos
 utər
 utəs
 ut
-ɔɾ
+ɔɾt
 ɔɾði
 ɔɾðis
 ɔɾs
@@ -464128,7 +464129,7 @@ okə
 e
 ɔp
 ɔts
-ɔɾ
+ɔɾt
 uri
 iɾə
 i
@@ -469898,7 +469899,7 @@ anə
 anə
 ans
 ɔʒəs
-ɔɾ
+ɔɾt
 ɔɾp
 i
 i
@@ -471595,7 +471596,7 @@ iəw
 ɔmpə
 ɔmpəs
 ɔmpo
-ɔɾ
+ɔɾt
 ɔmpos
 əjə
 əjəm
@@ -473164,7 +473165,7 @@ avəw
 ɛm
 ɛm
 ɛm
-ɔrt
+ɔɾt
 ɔɾs
 ɔstɾən
 ɔstɾəs
@@ -473830,7 +473831,7 @@ afon
 ɔwsə
 on
 eə
-ɔɾ
+ɔɾt
 aɾk
 iɾ
 iɾs
@@ -473930,7 +473931,7 @@ i
 a
 ato
 af
-ɔɾ
+ɔɾt
 iɾə
 ats
 ins
@@ -473938,7 +473939,7 @@ izmə
 alin
 at
 an
-ɔɾ
+ɔɾt
 aɱfət
 uts
 aft
@@ -473961,7 +473962,7 @@ ilts
 ij
 on
 awzən
-ɔɾ
+ɔɾt
 ent
 awts
 əjn
@@ -483510,7 +483511,7 @@ ipiəs
 istə
 istəs
 its
-ɔɾ
+ɔɾt
 aj
 ajə
 ajə
@@ -487047,7 +487048,7 @@ ans
 aɾi
 aɾis
 aɾis
-ɔɾ
+ɔɾt
 ɔɾs
 əlliðəs
 ətɾəðə
@@ -487584,7 +487585,7 @@ als
 ɔjðə
 ɔjðəs
 ons
-ɔɾ
+ɔɾt
 ɔɾs
 ozi
 ifus
@@ -490475,9 +490476,9 @@ uðəs
 ɔɾkuls
 ut
 uts
-ɔɾ
-ɔɾ
-ɔɾ
+ɔɾt
+oɾt
+oɾt
 ɔɾðə
 anʃə
 ej
@@ -490668,7 +490669,7 @@ oɾə
 oɾəs
 os
 aðos
-ɔrt
+ɔɾt
 awtsəs
 iə
 iəs
@@ -490979,7 +490980,7 @@ ai
 ɛw
 ɛw
 i
-ɔɾ
+ɔr
 ɔrə
 ɔrə
 ɔrə
@@ -498092,7 +498093,7 @@ azi
 ɔttər
 ɔttərs
 ikokəs
-ɔɾ
+ɔɾt
 ɔɾs
 ɔn
 ɔɾnə
@@ -502701,7 +502702,7 @@ alizis
 ɔpis
 ɔtom
 ɔtons
-ɔɾ
+ɔɾt
 a
 anə
 anəs
@@ -505793,7 +505794,7 @@ anə
 əŋk
 əŋkə
 əŋkə
-ɔɾ
+ɔɾt
 ans
 ans
 ɔɾi
@@ -506421,7 +506422,7 @@ oɾəs
 os
 al
 als
-ɔɾ
+ɔɾt
 anit
 anits
 ans
@@ -514016,7 +514017,7 @@ ats
 anits
 anikəs
 ans
-ɔɾ
+ɔɾt
 a
 an
 as
@@ -515172,7 +515173,7 @@ atə
 istə
 ɔlo
 ɔlos
-ɔɾ
+ɔɾt
 atsən
 at
 asiðə

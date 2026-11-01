@@ -4159,7 +4159,6 @@ andulə
 anduləs
 ɛrt
 aɾɣo
-ɔrt
 ambiwm
 ambiwns
 ambɾik
@@ -7135,7 +7134,6 @@ ow
 enɔw
 ɔɲə
 ɔɲən
-ort
 ɔbz
 ɔɾsəts
 oɾəm
@@ -10727,6 +10725,7 @@ oɾmo
 ɔɾmos
 ɔɾpiðə
 ɔɾpiðəs
+ɔr
 art
 ɔɾrs
 oɾʃəvn

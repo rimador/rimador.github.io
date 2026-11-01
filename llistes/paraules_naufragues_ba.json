@@ -16000,16 +16000,6 @@
     "diec": "NO"
   },
   {
-    "paraula": "forabord",
-    "infinitiu": "forabord",
-    "codi": "NCMS000",
-    "rimacons": "ort",
-    "sil": "3",
-    "vicc": "NO",
-    "viq": "Viq",
-    "diec": "Diec"
-  },
-  {
     "paraula": "Forbes",
     "infinitiu": "Forbes",
     "codi": "NPCNO00",
@@ -38887,6 +38877,16 @@
     "sil": "3",
     "vicc": "NO",
     "viq": "NO",
+    "diec": "Diec"
+  },
+  {
+    "paraula": "torr",
+    "infinitiu": "torr",
+    "codi": "NCMS000",
+    "rimacons": "ɔr",
+    "sil": "1",
+    "vicc": "Vicc",
+    "viq": "Viq",
     "diec": "Diec"
   },
   {

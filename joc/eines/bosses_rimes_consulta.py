@@ -1,11 +1,17 @@
 """
 Les bosses de la paraula del dia: una eina per triar-ne els talls i les quotes.
 
-    python3 joc/eines/bosses_rimes.py
-    python3 joc/eines/bosses_rimes.py --sortida /tmp/bosses.html --sense-obrir
+    python3 joc/eines/bosses_rimes_consulta.py
+    python3 joc/eines/bosses_rimes_consulta.py --sortida /tmp/bosses.html --sense-obrir
 
-Escriu joc/eines/bosses_rimes.html i l'obre al navegador. No cal cap servidor:
-les dades van a dins de la pàgina.
+Escriu joc/eines/bosses_rimes_consulta.html i l'obre al navegador. No cal cap
+servidor: les dades van a dins de la pàgina.
+
+NOTA. Aquesta és l'eina de CONSULTA d'abans de les eres, tal com era (només s'ha
+canviat el nom: abans es deia bosses_rimes.py). Serveix per fer proves i
+consultes sobre les bosses amb les tres regles dels quatre dialectes, però no
+llegeix ni escriu eres.json. El panell que prepara una era de debò, amb la
+fórmula del joc, és bosses_rimes_eres.py.
 
 LA IDEA. Ara la paraula del dia surt d'UNA sola bossa: totes les claus de la
 finestra, a l'atzar i sense repetir fins que s'han fet servir totes. Com que hi
@@ -63,8 +69,8 @@ import finestra_rimes as fr  # noqa: E402
 import generar_dades as gd  # noqa: E402
 import camins  # noqa: E402  (el generar_dades ja l'ha posat al camí)
 
-PLANTILLA = os.path.join(DIR_EINES, "bosses_rimes.plantilla.html")
-SORTIDA = os.path.join(DIR_EINES, "bosses_rimes.html")
+PLANTILLA = os.path.join(DIR_EINES, "bosses_rimes_consulta.plantilla.html")
+SORTIDA = os.path.join(DIR_EINES, "bosses_rimes_consulta.html")
 
 # Les dues menes de rima, amb el nom que tenen a la configuració. La consonant
 # és la de la paraula del dia en difícil (les respostes són les rimes de la

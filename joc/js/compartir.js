@@ -43,7 +43,7 @@ function capcaleraDe({ mode, data, segons }) {
  * Com t'ha anat, en una frase.
  *
  * El DIALECTE hi va sempre: la paraula del dia es la mateixa per a tothom
- * (vegeu paraulaDelDia a objectius.js), pero les RIMES QUE VALEN no -en central
+ * (vegeu parellaDelDia a eres.js), pero les RIMES QUE VALEN no -en central
  * en pot haver-hi la meitat que en valencia amb la mateixa paraula-, i sense
  * dir-lo dos resultats del mateix dia no es podrien comparar.
  */

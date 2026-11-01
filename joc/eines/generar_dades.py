@@ -12,6 +12,17 @@
 #                                si la copia que te el navegador encara val
 #                                (igual que diccionaris/versions.json)
 #
+# I LES ERES DE LA PARAULA DEL DIA. joc/dades/eres.json (que escriu
+# congelar_era.py, no aquest script) porta les paraules congelades de cada era.
+# Aqui se'n comprova cada una contra les dades d'ara -vegeu comprovar_eres.py- i
+# a l'index.json, al bloc "eres", s'hi escriu a quina clau cau cada una a cada
+# dialecte. Si una paraula congelada ja no es pot jugar no es publica res (el
+# dialecte i l'index es queden com eren), i --aplica-substitucions la canvia al
+# mateix lloc per una altra de la mateixa clau. eres.json passa pel versions.json
+# igual que l'index, o sigui que arriben sempre juntes. A l'index, a mes, cada
+# dialecte porta la llista dels seus homografs i, a cada clau, quantes paraules
+# natives te: les dues coses son per a l'il·limitat natiu.
+#
 # ABANS N'HI HAVIA 183, un per grup assonant i dialecte, perque una partida
 # nomes necessita un grup i aixi no es baixava la resta. Sortia a 145 KB per
 # partida, pero omplia el repositori de fitxers que no mira mai ningu. Ara el
@@ -77,7 +88,11 @@
 #
 # Execucio (des d'on sigui):
 #   python joc/eines/generar_dades.py             tots els dialectes
-#   python joc/eines/generar_dades.py ca va       nomes aquests
+#   python joc/eines/generar_dades.py ca va       nomes aquests (sense comprovar les eres)
+#   python joc/eines/generar_dades.py --aplica-substitucions
+#                                                 com el primer, i canvia al mateix lloc
+#                                                 les paraules congelades que ja no es
+#                                                 poden jugar (vegeu comprovar_eres.py)
 
 import collections
 import hashlib
@@ -87,6 +102,7 @@ import shutil
 import sys
 import unicodedata
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 # camins.py sap on es cada cosa i com es diu. Es el mateix modul que fan servir
 # els scripts del diccionari, o sigui que si un dia les columnes es tornen a
@@ -214,6 +230,7 @@ DIR_JOC = os.path.basename(os.path.dirname(DIR_EINES))
 DIR_DADES = os.path.join(ARREL, DIR_JOC, "dades")
 VERSIONS = os.path.join(DIR_DADES, "versions.json")
 INDEX = os.path.join(DIR_DADES, "index.json")
+ERES = os.path.join(DIR_DADES, "eres.json")      # el fa congelar_era.py; aqui nomes es llegeix
 FINESTRA_JS = os.path.join(ARREL, DIR_JOC, "js", "finestra.js")
 
 # Les marques de cada mena de paraula al fitxer de rimes. Han de coincidir amb
@@ -277,6 +294,16 @@ def escriure_si_cal(cami, contingut):
     with open(cami, "wb") as fitxer:
         fitxer.write(dades)
     return True
+
+
+def fitxer_igual(cami, contingut):
+    """Si el fitxer ja existeix amb aquest contingut exacte: el que escriure_si_cal
+    mira abans d'escriure, per saber-ho sense tocar res."""
+    dades = contingut if isinstance(contingut, bytes) else contingut.encode("utf-8")
+    if not os.path.exists(cami):
+        return False
+    with open(cami, "rb") as fitxer:
+        return fitxer.read() == dades
 
 
 def resum(cami):
@@ -686,7 +713,11 @@ def generar_dialecte(codi, base, qualificades):
         posicio += len(dades) + 1   # +1 pel salt que els separa
 
     contingut = b"\n".join(trossos)
-    escrit = escriure_si_cal(os.path.join(DIR_DADES, f"{codi}.txt"), contingut)
+    # NO S'ESCRIU AQUI. Primer es comproven les paraules congelades de les eres
+    # contra les dades d'ara (vegeu main i comprovar_eres.py), i si alguna ja no
+    # es pot jugar no es publica res: el fitxer s'escriu despres, amb el que torna
+    # aquesta funcio.
+    canvia = not fitxer_igual(os.path.join(DIR_DADES, f"{codi}.txt"), contingut)
 
     # CANDIDATS A PARAULA DEL DIA d'aquest dialecte: les paraules que es poden
     # rimar arreu i que nomes son a UNA clau. Les que son a dues (els homografs
@@ -717,7 +748,23 @@ def generar_dialecte(codi, base, qualificades):
           f"paraules jugables arreu), {camins.mil(total_arreu)} paraules "
           f"objectiu de {camins.mil(total_objectius)}{rimes_apendix}, "
           f"{len(asson_necessaris)} grups, {len(contingut) / 1048576:.1f} MB"
-          f"{'' if escrit else ' (sense canvis)'}")
+          f"{'' if canvia else ' (sense canvis)'}")
+
+    # ELS HOMOGRAFS DEL DIALECTE: les paraules objectiu que cauen a DUES claus
+    # consonants o mes ("dona" /dɔnə/ i "dóna" /donə/). El jugador veuria "dona"
+    # sense saber quina lectura toca, i per aixo l'IL·LIMITAT NATIU no els proposa
+    # mai (vegeu illimitat.js). El personalitzat, en canvi, no canvia: continua
+    # triant del fitxer sense mirar aquesta llista.
+    #
+    # La llista porta nomes els que son a alguna clau publicada (els altres no es
+    # podrien triar de totes maneres), i cada clau diu quantes paraules NATIVES te:
+    # les objectiu que no son homografs, que son les que l'il·limitat pot proposar.
+    quantes_claus_objectiu = collections.Counter()
+    for formes in objectius.values():
+        quantes_claus_objectiu.update(formes)
+    homografs = {p for p, quantes in quantes_claus_objectiu.items() if quantes > 1}
+    homografs_publicats = sorted(
+        {p for clau in publicades for p in objectius[clau] if p in homografs})
 
     # El tros d'index d'aquest dialecte.
     #
@@ -740,6 +787,21 @@ def generar_dialecte(codi, base, qualificades):
     # l'hora de triar quina clau d'una rima dona la paraula (vegeu clauDeLaRima
     # a joc/js/objectius.js), i barrejar-los faria sortir claus sense cap
     # paraula que es pugui jugar.
+    #
+    # El SISE camp de cada clau son les paraules NATIVES (objectiu i no homografs):
+    # el pes que fa servir l'il·limitat natiu, que compta les rimes del dialecte i
+    # no mira els altres. NOMES HI ES QUAN DIFEREIX DEL TERCER (el 85 % de les claus
+    # no tenen cap homograf), i una entrada amb cinc camps vol dir que son les
+    # mateixes: aixi tambe val un index escrit abans que existissin.
+    claus_de_l_index = []
+    for clau in publicades:
+        entrada = [clau, id_de_asson[cons_a_asson[clau]], len(objectius[clau]),
+                   len(grups[clau]), len(objectius_arreu[clau])]
+        natius = len(objectius[clau] - homografs)
+        if natius != len(objectius[clau]):
+            entrada.append(natius)
+        claus_de_l_index.append(entrada)
+
     tros_index = {
         # La mida del fitxer sense comprimir. El joc la fa servir per dir quant
         # li queda mentre el baixa: el Content-Length que dona el servidor es el
@@ -750,18 +812,15 @@ def generar_dialecte(codi, base, qualificades):
             desplacaments[i] + [min(len(clau_asson), 3), rimes_del_grup[clau_asson]]
             for i, clau_asson in enumerate(asson_necessaris)
         ],
-        "claus": [
-            [clau, id_de_asson[cons_a_asson[clau]], len(objectius[clau]),
-             len(grups[clau]), len(objectius_arreu[clau])]
-            for clau in publicades
-        ],
+        "claus": claus_de_l_index,
+        "homografs": homografs_publicats,
     }
 
     # I les formes per mostrar, que fan falta per escriure la llista de paraules
     # del dia. Nomes les del diccionari GLOBAL: les de l'apendix no poden ser
     # paraula del dia i, si una hi coincidis de forma normalitzada, ensenyaria
     # l'ortografia d'un dialecte a tots els altres.
-    return tros_index, candidats, mostrar_de
+    return tros_index, candidats, mostrar_de, contingut
 
 
 # --- La paraula del dia, que es UNA per a tothom -----------------------------
@@ -837,7 +896,9 @@ def construir_diaries(candidats, mostrar_de, index, canonic):
 
 
 def main():
-    demanats = sys.argv[1:]
+    arguments = sys.argv[1:]
+    aplica_substitucions = "--aplica-substitucions" in arguments
+    demanats = [argument for argument in arguments if not argument.startswith("--")]
     tots = camins.dialectes()
     if not tots:
         raise SystemExit("No hi ha cap dialecte a dialectes_col/.")
@@ -901,8 +962,9 @@ def main():
     trossos = {}
     candidats = {}
     mostrar_de = {}
+    continguts = {}
     for codi in codis:
-        trossos[codi], candidats[codi], mostrar = generar_dialecte(
+        trossos[codi], candidats[codi], mostrar, continguts[codi] = generar_dialecte(
             codi, base, qualificades)
         mostrar_de.update(mostrar)
 
@@ -970,18 +1032,107 @@ def main():
             "No hi ha llista de paraules del dia i aquesta passada no la pot "
             "fer. Passa el generador sense arguments un cop.")
 
-    escriure_si_cal(INDEX, json.dumps(
-        {"min_rimes": MIN_RIMES, "max_rimes": MAX_RIMES,
-         "min_publicades": MIN_RIMES_PUBLICADES,
-         "diaries": diaries,
-         "dialectes": {codi: index[codi] for codi in presents}},
-        ensure_ascii=False, separators=(",", ":")))
+    # LES ERES: la resolucio de cada paraula congelada a cada dialecte i les
+    # comprovacions de l'apartat 4.10 de la proposta. Es fa ABANS d'escriure res:
+    # si una paraula congelada ja no es pot jugar, no es publica res (vegeu
+    # comprovar_les_eres).
+    eres = comprovar_les_eres(base, presents, index, index_anterior,
+                              set(codis) >= set(presents), aplica_substitucions)
+
+    for codi in codis:
+        escrit = escriure_si_cal(os.path.join(DIR_DADES, f"{codi}.txt"), continguts[codi])
+        if escrit:
+            print(f"  {codi}.txt escrit")
+
+    contingut_index = {"min_rimes": MIN_RIMES, "max_rimes": MAX_RIMES,
+                       "min_publicades": MIN_RIMES_PUBLICADES,
+                       "diaries": diaries}
+    if eres is not None:
+        contingut_index["eres"] = eres
+    contingut_index["dialectes"] = {codi: index[codi] for codi in presents}
+    escriure_si_cal(INDEX, json.dumps(contingut_index, ensure_ascii=False, separators=(",", ":")))
 
     escriure_finestra_js()
     escriure_versions(presents)
 
-    fitxers = 3 + len(presents)
+    fitxers = 3 + len(presents) + (1 if os.path.exists(ERES) else 0)
     print(f"Fet: {len(presents)} dialectes ({', '.join(presents)}) en {fitxers} fitxers.")
+
+
+def comprovar_les_eres(base, presents, index, index_anterior, passada_sencera, aplica):
+    """La resolucio de les paraules congelades de joc/dades/eres.json i les
+    comprovacions de l'apartat 4.10 de la proposta (vegeu comprovar_eres.py).
+
+    Torna el bloc "eres" de l'index: { id d'era: { dialecte: [posicio de la clau de
+    cada paraula dins del "claus" del dialecte, o -1] } }. O None si no hi ha cap
+    eres.json (un arbre de joguina, o abans que n'hi hagi cap).
+
+    SI UNA PARAULA CONGELADA JA NO ES POT JUGAR, no es publica res: surt de l'script
+    amb un error i amb una substitucio proposada, que --aplica-substitucions fa al
+    mateix lloc de la baralla (no s'esborra mai, que la desplacaria).
+
+    Nomes es pot fer amb una passada de tots els dialectes, igual que la llista de
+    paraules del dia: la resolucio depen dels quatre alhora."""
+    import variants_era as ve
+
+    eres = ve.llegir_eres(ERES)
+    if not eres:
+        return None
+
+    if not passada_sencera:
+        anterior = index_anterior.get("eres") or {}
+        falten = [era["id"] for era in eres if str(era["id"]) not in anterior]
+        if falten:
+            raise SystemExit(
+                f"A eres.json hi ha les eres {', '.join(map(str, falten))} i l'index encara no en porta la "
+                "resolucio: aquesta passada parcial no la pot fer. Passa el generador sense arguments.")
+        print("  (la resolucio de les eres no s'ha refet: nomes es pot amb una passada de tots els dialectes)")
+        return {clau: anterior[clau] for clau in (str(era["id"]) for era in eres)}
+
+    import comprovar_eres as ce
+    import finestra_rimes as fr
+
+    print("Comprovant les paraules congelades de les eres...")
+    per_mena, mostrar = fr.comptar(base, presents)
+    canonic = camins.CENTRAL if camins.CENTRAL in presents else presents[0]
+    dades = ve.Dades(presents, canonic, per_mena, mostrar)
+    avui = datetime.now(ZoneInfo("Europe/Madrid")).date()
+
+    resultat = ce.comprovar(eres, dades, index, avui)
+    if resultat["errors"]:
+        # El dia en que surt cada paraula es mira amb node (el mateix mòdul del
+        # joc); si no n'hi ha, l'informe es queda sense dates i prou.
+        try:
+            dates = ve.crida_node("primeres-dates", {
+                "eres": eres, "des_de": avui.isoformat(), "dies": ce.DIES_DE_PREVISIO})
+        except SystemExit:
+            dates = {}
+        resultat = ce.comprovar(eres, dades, index, avui, dates)
+    for linia in resultat["linies"]:
+        print(linia)
+
+    if resultat["errors"]:
+        quantes = sum(len(substitucions) for substitucions in resultat["substitucions"].values())
+        if aplica and quantes:
+            for era in eres:
+                if era["id"] in resultat["substitucions"]:
+                    ce.aplicar_substitucions(era, resultat["substitucions"][era["id"]], dades.mostrar_de)
+            ve.escriure_eres(ERES, eres)
+            print(f"  S'han substituit {quantes} paraules a eres.json. Es tornen a comprovar...")
+            resultat = ce.comprovar(eres, dades, index, avui)
+            for linia in resultat["linies"]:
+                print(linia)
+
+        if resultat["errors"]:
+            consell = ("" if aplica else
+                       "\nSi la substitucio proposada et va bé: python3 joc/eines/generar_dades.py "
+                       "--aplica-substitucions")
+            raise SystemExit(
+                f"\nNo es publica res: hi ha {len(resultat['errors'])} paraules congelades que ja no "
+                f"es poden jugar. Corregeix el diccionari o substitueix-les al mateix lloc "
+                f"(mai no s'esborren: desplaçarien la baralla).{consell}")
+
+    return {str(era_id): resolucio for era_id, resolucio in resultat["resolucio"].items()}
 
 
 def escriure_finestra_js():
@@ -1013,9 +1164,15 @@ def escriure_versions(codis):
     carregarVersions a joc/js/dades.js). El fitxer que diu que hi ha versions no
     es pot cachejar mai; tota la resta, per sempre.
 
-    Ara son cinc entrades: l'index i un fitxer per dialecte.
+    Son l'index, un fitxer per dialecte i, si n'hi ha, les eres de la paraula del
+    dia (eres.json), que el joc es demana igual que l'index: l'un i l'altre es
+    publiquen juntes, perque l'index porta la resolucio de les paraules de l'altre.
+    Les paraules manuals (especials.json), en canvi, no hi son: es demanen amb ?t=,
+    com el versions.json, perque es poden afegir sense tocar res mes.
     """
     fitxers = {"index.json": resum(INDEX)}
+    if os.path.exists(ERES):
+        fitxers["eres.json"] = resum(ERES)
     for codi in codis:
         fitxers[f"{codi}.txt"] = resum(os.path.join(DIR_DADES, f"{codi}.txt"))
 

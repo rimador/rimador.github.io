@@ -5,8 +5,15 @@
 //
 //   dades/versions.json   quins dialectes hi ha i el resum de cada fitxer (500 B)
 //   dades/index.json      les claus jugables dels quatre dialectes i, de cada
-//                         grup assonant, on comenca i quant ocupa (33 KB)
+//                         grup assonant, on comenca i quant ocupa
 //   dades/<codi>.txt      totes les rimes d'un dialecte (7,6 MB; 1,9 comprimit)
+//
+// I DUES MES, de la paraula del dia (vegeu eres.js i especials.js):
+//
+//   dades/eres.json       les eres: el contingut congelat de cada bossa. Va pel
+//                         versions.json, com l'index (que en resol les paraules)
+//   dades/especials.json  les paraules manuals, xifrades. Va amb ?t=: s'hi poden
+//                         afegir dies sense tocar res mes
 //
 // EL DIALECTE SENCER, UN SOL COP. Abans hi havia un fitxer per grup assonant
 // (183 en total) i cada partida es baixava el seu: 145 KB de mitjana, pero
@@ -238,58 +245,135 @@ async function baixarDialecte(dialecte) {
  * parteix nomes aquell. El grup interpretat es guarda, que tornar a jugar amb
  * el mateix no ha de costar res.
  */
-// ------------------------------------------- Les paraules del dia manuals
+// ------------------------------------------------------------------- Les eres
 
 /**
- * El dades/diaries_manuals.json: les paraules del dia triades a ma per a dies
- * assenyalats (vegeu manualDelDia a objectius.js pel format). S'edita a ma i
- * per aixo no passa pel versions.json: va amb ?t= i no es cacheja mai, com la
- * classificacio. La darrera copia bona es conserva a localStorage per poder
- * aplicar les excepcions manuals sense xarxa.
+ * El dades/eres.json: les eres de la paraula del dia (vegeu eres.js pel format), o
+ * sigui la vigent, l'anterior i les futures ja congelades. Passa pel versions.json
+ * igual que l'index, que en porta la resolucio de les paraules (a quina clau cau
+ * cada una a cada dialecte): tots dos arriben sempre junts, i un cop baixat el
+ * navegador el serveix de la memoria cau. La darrera copia bona es conserva a
+ * localStorage, perque amb l'eres.json desat el joc continui donant la paraula del
+ * dia sense xarxa (el marge de 7 dies de les eres noves hi pensa).
  *
- * Si no es pot llegir, es fa servir la darrera copia bona. Si no n'hi ha cap,
- * es juga amb la roda de sempre i prou: val mes una paraula automatica que cap
- * paraula. La promesa es guarda, que la partida i la pantalla d'ahir la
+ * SENSE ERES.JSON -ni baixat ni desat- no es pot saber quina paraula toca, i la
+ * partida diaria falla amb un error: no hi ha cap roda de reserva. Donar una
+ * paraula que no fos la de tothom seria pitjor que no donar-ne cap, i l'il·limitat
+ * continua funcionant. La promesa es guarda, que la partida i la pantalla d'ahir la
  * demanen totes dues.
  */
-let manualsPromesa = null;
-const CLAU_MANUALS = 'rimador.joc.diaries-manuals.v1';
+let eresPromesa = null;
+const CLAU_ERES = 'rimador.joc.eres.v1';
 
-export function carregarDiariesManuals() {
-    if (!manualsPromesa) {
-        manualsPromesa = fetch(`${BASE}diaries_manuals.json?t=${Date.now()}`)
+function esEres(dades) {
+    return Boolean(dades) && Array.isArray(dades.eres) && dades.eres.length > 0;
+}
+
+export function carregarEres() {
+    if (!eresPromesa) {
+        eresPromesa = carregarVersions()
+            .then(() => fetch(adreca('eres.json')))
             .then((resposta) => {
-                if (!resposta.ok) throw new Error(`diaries_manuals.json: ${resposta.status}`);
+                if (!resposta.ok) throw new Error(`eres.json: ${resposta.status}`);
                 return resposta.json();
             })
             .then((dades) => {
-                const manuals = dades && typeof dades === 'object' ? dades : {};
+                if (!esEres(dades)) throw new Error('eres.json no porta cap era');
                 try {
-                    localStorage.setItem(CLAU_MANUALS, JSON.stringify(manuals));
+                    localStorage.setItem(CLAU_ERES, JSON.stringify(dades));
                 } catch (error) {
                     // Mode privat o disc ple: la partida actual encara funciona.
                 }
-                return manuals;
+                return dades;
             })
             .catch((error) => {
                 try {
-                    const desats = localStorage.getItem(CLAU_MANUALS);
-                    if (desats) {
-                        const manuals = JSON.parse(desats);
-                        if (manuals && typeof manuals === 'object') {
-                            console.warn("No s'ha pogut llegir el diaries_manuals.json: es fa servir la darrera copia", error);
-                            return manuals;
-                        }
+                    const desat = JSON.parse(localStorage.getItem(CLAU_ERES));
+                    if (esEres(desat)) {
+                        console.warn("No s'ha pogut llegir l'eres.json: es fa servir la darrera copia", error);
+                        return desat;
                     }
                 } catch (error2) {
-                    // Es continua amb la roda si el localStorage no es pot llegir.
+                    // El localStorage no es pot llegir o el que hi havia no es JSON.
                 }
-                console.warn("No s'ha pogut llegir el diaries_manuals.json: es fa servir la roda", error);
-                manualsPromesa = null;   // que es pugui tornar a provar
-                return {};
+                eresPromesa = null;   // que es pugui tornar a provar
+                throw error;
             });
     }
-    return manualsPromesa;
+    return eresPromesa;
+}
+
+/**
+ * On cau una paraula d'una era en un dialecte: { clau, grup }. L'index porta, de cada
+ * paraula de cada era, la posicio de la seva clau dins del "claus" del dialecte
+ * (vegeu generar_dades.py: es el que fa aixo exactament, com abans el bloc "on" de
+ * "diaries"). Si hi ha un -1 o falta, la paraula ja no es pot jugar en aquest
+ * dialecte i es talla amb un error: el generador no deixa que passi amb una era
+ * vigent o futura, pero la d'ahir, el dia del canvi, ho podria arribar a ser.
+ */
+export function resoldreDeLEra(index, dialecte, eraId, indexParaula) {
+    const posicions = ((index.eres || {})[eraId] || {})[dialecte];
+    const posicio = posicions ? posicions[indexParaula] : undefined;
+    const entrada = posicio >= 0 ? indexDe(index, dialecte).claus[posicio] : undefined;
+    if (!entrada) {
+        throw new Error(`La paraula ${indexParaula} de l'era ${eraId} no es pot jugar en "${dialecte}"`);
+    }
+    return { clau: entrada[0], grup: entrada[1] };
+}
+
+// ------------------------------------------- Les paraules del dia manuals
+
+/**
+ * El dades/especials.json: les paraules del dia triades a ma per a dies assenyalats,
+ * XIFRADES (vegeu especials.js pel format i per que). S'edita a ma, i per aixo no
+ * passa pel versions.json: va amb ?t= i no es cacheja mai, com la classificacio. La
+ * darrera copia bona es conserva a localStorage per poder aplicar les excepcions
+ * manuals sense xarxa.
+ *
+ * Si no es pot llegir, es fa servir la darrera copia bona. Si no n'hi ha cap, es
+ * juga amb la formula i prou: val mes una paraula automatica que cap paraula. La
+ * promesa es guarda, que la partida i la pantalla d'ahir la demanen totes dues.
+ */
+let especialsPromesa = null;
+const CLAU_ESPECIALS = 'rimador.joc.especials.v1';
+const SENSE_ESPECIALS = { v: 1, dies: {} };
+
+function esEspecials(dades) {
+    return Boolean(dades) && typeof dades === 'object' && Boolean(dades.dies) && typeof dades.dies === 'object';
+}
+
+export function carregarEspecials() {
+    if (!especialsPromesa) {
+        especialsPromesa = fetch(`${BASE}especials.json?t=${Date.now()}`)
+            .then((resposta) => {
+                if (!resposta.ok) throw new Error(`especials.json: ${resposta.status}`);
+                return resposta.json();
+            })
+            .then((dades) => {
+                const especials = esEspecials(dades) ? dades : SENSE_ESPECIALS;
+                try {
+                    localStorage.setItem(CLAU_ESPECIALS, JSON.stringify(especials));
+                } catch (error) {
+                    // Mode privat o disc ple: la partida actual encara funciona.
+                }
+                return especials;
+            })
+            .catch((error) => {
+                try {
+                    const desats = JSON.parse(localStorage.getItem(CLAU_ESPECIALS));
+                    if (esEspecials(desats)) {
+                        console.warn("No s'ha pogut llegir l'especials.json: es fa servir la darrera copia", error);
+                        return desats;
+                    }
+                } catch (error2) {
+                    // Es continua amb la formula si el localStorage no es pot llegir.
+                }
+                console.warn("No s'ha pogut llegir l'especials.json: es fa servir la formula", error);
+                especialsPromesa = null;   // que es pugui tornar a provar
+                return SENSE_ESPECIALS;
+            });
+    }
+    return especialsPromesa;
 }
 
 // El fitxer d'un dialecte descodificat sencer, per a trobarObjectiu. Nomes es
@@ -299,7 +383,7 @@ const textosEnMemoria = new Map();   // codi -> string
 /**
  * On es una paraula dins del fitxer d'un dialecte, per a la paraula del dia
  * manual: torna { clau, grup, objectiu: { normalitzada, mostrar } } amb la
- * mateixa forma que paraulaDelDia, o null si no hi es.
+ * mateixa forma que la de seleccioDelDia (principal.js), o null si no hi es.
  *
  * NOMES VAL SI ES PARAULA A RIMAR: la linia ha de dur "*" o "+" (vegeu el
  * format mes avall). Una forma verbal o una de l'apendix son al fitxer sense

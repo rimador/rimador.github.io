@@ -2,20 +2,16 @@ import json
 import os
 import random
 import re
-import sys
+import subprocess
 import unicodedata
 import urllib.parse
 from datetime import date, datetime, timedelta
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DIR_EINES_JOC = os.path.join(BASE_DIR, '..', 'joc', 'eines')
-sys.path.insert(0, DIR_EINES_JOC)
 
-import predictor  # noqa: E402  (cal el sys.path de sobre)
-
-# Noves rutes per als fitxers del joc
-FITXER_INDEX_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'index.json')
-FITXER_MANUALS_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'diaries_manuals.json')
+# La paraula del dia del joc la treu el mateix codi que el joc (joc/js/eres.js), amb node:
+# el bot no en té cap còpia. Vegeu paraula_del_joc().
+FITXER_PREVISIO_JOC = os.path.join(BASE_DIR, '..', 'joc', 'eines', 'previsio.mjs')
 # El que escriu joc/eines/compilar_classificacio.py cada nit: d'aquí surt quantes
 # rimes es van trobar de mitjana a la paraula del dia.
 FITXER_CLASSIFICACIO_JOC = os.path.join(BASE_DIR, '..', 'joc', 'dades', 'classificacio.json')
@@ -592,14 +588,28 @@ def parts_clau_de_joc(clau):
 
 
 def paraula_del_joc(data_iso, dificultat=DIFICULTAT_JOC_PER_DEFECTE):
-    """La paraula del dia del joc, calculada amb la mateixa roda que el JS."""
-    index_json = carregar_json(FITXER_INDEX_JOC, {'diaries': {'claus': [], 'paraules': []}})
-    manuals_json = carregar_json(FITXER_MANUALS_JOC, {})
+    """La paraula del dia del joc, tal com la va treure el joc.
 
-    paraules = predictor.predir_paraula_del_dia(index_json, data_iso, manuals=manuals_json)
-    paraula = paraules.get(dificultat)
+    La calcula joc/eines/previsio.mjs (node), que importa els mateixos mòduls que el
+    navegador i desxifra les paraules manuals (joc/dades/especials.json) com ell: aquí no
+    hi ha cap còpia de la fórmula, i el que torna no pot discrepar del que els jugadors
+    van veure. És la forma per mostrar ("camí"), que és la que es busca al diccionari.
+    """
+    try:
+        resultat = subprocess.run(
+            ['node', FITXER_PREVISIO_JOC, '--json', '--des-de', data_iso, '--dies', '1'],
+            capture_output=True, text=True, encoding='utf-8', check=True, timeout=120)
+    except FileNotFoundError as error:
+        raise RuntimeError("Cal node (v18 o superior) per saber la paraula del joc, i no el trobo.") from error
+    except subprocess.CalledProcessError as error:
+        raise ValueError(f"No s'ha pogut predir la paraula del joc del {data_iso}: "
+                         f"{(error.stderr or '').strip()}") from error
+
+    dies = json.loads(resultat.stdout).get('dies') or [{}]
+    paraula = (dies[0].get(dificultat) or {}).get('paraula')
     if not paraula:
-        raise ValueError(f"No s'ha pogut predir la paraula del joc del {data_iso}")
+        raise ValueError(f"No s'ha pogut predir la paraula del joc del {data_iso}: "
+                         f"{dies[0].get('error', 'sense resposta')}")
     return paraula
 
 

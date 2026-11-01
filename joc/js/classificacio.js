@@ -6,7 +6,7 @@
 // publicat en CSV, en fa el rànquing i escriu joc/dades/classificacio.json, que
 // es el que es veu a la pantalla de classificacio.
 
-import { ahir } from './magatzem.js?v=5681007';
+import { ahir, usuariID } from './magatzem.js?v=5681007';
 
 // PER POSAR-HO EN MARXA cal omplir aquestes dues constants (mira el README i
 // joc/eines/apps_script_classificacio.gs):
@@ -96,20 +96,6 @@ export function estaConfigurat() {
 }
 
 // enviar
-
-function usuariID() {
-    let id = null;
-    try {
-        id = localStorage.getItem('rimador_usuari_id');
-        if (!id) {
-            id = 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
-            localStorage.setItem('rimador_usuari_id', id);
-        }
-    } catch (error) {
-        id = 'usr_anonim';
-    }
-    return id;
-}
 
 // --------------------------------------------------- Les que no han pogut anar
 //

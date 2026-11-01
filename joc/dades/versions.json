@@ -1,5 +1,5 @@
 {
-  "generat": "2026-10-31 11:40:55 UTC",
+  "generat": "2026-11-01 02:09:36 UTC",
   "dialectes": [
     {
       "codi": "ca",
@@ -19,10 +19,11 @@
     }
   ],
   "fitxers": {
-    "index.json": "8d12a373aedd",
-    "ca.txt": "df3a02d81f2a",
-    "nw.txt": "8279e89e2eb6",
-    "va.txt": "d2a0158e4af3",
-    "ba.txt": "c9f62f85fd7c"
+    "index.json": "2a9aba5f5e0d",
+    "eres.json": "110a78d42e91",
+    "ca.txt": "5080e4a82a17",
+    "nw.txt": "eeea6948e0b1",
+    "va.txt": "eb093d698e62",
+    "ba.txt": "ac22f7ccee09"
   }
 }

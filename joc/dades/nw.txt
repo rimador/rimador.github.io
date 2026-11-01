@@ -163376,6 +163376,7 @@ encavalquis
 entrecavalquis
 falquis
 recalquis
++walkie-talkies
 #almi
 balmi
 calmi
@@ -332104,7 +332105,6 @@ atxulli>atxul·lí
 +atzeneti>atzenetí
 atzufi>atzufí
 +atzuri>atzurí
-+au-pair
 auditi>audití
 augmenti>augmentí
 auguri>augurí
@@ -332122,7 +332122,6 @@ autodestrui>autodestruí
 autodestruir
 autofinanci>autofinancí
 autogestioni>autogestioní
-+autogir
 autografii>autografií
 automatitzi>automatitzí
 automediqui>automediquí
@@ -344950,6 +344949,7 @@ vogint
 #ipts
 +scripts
 #ir
++autogir
 +caixmir
 +duumvir
 +elixir
@@ -384322,7 +384322,6 @@ vulcanitzaries
 vulgaritzaries
 vulneraries
 +vulvectomies
-+walkie-talkies
 +whiskies
 xacaries
 xafardejaries
@@ -454963,6 +454962,7 @@ premor
 +ridiculitzacio>ridiculització
 +ridiculitzador
 +riero>rieró
++rimador
 +ro
 +ro-ro
 +robador
@@ -455955,6 +455955,7 @@ premor
 +coi
 #ojs
 +cois
++dois
 #ojʃ
 +boix
 +broix
@@ -463065,6 +463066,7 @@ retos>retós
 +ricors
 +ridiculitzadors
 +rigoros>rigorós
++rimadors
 +riscos>riscós
 +rizomatos>rizomatós
 +robadors
@@ -463828,6 +463830,7 @@ transfonc
 +bedoll
 +boll
 +broll
++capoll
 +clofoll
 +corcoll
 +coscoll
@@ -463869,11 +463872,13 @@ transfonc
 +xopoll
 #oʎs
 +afolls
++aiguapolls
 +alcofolls
 +anolls
 +bedolls
 +bolls
 +brolls
++capolls
 +carrolls
 +clofolls
 +corcolls
@@ -463894,8 +463899,10 @@ transfonc
 +grifolls
 +grumolls
 +manolls
++matapolls
 +matolls
 +patolls
++picapolls
 +polls
 +rebolls
 +rebrolls
@@ -469710,7 +469717,6 @@ esmoquis
 espinyoquis
 evoquis
 invoquis
-+nyoquis
 perboquis
 pertoquis
 provoquis
@@ -489332,7 +489338,6 @@ octubra
 +cocarrois
 +cofois
 +combois
-+dois
 +elois
 +galindois
 +gamois
@@ -492329,7 +492334,6 @@ trasponc
 +bescoll
 +bocamoll
 +borboll
-+capoll
 +coll
 +contramoll
 +corfoll
@@ -492358,7 +492362,6 @@ trasponc
 #ɔʎs
 +abatolls
 +aiguamolls
-+aiguapolls
 +alcacolls>alçacolls
 +armolls
 +batcolls
@@ -492367,7 +492370,6 @@ trasponc
 +bescolls
 +bocamolls
 +borbolls
-+capolls
 +colls
 +contramolls
 +corfolls
@@ -492375,12 +492377,10 @@ trasponc
 +garrolls
 +gatolls
 +gatzolls
-+matapolls
 +molls
 +patamolls
 +penjarolls
 +penjolls
-+picapolls
 +rampugolls
 +remolls
 +restolls
@@ -499613,6 +499613,7 @@ floquis
 +mira'm-i-no-em-toquis
 moquis
 noquis
++nyoquis
 +proloquis
 +soliloquis
 toquis
@@ -514674,6 +514675,8 @@ ensobra
 +posobra
 recobra
 sotsobra
+#pɛr
++au-pair
 #ɛ
 aparer
 +ble
@@ -516043,7 +516046,7 @@ pretexten
 *abjecte
 *afecte
 +arquitecte
-*aspecte
++aspecte
 *avantprojecte
 *benafecte
 *circumspecte
@@ -516066,7 +516069,7 @@ pretexten
 +incorrecte
 +indirecte
 *infecte
-*insecte
++insecte
 +insurrecte
 +intellecte>intel·lecte
 *interfecte

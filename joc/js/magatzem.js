@@ -1,5 +1,5 @@
-// Tot el que el joc recorda entre partides: els records de cada modalitat i si
-// avui ja s'ha jugat la paraula del dia.
+// Tot el que el joc recorda entre partides: els records de cada modalitat, si
+// avui ja s'ha jugat la paraula del dia i per on va l'il·limitat de cada dialecte.
 //
 // Si el localStorage no hi es (navegacio privada, cookies bloquejades) el joc ha
 // de seguir funcionant igual; simplement no es recorda res.
@@ -215,7 +215,7 @@ export function llegirTotsElsRecords() {
 // EL BLOQUEIG VA PER DIFICULTAT I PROU. Abans anava tambe per dialecte, perque
 // cada dialecte tenia la seva paraula del dia i bloquejar-los tots alhora era
 // barrar-li a algu una paraula que no havia vist mai; ara la paraula del dia es
-// LA MATEIXA per a tothom (vegeu paraulaDelDia a objectius.js), o sigui que
+// LA MATEIXA per a tothom (vegeu parellaDelDia a eres.js), o sigui que
 // canviar de dialecte per tornar-la a jugar seria jugar dues vegades la mateixa
 // paraula. Son dues partides al dia: una de facil i una de dificil.
 function partidesDelDia(data) {
@@ -251,3 +251,66 @@ export function desarSobrenom(sobrenom) {
     desar(CLAU_SOBRENOM, sobrenom);
 }
 
+// ----------------------------------------------------------- Identificador
+
+/**
+ * L'identificador d'aquest navegador, el mateix que fa servir el cercador (la clau
+ * del localStorage es compartida: les dues meitats del lloc han de coincidir en qui
+ * ets). Viatja amb cada puntuacio de la classificacio i, a l'il·limitat natiu, es la
+ * llavor de la seqüencia de cada jugador. Sense localStorage, tothom es el mateix
+ * usuari anonim (i les seves seqüencies coincideixen: no passa res).
+ */
+export function usuariID() {
+    let id = null;
+    try {
+        id = localStorage.getItem('rimador_usuari_id');
+        if (!id) {
+            id = 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 7);
+            localStorage.setItem('rimador_usuari_id', id);
+        }
+    } catch (error) {
+        id = 'usr_anonim';
+    }
+    return id;
+}
+
+// ------------------------------------------------------------- L'il·limitat
+
+// Quantes partides s'han fet a l'il·limitat de cada dialecte i dificultat: "ca|facil":
+// 12. Es el que fa que cada jugador continui per la seva seqüencia (vegeu
+// illimitat.js) en lloc de tornar a comencar de zero. Si el jugador perd el
+// localStorage, torna a comencar: no passa res.
+const CLAU_ILLIMITAT = 'rimador.joc.illimitat.v1';
+
+// Per si el localStorage no es pot escriure (navegacio privada): sense aixo cada
+// partida tindria el mateix comptador i seria la mateixa. Dura mentre dura la pagina.
+const comptadorsEnMemoria = new Map();
+
+function llegirComptadors() {
+    try {
+        const cru = localStorage.getItem(CLAU_ILLIMITAT);
+        const desats = cru ? JSON.parse(cru) : {};
+        return desats && typeof desats === 'object' ? desats : {};
+    } catch (error) {
+        return null;
+    }
+}
+
+/** Quantes partides d'il·limitat s'han fet en un dialecte i dificultat. */
+export function llegirComptadorIllimitat(dialecte, dificultat) {
+    const id = `${dialecte}|${dificultat}`;
+    const desats = llegirComptadors();
+    // Es llegeix a cada partida i no es guarda en memoria: dues pestanyes obertes han
+    // de continuar la mateixa seqüencia, no cada una la seva.
+    const desat = desats ? Number(desats[id]) : NaN;
+    if (Number.isFinite(desat) && desat >= 0) return Math.floor(desat);
+    return comptadorsEnMemoria.get(id) || 0;
+}
+
+export function desarComptadorIllimitat(dialecte, dificultat, comptador) {
+    const id = `${dialecte}|${dificultat}`;
+    comptadorsEnMemoria.set(id, comptador);
+    const desats = llegirComptadors() || {};
+    desats[id] = comptador;
+    desar(CLAU_ILLIMITAT, desats);
+}

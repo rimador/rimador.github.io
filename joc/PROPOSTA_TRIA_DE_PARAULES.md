@@ -1,13 +1,88 @@
 # Proposta: com es tria la paraula del dia i la de l'il·limitat
 
-Nota per a tu d'aquí a un temps. Això **encara no està fet**: és la proposta que
-vam tancar el 31-10-2026 per substituir la roda de la paraula del dia i l'atzar
-de l'il·limitat. El que hi ha ara ho explica el [`FUNCIONAMENT.md`](FUNCIONAMENT.md)
-(apartat 7); aquí hi ha el que hi ha d'haver, per què, i el que encara falta
-decidir.
+Nota per a tu d'aquí a un temps. Això **ja està implementat** (1-11-2026; vegeu
+[«Estat de la implementació»](#estat-de-la-implementació) just aquí sota, amb el
+que encara no està fet i on la implementació s'allunya del que diu la proposta).
+És la proposta que vam tancar el 31-10-2026 per substituir la roda de la paraula
+del dia i l'atzar de l'il·limitat. **Com funciona ara** ho explica el
+[`FUNCIONAMENT.md`](FUNCIONAMENT.md) (apartats 7 i 7 ter); aquí hi ha el que hi ha
+d'haver i **per què**.
 
 El **mode personalitzat no canvia**: allà el jugador tria els paràmetres i la
 llavor va dins de l'enllaç.
+
+---
+
+## Estat de la implementació
+
+**Implementat el 1-11-2026** (de la fase 1 del projecte): la fórmula amb eres,
+bosses, quotes, variants i rotació; l'era 0 (la roda d'abans, congelada); el
+panell de selecció i l'script de congelar eres; la resolució de les paraules a
+l'índex i les comprovacions de cada `generar_dades.py`; les manuals xifrades
+(`especials.json`); l'il·limitat natiu; la previsió amb node; i el bot adaptat. El
+codi nou té proves (`node --test "joc/eines/proves/*.test.mjs"`).
+
+**El que NO està fet, a posta:**
+
+- **L'era 1 no està congelada.** Cal que triïs els talls, les quotes, la tolerància
+  i la data d'inici (al panell, `bosses_rimes.py`), i congelar-la
+  (`congelar_era.py --inici`). Mentre no sigui així, la paraula del dia és la de la
+  roda d'abans i l'il·limitat juga com sempre (sense bosses).
+- **La fase 2** (apartat 4.5: retirar la marca `*` i la passada dels quatre
+  dialectes, i els avisos a les eines de correcció) no s'ha tocat. El bloc
+  `diaries` de l'índex continua, perquè l'era 0 n'ha tret les paraules.
+
+**On la implementació concreta la proposta o s'hi allunya:**
+
+1. **L'error de «menys d'un dia» no és general.** Amb les quotes per defecte és de
+   0,800 (difícil) i 0,865 (fàcil), però amb unes quotes qualssevol el patró pot
+   arribar a una mica més d'un dia (s'ha vist 1,05). El panell i l'informe de
+   congelar ho calculen amb el codi del joc i n'avisen.
+2. **La tolerància no té cap mínim a part** (×0,5–×2 amb fraccions, tal com diu
+   l'apartat 4.4), i una variant d'una sola paraula no s'exclou: surt a l'informe.
+3. **Una paraula candidata ha de tenir la clau _publicada_ (almenys dues rimes) a
+   cada dialecte**; la proposta només demanava que fos objectiu i caigués a una
+   sola clau. Sense això podia caure en una clau que el fitxer del dialecte no
+   porta, i no s'hi hauria pogut jugar.
+4. **L'era 0 també es pot substituir al lloc** (les comprovacions s'hi apliquen
+   igual que a les eres de debò). Substituir una paraula mou els dies en què havia
+   de sortir; l'informe diu el primer dia futur en què sortiria cada una.
+5. **Camps només per a les comprovacions**: a cada clau de l'era, `n` (les rimes
+   que tenia en congelar) i `p` (les claus als altres dialectes, per variant). El
+   joc no els llegeix.
+6. **L'estat de sortida** (quines claus ja han sortit a la volta a mitges d'una
+   bossa) té una regla precisa: a les voltes 1 i següents són les `p` primeres de
+   la baralla; a la volta 0 d'una era, que ja comença amb les antigues sortides al
+   final, hi continuen comptant mentre no s'han esgotat les pendents. De l'era 0 a
+   la 1 es simula la roda (`estatDeLaRoda`) i es tradueix a claus i grups (una
+   entrada del fàcil compta com a «sortida» si ho és alguna de les seves claus).
+   Continuïtat mesurada: de les 100 primeres sortides del difícil de l'era 1, 11
+   repeteixen una clau que havia sortit fa menys de 100 dies (19 sense el
+   traspàs, que és el nivell de sempre).
+7. **Homògrafs i natius**: un homògraf és una forma objectiu que cau a més d'una
+   clau d'un dialecte (publicada). L'índex en porta la llista per dialecte
+   (`homografs`) i, de cada clau, un sisè camp (`natius`) només si és diferent del
+   nombre d'objectius.
+8. **L'índex creix**: de 415 KB a 497 KB (127 KB comprimits) amb l'era 0, i uns
+   750 KB (154 KB) amb una era de tretze mil paraules, que a més porta un
+   `eres.json` de 395 KB (134 KB). Es baixen un sol cop per versió.
+9. **Els números de referència** de l'apartat 11 surten una mica diferents amb les
+   dades d'1-11-2026: la congelació per defecte dona, al difícil, 428 / 112 / 175 /
+   88 / 46 / 32 / 24 / 6 / 14 claus per bossa (la proposta: 426 / 114 / 174 / …), i
+   al fàcil 5 / 3 / 4 / 5 / 5 / 4 / 8 grups (**34**, i no 35: la bossa 100–499 en
+   té 4). No s'ha aïllat quant és deriva de les dades i quant és la regla 3.
+10. **La previsió** llegeix `especials.json` (el que el joc farà de debò); amb
+    `--manuals` hi suma les manuals en clar encara sense publicar.
+11. **Les manuals en clar** són a `joc/eines/diaries_manuals.json` (al `.gitignore`)
+    i ja no són a `joc/dades/`. Les dues que s'havien comitejat (23-4-2027 i
+    11-9-2027) continuen en clar a l'historial de git.
+12. **El bot de tuits** crida `previsio.mjs` per saber la paraula d'ahir
+    (`paraula_del_joc`), o sigui que necessita `node` allà on corri; no s'ha tocat
+    cap workflow, i `ubuntu-latest` el porta instal·lat.
+13. **Equivalència comprovada**: l'era 0 dona exactament la mateixa paraula que la
+    roda i les manuals d'abans en 5.840 comparacions (cap diferència), i la
+    previsió coincideix amb el `predictor.py` retirat en 2.200 (1.100 dies, dos
+    carrils).
 
 ---
 

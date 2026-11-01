@@ -55,7 +55,7 @@ function blocDiari(estadistiques, data, dificultat) {
  *
  * La paraula del dia es compara amb tothom qui la va jugar el mateix dia i en
  * la mateixa dificultat: es LA MATEIXA paraula per a tothom (vegeu
- * paraulaDelDia a objectius.js). L'il·limitat es compara amb la seva modalitat
+ * parellaDelDia a eres.js). L'il·limitat es compara amb la seva modalitat
  * (mode, dificultat i rellotge), que es el mateix criteri que fa servir la
  * classificacio per fer les taules.
  */

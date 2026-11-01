@@ -705,7 +705,7 @@ export function pintarSelectorDies(dies, actiu, alTriar) {
  * munta joc/eines/compilar_classificacio.py.
  *
  * No hi ha cap capçalera que digui quina era la paraula del dia: n'hi ha una de
- * sola (vegeu paraulaDelDia a objectius.js), però la taula pot barrejar dies, i
+ * sola (vegeu parellaDelDia a eres.js), però la taula pot barrejar dies, i
  * la paraula viatja amb cada entrada, al costat del dialecte.
  */
 export function pintarDiaria({ delDia, millors, dia, dificultat }, elMeuSobrenom) {
@@ -946,7 +946,7 @@ export function estatEnviament(text, tipus) {
  * classificacio.json es recompila un cop al dia. La d'ahir, en canvi, ja hi és
  * sencera, i mirar-se-la és el que dona la sensació de tancar el dia.
  *
- * La paraula no surt del rànquing sinó que la calcula el joc (`paraulaDelDia`),
+ * La paraula no surt del rànquing sinó que la calcula el joc (`parellaDelDia`),
  * o sigui que hi és encara que no hi hagués jugat ningú. És la mateixa per a
  * tothom; el que canvia amb el dialecte són les rimes que valien.
  *

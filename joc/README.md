@@ -42,7 +42,9 @@ s'acabi el temps.
   1 minut i un sol intent per dificultat. El que canvia amb el dialecte no és la
   paraula sinó **quines rimes valen**, que és de què va el lloc.
 - **Il·limitat**: paraula nova cada partida i tres rellotges (30 s, 1 min,
-  2 min).
+  2 min). Quan l'era vigent de la paraula del dia té bosses, la rima surt de les
+  mateixes bosses i quotes comptant les rimes del dialecte que jugues, amb una
+  seqüència pròpia de cada jugador (`FUNCIONAMENT.md`, apartat 7 ter).
 - **Personalitzat**: t'ho tries tot i en surt un **enllaç**. Qui l'obri juga
   exactament la mateixa partida, i al final podeu comparar. No compta ni per a
   la classificació ni per als rècords.
@@ -120,36 +122,36 @@ la cursiva.
 N'hi ha **dues al dia** —una de fàcil i una de difícil— i són **les mateixes per
 a tothom**, jugui en el dialecte que jugui. El que canvia amb el dialecte no és
 la paraula sinó **quines rimes hi valen**: el mateix dia i la mateixa paraula
-poden tenir 30 rimes en central i 52 en valencià.
+poden tenir 70 rimes en central i 74 en valencià.
 
-Això no es pot treure de l'índex d'un dialecte, perquè cadascun reparteix les
-paraules en claus de rima diferents i la mateixa llavor hi cauria en una paraula
-diferent. Hi ha, doncs, una **llista a part** al mateix `index.json` (bloc
-`diaries`), que és la intersecció dels quatre: **2.140 paraules en 541 claus de
-rima**, les úniques que són objectiu d'una clau jugable **als quatre dialectes
-alhora** i que no són ambigües (les que, sense accents, cauen en dues claus
-—*dona* /dɔnə/ i *dóna* /donə/— queden fora, perquè no se sabria amb quina
-estàs jugant). Les claus de la llista són les del **central**, que fa de
-referència.
+No les diu cap servidor: **tothom les calcula** a partir de la data i d'uns fitxers
+del repositori. El que es congela és una **era**: una data d'inici, unes
+**bosses** (trams de rimes: de 15 a 34, de 35 a 49…) amb la seva **quota** de dies,
+i quines claus i paraules hi ha a cada bossa (`dades/eres.json`). Dins d'una era,
+la paraula d'un dia és una funció pura de la data: no es desa res ni es recorre
+cap historial.
 
 ### Com es tria, i per què no es repeteix
 
-1. Es compten els dies des d'una època fixa i es parteixen en **cicles de 541
-   dies**, un per clau de rima.
-2. Dins del cicle, la posició del dia diu quina clau toca, seguint una barreja
-   de Fisher-Yates que només depèn del **número de cicle** i de la
-   **dificultat**. Recorrent una barreja en ordre, **cap clau no es repeteix
-   fins que s'han fet servir totes**; quan s'acaben, comença un cicle nou amb
-   una barreja diferent i tot torna a estar disponible.
-3. De les paraules d'aquella clau (fins a quatre) se'n tria una amb el mateix
-   criteri, de manera que dos cicles seguits no donen la mateixa llista.
+1. **Quina bossa:** un repartiment ponderat per les quotes. Una bossa del 4 % surt
+   40 dies de cada 1.000, ben escampats.
+2. **Quina clau:** dins de cada bossa, les claus surten per voltes barrejades, i
+   **cap no es repeteix fins que s'han fet servir totes**.
+3. **Quina paraula:** cada clau té **variants** (les paraules que tenen les
+   mateixes claus als altres dialectes) i les va girant, de manera que cada
+   «dibuix» de rima té el seu torn.
 
-**No hi ha cap registre desat de les paraules que ja han sortit**, ni al
-navegador ni al servidor: no caldria: la barreja es calcula sempre igual a tot
-arreu, exactament com la paraula del dia mateixa. Comprovat sobre les dades de
-debò: 541 claus i 541 paraules diferents en un cicle de 541 dies, en totes dues
-dificultats, i el fàcil i el difícil mai no coincideixen el mateix dia (comprovat
-sobre 400 dies seguits).
+El fàcil i el difícil no repeteixen la mateixa paraula el mateix dia (llevat del
+cas extrem d'una clau amb una sola paraula), i una **paraula manual** per a un dia
+assenyalat —escrita en local i xifrada a `dades/especials.json`— mana sobre la
+fórmula sense moure cap altre dia.
+
+**L'era 0 és la roda d'abans, congelada**, de manera que els dies que ja han
+passat no canvien. Les paraules congelades es **comproven a cada passada de
+`generar_dades.py`**, i `node joc/eines/previsio.mjs` diu quines sortiran els
+propers dies, amb el mateix codi que el navegador. **Tot és explicat a
+`FUNCIONAMENT.md`, apartat 7**; la proposta que ho justifica és a
+`PROPOSTA_TRIA_DE_PARAULES.md`.
 
 ## El mode personalitzat
 
@@ -322,8 +324,9 @@ dialecte reparteix les paraules en grups de rima diferents. Per això:
 - **La paraula del dia és la mateixa a tot arreu.** N'hi ha dues al dia (una
   per dificultat) i no depenen del dialecte. Com que cada dialecte reparteix les
   paraules en claus de rima diferents, això no es pot treure de l'índex de cap
-  d'ells: hi ha una **llista a part**, la intersecció dels quatre, amb les
-  paraules que valen com a objectiu a tots (vegeu més avall).
+  d'ells: es congela a les **eres** (`dades/eres.json`) només amb paraules que
+  valen com a objectiu **als quatre dialectes**, i l'índex diu a quina clau cau
+  cadascuna a cada dialecte (vegeu més avall).
 - **La paraula a rimar surt sempre del diccionari global**, el que comparteixen
   els quatre; però **les paraules pròpies del dialecte valen com a resposta**.
   Cada dialecte té el seu **apèndix** —les formes que només es diuen allà— i el
@@ -422,9 +425,12 @@ proposar el personalitzat, i res si només val com a resposta (els verbs i
 l'apèndix). Els modes normals es retallen la llista en temps d'execució (vegeu
 `clausDeLaFinestra` a `js/objectius.js`).
 
-A part, l'índex porta la llista de la **paraula del dia**: 2.140 paraules
-repartides en 541 claus de rima, les úniques que valen com a objectiu **als
-quatre dialectes alhora** i que no són ambigües. Vegeu més avall.
+A part, l'índex porta **a quina clau cau, a cada dialecte, cada paraula de les
+eres** de la paraula del dia (bloc `eres`), la llista d'**homògrafs** de cada
+dialecte i, de cada clau, quantes paraules natives té (ho fa servir l'il·limitat;
+vegeu `FUNCIONAMENT.md`, apartats 3 i 7). El bloc `diaries` —la llista de la roda
+d'abans, 1.405 paraules en 354 claus— hi continua, perquè l'era 0 en va treure les
+paraules.
 
 **Abans n'hi havia 183**, un per grup assonant i dialecte, perquè una partida
 només necessita un grup. Sortia a 145 KB per partida —la mediana era de 11 KB,
@@ -511,6 +517,8 @@ Cal fer-ho a mà quan canviï el diccionari o la transcripció d'algun dialecte:
 ```bash
 python joc/eines/generar_dades.py            # tots els dialectes
 python joc/eines/generar_dades.py ca va      # només aquests
+python joc/eines/generar_dades.py --aplica-substitucions
+                                             # substitueix les paraules congelades que ja no es poden jugar
 ```
 
 Els camins no els sap l'script: surten de `diccionaris/python/camins.py`, que és
@@ -548,8 +556,10 @@ dalt de tot de l'script.
 **Passa'l sempre sense arguments.** Dues coses només es poden fer amb una passada
 de tots els dialectes:
 
-- la llista de la **paraula del dia**, que és la intersecció dels quatre (en una
-  passada parcial es conserva la que hi havia i l'script ho diu);
+- la llista `diaries`, la **resolució de les eres** (a quina clau cau cada paraula
+  congelada a cada dialecte) i la comprovació que encara es poden jugar: depenen
+  dels quatre alhora (en una passada parcial es conserva el que hi havia i
+  l'script ho diu);
 - i **quines paraules es poden rimar arreu**, que és el que decideix la marca de
   cada paraula del fitxer. En una passada parcial, els comptes dels dialectes que
   no es regeneren es treuen del seu `dades/<codi>.txt` ja publicat —que no és
@@ -562,9 +572,11 @@ al diccionari no deixa cap diff.
 Per provar-lo sense tocar les dades bones, `RIMADOR_ARREL` el fa córrer contra
 una còpia de joguina de l'arbre (entrades **i** sortides, vegeu `camins.py`).
 
-**Important:** si es regeneren les dades, la paraula del dia d'aquell dia pot
-canviar per a qui encara no l'hagi jugada, perquè la tria depèn de l'ordre i dels
-pesos de l'índex. Val més fer-ho de nit.
+**Regenerar les dades ja no canvia la paraula de cap dia**: el que surt cada dia és
+congelat a `dades/eres.json`. A cada passada de tots els dialectes, el generador
+comprova que cada paraula congelada **es pot jugar encara**; si no, no publica
+res i proposa substituir-la al mateix lloc (`--aplica-substitucions`). Vegeu
+`FUNCIONAMENT.md`, apartat 7.
 
 ## La gestió de versions
 
@@ -751,7 +763,12 @@ joc/
     principal.js        lliga pantalles, motor i dades
     dades.js            versions, descàrrega i lectura dels fitxers de rimes
     dialecte.js         quin dialecte es juga (comparteix memòria amb el cercador)
-    objectius.js        tria de la paraula (a l'atzar o la del dia)
+    objectius.js        llavor/generador, tria de la paraula del personalitzat i la roda d'abans
+    eres.js             la paraula del dia: eres, fórmula i parella del dia
+    bosses.js           el patró de bosses i les baralles (paraula del dia i il·limitat)
+    especials.js        les paraules manuals xifrades
+    illimitat.js        l'il·limitat natiu: bosses del dialecte, seqüència per jugador
+    package.json        { "type": "module" }, perquè node carregui els mòduls
     estadistiques.js    percentil, mitjana i el rànquing d'ahir
     personalitzat.js    els ajustos del mode personalitzat, l'enllaç i el codi
     freestyle.js        tot el freestyle.html de l'arrel (fa servir dades, objectius i ui)
@@ -764,11 +781,18 @@ joc/
   fonts/                l'Anton (clon lliure de la Impact), allotjada aquí
   dades/                generat pels scripts d'eines/
     versions.json         quins dialectes hi ha i el resum de cada fitxer
-    index.json            les claus dels 4 dialectes i on és cada grup
+    index.json            les claus dels 4 dialectes, on és cada grup i on cau cada paraula de les eres
+    eres.json             les eres de la paraula del dia (contingut congelat)
+    especials.json        les paraules manuals, xifrades
     <codi>.txt            totes les rimes d'un dialecte
     classificacio.json    el rànquing publicat
   eines/
-    generar_dades.py            diccionari + rima -> dades/
+    generar_dades.py            diccionari + rima -> dades/ (i comprova les eres)
+    bosses_rimes.py             el panell de selecció d'una era
+    congelar_era.py             congela una era a eres.json
+    manuals.mjs                 valida i xifra les manuals -> especials.json
+    previsio.mjs                quines paraules sortiran els propers dies
+    proves/                     node --test "joc/eines/proves/*.test.mjs"
     compilar_classificacio.py   full CSV -> classificacio.json
     apps_script_classificacio.gs  backend per a Google Apps Script
 ```
@@ -805,17 +829,17 @@ al full `joc.min.css`, i les `@font-face` a `../../joc/fonts/`. No hi ha res mé
 
 ## Coses que convé saber
 
-- **La paraula del dia no es repeteix.** Els dies es parteixen en **cicles de
-  541 dies** (un per clau de rima, un any i mig llarg). Dins d'un cicle, les
-  claus es recorren seguint una barreja que només depèn del número de cicle i de
-  la dificultat: cap paraula no torna a sortir fins que s'han fet servir totes
-  les claus, i llavors comença un cicle nou amb una barreja diferent. **No cal
-  desar enlloc quines han sortit**: la barreja es calcula sempre igual a tot
-  arreu, com la paraula del dia mateixa. Comprovat: 541 paraules diferents de
-  541 dies, en totes dues dificultats.
-- Com que de cada clau se'n guarden fins a quatre paraules (`DIARIES_PER_CLAU`),
-  dos cicles seguits **no donen la mateixa llista**: només en repeteixen 136 de
-  541 en fàcil i 150 en difícil.
+- **La paraula del dia no es repeteix.** Dins de cada bossa les claus surten per
+  voltes barrejades i cap no torna fins que s'han fet servir totes; cada clau gira
+  entre les seves variants i paraules. **No cal desar enlloc quines han sortit**:
+  la barreja es calcula sempre igual a tot arreu, com la paraula del dia mateixa.
+  Els dies d'abans (l'era 0, la roda congelada) segueixen sent els de sempre.
+- **L'era 1 encara no està congelada** i, mentre no ho estigui, la paraula del dia
+  és la de la roda d'abans i l'il·limitat juga com sempre. Per congelar-la:
+  `python3 joc/eines/bosses_rimes.py` (el panell), `congelar_era.py --inici` i
+  `generar_dades.py` (vegeu `FUNCIONAMENT.md`, apartat 7).
+- **Les eines de la paraula del dia demanen `node`** (v18 o més); el bot de tuits
+  també, per saber la paraula d'ahir.
 - **El dia és el de Catalunya, no el del rellotge de qui juga.** L'`avui()` de
   `js/magatzem.js` calcula la data a `Europe/Madrid`
   (`new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' })`, que és

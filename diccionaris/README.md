@@ -189,17 +189,67 @@ val més l'eina:
 python3 diccionaris/python/afegir_paraula.py
 ```
 
-No porta arguments: l'engegues i et va demanant la paraula, el lema, el codi,
-les síl·labes, els enllaços i la transcripció de cada dialecte. La fila te la
-proposa i te l'ensenya amb els veïns perquè la miris.
+Obre una pàgina a `http://localhost:8773` amb tres maneres. D'una en una, un
+formulari amb la paraula, el lema, el codi, les síl·labes, els enllaços i la
+transcripció de cada dialecte; la fila te la proposa i te l'ensenya amb els
+veïns perquè la miris, i la pots canviar. Després d'afegir-ne una, la resta de
+camps es queden per a la següent. Una família, com un model: escrius el lema
+nou (síl·labes i transcripcions) i una paraula que ja hi sigui i es flexioni
+igual (te'n proposa), i en fa totes les formes; les que mouen l'accent a
+l'arrel surten marcades per revisar-les. Diverses alhora, des d'arxius: un amb
+les files del diccionari (`paraula$lema$codi$síl·labes$Vicc$Viq$Diec`) i un per
+dialecte amb les transcripcions a la mateixa línia; abans d'afegir-les et diu
+entre quines paraules va cadascuna. Les transcripcions es comproven amb
+l'inventari del `columnes.py`, com al corregir.
+
+No comiteja: abans, `git pull`; després, commit del diccionari i la `col_10`
+junts.
 
 Si només és a un dels dos fitxers, el `sincronitzar.py` s'atura i diu quina
 paraula és i on.
 
-**Això és per al diccionari**, o sigui per a una paraula que es diu a tots els
-dialectes. Una paraula que només es digui en un lloc va a l'apendix d'aquell
-dialecte: una línia a la seva `col_10` i les síl·labes i els enllaços a les
-`col_5` a `8`, a la mateixa fila.
+**Al diccionari o a un apendix.** A dalt de la pàgina tries on va. El
+diccionari és per a una paraula que es diu a tots els dialectes. Una paraula
+que només es digui en un lloc va a l'apendix d'aquell dialecte: tries
+l'apendix i la mateixa eina hi escriu una línia a la seva `col_10` i les
+síl·labes i els enllaços a les `col_5` a `8`, a la mateixa fila. Les tres
+maneres hi funcionen igual, però amb només la transcripció d'aquell dialecte;
+en una família, si el lema del model no és a l'apendix (sovint només hi ha
+les formes pròpies del dialecte), la forma base es pren del diccionari. Les
+altres columnes de l'apendix les refà el `sincronitzar.py`.
+
+### Corregir una transcripció
+
+```bash
+python3 diccionaris/python/corregir_transcripcions.py
+```
+
+Obre una pàgina a `http://localhost:8771`: cerques una paraula (exacta, que
+comenci per o que acabi en) o una transcripció (igual, en tots els dialectes o
+en un; sense accents a la cerca, els de la transcripció no compten) i et surt
+cada entrada, la del diccionari i les dels apendixs, amb la transcripció de
+cada dialecte en un camp editable. Mentre
+escrius et diu quina rima en sortirà, si hi falta l'accent primari i si hi ha
+cap símbol fora de l'inventari del `columnes.py`. En desar, reescriu aquella
+línia de la `col_10` que toqui i res més.
+
+Amb el botó *Edita* de cada entrada s'hi corregeix la resta: la paraula, el
+lema, el codi, les síl·labes i els enllaços. Cada camp va on ja és: en una
+entrada del diccionari, la identitat a la `col_10` i al diccionari alhora (així
+el `sincronitzar.py` hi veu el mateix canvi a banda i banda) i les síl·labes i
+els enllaços al diccionari; en una de l'apendix, la identitat a la seva
+`col_10` i la resta a les `col_5` a `8`. Si aquella fila no diu el mateix al
+diccionari que a la `col_10`, només s'hi poden corregir les transcripcions:
+primer el `sincronitzar.py`.
+
+Si canvies com s'escriu una paraula i per ordre alfabètic li tocaria un altre
+lloc, t'avisa i et diu entre quines paraules aniria; la fila només s'hi mou si
+marques *Mou-la allà en desar*. Llavors es mou a tots els fitxers de la seva
+banda alhora. Moure una fila sense canviar-ne la paraula no es pot: per al
+`sincronitzar.py` seria una reordenació, i s'aturaria.
+
+No comiteja: abans, `git pull`; després, commit de la `col_10` (i del
+diccionari o de les `col_5` a `8`, si n'has tocat res) i el workflow fa la resta.
 
 ### Si el diccionari es perd
 

@@ -380,6 +380,7 @@ compten com a resposta; simplement no poden sortir mai com a paraula a rimar.
   ],
   "fitxers": {
     "index.json": "826253d24091",
+    "eres.json": "65b57475af7d",
     "ca.txt": "8a1f0e77bc32"
   }
 }
@@ -390,22 +391,29 @@ ordre van a la tira) i **quina versió té cada fitxer**. El joc no sap res dels
 dialectes si no és per aquí, o sigui que no pot oferir-ne cap del qual no tingui
 les dades.
 
+L'`eres.json` hi és igual que l'`index.json`, perquè van de la mà: l'índex diu on
+cau cada paraula de les eres. L'`especials.json`, en canvi, **no hi és a posta**
+(apartat 7).
+
 ### `dades/index.json`
 
 Un de sol per als quatre dialectes:
 
 ```json
-{"min_rimes":30,"max_rimes":800,"min_publicades":2,
- "diaries":{ … la llista de la paraula del dia, apartat 7 … },
+{"min_rimes":50,"max_rimes":1000,"min_publicades":2,
+ "diaries":{ … la llista de la roda d'abans (l'era 0), apartat 7 … },
+ "eres":{"0":{"ca":[88,412,-1, …],"nw":[…],"va":[…],"ba":[…]}, …},
  "dialectes":{
    "ca":{
      "bytes":8000623,
      "grups":[[0,1186001,1,79809],[1186002,111,2,8], …],
-     "claus":[["a",0,1624,25514,0],["abblə",11,961,963,961], …]}}}
+     "claus":[["a",0,1624,25514,0,1435],["abblə",11,961,963,959], …],
+     "homografs":["dona", …]}}}
 ```
 
 - **`claus`**: `[clauConsonant, númeroDeGrup, nombreDObjectius, nombreDeRimes,
-  objectiusArreu]`. Van **ordenades alfabèticament**, i això importa (apartat 7).
+  objectiusArreu, natius?]`. Van **ordenades alfabèticament**, i això importa
+  (apartat 7: el bloc `eres` hi apunta per posició).
 
   **Els dos recomptes d'objectius no són cap duplicat.** El tercer camp són totes
   les paraules no verbals de la clau —les que pot proposar el mode
@@ -427,11 +435,23 @@ Un de sol per als quatre dialectes:
   Una entrada d'un índex escrit abans que existís el cinquè camp només en té
   quatre; el joc ho aguanta i fa servir el tercer, que és el que volia dir el
   mateix quan totes les paraules objectiu valien a tot arreu.
+
+  **El sisè camp** (`natius`) només hi és quan és diferent del tercer: són les
+  paraules objectiu de la clau que **no** són homògrafs del dialecte, o sigui les
+  que pot proposar l'il·limitat natiu (apartat 7 ter). A l'exemple, la clau `a`
+  té 1.624 objectius i 1.435 de natius. Una entrada sense sisè camp vol dir que
+  tots els objectius són natius.
 - **`grups`**: `[inici, llarg, classeDAccent, rimesDelGrup]`. Els dos primers són
   en **bytes** dins `<codi>.txt`. La **classe d'accent** és 1 aguda, 2 plana i
   3 esdrúixola, i les **rimes del grup** són les respostes bones del mode fàcil:
   totes dues són per al mode personalitzat (apartat 7 bis). És el que permet
   tallar-ne un sense interpretar la resta.
+- **`eres`**: de cada paraula de cada era, a cada dialecte, la posició de la seva
+  clau dins del `claus` d'aquell dialecte (o `-1` si no es pot jugar). El fa
+  `generar_dades.py` a cada passada de tots els dialectes (apartat 7).
+- **`homografs`**: les formes (normalitzades) que cauen a més d'una clau consonant
+  d'aquell dialecte (*dona* / *dóna*), ordenades. L'il·limitat natiu no les
+  proposa mai (apartat 7 ter).
 
 Per regenerar-ne un sol dialecte, el generador llegeix l'índex que hi ha i només
 en substitueix el seu tros: els altres tres no es toquen.
@@ -484,23 +504,34 @@ Cost mesurat del tall: entre 8 i 49 ms segons el grup, i **90 ms** el cas
 complet més dolent —el grup més gros del central, tallar-lo, partir-lo i muntar
 el `Map` de 76.872 respostes.
 
+### `dades/eres.json` i `dades/especials.json`
+
+Són de la paraula del dia, i els explica l'apartat 7 (*Els fitxers de les eres* i
+*Les paraules manuals*): l'`eres.json` porta el contingut congelat de cada era
+(30 KB amb la roda d'abans, uns 400 KB amb una era de tretze mil paraules) i
+l'`especials.json`, les paraules manuals xifrades (1 KB). El primer passa pel
+`versions.json`; el segon es demana amb `?t=`.
+
 ---
 
 ## 4. `generar_dades.py`, pas a pas
 
 ```bash
 python joc/eines/generar_dades.py            # tots els dialectes (~40 s)
-python joc/eines/generar_dades.py ca va      # només aquests
+python joc/eines/generar_dades.py ca va      # només aquests (no comprova les eres)
+python joc/eines/generar_dades.py --aplica-substitucions
+                                             # com el primer, i substitueix les paraules
+                                             # congelades que ja no es poden jugar
 ```
 
 Constants de dalt de tot que manen:
 
 | constant | ara | què fa |
 |---|---|---|
-| `MIN_RIMES` | 30 | mínim de formes úniques perquè els modes normals hi juguin |
-| `MAX_RIMES` | 800 | i màxim: fora les terminacions on rima gairebé tot |
+| `MIN_RIMES` | 50 | mínim de formes úniques perquè els modes normals hi juguin |
+| `MAX_RIMES` | 1000 | i màxim: fora les terminacions on rima gairebé tot |
 | `MIN_RIMES_PUBLICADES` | 2 | mínim per **publicar** la clau al fitxer |
-| `DIARIES_PER_CLAU` | 4 | quantes paraules es guarden de cada clau per a la paraula del dia |
+| `DIARIES_PER_CLAU` | 4 | quantes paraules es guarden de cada clau al bloc `diaries` (la roda d'abans, que només alimenta l'era 0) |
 | `EXCLOURE_VERBS_OBJECTIU` | `True` | els verbs no poden ser paraula a rimar |
 | `CODIS_VERBALS` | `V`, `W` | quins codis són verb: conjugats (`V`) i amb pronom (`W`) |
 | `EXCLOURE_PLURALS_OBJECTIU` | `False` | si es posés a `True`, els plurals tampoc |
@@ -570,12 +601,24 @@ marques que tenen han quedat desactualitzades i s'avisa.
 6. **Torna el seu tros d'índex** (`grups` + `claus`) i, a part, els seus
    **candidats a paraula del dia**: les paraules jugables arreu que són a una
    sola clau. Quan la passada ha cobert els quatre dialectes, el
-   `construir_diaries()` en fa la intersecció i escriu el bloc `diaries` (vegeu
-   l'apartat 7). En una passada parcial no es pot refer i es conserva la que hi
-   havia; l'script ho diu.
+   `construir_diaries()` en fa la intersecció i escriu el bloc `diaries` (la roda
+   d'abans, vegeu l'apartat 7). En una passada parcial no es pot refer i es
+   conserva la que hi havia; l'script ho diu.
+7. **Els homògrafs i les paraules natives.** També en torna la llista de formes
+   objectiu que cauen a més d'una clau (`homografs`) i, de cada clau, quantes de
+   les seves paraules objectiu **no** hi són (el sisè camp de l'índex), per a
+   l'il·limitat natiu (apartat 7 ter).
 
-I al final de tot, **l'`index.json`** (fusionant els dialectes que no s'hagin
-regenerat en aquesta passada) i **el `versions.json`**.
+I al final de tot, **la comprovació de les eres** (apartat 7), **l'`index.json`**
+(fusionant els dialectes que no s'hagin regenerat en aquesta passada, amb el bloc
+`eres` que en resol les paraules) i **el `versions.json`**, que ara també porta
+l'`eres.json`.
+
+**Les escriptures es fan al final i només si tot és net.** Si una paraula
+congelada ja no es pot jugar, l'script surt amb un error **sense escriure res**
+(ni els `.txt`, ni l'índex): no es pot publicar mai un joc que no sap resoldre la
+paraula d'un dia. Amb `--aplica-substitucions` la substitueix al mateix lloc i hi
+torna.
 
 Tres coses que fa i que no es veuen:
 
@@ -593,9 +636,9 @@ l'arbre. Abans les sortides anaven sempre al repositori de debò encara que les
 entrades vinguessin de la còpia, i provar un canvi volia dir reescriure 30 MB de
 dades bones.
 
-> ⚠️ **Regenerar les dades canvia la paraula del dia** d'aquell dia per a qui
-> encara no l'hagi jugada, perquè la tria depèn de l'ordre i dels pesos de
-> l'índex. Val més fer-ho de nit.
+> ✅ **Regenerar les dades ja no canvia la paraula de cap dia**: el que surt
+> cada dia és a `eres.json`, congelat (apartat 7). El que pot passar és que el
+> generador no deixi publicar perquè una paraula congelada ja no es pot jugar.
 
 > ⚠️ **Passa'l sense arguments.** Amb la finestra dels quatre dialectes, una
 > passada parcial pot deixar les marques dels altres tres desactualitzades: la
@@ -607,16 +650,23 @@ dades bones.
 
 ## 5. Els mòduls JS, un per un
 
-Deu mòduls ES. `index.html` només en carrega un (`principal.js`) i la resta entren
-per `import`. La divisió és estricta: **`ui.js` és l'únic que toca el DOM** i
-**`motor.js` no en sap res**.
+Els mòduls ES principals són aquests. `index.html` només en carrega un
+(`principal.js`) i la resta entren per `import`. La divisió és estricta: **`ui.js`
+és l'únic que toca el DOM** i **`motor.js` no en sap res**. Els de la paraula del
+dia i de l'il·limitat natiu (`eres.js`, `bosses.js`, `especials.js`,
+`illimitat.js`) tampoc: són funcions pures, i per això també les carreguen node i
+el panell.
 
 ```
 index.html
     └── principal.js          el fil conductor
             ├── dades.js          versions, fetch i parsing
             ├── dialecte.js       quin dialecte es juga
-            ├── objectius.js      quina paraula toca
+            ├── objectius.js      llavor/generador, el personalitzat i la roda d'abans
+            ├── eres.js           la paraula del dia: les eres i la fórmula
+            │       └── bosses.js     el patró de bosses i les baralles
+            ├── especials.js      les paraules manuals xifrades
+            ├── illimitat.js      l'il·limitat natiu (també amb bosses.js)
             ├── motor.js          rellotge, validació, puntuació
             │       └── normalitza.js
             ├── ui.js             tot el DOM
@@ -638,6 +688,13 @@ quan s'acaba desa el rècord i pinta el final. No hi ha router ni framework:
 `mostrarPantalla()` posa `hidden` a totes les `<section class="pantalla">` menys
 una.
 
+La paraula de cada partida es decideix aquí: **`seleccioDelDia(data,
+dificultat)`** treu les dues paraules del dia (`eres.js`) amb les manuals
+d'`especials.js` i en resol la clau i el grup al dialecte que es juga
+(`resoldreDeLEra`), i la fan servir la partida diària i la pantalla d'ahir;
+**`seleccioIllimitada()`** tria entre l'il·limitat natiu (`illimitat.js`,
+apartat 7 ter) i el de sempre.
+
 **L'arrencada és asíncrona** i té un ordre que importa: primer el `versions.json`
 (per saber quins dialectes hi ha), després `dialecte.inicial()` (per saber quin
 es juga), després la tira, i tot seguit l'`index.json` d'aquell dialecte, que es
@@ -650,6 +707,15 @@ el `versions.json` no arriba, es juga en central i prou.
   falla, estira dels resums desats al `localStorage` (apartat 9).
 - `carregarIndex()` — l'índex dels quatre dialectes; `indexDe(index, codi)` en
   treu el tros d'un.
+- `carregarEres()` i `carregarEspecials()` — l'`eres.json` (que va pel
+  `versions.json`, amb `?v=`) i l'`especials.json` (que va amb `?t=`), amb una
+  còpia al `localStorage` (`rimador.joc.eres.v1` i `rimador.joc.especials.v1`) per
+  si no hi ha xarxa.
+- `resoldreDeLEra(index, dialecte, eraId, indexParaula)` — a quina clau i grup del
+  dialecte cau una paraula de l'era, segons el bloc `eres` de l'índex.
+- `trobarObjectiu(dialecte, normalitzada)` — busca una paraula manual al fitxer del
+  dialecte (les manuals no són a l'índex) i en treu la clau, el grup i la forma per
+  mostrar.
 - `carregarDialecte(codi)` — el fitxer, com a `ArrayBuffer`. Guarda **la
   promesa**, no el resultat, de manera que la precàrrega de l'arrencada i una
   partida que comenci mentre baixa no en fan dues descàrregues.
@@ -689,10 +755,14 @@ Els codis vàlids no són aquí: els passa `principal.js` a partir del
 - **`triarClauPerRima(index, aleatori)`** — una clau a l'atzar amb **totes igual
   de probables**. La fan servir els dos modes.
 - **`clauAleatoria(index)`** — la de l'il·limitat: la de sobre amb `Math.random`.
-- **`paraulaDelDia(index, dataISO, dificultat, dialecte)`** — la roda de
-  l'apartat 7, que dona la mateixa paraula a tothom.
-- **`ordreDelCicle(quantes, cicle, dificultat)`** — la barreja de Fisher-Yates
-  d'un cicle, guardada en memòria perquè no es refaci a cada crida.
+- **`rodaDelDia(diaries, dataISO, dificultat)`** i **`ordreDeLaRoda`** — la roda
+  d'abans (l'era 0, apartat 7): la barreja de Fisher-Yates d'un cicle i la paraula
+  que hi toca. Ja no les crida el joc directament, sinó `eres.js`.
+- **`paraulaDelDia(index, dataISO, dificultat, dialecte)`** — la mateixa roda
+  sobre l'índex vell. El joc ja no la fa servir; es conserva com a referència de
+  les proves (l'era 0 ha de donar exactament el mateix).
+- **`llavor`** i **`generador`** s'exporten: les fan servir `bosses.js`,
+  `especials.js` i el panell.
 - **`triarParaula(grup, clau, aleatori, arreu)`** — la paraula concreta dins
   d'una secció. Amb `arreu` (els modes normals) només tria d'entre les que es
   poden rimar als quatre dialectes; el personalitzat li passa `false` i les vol
@@ -702,6 +772,42 @@ Hi havia hagut una **tria ponderada** (cerca binària sobre la suma acumulada
 dels objectius, amb l'acumulat en un `WeakMap`) per fer que cada *paraula* fos
 igual de probable. Va fora: era el que deixava que les terminacions grosses es
 quedessin la meitat de les partides.
+
+### `eres.js` — la paraula del dia
+
+La fórmula de l'apartat 7. Només enters i funcions pures: importa `bosses.js` i
+`objectius.js` i res més.
+
+- **`eraDelDia(eres, dataISO)`** — la darrera era que ja ha començat.
+- **`formulaDelCarril(era, carril, dataISO, prohibida)`** — què dona la fórmula un
+  dia i en un carril: bossa, volta, clau, variant, paraula. Si la paraula és la
+  `prohibida` (la del difícil, quan es calcula el fàcil), passa a una altra.
+- **`parellaDelDia(eres, dataISO, manuals)`** — les dues paraules del dia, amb la
+  manual per sobre de la fórmula si n'hi ha.
+- **`estatDeSortida(era, carril, finalISO)`** i **`estatDeLaRoda`** — on s'ha
+  quedat una era quan en comença la següent: ho fa servir el congelador.
+
+### `bosses.js` — el patró i les baralles
+
+Les peces comunes de la paraula del dia i de l'il·limitat natiu:
+**`patroDeBosses(quotes)`** (l'ordre en què surten les bosses),
+**`bossaDelDia(patro, dia)`** (quina surt i quantes vegades havia sortit) i
+**`crearBaralles({ llavorBase, claus, sortides })`** (la clau de cada sortida, per
+voltes). Només enters i `llavor`/`generador`: cap `Math.random`, cap `Date.now`,
+perquè la paraula del dia és la mateixa per a tothom.
+
+### `especials.js` — les paraules manuals
+
+`manualsDelDia(especials, dataISO)` troba l'entrada del dia pel seu resum i la
+desxifra; `xifrar` fa l'operació inversa, i només la fa servir `manuals.mjs`. El
+format és a l'apartat 7.
+
+### `illimitat.js` — l'il·limitat natiu
+
+`configNativa(index, dialecte, carril, era)` (les bosses de l'era amb les claus
+del dialecte), `triarNativa(config, usuari, comptador, prohibida)` (la rima de la
+partida següent d'un jugador) i `triarParaulaNativa(grup, clau, aleatori,
+homografs)`. Funcions pures: el comptador el porta `magatzem.js`. Apartat 7 ter.
 
 ### `motor.js` — la partida
 
@@ -779,6 +885,9 @@ joc ha de continuar funcionant igual.
 | `rimador.joc.diaria.v2` | `{ data: "2026-08-29", partides: { "facil": {…} } }` |
 | `rimador.joc.sobrenom.v1` | el sobrenom de la classificació (el tries tu o te'l posa el joc) |
 | `rimador.joc.versions.v1` | còpia dels resums, per si el `versions.json` falla |
+| `rimador.joc.eres.v1` | còpia de l'`eres.json`, per si no hi ha xarxa |
+| `rimador.joc.especials.v1` | còpia de l'`especials.json` |
+| `rimador.joc.illimitat.v1` | `{ "ca\|facil": 12, … }`: les partides fetes a l'il·limitat natiu, per dialecte i dificultat |
 | `rimadorDialecte` | **compartida amb el cercador** |
 | `rimador_usuari_id` | **compartida amb el cercador** |
 
@@ -883,6 +992,7 @@ arrencar()
    ├─ carregarVersions()          dades/versions.json?t=…
    ├─ dialecte.inicial(codis)     ?d= → localStorage → 'ca'
    └─ precarregar(dialecte)       dades/index.json?v=…  +  dades/<codi>.txt?v=…
+                                  + dades/eres.json?v=…  +  dades/especials.json?t=…
                                   (sense esperar-los: baixen mentre tries)
 
 comencarPartida()
@@ -890,7 +1000,7 @@ comencarPartida()
    ├─ (sense sobrenom no s'hi arriba: el botó de començar és bloquejat)
    ├─ prepararParaula()
    │     ├─ indexDe(await carregarIndex(), dialecte)
-   │     ├─ paraulaDelDia(index, data, dif, dialecte) o clauAleatoria(index)
+   │     ├─ seleccioDelDia(data, dif)  o  seleccioIllimitada()
    │     ├─ grupDeRimes(dialecte, grup)          talla el tros i el parteix
    │     ├─ triarParaula(grup, clau)             → { normalitzada, mostrar }
    │     └─ respostesValides(grup, clau, dif)    → Map<normalitzada, mostrar>
@@ -914,87 +1024,330 @@ comencarPartida()
 
 N'hi ha **DUES al dia i prou** —una de fàcil i una de difícil— i són **les
 mateixes per a tothom**, jugui en el dialecte que jugui. No hi ha cap servidor
-que les digui: tothom les calcula a partir de la data i del mateix `index.json`.
+que les digui: tothom les calcula a partir de la data i d'uns fitxers que són al
+repositori (`eres.json`, que diu què hi ha congelat, i l'`index.json`, que diu on
+cau cada paraula a cada dialecte), i d'una paraula manual de `especials.json` si
+aquell dia n'hi ha una.
 
 El que canvia amb el dialecte no és la paraula sinó **quines rimes hi valen**.
-El 5 de setembre del 2026, el fàcil és *dialecte* per a tothom, i la secció
-consonant on cau té 30 rimes en central, 52 en nord-occidental, 52 en valencià i
-33 en balear. És exactament de què va el lloc.
+L'11 de setembre del 2026, el difícil era *rimes* per a tothom, i la secció on cau
+té 70 rimes en central, 70 en nord-occidental, 74 en valencià i 70 en balear; el
+fàcil, *dialecte*, en tenia 13.143 en central, 2.355 en nord-occidental, 2.704 en
+valencià i 7.909 en balear. És exactament de què va el lloc.
 
-### Per què cal una llista a part
+> Tot aquest apartat és el resultat de [`PROPOSTA_TRIA_DE_PARAULES.md`](PROPOSTA_TRIA_DE_PARAULES.md),
+> que explica **per què** cada decisió és com és. Aquí només hi ha **com
+> funciona**. La proposta, a més, porta una nota d'on s'ha desviat la
+> implementació.
 
-La paraula del dia **no pot sortir de l'índex d'un dialecte**. Cada dialecte
-reparteix les paraules en claus de rima diferents, o sigui que la mateixa llavor
-hi cau en una paraula diferent: així era com funcionava abans i per això hi
-havia quatre paraules del dia (*esgarriacries* en central, *botilleres* en
-nord-occidental…).
+### Les eres: què es congela i per què
 
-Per tenir-ne una de sola cal una llista que valgui a tot arreu, i és el bloc
-**`diaries`** de l'`index.json`, que escriu `construir_diaries()`:
+Una **ERA** és una data d'inici, unes bosses amb les seves quotes i el contingut
+de cada bossa congelat. Dura fins que comença la següent, i l'última, per sempre.
 
-```json
-"diaries": {
-  "paraules": ["subarbust", "fust", "bust", "cami>camí", …],
-  "claus":    [[0,1,2,3], [4,5,6,7], …],
-  "on":       { "ca": [412, 412, 412, 88, …], "nw": […], "va": […], "ba": […] }
-}
+**No es congelen dies, els dies es calculen**: el que es congela és quines claus
+hi ha a cada bossa, en quines variants es parteixen i quines paraules se'n
+guarden. Amb quines rimes es juga ho decideix sempre el diccionari del moment, i
+per això corregir una transcripció no demana cap era nova. Dins d'una era, la
+paraula d'un dia és una **funció pura** de la data i del que hi ha congelat: no
+es desa res ni es recorre cap historial, i tothom que té els mateixos fitxers
+treu la mateixa paraula.
+
+Les normes (les fa complir `congelar_era.py`):
+
+- Una era **començada no es toca**. Una de futura només es pot substituir mentre
+  en falten set dies o més.
+- Una era nova **comença com a mínim d'aquí a set dies**: és el marge per a qui
+  tingui una còpia desada sense xarxa.
+- Les paraules que ja eren a l'era anterior **mantenen la seva posició** i les
+  noves van al final de la llista, perquè la baralla del dia no es mogui.
+
+### La fórmula, en tres passos
+
+Cada dia, per a cada carril (**difícil** = rima consonant, **fàcil** = rima
+assonant):
+
+```
+1. Quina bossa      el patró ponderat de les quotes             (bosses.js)
+2. Quina clau       la baralla de la bossa, volta a volta       (bosses.js)
+3. Quina paraula    la variant i la rotació de la clau          (eres.js)
 ```
 
-| camp | què és |
-|---|---|
-| `paraules` | les formes, amb el `>` de sempre si la real porta accents |
-| `claus` | una entrada per **clau canònica**, amb els índexs de `paraules` que li toquen (fins a `DIARIES_PER_CLAU`) |
-| `on` | de cada paraula i dialecte, **en quina posició del seu `claus`** cau |
+**1. La bossa.** Les claus es reparteixen per trams de rimes (les **bosses**: de
+15 a 34 rimes, de 35 a 49…) i cada bossa té una **quota** en per mil, enters, que
+sumen 1.000. Una bossa del 4 % surt 40 dies de cada 1.000 tingui les claus que
+tingui. L'ordre el fa un repartiment *suau* (`patroDeBosses`): a cada pas cada
+bossa suma la seva quota al seu «deute»; surt la que en té més —en cas d'empat,
+la de número més baix— i se li resta W. Passats W dies tots els deutes tornen a
+zero, el patró es repeteix, i **cada bossa hi surt exactament tantes vegades com
+diu la quota**.
 
-L'`on` és el que permet al joc trobar el grup i la secció de la paraula del dia
-en el dialecte que sigui, sense buscar-la enlloc i sense interpretar el fitxer
-sencer.
+> ⚠️ **L'error d'un dia no és general.** Amb les quotes per defecte el patró no
+> s'allunya mai d'un repartiment exacte en més de 0,800 dies (difícil) i 0,865
+> (fàcil), però amb unes quotes qualssevol pot arribar a una mica més d'un dia
+> (s'ha vist 1,05). El panell ho calcula amb el codi del joc i en dona l'avís.
 
-Hi entren **2.140 paraules en 541 claus de rima**, i la tria és exigent:
+**2. La clau.** Cada bossa té la seva **baralla**: les seves claus en ordre
+canònic (alfabètic), barrejades per voltes amb Fisher-Yates sembrat amb
+`<era>-<carril>-<bossa>-<volta>`. Cada cop que surt la bossa en surt la clau
+següent de la baralla; **no se'n repeteix cap fins que s'han fet servir totes**,
+i la regla de l'empalmament (si la primera d'una volta fos la darrera de
+l'anterior, s'intercanvia amb la segona) evita que una clau surti dos cops
+seguits. La primera volta d'una era posa al final les claus que ja havien sortit
+a la volta a mitges de l'era anterior (`entrada.sortides`): el canvi d'era no
+repeteix res.
 
-- ha de ser objectiu d'una clau **jugable als quatre dialectes** alhora;
-- i **no pot ser ambigua**: les formes que, un cop tret l'accent, cauen en dues
-  claus de rima diferents (*dona* /dɔnə/ i *dóna* /donə/) queden fora, perquè no
-  se sabria amb quina de les dues estàs jugant.
+**3. La paraula.** Una clau no és una paraula: és **un grapat de variants**, i
+cada variant, un grapat de paraules. Una *variant* agrupa les paraules que tenen
+la mateixa clau als altres tres dialectes (`ca|nw|va|ba`), perquè la rotació
+passi per tots els «dibuixos» de rima que té la clau. La clau porta un comptador
+de les vegades que ha sortit (`t`: les d'abans de l'era —`entrada.comptadors`—
+més les voltes d'aquesta), i toca:
 
-Les claus de la llista són les del **central**, que fa de referència: fa falta un
-repartiment canònic per poder dir «no es repeteix cap paraula fins que s'han fet
-servir totes les claus».
+```
+variant   = t mod nVariants
+paraula   = floor(t / nVariants) mod paraules de la variant
+```
 
-> Com que és la intersecció dels quatre, **només es pot refer amb una passada de
-> tots els dialectes**. En una de parcial es conserva la que hi havia i l'script
-> ho diu.
+Així cada variant té el seu torn, i dins de cada variant cada paraula el seu.
 
-### La roda: per què no es repeteix mai
+**El fàcil no repeteix el difícil.** Si el mateix dia les dues sortissin
+iguals, el fàcil passa a la paraula següent de la seva variant (o a la variant
+següent, si només en té una). És una regla fixa, igual per a tothom. Si la clau
+no té cap altra paraula (una variant d'una sola paraula) no hi ha alternativa i
+es queda la que toca: més val repetir un dia que inventar-se una paraula de fora
+de la clau.
+
+#### Quines paraules entren a una era
+
+Una paraula pot ser a una era si és **jugable als quatre dialectes**:
+
+- és objectiu (`*`) a tots quatre fitxers, i cau a **una sola clau consonant** a
+  cada dialecte (sense homògrafs: *dona* / *dóna*);
+- aquella clau és **publicada** (almenys dues rimes);
+- el nombre de rimes de la seva clau, a cada dialecte, és dins de la **tolerància**
+  respecte de les que té la clau al central (`n`): `n / f ≤ rimes ≤ n · f`, amb
+  `f = 2` per defecte (×0,5–×2). Al fàcil és el mateix, amb les rimes de cada
+  grup assonant. Es calcula amb fraccions.
+
+**No hi ha cap mínim de paraules per variant**: les variants d'una sola paraula
+que passen la tolerància surten a l'informe de congelar, per revisar-les a mà
+(n'hi ha de legítimes, com *axis*, i n'hi ha que fan pensar en un error de
+transcripció). Una clau que no té cap variant dins de la tolerància no entra a
+cap bossa en tota l'era: surt a l'informe, i continua valent com a resposta i es
+pot jugar a l'il·limitat i al personalitzat.
+
+De cada variant es guarden les `paraules_per_variant` primeres en un ordre que no
+depèn de l'ordre del diccionari (`barreja_estable`): 10 al difícil i 200 al
+fàcil, que hi té variants de milers. Al fàcil, a més, **hi van primer les
+paraules que no són a cap llista del difícil**, perquè la regla de dalt s'hagi
+d'aplicar poques vegades.
+
+### L'era 0: la roda d'abans
+
+Els dies que ja han passat **no es poden moure**: la pantalla d'ahir, l'historial
+i el que la gent ha compartit s'hi basen. Per això l'**era 0** (`inici:
+2026-01-01`, `algorisme: 0`) és la roda d'abans, **congelada**: duu una còpia de la
+llista del bloc `diaries` de l'`index.json` (1.405 paraules en 354 claus) i es
+calcula amb el codi de sempre (`rodaDelDia` a `objectius.js`):
 
 ```js
 const dia     = diaDeLaRoda(dataISO);            // dies des de l'època
-const cicle   = Math.floor(dia / quantes);       // quantes = 541 claus
+const cicle   = Math.floor(dia / quantes);       // quantes = les claus de la roda
 const posicio = ((dia % quantes) + quantes) % quantes;
 
-const clau = ordreDelCicle(quantes, cicle, dificultat)[posicio];
+const clau = ordreDeLaRoda(quantes, `${cicle}-${dificultat}`)[posicio];
 ```
 
-1. Els dies es parteixen en **cicles tan llargs com claus hi ha** (541 dies, un
-   any i vuit mesos).
-2. Dins del cicle, la posició del dia diu quina clau toca, seguint una **barreja
-   de Fisher-Yates** sembrada amb el número de cicle i la dificultat. Recorrent
-   una barreja en ordre, **cap clau no es repeteix fins que s'han fet servir
-   totes**; quan s'acaben, comença un cicle nou amb una barreja diferent i tot
-   torna a estar disponible.
-3. De les paraules d'aquella clau (fins a quatre) se'n tria una amb el mateix
-   criteri, de manera que **dos cicles seguits no donen la mateixa llista**:
-   només en repeteixen 136 de 541 en fàcil i 150 en difícil.
+Els dies es parteixen en **cicles tan llargs com claus hi ha**; dins del cicle,
+la posició diu quina clau toca, seguint una barreja de Fisher-Yates sembrada amb
+el número de cicle i la dificultat (i la dificultat hi entra perquè el fàcil i el
+difícil recorrin la roda en ordres diferents). La paraula de la clau es tria
+amb el mateix criteri. **No es desa enlloc què ha sortit.**
 
-**No es desa enlloc quines paraules han sortit**, ni al navegador ni al servidor,
-i no cal: la barreja es calcula sempre igual a tot arreu, exactament com la
-paraula del dia mateixa. Mesurat sobre les dades de debò: **541 claus i 541
-paraules diferents** en un cicle de 541 dies, en totes dues dificultats.
+L'era 0 **no aplica** la regla «el fàcil no repeteix el difícil», que la roda
+d'abans no tenia: afegir-la ara faria canviar paraules que ja han sortit. Es va
+comprovar que la nova implementació dona, amb les dades d'abans, **exactament la
+mateixa paraula tots els dies** (5.840 comparacions, cap diferència; i un
+control negatiu que n'hi troba 52 quan es canvia res).
 
-La **dificultat entra a la llavor de la barreja** perquè el fàcil i el difícil
-han de recórrer la roda en ordres diferents; si no, cada dia tocarien la mateixa
-clau i les dues paraules del dia serien germanes. Comprovat: en 400 dies no
-coincideixen mai.
+El bloc `diaries` continua a l'índex perquè és d'on l'era 0 va treure les seves
+paraules; el projecte el retirarà quan la roda ja no calgui.
+
+### Els fitxers de les eres
+
+**`dades/eres.json`** — `{ "v": 1, "eres": [era, …] }`, una era per línia (un
+canvi s'hi veu a la `diff`). Va pel `versions.json`, igual que l'índex, o sigui
+que arriba sempre a la vegada amb el que en resol les paraules.
+
+```json
+{ "id": 1, "inici": "2026-12-01", "algorisme": 1,
+  "paraules": ["pare", "cami>camí", …],           totes les paraules de l'era (forma normalitzada [>forma per mostrar])
+  "carrils": {
+    "dificil": {
+      "des_de": 15, "tolerancia": 2, "paraules_per_variant": 10,   informatius
+      "bosses": [{ "de": 15, "fins": 34, "quota": 10,
+                   "claus": [{ "c": "aɾə", "n": 102,
+                               "v": [[3, 7], [12]],              variants, amb posicions de `paraules`
+                               "p": ["aɾə|aɾə|aɾə", "…"] }] }],  claus als altres dialectes (nw|va|ba)
+      "entrada": { "comptadors": { "aɾə": 4 }, "sortides": ["bɔ"] } },
+    "facil": { … } } }
+```
+
+`c` és la clau consonant del central (difícil) o el seu grup assonant (fàcil);
+`n` és el nombre de rimes que tenia quan es va congelar. **`n` i `p` són només
+per a les comprovacions** de `generar_dades.py`: el joc no les llegeix.
+`entrada` és l'estat de sortida de l'era anterior (vegeu més amunt), que calcula
+l'script de congelar amb node.
+
+**`dades/eres_arxiu.json`** — les eres més velles que l'anterior a la vigent. El
+joc no el carrega; serveix per a la història. (No existeix fins que hi hagi tres
+eres.)
+
+**`index.json`, bloc `eres`** — de cada paraula de cada era, a cada dialecte, **la
+posició de la seva clau dins del `claus` del dialecte** (o `-1` si no es pot
+jugar):
+
+```json
+"eres": { "0": { "ca": [88, 412, -1, …], "nw": […], "va": […], "ba": […] }, "1": { … } }
+```
+
+És el que permet al joc trobar el grup i la secció de la paraula del dia al
+dialecte que sigui, sense buscar-la enlloc (`resoldreDeLEra` a `dades.js`). El fa
+`generar_dades.py` a cada passada de tots els dialectes.
+
+### Congelar una era
+
+```bash
+python3 joc/eines/bosses_rimes.py        # el panell: tria talls, quotes, tolerància i paraules per variant
+                                         # → el botó d'exportar escriu config_era.json: mou-lo a joc/eines/
+python3 joc/eines/congelar_era.py --inici 2026-12-01 --simula   # tot l'informe, sense escriure res
+python3 joc/eines/congelar_era.py --inici 2026-12-01            # escriu eres.json (i eres_arxiu.json)
+python3 joc/eines/generar_dades.py                              # resol les paraules a l'índex i comprova
+```
+
+- **El panell** (`bosses_rimes.py`) és una pàgina local que **no toca res**: hi
+  veus, per a cada carril i abans de congelar, quantes claus entren a cada
+  bossa i cada quan torna una clau, quines en queden fora, la dificultat que en
+  surt, cada quan torna la mateixa paraula, què faria l'il·limitat natiu a cada
+  dialecte, l'error del patró i una previsió dels propers dies. Fa servir el
+  codi del joc **tal com és** (`llavor`, `generador` i tot `bosses.js` s'hi
+  copien en temps de generació): cap còpia escrita a mà.
+- **`congelar_era.py`** aplica les normes de dalt, normalitza les quotes, **refusa
+  una bossa amb quota i cap clau**, i desa l'informe a
+  `joc/eines/informe_era.txt`. `--per-defecte` fa servir la proposta de
+  `PER_DEFECTE` (a `bosses_rimes.py`) en comptes del panell, i `--substitueix`
+  refà una era futura. L'estat de sortida de l'era anterior el calcula **node**
+  (`formula.mjs`): Python no té cap còpia de la fórmula.
+- **L'era 0** es va congelar amb `congelar_era.py --era0`; només es fa un cop.
+- Després **cal tornar a passar `generar_dades.py`**: l'índex ha de portar on cau
+  cada paraula de l'era nova a cada dialecte.
+
+`config_era.json` i `informe_era.txt` són locals (al `.gitignore`).
+
+### Les comprovacions de cada passada de `generar_dades.py`
+
+El que es congela és la paraula que surt cada dia, no pas amb quines rimes es
+juga, i per això un canvi al diccionari no trenca l'era: es continua jugant amb
+les rimes noves. Però pot deixar una paraula que ja no es pot jugar o
+desequilibrar el que es va triar, i per això a **cada passada de tots els
+dialectes** es mira **cada paraula** de l'era vigent i de les futures (no pas
+només les editades: la bossa d'una paraula depèn de quantes rimes té la seva
+clau, i aquest nombre canvia quan es corregeixen **altres** paraules de la
+mateixa clau). Ho fa `comprovar_eres.py`.
+
+| nivell | què | què passa |
+|---|---|---|
+| **ERROR** | una paraula congelada ja no es pot jugar en algun dialecte (ja no és objectiu, cau a dues claus o a una clau amb massa poques rimes) | **no es publica res**: l'script surt sense escriure cap fitxer, amb una substitució proposada |
+| avís | una clau ha canviat de bossa (la del costat només compta; si salta dues bosses o més, surt amb nom), una variant ha sortit de la tolerància, o una paraula ha canviat de rima en algun dialecte | s'imprimeix i prou |
+| suggeriment | s'ha desplaçat més de l'1 % de les claus de l'era, o hi ha un 1 % de claus noves que podrien entrar | convé una era nova; no trenca res |
+
+Si hi ha un error, **`python3 joc/eines/generar_dades.py --aplica-substitucions`**
+canvia la paraula **al mateix lloc**: n'hi posa una altra de la mateixa clau (i
+variant, si pot ser), afegida al final de la llista, i en repunta l'entrada. **No
+s'esborra mai cap paraula**: desplaçaria la baralla i mouria tots els dies. La
+vella es queda a la llista, sense cap referència, i ningú no la comprova més.
+Amb l'error, l'informe diu el primer dia futur en què hauria sortit cada paraula.
+La passada parcial (`generar_dades.py ca va`) no comprova res.
+
+Les eres passades només es conserven perquè la pantalla d'ahir sàpiga dir la
+paraula dels dies del canvi. **L'era 0 també es pot substituir** al lloc.
+
+### Les paraules manuals (`especials.json`)
+
+Un dia assenyalat pot tenir la seva paraula (*pessebre* per Nadal). Se
+n'escriuen a mà, **en local i en clar**, a `joc/eines/diaries_manuals.json`
+(al `.gitignore`: allà no hi ha d'haver res publicat):
+
+```json
+{ "2026-12-25": { "facil": "pessebre", "dificil": "torró" },
+  "2027-01-06": "reis" }
+```
+
+Amb un objecte es diu una paraula per dificultat (se'n pot deixar una a la
+fórmula); amb una cadena, la mateixa per a totes dues. Les dels dies passats
+s'hi han de conservar: les fan servir la pantalla d'ahir i l'historial.
+
+```bash
+node joc/eines/manuals.mjs               # valida i escriu joc/dades/especials.json
+node joc/eines/manuals.mjs --simula --detall
+python3 joc/eines/comprovar_diaries_manuals.py    # el mateix: només engega el de node
+```
+
+**Què es comprova**, perquè mai hi hagi una paraula manual que valgui en uns
+dialectes i en uns altres no: que a **cada dialecte** sigui paraula a rimar
+(marcada amb `*` o `+`), que hi caigui a **una sola clau** consonant i que la
+clau sigui **publicada**. Si no ho compleix, **no s'escriu res**. I **s'avisa**,
+sense fallar, si repeteix la paraula o la clau d'un dia de la fórmula a menys de
+30 dies (amb el mateix codi del joc).
+
+**El format**: `{"v": 1, "dies": {"<resum de la data>": "<base64>"}}`. La clau és
+un resum de la data (16 xifres hexadecimals), o sigui que **les dates no es
+veuen**; el valor són 96 bytes: la paraula del fàcil i la del difícil, omplertes
+amb espais i barrejades (XOR) amb una seqüència de `generador(llavor(sal +
+data))`. Totes les entrades fan la mateixa mida, i van ordenades pel resum. És
+**ofuscació, no seguretat**: el que pot llegir el navegador, ho pot llegir
+qualsevol que sàpiga programar. Enlloc no hi ha cap fitxer públic amb dates i
+paraules en clar.
+
+**Al joc**, una manual **mana sobre la fórmula, però el dia compta igualment**:
+la fórmula es calcula igual, de manera que la bossa i la volta no es desquadren
+i **no es mou cap altre dia**. Se'n desxifren les d'avui i d'ahir
+(`manualsDelDia`), i la forma per mostrar surt del fitxer del dialecte que es
+juga. Si en aquell dialecte la paraula ja no és objectiu —el diccionari pot haver
+canviat—, el joc fa servir la de la fórmula i ho diu a la consola: val més una
+paraula automàtica que cap. I si el difícil és manual, **el fàcil tampoc no pot
+ser aquella paraula**.
+
+`especials.json` **no** passa pel `versions.json`: es demana sempre amb `?t=`, de
+manera que s'hi poden afegir dies sense tocar res més. Una còpia es guarda al
+`localStorage` per si no hi ha xarxa.
+
+> Les dues manuals que es van comitejar abans d'això (23-4-2027 i 11-9-2027) són
+> a l'historial de git, **en clar**.
+
+### La previsió
+
+```bash
+node joc/eines/previsio.mjs                                   # els propers 30 dies, en text
+node joc/eines/previsio.mjs --dies 90 --des-de 2026-12-01 --detall
+node joc/eines/previsio.mjs --html                            # pàgina local: joc/eines/previsio.html
+node joc/eines/previsio.mjs --manuals                         # hi suma les manuals en clar, encara sense publicar
+node joc/eines/previsio.mjs --json                            # per a altres programes (el bot)
+```
+
+Per a cada dia i carril diu la bossa (amb el seu tall i la seva quota), la clau,
+la variant, la paraula, **quantes rimes té a cada dialecte** i si és manual (amb
+la paraula que hauria donat la fórmula). **No té cap còpia de la fórmula**:
+importa `eres.js` i `especials.js`, els mateixos del navegador, i desxifra
+`especials.json` com ell. Substitueix `predictor.py`, que era un port a Python.
+Surt en local (`previsio.html`, `.txt` i `.json` són al `.gitignore`).
+
+**Val mentre no es congeli cap era nova**; dins de l'era vigent, només la poden
+canviar les substitucions al lloc i les manuals.
+
+El **bot de tuits** (`bot/generador_tuits.py`, `paraula_del_joc`) crida aquest
+script per saber la paraula d'ahir: `node` ha d'estar instal·lat on corri el bot.
 
 ### Altres detalls que importen
 
@@ -1010,7 +1363,8 @@ coincideixen mai.
   `DataPartida` que viatja amb cada puntuació i les claus del bloc `diaria` del
   `classificacio.json`. El resultat es comprova amb una expressió regular abans
   de donar-lo per bo, i si el navegador no té dades de fusos horaris es cau a
-  l'hora local.
+  l'hora local. Les eines de node (`manuals.mjs`, `previsio.mjs`) compten el dia
+  igual.
 
   Abans es feia amb `new Date()` i `getFullYear`/`getMonth`/`getDate`, que són
   l'hora del navegador: a Tòquio la paraula nova sortia set o vuit hores abans
@@ -1019,18 +1373,29 @@ coincideixen mai.
   rellotge**, i és el mateix fus amb què el full de la classificació apunta quan
   arriba cada puntuació (vegeu `Europe/Madrid` a `apps_script_classificacio.gs`).
 
-- **L'època és fixa** (`Date.UTC(2026, 0, 1)`). Canviar-la desplaçaria tota la
-  roda i faria sortir una altra paraula; va en UTC per no dependre del rellotge
-  de ningú.
+- **L'època és fixa**: l'era 0 comença el 2026-01-01 i el seu càlcul va en UTC
+  (`Date.UTC(2026, 0, 1)`). Canviar-la desplaçaria tota la roda i faria sortir
+  una altra paraula. `diesEntre` (a `bosses.js`) compta els dies de les eres
+  igual, en UTC, per no dependre del rellotge de ningú.
 
-- **Regenerar `dades/` la pot canviar**: la roda va sobre les claus de
-  l'`index.json`, i si el diccionari canvia, canvien.
+- **Regenerar `dades/` ja no canvia la paraula de cap dia.** Abans la roda anava
+  sobre les claus de l'índex i qualsevol canvi del diccionari les movia; ara el
+  que surt cada dia és a `eres.json`. El que pot passar és un **error** de
+  `generar_dades.py` perquè una paraula congelada ja no es pot jugar (vegeu
+  dalt), i aleshores es pot substituir al lloc. Això sí: substituir-la mou els
+  dies en què havia de sortir.
 
 - **Un intent per dificultat i dia**, i **no** per dialecte. Abans el bloqueig
   duia el dialecte, perquè cadascun tenia la seva paraula; ara canviar de
   dialecte per tornar-la a jugar seria jugar dos cops la mateixa paraula. El
   bloqueig és a `localStorage` i prou: esborrar-lo, o obrir una finestra
   privada, permet repetir. És un joc, no un examen.
+
+- **Les proves**: `node --test "joc/eines/proves/*.test.mjs"`, des de l'arrel del
+  repositori (amb la carpeta sola, sense el patró, node 22 no hi troba les
+  proves). Cobreixen la fórmula, les eres, les manuals, la previsió, l'il·limitat
+  natiu, les dades publicades de debò i —a través de `python.test.mjs`— les
+  eines de Python.
 
 ## 7 bis. El mode personalitzat
 
@@ -1170,6 +1535,68 @@ pantalla-resum           ronda a ronda, el total, i "Una altra partida"
 
 Qui arriba amb un enllaç va **directament al convit**, sense passar pel
 formulari: ja té els ajustos fets.
+
+---
+
+## 7 ter. L'il·limitat natiu
+
+Una paraula nova a cada partida, amb **les mateixes bosses i quotes que la
+paraula del dia** però aplicades a les claus del dialecte que es juga i
+comptant-hi **les seves pròpies rimes**. Ho fa `js/illimitat.js`, sobre la
+mateixa maquinària de `bosses.js` que fa servir la paraula del dia: triar la
+bossa i triar la clau dins de la bossa és idèntic; només canvia que aquí es
+compten les partides d'un jugador i no els dies d'una era.
+
+**Quan s'activa.** Quan l'era d'avui té bosses (algorisme 1). Mentre l'era
+vigent és la roda (l'era 0), o si l'`eres.json` no es pot llegir, l'il·limitat és
+el de sempre: una clau a l'atzar de la finestra de rimes (`clauAleatoria`, entre
+`MIN_RIMES` i `MAX_RIMES`).
+
+**Què el fa diferent de la paraula del dia:**
+
+- **No és compartit.** Cap jugador no necessita la partida d'un altre, o sigui
+  que no hi ha res que congelar: es fa servir l'índex del moment i els talls i
+  quotes de l'era vigent.
+- **No hi ha tolerància ni la regla dels quatre dialectes.** La unitat és la
+  clau consonant del dialecte al difícil i el grup assonant al fàcil, i cau a la
+  bossa que li toca per les rimes que té **en aquell dialecte**. La paraula és
+  qualsevol de les objectiu d'aquella clau (les marcades amb `*` i `+` al fitxer
+  del dialecte), **tret dels homògrafs** (*dona* / *dóna*): el jugador veuria
+  «dona» sense saber quina lectura toca. `generar_dades.py` escriu a l'índex la
+  llista d'homògrafs de cada dialecte i, a cada clau, el sisè camp: quantes
+  paraules natives té.
+- **Una bossa sense cap clau en aquest dialecte no entra al patró**: les altres
+  conserven la seva quota i es reparteixen els dies (W és la suma de les que
+  queden).
+
+**La seqüència és de cada jugador.** La llavor és `usuari|dialecte|carril`; el
+patró de bosses comença al desplaçament `llavor(semilla) mod W` (perquè la
+primera partida de cada jugador no caigui a la mateixa bossa) i les baralles de
+cada bossa se sembren amb `<llavor>-<bossa>`. El comptador de partides és al
+`localStorage` (`rimador.joc.illimitat.v1`, un número per
+`dialecte|dificultat`) i **puja quan la partida ja té les rimes baixades**: si no
+han pogut baixar, el jugador no perd cap torn.
+
+Qui juga N partides té **exactament** les partides de cada bossa que li toquen
+(cada W partides, tantes com diu la quota), i dins d'una bossa no se'n repeteix
+cap clau fins que s'han fet servir totes.
+
+**La paraula del dia no es proposa.** Se salta la unitat de la paraula del dia
+d'avui, al mateix dialecte i dificultat (la clau al difícil, el grup al fàcil):
+així l'il·limitat no la desvetlla. Es passa a la posició següent de la seqüència,
+fins a tres cops, i el comptador puja de les posicions gastades. Amb una sola
+unitat en joc no hi ha alternativa i es serveix igualment.
+
+Al fàcil, **la clau d'un grup** surt amb probabilitat proporcional a les seves
+paraules natives, i la paraula, d'un generador sembrat amb el jugador i la
+posició.
+
+Si es regenera l'índex, les baralles canvien i de tant en tant es pot repetir
+una clau dins d'una volta; és acceptable, perquè no hi ha cap resultat compartit
+que s'hagi de mantenir igual. I si el jugador perd el `localStorage`, torna a
+començar.
+
+**El mode personalitzat no hi té res a veure** i funciona exactament com abans.
 
 ---
 
@@ -1458,7 +1885,8 @@ funcions, `modalitatDe()` i `identificadorRecord()`.
 Al `diaria` tampoc no hi ha cap capçalera que digui quina era la paraula del
 dia. Ara sí que n'hi ha una de sola (apartat 7), però la paraula viatja igualment
 amb cada entrada: el JSON és el registre del que es va jugar, i el dia que la
-roda canviï, les taules velles han de continuar dient amb què es van fer.
+paraula del dia canviï d'era, les taules velles han de continuar dient amb què es
+van fer.
 
 ### La lectura
 
@@ -1539,12 +1967,13 @@ cada partida). Ensenya, per a la dificultat que triïs:
 
 | què | d'on surt |
 |---|---|
-| la paraula d'ahir | **la calcula el joc**: `paraulaDelDia(index, ahir(), dificultat, dialecte)` |
+| la paraula d'ahir | **la calcula el joc**: `seleccioDelDia(ahir(), dificultat)` (apartat 7) |
 | quantes rimes se'n van trobar de mitjana | `estadistiques.diaria[ahir][dificultat]` |
 | qui la va fer millor | `diaria[ahir][dificultat]` |
 
-La paraula no surt del rànquing sinó de la mateixa roda de sempre, i això importa
-perquè **hi surt encara que ahir no hi jugués ningú**. El rànquing no es filtra:
+La paraula no surt del rànquing sinó de la mateixa fórmula de sempre (amb les
+eres i les manuals d'ahir), i això importa perquè **hi surt encara que ahir no hi
+jugués ningú**. El rànquing no es filtra:
 ahir tothom va jugar la mateixa paraula, i el dialecte de cadascú surt entre
 parèntesis a la seva fila, com a la resta de la classificació.
 
@@ -1566,7 +1995,9 @@ Al navegador:
 ```
 dades/versions.json?t=1788119048827          ← mai cachejat
 dades/index.json?v=826253d24091              ← cachejable per sempre
+dades/eres.json?v=65b57475af7d               ← cachejable per sempre
 dades/ca.txt?v=c257dc6fd178                  ← cachejable per sempre
+dades/especials.json?t=1788119048999         ← mai cachejat (no té versió)
 ```
 
 Si el `versions.json` no es pot llegir (sense xarxa, servidor caigut, fitxer
@@ -1577,9 +2008,11 @@ dades. És el mateix rescat que fa `carregarVersions` a `js/script.js`. I si no 
 ha res de què estirar, cada fitxer es demana amb un `?v=t<ara>` sempre diferent,
 que és pitjor però mai incoherent.
 
-Són cinc entrades: l'`index.json` i els quatre `<codi>.txt`. Com que tots viuen
-a `dades/` i tenen nom únic, les claus són noms de fitxer sols, igual que al
-`versions.json` del diccionari.
+Són sis entrades: l'`index.json`, l'`eres.json` i els quatre `<codi>.txt`. Com
+que tots viuen a `dades/` i tenen nom únic, les claus són noms de fitxer sols,
+igual que al `versions.json` del diccionari. L'`especials.json` queda fora a
+posta: es demana sempre amb `?t=`, perquè s'hi puguin afegir dies sense tocar res
+més (apartat 7).
 
 ### El codi: el `?v=` del commit
 
@@ -1741,7 +2174,12 @@ el `display` i, sense això, guanyarien i les pantalles amagades es veurien.
 | `js/principal.js` | fil conductor: pantalles, estat, esdeveniments | tu |
 | `js/dades.js` | versions, `fetch` i anàlisi dels fitxers de rimes | tu |
 | `js/dialecte.js` | quin dialecte es juga (`?d=`, `localStorage`, central) | tu |
-| `js/objectius.js` | tria de clau per rima + la roda de la paraula del dia | tu |
+| `js/objectius.js` | `llavor`/`generador`, tria de clau per rima i la roda d'abans (era 0) | tu |
+| `js/eres.js` | la paraula del dia: eres, fórmula, parella del dia | tu |
+| `js/bosses.js` | el patró de bosses i les baralles (comú a la paraula del dia i l'il·limitat) | tu |
+| `js/especials.js` | les paraules manuals: resum de la data, xifrar i desxifrar | tu |
+| `js/illimitat.js` | l'il·limitat natiu: bosses del dialecte, seqüència per jugador | tu |
+| `js/package.json` | `{ "type": "module" }`: perquè node carregui els mòduls igual que el navegador | tu |
 | `js/motor.js` | classe `Partida`: rellotge, validació, puntuació | tu |
 | `js/normalitza.js` | fora accents — ha de coincidir amb el Python | tu |
 | `js/ui.js` | l'únic mòdul que toca el DOM | tu |
@@ -1753,9 +2191,21 @@ el `display` i, sense això, guanyarien i les pantalles amagades es veurien.
 | `dades/versions.json` | quins dialectes hi ha i el resum de cada fitxer | `generar_dades.py` |
 | `dades/index.json` | les claus dels 4 dialectes, on és cada grup i què fa el fitxer | `generar_dades.py` |
 | `dades/<codi>.txt` | totes les rimes d'un dialecte (global + apèndix) | `generar_dades.py` |
+| `dades/eres.json` | les eres de la paraula del dia: contingut congelat de cada bossa | `congelar_era.py` (i `generar_dades.py --aplica-substitucions`) |
+| `dades/eres_arxiu.json` | les eres més velles (el joc no el carrega) | `congelar_era.py` |
+| `dades/especials.json` | les paraules manuals, xifrades | `manuals.mjs` |
 | `dialectes_col/<codi>/apendix/` | les paraules pròpies del dialecte | tu |
 | `dades/classificacio.json` | el rànquing publicat | `.github/workflows/dades_nocturnes.yml` (automàtic) |
-| `eines/generar_dades.py` | diccionari + rima → `dades/` | tu |
+| `eines/generar_dades.py` | diccionari + rima → `dades/`; comprova les eres i en resol les paraules | tu |
+| `eines/bosses_rimes.py` | el panell de selecció d'una era (pàgina local `bosses_rimes.html`) | tu |
+| `eines/congelar_era.py` | congela una era a `eres.json` (+ `informe_era.txt`) | tu |
+| `eines/comprovar_eres.py`, `eines/variants_era.py` | les comprovacions de les paraules congelades; candidates, variants i tolerància | els crida `generar_dades.py` i `congelar_era.py` |
+| `eines/formula.mjs` | el pont entre Python i la fórmula del joc (estat de sortida d'una era, error d'un patró) | els crida Python |
+| `eines/manuals.mjs` | valida i xifra les manuals → `dades/especials.json` | tu |
+| `eines/comprovar_diaries_manuals.py` | engega `manuals.mjs` | tu |
+| `eines/diaries_manuals.json` | les manuals, en clar (**local**, al `.gitignore`) | tu |
+| `eines/previsio.mjs` | quines paraules sortiran els propers dies | tu, i el bot de tuits |
+| `eines/proves/` | les proves: `node --test "joc/eines/proves/*.test.mjs"` | tu |
 | `eines/compilar_classificacio.py` | full CSV → `classificacio.json` | tu |
 | `eines/apps_script_classificacio.gs` | codi que viu a Google, no aquí | tu |
 
@@ -1799,6 +2249,32 @@ li és igual.
 
 Mentrestant no peta res: el compilador aguanta que les dues columnes no hi
 siguin. Simplement no hi ha ni dia de partida ni dialecte per publicar.
+
+### L'era 1 encara no està congelada 🟡
+
+Tot el sistema d'eres és al lloc i provat, però **al repositori només hi ha l'era
+0** (la roda d'abans). Mentre sigui així la paraula del dia és exactament la de
+sempre i l'il·limitat natiu **no s'activa** (juga com abans). Per passar a
+l'era 1:
+
+1. Obrir el panell (`python3 joc/eines/bosses_rimes.py`), triar talls, quotes,
+   tolerància i paraules per variant, i exportar la configuració.
+2. `python3 joc/eines/congelar_era.py --inici AAAA-MM-DD` (mira l'informe abans
+   amb `--simula`). La data ha de ser d'aquí a set dies o més.
+3. `python3 joc/eines/generar_dades.py`, perquè l'índex en resolgui les paraules.
+
+**Cost de descàrrega**: amb una era de tretze mil paraules l'`eres.json` fa uns
+400 KB (134 KB comprimits) i l'`index.json` passa de 497 KB a uns 750 KB (154 KB
+comprimits). Es baixen un sol cop per versió.
+
+### Les eines de la paraula del dia demanen `node`
+
+`manuals.mjs`, `previsio.mjs`, `formula.mjs` i les proves van amb node (v18 o
+més). Python no té cap còpia de la fórmula: quan en necessita res, crida node. El
+**bot de tuits** també (`paraula_del_joc`, a `bot/generador_tuits.py`, crida
+`previsio.mjs`): el treball de GitHub on corre (`bot.yml`) no l'instal·la, i
+funciona perquè `ubuntu-latest` ja el porta. Si algun dia es fixa una imatge
+sense node, el bot s'ha d'ajustar.
 
 ### Els apèndixs ja hi són 🟢
 

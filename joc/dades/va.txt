@@ -233882,6 +233882,8 @@ college
 +valids>vàlids
 #aliv
 olive
+#alkis
++walkie-talkies
 #almik
 +lagoftalmic>lagoftàlmic
 +monoftalmic>monoftàlmic
@@ -311772,7 +311774,6 @@ rellepa
 +accepta
 +adepta
 discepta
-+inepta
 intercepta
 +recepta
 repta
@@ -323599,7 +323600,6 @@ rellepes
 +concepte
 discepte
 +excepte
-+inepte
 intercepte
 +precepte
 recepte
@@ -323617,7 +323617,6 @@ repten
 +autoconceptes
 +conceptes
 disceptes
-+ineptes
 interceptes
 +preceptes
 +receptes
@@ -420962,7 +420961,6 @@ atordir
 atrevir
 atribuir
 atuir
-+au-pair
 autocompadir
 autodestruir
 +autogir
@@ -478601,7 +478599,6 @@ vulcanitzaries
 vulgaritzaries
 vulneraries
 +vulvectomies
-+walkie-talkies
 +whiskies
 xacaries
 xafardejaries
@@ -529053,6 +529050,7 @@ llegir-vos-li
 +coi
 #ojs
 +cois
++dois
 #ojʃ
 +boix
 +broix
@@ -536213,6 +536211,7 @@ premor
 +ricor
 +ridiculitzador
 +rigor
++rimador
 +robador
 +rodador
 +rojor
@@ -538481,6 +538480,7 @@ premors
 +ricors
 +ridiculitzadors
 +rigors
++rimadors
 +robadors
 +rodadors
 +rojors
@@ -538848,6 +538848,7 @@ premors
 +bedoll
 +boll
 +broll
++capoll
 +clofoll
 +corcoll
 +coscoll
@@ -538889,11 +538890,13 @@ premors
 +xopoll
 #oʎs
 +afolls
++aiguapolls
 +alcofolls
 +anolls
 +bedolls
 +bolls
 +brolls
++capolls
 +carrolls
 +clofolls
 +corcolls
@@ -538914,8 +538917,10 @@ premors
 +grifolls
 +grumolls
 +manolls
++matapolls
 +matolls
 +patolls
++picapolls
 +polls
 +rebolls
 +rebrolls
@@ -549367,7 +549372,6 @@ cobren
 #okis
 +barliqui-barloquis
 +batzokis
-+nyoquis
 #onis
 +adonis
 #opsis
@@ -560978,7 +560982,6 @@ enfusos
 +cocarrois
 +cofois
 +combois
-+dois
 +elois
 +galindois
 +gamois
@@ -564592,7 +564595,6 @@ premorts
 +bescoll
 +bocamoll
 +borboll
-+capoll
 +coll
 +contramoll
 +corfoll
@@ -564621,7 +564623,6 @@ premorts
 #ɔʎs
 +abatolls
 +aiguamolls
-+aiguapolls
 +alcacolls>alçacolls
 +armolls
 +batcolls
@@ -564630,7 +564631,6 @@ premorts
 +bescolls
 +bocamolls
 +borbolls
-+capolls
 +colls
 +contramolls
 +corfolls
@@ -564638,12 +564638,10 @@ premorts
 +garrolls
 +gatolls
 +gatzolls
-+matapolls
 +molls
 +patamolls
 +penjarolls
 +penjolls
-+picapolls
 +rampugolls
 +remolls
 +restolls
@@ -575657,6 +575655,7 @@ cloure-t'hi
 +croquis
 +loquis
 +mira'm-i-no-em-toquis
++nyoquis
 +proloquis
 +soliloquis
 #ɔkiŋk
@@ -583191,6 +583190,8 @@ tosos
 +esporules>espòrules
 +florules>flòrules
 +morules>mòrules
+#pɛɾ
++au-pair
 #ɛ
 +ble
 +caraple>caraplè
@@ -586101,6 +586102,7 @@ complaent-la'n
 +narcolepsia>narcolèpsia
 +sepsia>sèpsia
 #ɛpta
++inepta
 +nepta
 #ɛra
 aferra
@@ -587050,7 +587052,7 @@ pretexten
 *abjecte
 *afecte
 +arquitecte
-*aspecte
++aspecte
 *avantprojecte
 *benafecte
 *circumspecte
@@ -587085,7 +587087,7 @@ humecte
 +indirecte
 *infecte
 injecte
-*insecte
++insecte
 +insurrecte
 +intellecte>intel·lecte
 *interfecte
@@ -588225,9 +588227,11 @@ complaent-te'ns
 +monoblepsies>monoblèpsies
 +sepsies>sèpsies
 #ɛpte
++inepte
 +latisepte
 +septe
 #ɛptes
++ineptes
 +neptes
 +septes
 #ɛre

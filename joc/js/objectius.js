@@ -45,7 +45,9 @@
 import { normalitza } from './normalitza.js?v=5681007';
 
 // Barreja de bits d'una cadena (variant de cyrb53), per sembrar el generador.
-function llavor(text) {
+// Exportada perque les bosses (vegeu bosses.js) sembren les seves baralles amb la
+// mateixa funcio que la roda: una sola manera de sembrar.
+export function llavor(text) {
     let h1 = 0xdeadbeef;
     let h2 = 0x41c6ce57;
     for (let i = 0; i < text.length; i++) {
@@ -60,7 +62,8 @@ function llavor(text) {
 
 // mulberry32: petit, rapid i, sobretot, igual a tot arreu. Fa falta que sigui
 // deterministic perque la paraula del dia ha de ser la mateixa per a tothom.
-function generador(sembra) {
+// Tambe exportat, pel mateix motiu que llavor.
+export function generador(sembra) {
     let estat = sembra >>> 0;
     return function seguent() {
         estat = (estat + 0x6d2b79f5) | 0;
@@ -155,36 +158,6 @@ function objectiusArreuDe(entrada) {
 
 // ------------------------------------------------------- La paraula del dia
 
-/**
- * La paraula del dia triada A MA per a un dia, si n'hi ha: la del
- * dades/diaries_manuals.json, que s'edita a ma per als dies assenyalats (que
- * per Nadal toqui rimar amb un mot nadalenc). Torna la forma normalitzada, o
- * null si aquell dia va amb la roda de sempre.
- *
- * EL FORMAT del fitxer es un objecte de data AAAA-MM-DD a paraula:
- *
- *   { "2026-12-25": { "facil": "pessebre", "dificil": "torró" },
- *     "2027-01-06": "reis" }
- *
- * Amb un objecte es diu una paraula per dificultat (i es pot deixar una de les
- * dues a la roda); amb una cadena, la mateixa per a totes dues. La paraula pot
- * dur accents: es normalitza aqui.
- *
- * QUE HA DE SER LA PARAULA: una del diccionari global que pugui ser paraula a
- * rimar (no un verb, no una de l'apendix), i que es pot comprovar amb
- * eines/comprovar_diaries_manuals.py abans de publicar-la. Si el dia arriba i
- * en algun dialecte no s'hi troba, aquell dialecte juga amb la de la roda (vegeu
- * seleccioDelDia a principal.js), o sigui que val la pena passar l'script.
- */
-export function manualDelDia(manuals, dataISO, dificultat) {
-    const entrada = (manuals || {})[dataISO];
-    const paraula = typeof entrada === 'string' ? entrada
-        : entrada && typeof entrada === 'object' ? entrada[dificultat] : null;
-    if (typeof paraula !== 'string') return null;
-    const normalitzada = normalitza(paraula);
-    return normalitzada || null;
-}
-
 // Des de quin dia es compten els cicles. Qualsevol data serveix mentre no
 // canvii mai: canviar-la desplacaria tota la roda i faria sortir una altra
 // paraula. Va en UTC per no dependre del rellotge de ningu (el dia de debo el
@@ -213,7 +186,7 @@ function diaDeLaRoda(dataISO) {
  */
 const rodesEnMemoria = new Map();   // "quantes|clau" -> [posicions]
 
-function ordreDeLaRoda(quantes, clauDeLaRoda) {
+export function ordreDeLaRoda(quantes, clauDeLaRoda) {
     const clau = `${quantes}|${clauDeLaRoda}`;
     const desat = rodesEnMemoria.get(clau);
     if (desat) return desat;
@@ -229,6 +202,41 @@ function ordreDeLaRoda(quantes, clauDeLaRoda) {
 }
 
 /**
+ * La roda sola: del bloc "diaries" -o de la copia que en congela l'era 0, vegeu
+ * eres.js- i d'un dia, quin cas toca. Torna
+ *   { dia, cicle, posicio, clauDeLaRoda, posicioParaula }
+ * on clauDeLaRoda es la posicio dins de diaries.claus i posicioParaula la
+ * posicio dins de diaries.paraules.
+ *
+ * ES LA PART QUE NO POT CANVIAR MAI: els dies passats son de l'era 0 i han de
+ * continuar sortint iguals. Per aixo la comparteixen paraulaDelDia (la roda
+ * d'abans, amb l'index d'ara) i l'era 0 d'eres.js (amb la copia congelada).
+ */
+export function rodaDelDia(diaries, dataISO, dificultat) {
+    const quantes = diaries.claus.length;
+    const dia = diaDeLaRoda(dataISO);
+    // Amb divisions de numeros negatius, el % de JavaScript torna negatius: les
+    // dates anteriors a l'epoca han de donar una posicio valida igualment.
+    const cicle = Math.floor(dia / quantes);
+    const posicio = ((dia % quantes) + quantes) % quantes;
+
+    const clauDeLaRoda = ordreDeLaRoda(quantes, `${cicle}-${dificultat}`)[posicio];
+    const paraulesDeLaClau = diaries.claus[clauDeLaRoda];
+
+    // Quina de les paraules de la clau, dins d'aquest cicle.
+    const tria = llavor(`rimador-joc-paraula-${cicle}-${dificultat}-${clauDeLaRoda}`);
+    const posicioParaula = paraulesDeLaClau[tria % paraulesDeLaClau.length];
+
+    return { dia, cicle, posicio, clauDeLaRoda, posicioParaula };
+}
+
+/**
+ * LA RODA D'ABANS, amb l'index d'ara. Ja no la fa servir el joc: la paraula del dia
+ * surt de les eres (vegeu eres.js), i la roda hi es nomes l'era 0, amb la llista
+ * "diaries" d'aquell dia congelada (rodaDelDia, que es la mateixa feina). Es queda
+ * perque les proves puguin comprovar que l'era 0 dona exactament el mateix que
+ * donava aixo: que els dies passats no s'han mogut.
+ *
  * La paraula del dia: la MATEIXA per a tothom, jugui en el dialecte que jugui.
  * Nomes depen de la data i de la dificultat.
  *
@@ -252,19 +260,9 @@ export function paraulaDelDia(index, dataISO, dificultat, dialecte) {
         throw new Error("L'index no porta la llista de paraules del dia");
     }
 
-    const quantes = diaries.claus.length;
-    const dia = diaDeLaRoda(dataISO);
-    // Amb divisions de numeros negatius, el % de JavaScript torna negatius: les
-    // dates anteriors a l'epoca han de donar una posicio valida igualment.
-    const cicle = Math.floor(dia / quantes);
-    const posicio = ((dia % quantes) + quantes) % quantes;
-
-    const clauDeLaRoda = ordreDeLaRoda(quantes, `${cicle}-${dificultat}`)[posicio];
-    const paraulesDeLaClau = diaries.claus[clauDeLaRoda];
-
-    // Quina de les paraules de la clau, dins d'aquest cicle.
-    const tria = llavor(`rimador-joc-paraula-${cicle}-${dificultat}-${clauDeLaRoda}`);
-    const posicioParaula = paraulesDeLaClau[tria % paraulesDeLaClau.length];
+    // La roda en si es a rodaDelDia, perque l'era 0 d'eres.js la fa servir amb la
+    // copia congelada de "diaries" i no amb la de l'index d'ara.
+    const { posicioParaula } = rodaDelDia(diaries, dataISO, dificultat);
 
     const cos = diaries.paraules[posicioParaula];
     const tall = cos.indexOf('>');

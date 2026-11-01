@@ -15,3 +15,21 @@ dist/
 diccionaris/python/grafic_rimes.html
 joc/eines/finestra_rimes.html
 joc/eines/bosses_rimes.html
+
+# Feina local de les eres de la paraula del dia (joc/eines/congelar_era.py): la
+# configuració que exporta el panell (bosses_rimes.py) i l'informe de l'última
+# congelació. Surt tot de dades i configuració que ja és a eres.json.
+joc/eines/config_era.json
+joc/eines/informe_era.txt
+
+# La previsió de la paraula del dia (joc/eines/previsio.mjs): dates amb les paraules en
+# clar, que no s'han de publicar enlloc. La pàgina que escriu amb --html, i el que s'hi
+# vulgui desar d'una sortida de text o de JSON.
+joc/eines/previsio.html
+joc/eines/previsio.txt
+joc/eines/previsio.json
+
+# Les paraules del dia manuals, EN CLAR: s'editen a mà i es queden en local. El que es
+# publica és joc/dades/especials.json, xifrat (vegeu joc/js/especials.js). Les dues
+# que ja es van comitejar (23-4-2027 i 11-9-2027) són a l'historial de git en clar.
+joc/eines/diaries_manuals.json

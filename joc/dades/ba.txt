@@ -348956,7 +348956,6 @@ fer-se't
 *afecta
 *afecte
 +angustisepte
-*aspecte
 +autoconcepte
 *avantprojecte
 *benafecta
@@ -348993,12 +348992,9 @@ humecta
 *idiolecte
 *imperfecta
 *imperfecte
-+inepta
-+inepte
 *infecta
 *infecte
 injecta
-*insecte
 *insurrecta
 intercepta
 *interfecta
@@ -349109,7 +349105,6 @@ flectes
 humectes
 +idiolectes
 +imperfectes
-+ineptes
 +infectes
 injectes
 +insectes
@@ -357006,7 +357001,6 @@ atxulli>atxul·lí
 +atzeneti>atzenetí
 atzufi>atzufí
 +atzuri>atzurí
-+au-pair
 auditi>audití
 augmenti>augmentí
 auguri>augurí
@@ -458787,7 +458781,6 @@ vulcanitzaries
 vulgaritzaries
 vulneraries
 +vulvectomies
-+walkie-talkies
 +whiskies
 xacaries
 xafardejaries
@@ -479976,6 +479969,7 @@ revalor
 +ridiculitzador
 +riero>rieró
 +rigor
++rimador
 +ro
 +ro-ro
 +robador
@@ -480993,6 +480987,7 @@ encofr
 +bedoll
 +boll
 +broll
++capoll
 +clofoll
 +coi
 +corcoll
@@ -481045,11 +481040,13 @@ encofr
 +inflaconys
 #ojs
 +afolls
++aiguapolls
 +alcofolls
 +anolls
 +bedolls
 +bolls
 +brolls
++capolls
 +carrolls
 +clofolls
 +cois
@@ -481057,6 +481054,7 @@ encofr
 +coscolls
 +criolls
 +desembrolls
++dois
 +dolls
 +empatolls
 +endolls
@@ -481071,8 +481069,10 @@ encofr
 +grifolls
 +grumolls
 +manolls
++matapolls
 +matolls
 +patolls
++picapolls
 +polls
 +rebolls
 +rebrolls
@@ -488390,6 +488390,7 @@ retos>retós
 +ridiculitzadors
 +rigoros>rigorós
 +rigors
++rimadors
 +riscos>riscós
 +rizomatos>rizomatós
 +robadors
@@ -489613,7 +489614,6 @@ esmoquis
 espinyoquis
 evoquis
 invoquis
-+nyoquis
 perboquis
 pertoquis
 provoquis
@@ -513999,7 +513999,6 @@ bomboll
 +bornoi
 +borzoi
 +caminoi
-+capoll
 +cocarroi
 +cofoi
 +coll
@@ -514140,7 +514139,6 @@ roin
 #ɔjs
 +abatolls
 +aiguamolls
-+aiguapolls
 +alcacolls>alçacolls
 +alegrois
 +alzinois
@@ -514157,14 +514155,12 @@ roin
 +bordois
 +bornois
 +caminois
-+capolls
 +cocarrois
 +cofois
 +colls
 +combois
 +contramolls
 +corfolls
-+dois
 +elois
 +envitricolls
 +galindois
@@ -514177,7 +514173,6 @@ roin
 +khois
 +mansois
 +manyagois
-+matapolls
 +molls
 +ninois
 +nois
@@ -514186,7 +514181,6 @@ roin
 +patamolls
 +penjarolls
 +penjolls
-+picapolls
 +quissois
 +rampugolls
 +remolls
@@ -518541,6 +518535,7 @@ floquis
 +mira'm-i-no-em-toquis
 moquis
 noquis
++nyoquis
 +proloquis
 +soliloquis
 toquis
@@ -548136,6 +548131,8 @@ embeinis
 +antehelixs>antehèlixs
 +antihelixs>antihèlixs
 +helixs>hèlixs
+#əlkis
++walkie-talkies
 #əlli
 haver-l'hi
 haver-li
@@ -564157,6 +564154,8 @@ apareixe-te'm>aparèixe-te'm
 apareixe-te'n>aparèixe-te'n
 #əʃətəns
 apareixe-te'ns>aparèixe-te'ns
+#pɛɾ
++au-pair
 #ɛ
 aparer
 +ble
@@ -612309,6 +612308,7 @@ vexes
 #ɛttə
 +arquitecta
 +arquitecte
++aspecte
 +collecta>col·lecta
 +correcta
 +correcte
@@ -612323,6 +612323,9 @@ vexes
 +incorrecte
 +indirecta
 +indirecte
++inepta
++inepte
++insecte
 +insurrecte
 +intellecte>intel·lecte
 +latisepte
@@ -612352,6 +612355,7 @@ vexes
 +erectes
 +incorrectes
 +indirectes
++ineptes
 +insurrectes
 +intellectes>intel·lectes
 +neptes

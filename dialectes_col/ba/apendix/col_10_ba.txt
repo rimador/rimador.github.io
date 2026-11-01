@@ -29872,8 +29872,8 @@ buixissis € buixir € VMSI2S02 €$ba$ buʃˈisis
 buixís € buixir € VMSI1S01 €$ba$ buʃˈis
 buixíssim € buixir € VMSI1P02 €$ba$ buʃˈisim
 buixíssiu € buixir € VMSI2P02 €$ba$ buʃˈisiw
-bull € bollir € VMIP1S0Z €$ba$ bwl
-bull € bullir € VMIP1S0Z €$ba$ bwl
+bull € bollir € VMIP1S0Z €$ba$ bˈuʎ
+bull € bullir € VMIP1S0Z €$ba$ bˈuʎ
 bulli € bollir € VMM03S0Y €$ba$ bˈuji
 bulli € bollir € VMSP1S0Y €$ba$ bˈuji
 bulli € bullir € VMM03S0Y €$ba$ bˈuji

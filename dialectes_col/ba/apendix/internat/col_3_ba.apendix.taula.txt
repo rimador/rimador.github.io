@@ -355,6 +355,7 @@ utt
 utti
 uttin
 uttis
+ɔɾt
 ɔɾti
 ɔɾtin
 ɔɾtis
@@ -362,7 +363,6 @@ op
 ɔpi
 opin
 ɔpis
-ɔɾt
 ɔɾði
 ɔɾðin
 ɔri

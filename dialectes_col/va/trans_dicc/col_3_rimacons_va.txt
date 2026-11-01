@@ -22083,7 +22083,7 @@ ines
 ins
 ins
 iza
-ɔɾt
+oɾt
 eβɾe
 eɾ
 i
@@ -285950,7 +285950,7 @@ ansa
 et
 ets
 ent
-ɔɾt
+oɾt
 ɔɾts
 o
 ons
@@ -357802,6 +357802,7 @@ istes
 on
 ɛls
 ikes
+eta
 iɾ
 iɾa
 iɾa
@@ -490476,8 +490477,8 @@ uðes
 ut
 uts
 ɔɾt
-ɔɾt
-ɔɾt
+oɾt
+oɾt
 ɔɾða
 antʃa
 eʎ
@@ -490979,7 +490980,7 @@ em
 ew
 ew
 i
-ɔɾ
+ɔr
 ɔra
 ɔra
 ɔra

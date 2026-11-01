@@ -3692,7 +3692,7 @@
 əkonduiɣˈɛw
 əkonduˈisin
 əkonduˈisis
-əkonˈɔɾ
+əkonˈɔɾt
 əkonoɾtˈam
 əkonoɾtˈasən
 əkonoɾtˈasəs
@@ -12329,7 +12329,7 @@
 əmorˈes
 əmorˈesim
 əmorˈesiw
-əmˈɔɾ
+əmˈɔɾt
 əmoɾtˈaj
 əmoɾtəjˈam
 əmoɾtəjˈasən
@@ -15740,7 +15740,7 @@
 əporinˈesim
 əporinˈesiw
 əporˈin
-əpˈɔɾ
+əpˈɔɾt
 əpoɾtˈam
 əpoɾtˈasən
 əpoɾtˈasəs
@@ -23207,7 +23207,7 @@
 əvorˈis
 əvorˈisim
 əvorˈisiw
-əvˈɔɾ
+əvˈɔɾt
 əvoɾtˈam
 əvoɾtˈasən
 əvoɾtˈasəs
@@ -25345,7 +25345,7 @@ bətifuˈesiw
 bətˈij
 bˈatin
 bˈatin
-bətipˈɔɾ
+bətipˈɔɾt
 bətipoɾtˈam
 bətipoɾtˈasən
 bətipoɾtˈasəs
@@ -37446,7 +37446,7 @@ kˈɔjin
 kˈɔjis
 koˈisin
 koˈisis
-kˌɔʎpˈɔɾ
+kˌɔʎpˈɔɾt
 kˌɔʎpoɾtˈam
 kˌɔʎpoɾtˈasən
 kˌɔʎpoɾtˈasəs
@@ -39137,7 +39137,7 @@ kompˈɔŋɡis
 kompoŋɡˈes
 kompoŋɡˈesim
 kompoŋɡˈesiw
-kompˈɔɾ
+kompˈɔɾt
 kompoɾtˈam
 kompoɾtˈasən
 kompoɾtˈasəs
@@ -40444,7 +40444,7 @@ koɱfoɾmˈasiw
 koɱfoɾmˈes
 koɱfoɾmˈesim
 koɱfoɾmˈesiw
-koɱfˈɔɾ
+koɱfˈɔɾt
 koɱfoɾtˈam
 koɱfoɾtˈasən
 koɱfoɾtˈasəs
@@ -40858,7 +40858,7 @@ koŋɡɾˈii
 koŋɡɾˈiin
 koŋɡɾˈiin
 koŋɡɾˈiis
-konˈɔɾ
+konˈɔɾt
 konoɾtˈam
 konoɾtˈasən
 konoɾtˈasəs
@@ -49217,7 +49217,7 @@ dəploɾˈasiw
 dəploɾˈes
 dəploɾˈesim
 dəploɾˈesiw
-dəpˈɔɾ
+dəpˈɔɾt
 dəpoɾtˈam
 dəpoɾtˈasən
 dəpoɾtˈasəs
@@ -54761,7 +54761,7 @@ dəskoɱfˈii
 dəskoɱfˈiin
 dəskoɱfˈiin
 dəskoɱfˈiis
-dəskoɱfˈɔɾ
+dəskoɱfˈɔɾt
 dəskoɱfoɾtˈam
 dəskoɱfoɾtˈasən
 dəskoɱfoɾtˈasəs
@@ -54833,7 +54833,7 @@ dəskonʒəstionˈasiw
 dəskonʒəstionˈes
 dəskonʒəstionˈesim
 dəskonʒəstionˈesiw
-dəskonˈɔɾ
+dəskonˈɔɾt
 dəskonoɾtˈam
 dəskonoɾtˈasən
 dəskonoɾtˈasəs
@@ -83679,7 +83679,7 @@ dˈesiw
 əmpoɾkˈes
 əmpoɾkˈesim
 əmpoɾkˈesiw
-əmpˈɔɾ
+əmpˈɔɾt
 əmpoɾtˈam
 əmpoɾtˈasən
 əmpoɾtˈasəs
@@ -95191,7 +95191,7 @@ dˈesiw
 ənrəðoltˈes
 ənrəðoltˈesim
 ənrəðoltˈesiw
-ənrəðˈɔɾ
+ənrəðˈɔɾt
 ənrəðoɾtˈam
 ənrəðoɾtˈasən
 ənrəðoɾtˈasəs
@@ -106912,7 +106912,7 @@ dˈesiw
 əskˈɔrin
 əskˈɔris
 əskˈɔɾrs
-əskˈɔɾ
+əskˈɔɾt
 əskoɾtˈam
 əskoɾtˈasən
 əskoɾtˈasəs
@@ -118163,7 +118163,7 @@ dˈesiw
 ətsiβˈis
 ətsiβˈisim
 ətsiβˈisiw
-ətsˈɔɾ
+ətsˈɔɾt
 ətsoɾtˈam
 ətsoɾtˈasən
 ətsoɾtˈasəs
@@ -118793,7 +118793,7 @@ dˈesiw
 ətsplotˈes
 ətsplotˈesim
 ətsplotˈesiw
-ətspˈɔɾ
+ətspˈɔɾt
 ətspoɾtˈam
 ətspoɾtˈasən
 ətspoɾtˈasəs
@@ -168489,7 +168489,7 @@ rəkonˈeɣis
 rəkonəɣˈes
 rəkonəɣˈesim
 rəkonəɣˈesiw
-rəkoɱfˈɔɾ
+rəkoɱfˈɔɾt
 rəkoɱfoɾtˈam
 rəkoɱfoɾtˈasən
 rəkoɱfoɾtˈasəs
@@ -170036,7 +170036,7 @@ reətspəðˈisis
 reətspəðˈis
 reətspəðˈisim
 reətspəðˈisiw
-reətspˈɔɾ
+reətspˈɔɾt
 reətspoɾtˈam
 reətspoɾtˈasən
 reətspoɾtˈasəs
@@ -171799,7 +171799,7 @@ rəimpləntˈasiw
 rəimpləntˈes
 rəimpləntˈesim
 rəimpləntˈesiw
-rəimpˈɔɾ
+rəimpˈɔɾt
 rəimpoɾtˈam
 rəimpoɾtˈasən
 rəimpoɾtˈasəs

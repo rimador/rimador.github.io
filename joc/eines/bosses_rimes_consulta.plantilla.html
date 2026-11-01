@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  Plantilla de bosses_rimes.py: el script hi posa les claus al lloc de
-  __DADES__ i n'escriu bosses_rimes.html. Tot es calcula aquí, en temps real: vegeu el docstring del script per saber què és cada cosa.
+  Plantilla de bosses_rimes_consulta.py: el script hi posa les claus al lloc de
+  __DADES__ i n'escriu bosses_rimes_consulta.html. Tot es calcula aquí, en temps real: vegeu el docstring del script per saber què és cada cosa.
 -->
 <html lang="ca">
 <head>
@@ -726,7 +726,7 @@ const INTRO = {
 };
 document.getElementById('peu').append(
     `Dades del ${DADES.generat}: ${mil(DADES.claus.consonant.length)} claus consonants i ${mil(DADES.claus.assonant.length)} grups assonants que poden ser paraula del dia als ${DADES.dialectes.length} dialectes. Les calcula `,
-    crear('code', '', 'joc/eines/bosses_rimes.py'), ' amb les mateixes funcions que ', crear('code', '', 'generar_dades.py'), '.'
+    crear('code', '', 'joc/eines/bosses_rimes_consulta.py'), ' amb les mateixes funcions que ', crear('code', '', 'generar_dades.py'), '.'
 );
 
 pintar();

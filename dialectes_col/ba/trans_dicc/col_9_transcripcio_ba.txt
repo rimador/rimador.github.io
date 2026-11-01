@@ -31185,7 +31185,7 @@ ndɾəŋɡˈətə
 ənətsimˈandɾə
 ənətsˈimənəs
 ənəzˈaɾβə
-ˌaˈenəcˌe
+ˈaŋ
 ˈaŋkə
 ˈaŋkərosəɣˈant
 ˈaŋkərosəɣˈans
@@ -78702,12 +78702,12 @@ bulˈimits
 bulˈimiəs
 bulˈimikəs
 bulˈimikəs
-bwl
-bwl
-bwl
-bwl
-bwl
-bwl
+bˈul
+bˈuʎ
+bˈuʎ
+bˈuʎ
+bˈuʎ
+bˈuʎ
 bujəβˈəsə
 bujəβˈəsəs
 bujˈaŋɡə
@@ -79374,7 +79374,7 @@ buskˈavən
 buskˈavəs
 buskˈavəw
 buzˈɛw
-bwʃ
+bˈuʃ
 buʃˈɛl
 buzˈinəs
 buzˈiɾis
@@ -118423,7 +118423,7 @@ koofisiˈal
 koofisiəlitˈat
 koofisiəlitˈats
 koofisiˈals
-kwk
+kˈuk
 kookˈiə
 kookˈiəs
 kootstˈobn
@@ -327337,7 +327337,7 @@ itinəɾˈaɾis
 ˈitɾis
 i tˈunəs
 ituɾˈeə
-jw
+ˈiw
 jwˈan
 jwˈans
 jwkˈa
@@ -327357,7 +327357,7 @@ jwɾˈats
 jwɾˈats
 jwɾtˈa
 jwɾtˈəs
-jws
+ˈiws
 ˈivə
 ivəsˈos
 ivəsˈozə
@@ -515318,7 +515318,7 @@ bolvəɾəntˈon
 bolləstonˈitə
 bolləstonˈitəs
 bontˈon
-wwt
+wˈut
 bootstˈɔk
 boɾsəstˈe
 wˈoɾt

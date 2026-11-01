@@ -31185,7 +31185,7 @@ aoe
 ae
 iee
 aa
-eae
+a
 aa
 a
 a
@@ -78702,12 +78702,12 @@ ii
 ie
 iie
 iie
-
-
-
-
-
-
+u
+u
+u
+u
+u
+u
 ea
 ee
 aa
@@ -79374,7 +79374,7 @@ ae
 ae
 ae
 e
-
+u
 ɛ
 ie
 ii
@@ -118423,7 +118423,7 @@ a
 a
 a
 a
-
+u
 ie
 ie
 o
@@ -327337,7 +327337,7 @@ iie
 ii
 ue
 ea
-
+i
 a
 a
 a
@@ -327357,7 +327357,7 @@ a
 a
 a
 e
-
+i
 ia
 o
 oa
@@ -515318,7 +515318,7 @@ o
 ia
 ie
 o
-
+u
 ɔ
 e
 o

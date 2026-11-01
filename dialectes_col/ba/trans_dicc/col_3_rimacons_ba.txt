@@ -31185,7 +31185,7 @@ aɣoɾəs
 andɾə
 imənəs
 aɾβə
-enəcˌe
+aŋ
 aŋkə
 ant
 ans
@@ -78702,12 +78702,12 @@ imits
 imiəs
 imikəs
 imikəs
-bwl
-bwl
-bwl
-bwl
-bwl
-bwl
+ul
+uʎ
+uʎ
+uʎ
+uʎ
+uʎ
 əsə
 əsəs
 aŋɡə
@@ -79374,7 +79374,7 @@ avən
 avəs
 avəw
 ɛw
-bwʃ
+uʃ
 ɛl
 inəs
 iɾis
@@ -118423,7 +118423,7 @@ al
 at
 ats
 als
-kwk
+uk
 iə
 iəs
 obn
@@ -327337,7 +327337,7 @@ itɾikəs
 itɾis
 unəs
 eə
-jw
+iw
 an
 ans
 a
@@ -327357,7 +327357,7 @@ ats
 ats
 a
 əs
-jws
+iws
 ivə
 os
 ozə
@@ -515318,7 +515318,7 @@ on
 itə
 itəs
 on
-wwt
+ut
 ɔk
 e
 oɾt

@@ -31185,7 +31185,7 @@ aɣoɾes
 andɾe
 imenes
 aɾba
-enacˌe
+aŋ
 aŋka
 ant
 ans
@@ -78702,12 +78702,12 @@ imiks
 imjes
 imikes
 imikes
-bwl
-bwl
-bwl
-bwl
-bwl
-bwl
+ul
+uʎ
+uʎ
+uʎ
+uʎ
+uʎ
 esa
 eses
 aŋɡa
@@ -79374,7 +79374,7 @@ aven
 aves
 avew
 ew
-bwtʃ
+uʃ
 ɛl
 ines
 iɾis
@@ -118423,7 +118423,7 @@ al
 at
 ats
 als
-kwk
+uk
 ie
 ies
 ovn
@@ -327337,7 +327337,7 @@ itɾikes
 itɾis
 unes
 ea
-jw
+iw
 an
 ans
 a
@@ -327357,7 +327357,7 @@ aks
 aks
 a
 es
-jws
+iws
 iva
 os
 oza
@@ -515318,7 +515318,7 @@ on
 ita
 ites
 on
-wwt
+ut
 ɔk
 eɾ
 oɾt

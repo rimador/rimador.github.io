@@ -1219,14 +1219,14 @@ dialecte que sigui, sense buscar-la enlloc (`resoldreDeLEra` a `dades.js`). El f
 ### Congelar una era
 
 ```bash
-python3 joc/eines/bosses_rimes.py        # el panell: tria talls, quotes, tolerància i paraules per variant
+python3 joc/eines/bosses_rimes_eres.py   # el panell: tria talls, quotes, tolerància i paraules per variant
                                          # → el botó d'exportar escriu config_era.json: mou-lo a joc/eines/
 python3 joc/eines/congelar_era.py --inici 2026-12-01 --simula   # tot l'informe, sense escriure res
 python3 joc/eines/congelar_era.py --inici 2026-12-01            # escriu eres.json (i eres_arxiu.json)
 python3 joc/eines/generar_dades.py                              # resol les paraules a l'índex i comprova
 ```
 
-- **El panell** (`bosses_rimes.py`) és una pàgina local que **no toca res**: hi
+- **El panell** (`bosses_rimes_eres.py`) és una pàgina local que **no toca res**: hi
   veus, per a cada carril i abans de congelar, quantes claus entren a cada
   bossa i cada quan torna una clau, quines en queden fora, la dificultat que en
   surt, cada quan torna la mateixa paraula, què faria l'il·limitat natiu a cada
@@ -1236,7 +1236,7 @@ python3 joc/eines/generar_dades.py                              # resol les para
 - **`congelar_era.py`** aplica les normes de dalt, normalitza les quotes, **refusa
   una bossa amb quota i cap clau**, i desa l'informe a
   `joc/eines/informe_era.txt`. `--per-defecte` fa servir la proposta de
-  `PER_DEFECTE` (a `bosses_rimes.py`) en comptes del panell, i `--substitueix`
+  `PER_DEFECTE` (a `bosses_rimes_eres.py`) en comptes del panell, i `--substitueix`
   refà una era futura. L'estat de sortida de l'era anterior el calcula **node**
   (`formula.mjs`): Python no té cap còpia de la fórmula.
 - **L'era 0** es va congelar amb `congelar_era.py --era0`; només es fa un cop.
@@ -2197,7 +2197,8 @@ el `display` i, sense això, guanyarien i les pantalles amagades es veurien.
 | `dialectes_col/<codi>/apendix/` | les paraules pròpies del dialecte | tu |
 | `dades/classificacio.json` | el rànquing publicat | `.github/workflows/dades_nocturnes.yml` (automàtic) |
 | `eines/generar_dades.py` | diccionari + rima → `dades/`; comprova les eres i en resol les paraules | tu |
-| `eines/bosses_rimes.py` | el panell de selecció d'una era (pàgina local `bosses_rimes.html`) | tu |
+| `eines/bosses_rimes_eres.py` | el panell de selecció d'una era (pàgina local `bosses_rimes_eres.html`) | tu |
+| `eines/bosses_rimes_consulta.py` | la consulta de bosses d'abans de les eres, tal com era (pàgina local `bosses_rimes_consulta.html`); no toca `eres.json` | tu |
 | `eines/congelar_era.py` | congela una era a `eres.json` (+ `informe_era.txt`) | tu |
 | `eines/comprovar_eres.py`, `eines/variants_era.py` | les comprovacions de les paraules congelades; candidates, variants i tolerància | els crida `generar_dades.py` i `congelar_era.py` |
 | `eines/formula.mjs` | el pont entre Python i la fórmula del joc (estat de sortida d'una era, error d'un patró) | els crida Python |
@@ -2257,7 +2258,7 @@ Tot el sistema d'eres és al lloc i provat, però **al repositori només hi ha l
 sempre i l'il·limitat natiu **no s'activa** (juga com abans). Per passar a
 l'era 1:
 
-1. Obrir el panell (`python3 joc/eines/bosses_rimes.py`), triar talls, quotes,
+1. Obrir el panell (`python3 joc/eines/bosses_rimes_eres.py`), triar talls, quotes,
    tolerància i paraules per variant, i exportar la configuració.
 2. `python3 joc/eines/congelar_era.py --inici AAAA-MM-DD` (mira l'informe abans
    amb `--simula`). La data ha de ser d'aquí a set dies o més.

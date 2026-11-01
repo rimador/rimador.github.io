@@ -21,7 +21,7 @@ LES DUES FEINES:
   --inici    Congela una era nova que comença aquell dia. La configuració (talls,
              quotes, tolerància i paraules per variant de cada carril) surt del
              panell, que l'exporta a joc/eines/config_era.json (vegeu
-             bosses_rimes.py), o de la proposta de PER_DEFECTE amb --per-defecte.
+             bosses_rimes_eres.py), o de la proposta de PER_DEFECTE amb --per-defecte.
 
 LES NORMES (apartat 7 de la proposta):
 
@@ -66,7 +66,7 @@ ERA_ZERO_INICI = "2026-01-01"       # l'època de la roda: no canvia mai
 CONFIG = os.path.join(DIR_EINES, "config_era.json")
 INFORME = os.path.join(DIR_EINES, "informe_era.txt")
 
-# Quin carril és quina mena de rima a la configuració del panell (bosses_rimes.py).
+# Quin carril és quina mena de rima a la configuració del panell (bosses_rimes_eres.py).
 MENA_DEL_PANELL = {"consonant": "dificil", "assonant": "facil"}
 
 
@@ -90,10 +90,10 @@ def llegir_config(cami):
 
 
 def config_per_defecte():
-    """La proposta de bosses_rimes.py (PER_DEFECTE) amb els noms dels carrils."""
-    import bosses_rimes
+    """La proposta de bosses_rimes_eres.py (PER_DEFECTE) amb els noms dels carrils."""
+    import bosses_rimes_eres
     return validar_config({
-        carril: copy.deepcopy(bosses_rimes.PER_DEFECTE[mena])
+        carril: copy.deepcopy(bosses_rimes_eres.PER_DEFECTE[mena])
         for mena, carril in MENA_DEL_PANELL.items()
     })
 
@@ -307,7 +307,7 @@ def main():
     analitzador.add_argument("--config", default=CONFIG,
                              help=f"la configuració que exporta el panell ({camins.relatiu(CONFIG)})")
     analitzador.add_argument("--per-defecte", action="store_true",
-                             help="fa servir la proposta de PER_DEFECTE (bosses_rimes.py) en lloc del panell")
+                             help="fa servir la proposta de PER_DEFECTE (bosses_rimes_eres.py) en lloc del panell")
     analitzador.add_argument("--simula", action="store_true", help="no escriu res: només l'informe")
     analitzador.add_argument("--substitueix", action="store_true",
                              help="substitueix l'última era si encara no ha començat (i en falten 7 dies o més)")
@@ -372,7 +372,7 @@ def main():
         config = llegir_config(args.config)
     else:
         raise SystemExit(f"No trobo {camins.relatiu(args.config)}: exporta la configuració del panell "
-                         f"(bosses_rimes.py) o fes servir --per-defecte.")
+                         f"(bosses_rimes_eres.py) o fes servir --per-defecte.")
 
     dades = ve.llegir_dades()
     try:

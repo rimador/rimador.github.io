@@ -788,7 +788,8 @@ joc/
     classificacio.json    el rànquing publicat
   eines/
     generar_dades.py            diccionari + rima -> dades/ (i comprova les eres)
-    bosses_rimes.py             el panell de selecció d'una era
+    bosses_rimes_eres.py        el panell de selecció d'una era
+    bosses_rimes_consulta.py    la consulta de bosses d'abans de les eres (tal com era)
     congelar_era.py             congela una era a eres.json
     manuals.mjs                 valida i xifra les manuals -> especials.json
     previsio.mjs                quines paraules sortiran els propers dies
@@ -836,7 +837,7 @@ al full `joc.min.css`, i les `@font-face` a `../../joc/fonts/`. No hi ha res mé
   Els dies d'abans (l'era 0, la roda congelada) segueixen sent els de sempre.
 - **L'era 1 encara no està congelada** i, mentre no ho estigui, la paraula del dia
   és la de la roda d'abans i l'il·limitat juga com sempre. Per congelar-la:
-  `python3 joc/eines/bosses_rimes.py` (el panell), `congelar_era.py --inici` i
+  `python3 joc/eines/bosses_rimes_eres.py` (el panell), `congelar_era.py --inici` i
   `generar_dades.py` (vegeu `FUNCIONAMENT.md`, apartat 7).
 - **Les eines de la paraula del dia demanen `node`** (v18 o més); el bot de tuits
   també, per saber la paraula d'ahir.

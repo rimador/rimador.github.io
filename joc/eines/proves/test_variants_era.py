@@ -419,7 +419,7 @@ class Configuracio(unittest.TestCase):
         with self.assertRaises(SystemExit):
             ce.validar_config({"dificil": CONFIG["dificil"]})
 
-    def test_la_proposta_de_bosses_rimes_es_una_configuracio_valida(self):
+    def test_la_proposta_de_bosses_rimes_eres_es_una_configuracio_valida(self):
         config = ce.config_per_defecte()
         self.assertEqual(config["dificil"]["paraules_per_variant"], 10)
         self.assertEqual(config["facil"]["paraules_per_variant"], 200)

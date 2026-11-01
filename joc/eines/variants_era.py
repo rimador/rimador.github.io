@@ -1,7 +1,7 @@
 """
 Les claus, les variants i el contingut d'una era.
 
-És tot el que el congelador (congelar_era.py) i el panell (bosses_rimes.py) saben
+És tot el que el congelador (congelar_era.py) i el panell (bosses_rimes_eres.py) saben
 fer amb les dades: quines claus poden sortir, en quines variants es parteixen,
 quines passen la tolerància, quines paraules se'n guarden i en quin ordre.
 

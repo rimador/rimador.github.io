@@ -25,7 +25,7 @@ codi nou té proves (`node --test "joc/eines/proves/*.test.mjs"`).
 **El que NO està fet, a posta:**
 
 - **L'era 1 no està congelada.** Cal que triïs els talls, les quotes, la tolerància
-  i la data d'inici (al panell, `bosses_rimes.py`), i congelar-la
+  i la data d'inici (al panell, `bosses_rimes_eres.py`), i congelar-la
   (`congelar_era.py --inici`). Mentre no sigui així, la paraula del dia és la de la
   roda d'abans i l'il·limitat juga com sempre (sense bosses).
 - **La fase 2** (apartat 4.5: retirar la marca `*` i la passada dels quatre
@@ -79,7 +79,13 @@ codi nou té proves (`node --test "joc/eines/proves/*.test.mjs"`).
 12. **El bot de tuits** crida `previsio.mjs` per saber la paraula d'ahir
     (`paraula_del_joc`), o sigui que necessita `node` allà on corri; no s'ha tocat
     cap workflow, i `ubuntu-latest` el porta instal·lat.
-13. **Equivalència comprovada**: l'era 0 dona exactament la mateixa paraula que la
+13. **El panell i la consulta**: el panell de selecció d'una era és
+    `bosses_rimes_eres.py` (amb la seva plantilla), i el `bosses_rimes.py` d'abans
+    —una eina de consulta sobre les bosses, sense eres— es conserva tal com era
+    amb el nom `bosses_rimes_consulta.py`. Els dos s'executen igual i escriuen la
+    seva pàgina local (`bosses_rimes_eres.html` i `bosses_rimes_consulta.html`,
+    totes dues al `.gitignore`).
+14. **Equivalència comprovada**: l'era 0 dona exactament la mateixa paraula que la
     roda i les manuals d'abans en 5.840 comparacions (cap diferència), i la
     previsió coincideix amb el `predictor.py` retirat en 2.200 (1.100 dies, dos
     carrils).
@@ -240,7 +246,7 @@ W = 10):
 En 10 dies, A ha sortit 5 cops, B 3 i C 2, i els deutes tornen a zero: el dia 11
 és com el dia 1. Aquesta seqüència de bosses que es repeteix és el **patró**, i
 dura com a molt W dies. És el mateix "deute" que ja fa servir la previsió de
-`bosses_rimes`.
+`bosses_rimes` (avui, `bosses_rimes_consulta`).
 
 **El període del patró no és cap era** i no fa que es repeteixin les paraules:
 només es repeteix l'ordre de les bosses. Amb les quotes per defecte del difícil
@@ -289,7 +295,8 @@ l'última de la *r*, s'intercanvien les dues primeres de la *r+1*. És una regla
 fixa, igual per a tothom.
 
 L'única repetició és la que no es pot evitar: una clau torna quan la seva bossa
-s'ha buidat, cada *K / quota* dies (la columna «Dura» de `bosses_rimes`).
+s'ha buidat, cada *K / quota* dies (la columna «Dura» de `bosses_rimes`, avui
+`bosses_rimes_consulta`).
 
 ### 4.4 Pas 3: quina variant i quina paraula (els dialectes)
 
@@ -441,7 +448,9 @@ Funcionament:
 
 - Una era dura **des de la seva data fins que comença la següent**. L'última dura
   per sempre.
-- **El panell.** Abans de congelar, una pàgina com `bosses_rimes` permet triar,
+- **El panell.** Abans de congelar, una pàgina com `bosses_rimes` (el panell és
+  `bosses_rimes_eres.py`; la de consulta d'abans es conserva com
+  `bosses_rimes_consulta.py`) permet triar,
   per a cada carril, els talls de les bosses, les quotes, la tolerància i el
   nombre de paraules per variant, i en mostra l'efecte: claus per bossa, quant
   dura cada bossa, què queda fora i per quin dialecte, cada quan torna la mateixa
@@ -561,7 +570,7 @@ El nivell és **el d'ara**:
 - La llavor és dins del JS, i ha de ser-hi, perquè qui calcula és el navegador.
 - Les manuals van xifrades i l'entrada en clar és en local.
 - Les previsions es generen en local i van al `.gitignore`, com
-  `bosses_rimes.html`.
+  `bosses_rimes_eres.html`.
 - **Enlloc no hi ha cap fitxer públic amb dates i paraules en clar.**
 
 És ofuscació, no seguretat: el que pot llegir el navegador, ho pot llegir
@@ -702,7 +711,8 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 | `generar_dades.py` | Escriu la resolució de les paraules congelades i fa les comprovacions de l'apartat 4.10. |
 | `comprovar_diaries_manuals.py` | Valida les manuals als quatre dialectes i en publica la versió xifrada. |
 | `previsio.mjs` (nou) | La previsió amb node, important el mòdul del joc. |
-| `bosses_rimes.py` | Fa de **panell de selecció**: talls, quotes, tolerància i paraules per variant de cada carril, amb la vista per dialecte (quines claus poden sortir), les variants de cada clau i la vista de l'il·limitat natiu. El que s'hi tria és el que congela `congelar_era.py`. |
+| `bosses_rimes_eres.py` | Fa de **panell de selecció**: talls, quotes, tolerància i paraules per variant de cada carril, amb la vista per dialecte (quines claus poden sortir), les variants de cada clau i la vista de l'il·limitat natiu. El que s'hi tria és el que congela `congelar_era.py`. |
+| `bosses_rimes_consulta.py` | La consulta de bosses d'abans de les eres, tal com era (abans es deia `bosses_rimes.py`): per fer proves i consultes, amb les tres regles dels quatre dialectes. No toca `eres.json`. |
 | `predictor.py` | Es retira. |
 
 **JS** (`joc/js/`):
@@ -738,7 +748,7 @@ de la signatura de l'enllaç i dos jugadors amb el mateix enllaç juguen el mate
 | Mode personalitzat | No canvia | — | El jugador ja tria els paràmetres |
 | Quotes de l'il·limitat | Les mateixes bosses i quotes que la paraula del dia, cada carril les seves | Quotes pròpies | El mateix repartiment de dificultat als dos modes |
 | Tolerància | ×0,5–×2 als dos carrils, de moment; es tria al panell | ×¼–×4 al fàcil | Es podrà ajustar al panell quan es vegi l'efecte |
-| Talls i quotes | Els de `PER_DEFECTE` de `bosses_rimes.py` | Quotes perquè totes les bosses durin un any | Decidit així; les conseqüències són a l'apartat 11 |
+| Talls i quotes | Els de `PER_DEFECTE` de `bosses_rimes_eres.py` | Quotes perquè totes les bosses durin un any | Decidit així; les conseqüències són a l'apartat 11 |
 | Marge | 7 dies | 3–4 dies | No costa res i cobreix una setmana sense xarxa |
 | Separació regular de les bosses petites | No, de moment | Triar pel termini més proper | Només afecta les bosses que surten pocs dies |
 | Clau balear -ats (10.327 rimes) | Es deixa com està | Revisar-ne la transcripció | — |

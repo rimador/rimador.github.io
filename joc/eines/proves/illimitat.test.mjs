@@ -257,7 +257,7 @@ test('una secció sense cap paraula nativa fa un error clar', () => {
 const DADES = fileURLToPath(new URL('../../dades/', import.meta.url));
 const indexReal = JSON.parse(fs.readFileSync(`${DADES}index.json`, 'utf8'));
 
-// Les bosses de la proposta (PER_DEFECTE a bosses_rimes.py), en per mil.
+// Les bosses de la proposta (PER_DEFECTE a bosses_rimes_eres.py), en per mil.
 const ERA_REAL = eraDe(
     [[15, 34], [35, 49], [50, 99], [100, 249], [250, 499], [500, 999], [1000, 4999], [5000, 8999], [9000, 26000]],
     [10, 15, 40, 400, 360, 150, 14, 7, 4],

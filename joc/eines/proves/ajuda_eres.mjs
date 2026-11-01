@@ -10,7 +10,7 @@
 
 import { parellaDelDia } from '../../js/eres.js';
 
-// Les bosses per defecte de bosses_rimes.py: quotes en per mil i, de les claus de
+// Les bosses per defecte de bosses_rimes_eres.py: quotes en per mil i, de les claus de
 // cada bossa, les que hi havia el 31-10-2026 amb la tolerància ×0,5–×2.
 export const QUOTES_DIFICIL = [10, 15, 40, 400, 360, 150, 14, 7, 4];
 export const CLAUS_DIFICIL = [426, 114, 174, 88, 46, 32, 24, 6, 14];

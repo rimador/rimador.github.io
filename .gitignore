@@ -14,10 +14,11 @@ dist/
 # HTML autònoms generats (les dades hi van a dins; es refan amb el seu .py)
 diccionaris/python/grafic_rimes.html
 joc/eines/finestra_rimes.html
-joc/eines/bosses_rimes.html
+joc/eines/bosses_rimes_consulta.html
+joc/eines/bosses_rimes_eres.html
 
 # Feina local de les eres de la paraula del dia (joc/eines/congelar_era.py): la
-# configuració que exporta el panell (bosses_rimes.py) i l'informe de l'última
+# configuració que exporta el panell (bosses_rimes_eres.py) i l'informe de l'última
 # congelació. Surt tot de dades i configuració que ja és a eres.json.
 joc/eines/config_era.json
 joc/eines/informe_era.txt

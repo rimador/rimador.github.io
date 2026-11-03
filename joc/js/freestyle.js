@@ -31,12 +31,12 @@
 import {
     carregarVersions, carregarIndex, carregarDialecte,
     grupDeRimes, respostesValides, escoltarProgres,
-} from './dades.js?v=cadb6a9';
-import { marge, rondesPersonalitzades, triarParaula } from './objectius.js?v=cadb6a9';
-import { llavorNova } from './personalitzat.js?v=cadb6a9';
-import { formatarTemps } from './motor.js?v=cadb6a9';
-import * as ui from './ui.js?v=cadb6a9';
-import * as dialecte from './dialecte.js?v=cadb6a9';
+} from './dades.js?v=5158895';
+import { marge, rondesPersonalitzades, triarParaula } from './objectius.js?v=5158895';
+import { llavorNova } from './personalitzat.js?v=5158895';
+import { formatarTemps } from './motor.js?v=5158895';
+import * as ui from './ui.js?v=5158895';
+import * as dialecte from './dialecte.js?v=5158895';
 
 // Els limits del formulari. Dos segons per paraula ja es un ritme de batalla;
 // mes de dos minuts ja no es freestyle, es escriure una canco.

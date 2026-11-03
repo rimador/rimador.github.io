@@ -30,13 +30,18 @@ export const LIMITS = {
     rimes: { min: 1 },
 };
 
+// El marge i els accents de cada mena: en assonant el marge es molt mes ample
+// (compta el grup sencer) i les esdruixoles hi queden fora.
+export const PER_DEFECTE_MENA = {
+    dificil: { min: 50, max: 1000, accents: [1, 2, 3] },
+    facil: { min: 100, max: 5000, accents: [1, 2] },
+};
+
 export const PER_DEFECTE = {
     segons: 60,
     rondes: 3,
-    min: 30,
-    max: 800,
-    accents: [1, 2, 3],
     dificultat: 'facil',
+    ...PER_DEFECTE_MENA.facil,
 };
 
 const ACCENTS_VALIDS = [1, 2, 3];
@@ -68,13 +73,15 @@ function enterEntre(valor, limits, perDefecte) {
  */
 export function netejar(cru) {
     const dades = cru || {};
+    const dificultat = dades.dificultat === 'dificil' ? 'dificil' : 'facil';
+    const perDefecte = PER_DEFECTE_MENA[dificultat];
     const accents = ACCENTS_VALIDS.filter((a) => (dades.accents || []).includes(a));
-    const min = enterEntre(dades.min, LIMITS.rimes, PER_DEFECTE.min);
+    const min = enterEntre(dades.min, LIMITS.rimes, perDefecte.min);
     // El maxim pot ser infinit ("sense sostre"), i llavors no es compara amb res.
     const sostreCru = dades.max === Infinity || dades.max === null
         ? Infinity : Number(dades.max);
     const max = Number.isFinite(sostreCru)
-        ? Math.max(min, enterEntre(sostreCru, LIMITS.rimes, PER_DEFECTE.max))
+        ? Math.max(min, enterEntre(sostreCru, LIMITS.rimes, perDefecte.max))
         : Infinity;
 
     return {
@@ -83,8 +90,8 @@ export function netejar(cru) {
         rondes: enterEntre(dades.rondes, LIMITS.rondes, PER_DEFECTE.rondes),
         min,
         max,
-        accents: accents.length > 0 ? accents : PER_DEFECTE.accents.slice(),
-        dificultat: dades.dificultat === 'dificil' ? 'dificil' : 'facil',
+        accents: accents.length > 0 ? accents : perDefecte.accents.slice(),
+        dificultat,
         llavor: normalitza(String(dades.llavor || '')).slice(0, 12) || llavorNova(),
         partida: enterEntre(dades.partida, { min: 1, max: 999 }, 1),
     };

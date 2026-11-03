@@ -166,8 +166,8 @@ bloqueig de la paraula del dia.
 | ajust | marge | per defecte |
 |---|---|---|
 | Rima | assonant o consonant | assonant |
-| Quines paraules | agudes, planes, esdrúixoles (les que vulguis) | totes tres |
-| Quantes rimes | d'1 fins on vulguis, o sense màxim | de 30 a 800 |
+| Quines paraules | agudes, planes, esdrúixoles (les que vulguis) | assonant: agudes i planes · consonant: totes tres |
+| Quantes rimes | d'1 fins on vulguis, o sense màxim | assonant: de 100 a 5.000 · consonant: de 50 a 1.000 |
 | Segons per ronda | 10 a 600 | 60 |
 | Rondes | 1 a 20 | 3 |
 
@@ -273,12 +273,12 @@ Abans de començar es tria:
 | Segons per paraula | 2 a 120 | 10 |
 | Paraules | 1 a 200, o **sense límit** | 12 |
 | Rima | assonant o consonant | consonant |
-| Quines paraules | agudes, planes, esdrúixoles | totes tres |
-| Quantes rimes | d'1 fins on vulguis, o sense màxim | de 30 a 800 |
+| Quines paraules | agudes, planes, esdrúixoles | consonant: totes tres · assonant: agudes i planes |
+| Quantes rimes | d'1 fins on vulguis, o sense màxim | consonant: de 50 a 1.000 · assonant: de 100 a 5.000 |
 
 La pantalla diu **quant durarà** (paraules × segons) i quantes paraules hi ha amb
 aquells filtres, com el recompte del personalitzat. Els ajustos es recorden en el
-navegador (`localStorage['rimador.joc.freestyle.v1']`).
+navegador (`localStorage['rimador.joc.freestyle.v3']`).
 
 Durant la sessió, el marcador du **dos rellotges**: quants segons falten perquè
 canviï la paraula (el mateix que diu la barra) i quanta estona fa que

@@ -926,11 +926,22 @@ function configuracioInicial() {
  * Es crida a cada canvi: és el que impedeix començar una partida impossible.
  */
 async function refrescarPersonalitzat() {
+    // Canviar de mena (consonant/assonant) posa el marge i els accents per
+    // defecte d'aquella mena: no tenen res a veure (vegeu PER_DEFECTE_MENA).
+    const dificultat = opcionsPvpDificultat.valor();
+    if (dificultat !== pvp.config.dificultat) {
+        pvp.config = personalitzat.netejar({
+            ...pvp.config, dificultat, ...personalitzat.PER_DEFECTE_MENA[dificultat],
+        });
+        ui.omplirPersonalitzat(pvp.config, ui.nomDialecte(estat.dialecte));
+        marquesPvpAccents.seleccionar(pvp.config.accents);
+    }
+
     const config = personalitzat.netejar({
         ...pvp.config,
         ...ui.llegirPersonalitzat(),
         dialecte: estat.dialecte,
-        dificultat: opcionsPvpDificultat.valor(),
+        dificultat,
         accents: marquesPvpAccents.valor(),
     });
     pvp.config = config;

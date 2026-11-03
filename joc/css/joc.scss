@@ -227,6 +227,16 @@ a:visited { color: #9a009a; }
 
 .enllac-rimes:hover { color: var(--vermell); }
 
+/* Text que només llegeixen els lectors de pantalla. */
+.nomes-lectors {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
 .salta { position: absolute; left: -9999px; }
 .salta:focus {
     left: 8px; top: 8px; z-index: 20;

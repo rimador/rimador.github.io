@@ -34,7 +34,7 @@ export const LIMITS = {
 // (compta el grup sencer) i les esdruixoles hi queden fora.
 export const PER_DEFECTE_MENA = {
     dificil: { min: 50, max: 1000, accents: [1, 2, 3] },
-    facil: { min: 100, max: 5000, accents: [1, 2] },
+    facil: { min: 100, max: 150000, accents: [1, 2] },
 };
 
 export const PER_DEFECTE = {

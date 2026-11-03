@@ -418,6 +418,11 @@ const footer = /*html*/`
 <br><br>
 <br>Si has trobat una errada o tens una suggerència, ens pots enviar un correu a:
 <br><br><a href="mailto:hola@rimador.cat">hola@rimador.cat</a>
+
+<br><br><br>Amb el suport de:
+<br><br><a href="https://cordecarxofa.cat/"><img class="cor_carxofa" id="cor_carxofa" src="assets/logo-web-cordecarxofa-ok.png" alt="Logo de Cor de carxofa" target="_blank"></a>
+
+
 <button id="botoNetejarCache" style="display:none;position:fixed;bottom:70px;right:15px;" onclick="netejarIndexedDB()">🗑 Esborrar memòria cau</button>
 <br><br><br><br><br><br>
 `

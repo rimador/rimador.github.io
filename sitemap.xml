@@ -33,7 +33,7 @@
   <!-- El generador de paraules per a freestylers. Encara no és al menú
        (js/menu.js), però sí que s'ha de poder trobar. -->
   <url>
-    <loc>https://rimador.cat/freestyle.html</loc>
+    <loc>https://rimador.cat/freestyle_beta.html</loc>
   </url>
 
   <!-- Les llistes -->

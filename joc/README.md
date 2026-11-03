@@ -251,8 +251,8 @@ rimador.cat/joc/?p=1&d=ca&m=c&t=15&r=2&n=20&x=200&a=123&s=5dawtj
 
 ## El freestyle
 
-Una pàgina a part, `freestyle.html` **a l'arrel del lloc**
-(`rimador.cat/freestyle.html`), que **no és un joc**: és un generador de
+Una pàgina a part, `freestyle_beta.html` **a l'arrel del lloc**
+(`rimador.cat/freestyle_beta.html`), que **no és un joc**: és un generador de
 paraules per a qui fa freestyle. Cada X segons en surt una de nova en gran, amb
 la caixa groga de la partida, i a sota quantes paraules hi rimen. No hi ha cap
 camp de text, ni punts, ni classificació. **Encara no surt al menú** (ni al del
@@ -754,7 +754,7 @@ joc/
     objectius.js        tria de la paraula (a l'atzar o la del dia)
     estadistiques.js    percentil, mitjana i el rànquing d'ahir
     personalitzat.js    els ajustos del mode personalitzat, l'enllaç i el codi
-    freestyle.js        tot el freestyle.html de l'arrel (fa servir dades, objectius i ui)
+    freestyle.js        tot el freestyle_beta.html de l'arrel (fa servir dades, objectius i ui)
     motor.js            rellotge, validació i puntuació (no toca el DOM)
     normalitza.js       accents fora; ha de coincidir amb el generador
     ui.js               tot el que toca el DOM

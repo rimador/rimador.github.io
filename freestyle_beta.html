@@ -9,7 +9,7 @@
     <title>Freestyle – paraules per improvisar rimes en català | Rimador.cat</title>
     <meta name="description" content="Generador de paraules per a freestylers: tria cada quants segons en vols una de nova, quantes en vols i de quina mena, i a rimar. Amb el nombre de rimes de cada paraula, en quatre dialectes.">
     <meta name="author" content="Marc i Ferran">
-    <link rel="canonical" href="https://rimador.cat/freestyle.html">
+    <link rel="canonical" href="https://rimador.cat/freestyle_beta.html">
 
     <link rel="icon" type="image/webp" href="assets/R.webp">
     <link rel="apple-touch-icon" sizes="192x192" href="assets/icon-192.png">
@@ -23,7 +23,7 @@
     <script src="dist/js/instal-lar.min.js?v=cadb6a9" defer></script>
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rimador.cat/freestyle.html">
+    <meta property="og:url" content="https://rimador.cat/freestyle_beta.html">
     <meta property="og:title" content="Freestyle del Rimador.cat">
     <meta property="og:description" content="Una paraula nova cada pocs segons, i a improvisar-hi rimes.">
     <meta property="og:image" content="https://rimador.cat/assets/R.webp">
@@ -39,7 +39,7 @@
     <script type="module" src="joc/js/freestyle.js?v=cadb6a9"></script>
 </head>
 
-<!-- La pàgina és a l'arrel (rimador.cat/freestyle.html), però tota la resta és
+<!-- La pàgina és a l'arrel (rimador.cat/freestyle_beta.html), però tota la resta és
      del joc i es fa servir tal com és: el full d'estil (dist/css/joc.min.css),
      els mòduls que trien les paraules (joc/js/objectius.js) i els fitxers de
      rimes de cada dialecte (joc/dades/, que joc/js/dades.js demana relatius al
@@ -57,7 +57,7 @@
      pantalla d'ajustos, amb el ?d= del dialecte que s'està fent servir (l'hi
      posa joc/js/freestyle.js), i la pastilla porta al Rimador.cat. -->
 <header class="capcalera">
-    <a class="capcalera__marca" id="capcalera-marca" href="freestyle.html">
+    <a class="capcalera__marca" id="capcalera-marca" href="freestyle_beta.html">
         <img src="assets/peixet.webp" alt="" width="46" height="46">
         <span class="capcalera__nom">Freestyle del Rimador.cat</span>
     </a>
@@ -73,9 +73,11 @@
     <!-- ------------------------------------------------ Pantalla d'ajustos -->
     <!-- Abans de començar es tria tot: cada quan surt una paraula, quantes en
          surten (i, per tant, quant durarà) i de quina mena han de ser. Els
-         filtres de paraula són exactament els del mode personalitzat del joc
-         (vegeu opcionsDeRima a joc/js/objectius.js), o sigui que el recompte de
-         sota diu el mateix que allà. -->
+         filtres de paraula són els del mode personalitzat del joc (vegeu
+         opcionsDeRima a joc/js/objectius.js), però amb la finestra de rimes
+         desplaçada un lloc: aquí es compten només les ALTRES paraules que hi
+         rimen, que és el número que surt sota la paraula, i no la secció
+         sencera amb ella inclosa (vegeu filtresDe a joc/js/freestyle.js). -->
     <section class="pantalla" id="pantalla-ajustos">
         <h1 class="titol">Freestyle</h1>
         <p class="subtitol">
@@ -163,12 +165,14 @@
 
         <p class="avis" id="fs-avis" hidden></p>
 
-        <button class="boto boto--gran boto--arcoiris" type="button" id="fs-comencar"><span>Comença</span></button>
+        <!-- Surt desactivat fins que s'han llegit els dialectes i el recompte (ho
+             activa joc/js/freestyle.js): premut abans, la sessió podia sortir en
+             central encara que n'hi hagués un altre de triat. -->
+        <button class="boto boto--gran boto--arcoiris" type="button" id="fs-comencar" disabled><span>Comença</span></button>
 
         <p class="peu-nota">
-            Durant la sessió: <strong>espai</strong> per posar-la en pausa,
-            <strong>→</strong> per passar a la paraula següent i <strong>Esc</strong>
-            per aturar-la.
+            Durant la sessió: <strong>espai</strong> per posar-la en pausa i
+            <strong>→</strong> per passar a la paraula següent.
         </p>
     </section>
 
@@ -205,6 +209,10 @@
             <p class="pausa-rotul" id="fs-pausa-rotul" hidden>En pausa</p>
         </div>
         <p class="objectiu__rimes objectiu__rimes--freestyle" id="fs-rimes" hidden></p>
+        <!-- El que anuncien els lectors de pantalla: només la paraula i les
+             rimes, i no pas el compte enrere ni els rellotges, que canvien cada
+             segon. L'omple joc/js/freestyle.js. -->
+        <p class="nomes-lectors" id="fs-locutor" role="status" aria-live="polite"></p>
 
         <div class="controls">
             <button class="boto" type="button" id="fs-pausa">Pausa</button>

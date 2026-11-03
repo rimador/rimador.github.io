@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corregir dialectes</title>
+<style>
+  :root {
+    --fons: #f6f5f2; --paper: #fff; --tinta: #1d1d1b; --suau: #6b6a66; --vora: #dedcd6;
+    --accent: #b5462b; --be: #2e7d4f; --mal: #b3261e; --avis: #a76a00; --canviat: #fff5d6;
+    --tret: #f7dcd9; --posat: #d6eedf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fons: #18181a; --paper: #222225; --tinta: #ececea; --suau: #9c9b97; --vora: #38383c;
+      --accent: #e0785c; --be: #6cc391; --mal: #f08a82; --avis: #e0b25c; --canviat: #3a3320;
+      --tret: #4a2724; --posat: #213d2c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fons); color: var(--tinta);
+         font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .nota { color: var(--suau); font-size: 13px; margin: 0 0 18px; }
+  .barra { position: sticky; top: 0; z-index: 2; padding: 10px 0; background: var(--fons); }
+  input, button { font: inherit; color: inherit; }
+  button { padding: 8px 14px; border: 1px solid var(--vora); border-radius: 8px;
+           background: var(--paper); cursor: pointer; }
+  button.principal { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  .modes { display: flex; flex-wrap: wrap; border: 1px solid var(--vora); border-radius: 8px;
+           overflow: hidden; background: var(--paper); }
+  .modes label { display: flex; align-items: center; padding: 7px 12px; cursor: pointer;
+                 font-size: 14px; white-space: nowrap; }
+  .modes label + label { border-left: 1px solid var(--vora); }
+  .modes input { position: absolute; opacity: 0; pointer-events: none; }
+  .modes label:has(input:checked) { background: var(--tinta); color: var(--fons); }
+  .modes label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .simbols { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0 0; }
+  .simbols button { padding: 3px 9px; font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                    font-size: 16px; min-width: 34px; }
+  .estat { color: var(--suau); margin: 8px 0; }
+  .estat.error { color: var(--mal); }
+  .targeta { background: var(--paper); border: 1px solid var(--vora); border-radius: 10px;
+             padding: 14px 16px; margin: 0 0 14px; }
+  .targeta.revisada { opacity: .7; }
+  .cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 6px; }
+  .cap strong { font-size: 18px; }
+  .cap .meta { color: var(--suau); font-size: 13px; }
+  .cap .dreta { display: flex; gap: 6px; margin-left: auto; }
+  .etiqueta { font-size: 12px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--vora);
+              color: var(--suau); }
+  .etiqueta.revisada { border-color: var(--be); color: var(--be); }
+  .dialecte { display: grid; grid-template-columns: 130px 1fr; gap: 2px 12px; align-items: center;
+              padding: 6px 0; border-top: 1px dashed var(--vora); }
+  .dialecte:first-of-type { border-top: 0; }
+  .dialecte label { font-weight: 600; font-size: 14px; }
+  .dialecte.central label { color: var(--accent); }
+  .dialecte input { width: 100%; padding: 6px 10px; border: 1px solid var(--vora); border-radius: 6px;
+                    background: var(--paper); font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif;
+                    font-size: 18px; }
+  .dialecte input.canviat { background: var(--canviat); }
+  .dialecte input.invalid { border-color: var(--mal); }
+  .detall { grid-column: 2; font-size: 13px; color: var(--suau); }
+  .ipa { font-family: "Charis SIL", "Doulos SIL", "Gentium Plus", serif; font-size: 15px; color: var(--tinta); }
+  .ipa .tret { background: var(--tret); text-decoration: line-through; }
+  .ipa .posat { background: var(--posat); }
+  .detall .mal { color: var(--mal); }
+  .detall .avis { color: var(--avis); }
+  .accions { display: flex; gap: 8px; justify-content: flex-end; align-items: center; margin-top: 10px; }
+  .accions .missatge { margin-right: auto; font-size: 13px; }
+  .missatge.be { color: var(--be); }
+  .missatge.mal { color: var(--mal); }
+  .mes { display: flex; }
+  .mes button { flex: 1; padding: 12px; }
+  @media (max-width: 560px) {
+    .dialecte { grid-template-columns: 1fr; }
+    .detall { grid-column: 1; }
+    .modes label { flex: 1 1 45%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Corregir dialectes</h1>
+  <p class="nota">Entrades on el central no és el que deia l'Aina. Corregeix els altres dialectes i desa
+    (o, si no cal tocar-hi res, «Ja està bé»). Sota de cada camp, el canvi respecte de l'Aina.
+    Desa a <code>diccionaris/col_10.txt</code>; el commit el fas tu.</p>
+
+  <div class="barra">
+    <div class="modes" id="filtres">
+      <label><input type="radio" name="filtre" value="pendents" checked><span>Per mirar</span>&nbsp;<span data-compte="pendents"></span></label>
+      <label><input type="radio" name="filtre" value="tocades"><span>Ja tocades</span>&nbsp;<span data-compte="tocades"></span></label>
+      <label><input type="radio" name="filtre" value="revisades"><span>Revisades</span>&nbsp;<span data-compte="revisades"></span></label>
+      <label><input type="radio" name="filtre" value="totes"><span>Totes</span>&nbsp;<span data-compte="totes"></span></label>
+    </div>
+    <div class="simbols" id="simbols" title="Insereix el símbol al camp on eres"></div>
+  </div>
+
+  <p class="estat" id="estat">Carregant…</p>
+  <div id="llista"></div>
+  <div class="mes"><button id="mes" hidden>Més</button></div>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const SIMBOLS = "ˈ ˌ ə ɛ ɔ ɾ r ʎ ɲ ŋ ʒ ʃ ɡ β ð ɣ ɱ z j w".split(" ");
+const ACCENT = "ˈ";
+let config = null;
+let filtre = "pendents";
+let carregades = 0;
+let darrerCamp = null;
+
+function element(etiqueta, classe, text) {
+  const el = document.createElement(etiqueta);
+  if (classe) el.className = classe;
+  if (text != null) el.textContent = text;
+  return el;
+}
+
+async function api(cami, cos) {
+  const resposta = await fetch(cami, cos === undefined ? {} : {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cos),
+  });
+  const dades = await resposta.json();
+  if (!resposta.ok) throw new Error(dades.error || `error ${resposta.status}`);
+  return dades;
+}
+
+// El que s'escriu fàcil amb el teclat i a les transcripcions és un altre símbol.
+const normalitzar = (text) => text.replace(/g/g, "ɡ").replace(/['’]/g, ACCENT);
+
+// Diferència lletra a lletra (són paraules soles: la taula és petita).
+function diferencia(a, b) {
+  const n = a.length, m = b.length;
+  const t = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--)
+    for (let j = m - 1; j >= 0; j--)
+      t[i][j] = a[i] === b[j] ? t[i + 1][j + 1] + 1 : Math.max(t[i + 1][j], t[i][j + 1]);
+  const trossos = [];
+  const posa = (mena, lletra) => {
+    const darrer = trossos[trossos.length - 1];
+    if (darrer && darrer[0] === mena) darrer[1] += lletra; else trossos.push([mena, lletra]);
+  };
+  let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (a[i] === b[j]) { posa("=", a[i]); i++; j++; }
+    else if (t[i + 1][j] >= t[i][j + 1]) posa("-", a[i++]);
+    else posa("+", b[j++]);
+  }
+  while (i < n) posa("-", a[i++]);
+  while (j < m) posa("+", b[j++]);
+  return trossos;
+}
+
+function ipaAmbDiferencia(abans, ara) {
+  const span = element("span", "ipa");
+  for (const [mena, text] of diferencia(abans, ara)) {
+    span.append(mena === "=" ? text : element("span", mena === "-" ? "tret" : "posat", text));
+  }
+  return span;
+}
+
+function detall(caixa, valor, aina) {
+  caixa.replaceChildren();
+  if (aina == null) caixa.append("L'Aina no la té");
+  else if (valor === aina) caixa.append("igual que l'Aina");
+  else caixa.append("Aina → ara: ", ipaAmbDiferencia(aina, valor));
+  if (!valor.includes(ACCENT)) {
+    caixa.append(" · ", element("span", "avis", "sense accent: no rimarà amb res"));
+  } else {
+    caixa.append(" · rima ", element("span", "ipa", "-" + valor.split(ACCENT).pop()));
+  }
+  const estranys = [...new Set(valor)].filter((c) => !config.inventari.includes(c));
+  if (estranys.length) {
+    caixa.append(" · ", element("span", "mal", "fora de l'inventari: " + estranys.join(" ")));
+  }
+  return estranys.length === 0 && valor.trim() === valor && valor !== "";
+}
+
+function ordreDialectes() {
+  const codis = Object.keys(config.dialectes);
+  return [config.central, ...codis.filter((codi) => codi !== config.central)];
+}
+
+function targeta(e, missatgeInicial) {
+  const art = element("article", "targeta" + (e.revisada ? " revisada" : ""));
+  const cap = element("div", "cap");
+  cap.append(element("strong", null, e.paraula),
+             element("span", "meta", `${e.lema} · ${e.codi} · fila ${e.fila + 1}`));
+  const dreta = element("span", "dreta");
+  if (e.tocats.length) {
+    dreta.append(element("span", "etiqueta",
+      "ja tocat: " + e.tocats.map((c) => config.dialectes[c] || c).join(", ")));
+  }
+  if (e.revisada) dreta.append(element("span", "etiqueta revisada", "revisada"));
+  cap.append(dreta);
+  art.append(cap);
+
+  const camps = {};
+  const missatge = element("span", "missatge");
+  const desmarca = element("button", null, "Desmarca");
+  const principal = element("button", "principal");
+
+  function actualitza() {
+    let canviat = false, valid = true;
+    for (const [codi, { input, caixa }] of Object.entries(camps)) {
+      const bo = detall(caixa, input.value, e.aina[codi]);
+      input.classList.toggle("invalid", !bo);
+      input.classList.toggle("canviat", input.value !== e.ara[codi]);
+      canviat ||= input.value !== e.ara[codi];
+      valid &&= bo;
+    }
+    principal.textContent = canviat ? "Desa" : "Ja està bé";
+    principal.hidden = !canviat && e.revisada;
+    principal.disabled = !valid;
+    desmarca.hidden = !e.revisada || canviat;
+  }
+
+  for (const codi of ordreDialectes()) {
+    if (!(codi in e.ara)) continue;
+    const fila = element("div", "dialecte" + (codi === config.central ? " central" : ""));
+    const id = `c${e.fila}_${codi}`;
+    const label = element("label", null, config.dialectes[codi] || codi);
+    label.htmlFor = id;
+    const input = element("input");
+    input.id = id;
+    input.value = e.ara[codi];
+    input.spellcheck = false;
+    input.autocomplete = "off";
+    const caixa = element("div", "detall");
+    input.addEventListener("focus", () => { darrerCamp = input; });
+    input.addEventListener("input", () => {
+      const inici = input.selectionStart, normal = normalitzar(input.value);
+      if (normal !== input.value) { input.value = normal; input.setSelectionRange(inici, inici); }
+      actualitza();
+    });
+    input.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" && !principal.disabled && !principal.hidden) principal.click();
+    });
+    camps[codi] = { input, caixa };
+    fila.append(label, input, caixa);
+    art.append(fila);
+  }
+
+  const accions = element("div", "accions");
+  accions.append(missatge, desmarca, principal);
+  art.append(accions);
+
+  async function envia(cami, cos) {
+    principal.disabled = desmarca.disabled = true;
+    try {
+      const r = await api(cami, { fila: e.fila, linia: e.linia, ...cos });
+      posaComptes(r.comptes);
+      const nou = targeta(r.entrada, r.desat === false ? "Res a desar; marcada com a revisada." : "Fet ✓");
+      art.replaceWith(nou);
+    } catch (err) {
+      missatge.className = "missatge mal";
+      missatge.textContent = err.message;
+      principal.disabled = desmarca.disabled = false;
+    }
+  }
+
+  principal.addEventListener("click", () => {
+    const canviat = Object.entries(camps).some(([codi, { input }]) => input.value !== e.ara[codi]);
+    if (!canviat) return envia("/api/revisada", { revisada: true });
+    const transcripcions = {};
+    for (const [codi, { input }] of Object.entries(camps)) transcripcions[codi] = input.value;
+    envia("/api/desa", { transcripcions });
+  });
+  desmarca.addEventListener("click", () => envia("/api/revisada", { revisada: false }));
+
+  if (missatgeInicial) {
+    missatge.className = "missatge be";
+    missatge.textContent = missatgeInicial;
+  }
+  actualitza();
+  return art;
+}
+
+function posaComptes(comptes) {
+  for (const el of document.querySelectorAll("[data-compte]")) {
+    el.textContent = `(${comptes[el.dataset.compte] ?? 0})`;
+  }
+}
+
+async function carrega(mes = false) {
+  if (!mes) { carregades = 0; $("llista").replaceChildren(); }
+  $("estat").className = "estat";
+  $("estat").textContent = "Carregant…";
+  try {
+    const r = await api(`/api/llista?filtre=${filtre}&des_de=${carregades}`);
+    posaComptes(r.comptes);
+    for (const e of r.entrades) $("llista").append(targeta(e));
+    carregades += r.entrades.length;
+    let text = r.total ? `${r.total} entrades; en veus ${carregades}.` : "No n'hi ha cap.";
+    if (r.sense_aina) text += ` (${r.sense_aina} línies de la col_10 són de paraules que l'Aina no té.)`;
+    $("estat").textContent = text;
+    $("mes").hidden = carregades >= r.total;
+  } catch (err) {
+    $("estat").className = "estat error";
+    $("estat").textContent = err.message;
+  }
+}
+
+for (const simbol of SIMBOLS) {
+  const boto = element("button", null, simbol);
+  boto.type = "button";
+  boto.addEventListener("mousedown", (ev) => ev.preventDefault());   // que el camp no perdi el focus
+  boto.addEventListener("click", () => {
+    if (!darrerCamp) return;
+    const { value, selectionStart: a, selectionEnd: b } = darrerCamp;
+    darrerCamp.value = value.slice(0, a) + simbol + value.slice(b);
+    darrerCamp.setSelectionRange(a + simbol.length, a + simbol.length);
+    darrerCamp.dispatchEvent(new Event("input"));
+    darrerCamp.focus();
+  });
+  $("simbols").append(boto);
+}
+
+$("filtres").addEventListener("change", (ev) => { filtre = ev.target.value; carrega(); });
+$("mes").addEventListener("click", () => carrega(true));
+
+(async () => {
+  try {
+    config = await api("/api/configuracio");
+  } catch (err) {
+    $("estat").className = "estat error";
+    $("estat").textContent = err.message;
+    return;
+  }
+  carrega();
+})();
+</script>
+</body>
+</html>

@@ -25,19 +25,18 @@
 // sigui que una sessio sense final tampoc no repeteix cap rima fins que les ha
 // fet servir totes.
 //
-// EL ?v=b4c9b52 DE LES IMPORTACIONS el reescriu el deploy.yml, com a la resta de
+// EL ?v= DE LES IMPORTACIONS el reescriu el deploy.yml, com a la resta de
 // moduls del joc (vegeu el comentari de dalt de principal.js).
 
 import {
     carregarVersions, carregarIndex, carregarDialecte,
     grupDeRimes, respostesValides, escoltarProgres,
-} from './dades.js?v=cadb6a9';
-import { marge, rondesPersonalitzades, triarParaula } from './objectius.js?v=cadb6a9';
-import { llavorNova } from './personalitzat.js?v=cadb6a9';
-import { MIN_RIMES, MAX_RIMES } from './finestra.js?v=cadb6a9';
-import { formatarTemps } from './motor.js?v=cadb6a9';
-import * as ui from './ui.js?v=cadb6a9';
-import * as dialecte from './dialecte.js?v=cadb6a9';
+} from './dades.js?v=dev';
+import { marge, rondesPersonalitzades, triarParaula } from './objectius.js?v=dev';
+import { llavorNova } from './personalitzat.js?v=dev';
+import { formatarTemps } from './motor.js?v=dev';
+import * as ui from './ui.js?v=dev';
+import * as dialecte from './dialecte.js?v=dev';
 
 // Els limits del formulari. Dos segons per paraula ja es un ritme de batalla;
 // mes de dos minuts ja no es freestyle, es escriure una canco.
@@ -50,15 +49,30 @@ const LIMITS = {
 const PER_DEFECTE = {
     segons: 15,
     paraules: 6,
-    // Els dels modes normals, que es toquen a joc/eines/generar_dades.py.
-    min: MIN_RIMES,
-    max: MAX_RIMES,
-    accents: [1, 2, 3],
+    // Cada mena de rima porta el seu marge, perque no vol dir el mateix:
+    //  - consonant: de 50 a 1.000 rimes es una paraula amb prou companyes per
+    //    improvisar-hi i sense arribar als temes mes comuns.
+    //  - assonant: compta el grup sencer, i n'hi ha molt pocs (uns 100 per
+    //    dialecte, repartits de dues rimes a desenes de milers). De 100 a 5.000
+    //    en queden entre 30 i 50 per dialecte, i queden fora els petits, que
+    //    gairebe no tenen rimes, i la desena de grups de mes de 10.000, que no
+    //    son gaire mes que "tot el diccionari".
+    rimes: {
+        dificil: { min: 50, max: 1000 },
+        facil: { min: 100, max: 5000 },
+    },
+    // Tambe per mena: en assonant les esdruixoles hi queden fora per defecte.
+    accents: {
+        dificil: [1, 2, 3],
+        facil: [1, 2],
+    },
     // En consonant, i no en assonant com el personalitzat: el numero de sota
     // la paraula ha de dir alguna cosa, i en assonant compta el grup sencer, que
     // va de centenars a desenes de milers.
     dificultat: 'dificil',
 };
+
+const MENES = ['dificil', 'facil'];
 
 const ACCENTS_VALIDS = [1, 2, 3];
 
@@ -71,7 +85,10 @@ const TANDA = 200;
 // agafar el micro.
 const COMPTE_ENRERE = 3;
 
-const CLAU_AJUSTOS = 'rimador.joc.freestyle.v1';
+// v3: el marge de rimes i els accents es desen a part per a cada mena
+// (consonant i assonant) i amb uns valors per defecte nous; el que hi havia
+// desat a la v2 no sabria de quina mena era.
+const CLAU_AJUSTOS = 'rimador.joc.freestyle.v3';
 
 // El mateix que a principal.js: amb el fitxer ja baixat, preparar la primera
 // paraula son mil·lisegons i el loader seria una fuetada de pantalla.
@@ -111,6 +128,11 @@ const sessio = {
 let opcionsDificultat = null;
 let marquesAccents = null;
 
+// Mentre una sessio s'esta preparant (el loader, o el fitxer del dialecte que
+// baixa), una segona crida a comencarSessio -un doble clic- deixaria dos
+// intervals a la vegada, i nomes se'n podria aturar un.
+let iniciant = false;
+
 // ------------------------------------------------------------------- El DOM
 
 const el = {};
@@ -121,7 +143,8 @@ const NOMS = [
     'fs-accents', 'fs-rimes-nota', 'fs-min', 'fs-max', 'fs-sense-sostre',
     'fs-recompte', 'fs-avis', 'fs-comencar',
     'fs-comptador', 'fs-seguent', 'fs-temps', 'fs-barra', 'fs-etiqueta',
-    'fs-paraula', 'fs-pausa-rotul', 'fs-rimes', 'fs-pausa', 'fs-salta', 'fs-atura',
+    'fs-paraula', 'fs-pausa-rotul', 'fs-rimes', 'fs-locutor',
+    'fs-pausa', 'fs-salta', 'fs-atura',
     'fs-fi-titol', 'fs-fi-total', 'fs-fi-text', 'fs-fi-llista', 'fs-una-altra',
     'fs-ajustos',
 ];
@@ -157,6 +180,10 @@ marquesAccents = ui.grupMarques(el.fsAccents, 'accent', () => refrescarAjustos()
 
 for (const camp of [el.fsSegons, el.fsParaules, el.fsMin, el.fsMax]) {
     camp.addEventListener('input', () => refrescarAjustos());
+    // En marxar del camp, el formulari ensenya el que s'usara de debo: 500
+    // segons passen a 120, i un maxim menor que el minim puja fins al minim.
+    // Mentre s'escriu no es toca, que el camp passa per valors a mig fer.
+    camp.addEventListener('change', () => omplirFormulari(estat.config));
 }
 el.fsSenseSostre.addEventListener('change', () => {
     const senseSostre = el.fsSenseSostre.checked;
@@ -164,7 +191,8 @@ el.fsSenseSostre.addEventListener('change', () => {
     // Tornant a posar sostre amb el camp buit, el maxim es quedaria infinit
     // sense que ho digues res: hi escrivim el de sempre (o el minim, si es mes).
     if (!senseSostre && el.fsMax.value === '') {
-        el.fsMax.value = String(Math.max(PER_DEFECTE.max, estat.config.min));
+        el.fsMax.value = String(Math.max(
+            PER_DEFECTE.rimes[estat.config.dificultat].max, estat.config.min));
     }
     refrescarAjustos();
 });
@@ -185,8 +213,24 @@ el.fsPausa.addEventListener('click', alternarPausa);
 el.fsSalta.addEventListener('click', saltar);
 el.fsAtura.addEventListener('click', aturar);
 
+// Despres d'un clic de ratolí o de dit, el focus es queda al boto, i llavors
+// l'espai tornaria a prémer-lo (saltant paraula, per exemple) en comptes de fer
+// la pausa. El clic de teclat (detail 0) en conserva el focus, que qui navega
+// amb teclat no el perdi.
+for (const boto of [el.fsPausa, el.fsSalta, el.fsAtura]) {
+    boto.addEventListener('click', (esdeveniment) => {
+        if (esdeveniment.detail > 0) boto.blur();
+    });
+}
+
+// Espai per fer pausa i fletxa dreta per saltar. Cap tecla atura la sessio: un
+// Esc sense voler et deixava sense paraules enmig d'una improvisacio, i per
+// aturar-la ja hi ha el boto.
 document.addEventListener('keydown', (esdeveniment) => {
     if (!sessio.enMarxa || el.pantallaGenerador.hidden) return;
+    // Amb ctrl, cmd o alt les tecles son del navegador (alt + fletxa dreta es
+    // "endavant" a l'historial, per exemple).
+    if (esdeveniment.ctrlKey || esdeveniment.metaKey || esdeveniment.altKey) return;
     // Damunt d'un boto, l'espai i el retorn ja el premen: si tambe els
     // agafessim aqui, la pausa s'activaria i es desactivaria d'una tirada.
     const objectiu = esdeveniment.target;
@@ -197,9 +241,6 @@ document.addEventListener('keydown', (esdeveniment) => {
     } else if (esdeveniment.key === 'ArrowRight') {
         esdeveniment.preventDefault();
         saltar();
-    } else if (esdeveniment.key === 'Escape') {
-        esdeveniment.preventDefault();
-        aturar();
     }
 });
 
@@ -268,7 +309,7 @@ function triarDialecte(codi) {
  * qui ha arribat amb un ?d= d'algu altre no el te desat enlloc.
  */
 function enllacDeLaMarca(codi) {
-    ui.el.capcaleraMarca.setAttribute('href', `freestyle.html?d=${encodeURIComponent(codi)}`);
+    ui.el.capcaleraMarca.setAttribute('href', `freestyle_beta.html?d=${encodeURIComponent(codi)}`);
 }
 
 // ------------------------------------------------------------------- Ajustos
@@ -284,32 +325,82 @@ function enterEntre(valor, limits, perDefecte) {
 }
 
 /**
- * Deixa els ajustos en condicions, vinguin del formulari o del localStorage:
- * valors dins dels limits, accents sense repetits i un maxim que mai no sigui
- * menor que el minim. El maxim i el nombre de paraules poden ser infinits, i
- * llavors es desen com a null (el JSON no sap que es l'Infinity) i aqui tornen
- * a ser infinits.
+ * El minim i el maxim de rimes d'una mena, amb un maxim que mai no sigui menor
+ * que el minim. El maxim pot ser infinit: es desa com a null (el JSON no sap
+ * que es l'Infinity) i aqui torna a ser infinit.
  */
-function netejar(cru) {
+function rimesNetes(cru, mena) {
     const dades = cru || {};
-    const accents = ACCENTS_VALIDS.filter((a) => (dades.accents || []).includes(a));
-    const min = enterEntre(dades.min, LIMITS.rimes, PER_DEFECTE.min);
+    const perDefecte = PER_DEFECTE.rimes[mena];
+    const min = enterEntre(dades.min, LIMITS.rimes, perDefecte.min);
     const senseSostre = dades.max === Infinity || dades.max === null;
     const max = senseSostre
         ? Infinity
-        : Math.max(min, enterEntre(dades.max, LIMITS.rimes, PER_DEFECTE.max));
+        : Math.max(min, enterEntre(dades.max, LIMITS.rimes, perDefecte.max));
+    return { min, max };
+}
+
+/** Els accents d'una mena, ordenats i sense repetits; buits, els de sempre. */
+function accentsNets(cru, mena) {
+    const accents = ACCENTS_VALIDS.filter((a) => (cru || []).includes(a));
+    return accents.length > 0 ? accents : PER_DEFECTE.accents[mena].slice();
+}
+
+/**
+ * Deixa els ajustos en condicions, vinguin del formulari o del localStorage:
+ * valors dins dels limits i accents sense repetits. El nombre de paraules
+ * tambe pot ser infinit, amb el mateix null al JSON.
+ *
+ * El marge de rimes i els accents es recorden a part per a cada mena (`rimes` i
+ * `accentsPerMena`), perque 50-1.000 en consonant i 100-5.000 en assonant no
+ * tenen res a veure: canviar de mena posa els de l'altra, i tornar-hi recupera
+ * el que havies triat. `min`, `max` i `accents` son els de la mena activa, i
+ * son els que llegeix la resta del modul.
+ */
+function netejar(cru) {
+    const dades = cru || {};
+    const dificultat = dades.dificultat === 'facil' ? 'facil' : 'dificil';
     const senseLimit = dades.paraules === Infinity || dades.paraules === null;
+
+    const rimes = {};
+    for (const mena of MENES) rimes[mena] = rimesNetes((dades.rimes || {})[mena], mena);
+    rimes[dificultat] = rimesNetes(dades, dificultat);
+
+    const accentsPerMena = {};
+    for (const mena of MENES) {
+        accentsPerMena[mena] = accentsNets((dades.accentsPerMena || {})[mena], mena);
+    }
+    accentsPerMena[dificultat] = accentsNets(dades.accents, dificultat);
 
     return {
         segons: enterEntre(dades.segons, LIMITS.segons, PER_DEFECTE.segons),
         paraules: senseLimit
             ? Infinity
             : enterEntre(dades.paraules, LIMITS.paraules, PER_DEFECTE.paraules),
-        min,
-        max,
-        accents: accents.length > 0 ? accents : PER_DEFECTE.accents.slice(),
-        dificultat: dades.dificultat === 'facil' ? 'facil' : 'dificil',
+        min: rimes[dificultat].min,
+        max: rimes[dificultat].max,
+        rimes,
+        accents: accentsPerMena[dificultat],
+        accentsPerMena,
+        dificultat,
     };
+}
+
+/**
+ * Canvi de consonant a assonant (o al reves): el formulari passa a ensenyar el
+ * marge d'aquella mena. Primer es desa el que hi havia escrit, que si no es
+ * perdria.
+ */
+function canviarDeMena(dificultat) {
+    const abans = netejar({
+        ...estat.config, ...llegirFormulari(), accents: marquesAccents.valor(),
+    });
+    const { min, max } = abans.rimes[dificultat];
+    estat.config = netejar({
+        ...abans, dificultat, min, max, accents: abans.accentsPerMena[dificultat],
+    });
+    omplirFormulari(estat.config);
+    marquesAccents.seleccionar(estat.config.accents);
 }
 
 function llegirAjustosDesats() {
@@ -319,7 +410,7 @@ function llegirAjustosDesats() {
     } catch (error) {
         // Mode privat, o el que hi havia no es JSON: els de sempre.
     }
-    return netejar(PER_DEFECTE);
+    return netejar({ ...PER_DEFECTE, accents: PER_DEFECTE.accents[PER_DEFECTE.dificultat] });
 }
 
 function desarAjustos(config) {
@@ -377,10 +468,13 @@ function filtresDe(config) {
 
 /** Torna a llegir el formulari i diu quant durara i quantes paraules hi ha. */
 async function refrescarAjustos() {
+    const dificultat = opcionsDificultat.valor();
+    if (dificultat !== estat.config.dificultat) canviarDeMena(dificultat);
+
     const config = netejar({
         ...estat.config,
         ...llegirFormulari(),
-        dificultat: opcionsDificultat.valor(),
+        dificultat,
         accents: marquesAccents.valor(),
     });
     estat.config = config;
@@ -522,6 +616,16 @@ function pintarProgres({ rebut, total }) {
 // ------------------------------------------------------------------- Sessio
 
 async function comencarSessio() {
+    if (iniciant) return;
+    iniciant = true;
+    try {
+        await engegarSessio();
+    } finally {
+        iniciant = false;
+    }
+}
+
+async function engegarSessio() {
     aturarSessio();
     el.fsAvis.hidden = true;
 
@@ -551,13 +655,16 @@ async function comencarSessio() {
     }
 
     mostrarPantalla('generador');
-    mantenirPantallaEncesa();
     sessio.enMarxa = true;
+    // Despres de l'enMarxa: si la sessio s'acaba abans que el navegador
+    // contesti, mantenirPantallaEncesa ho veu i deixa anar el bloqueig.
+    mantenirPantallaEncesa();
     sessio.compteVist = null;
     sessio.fet = 0;
     comencarPas(-1);
     // Cada 100 ms perque la barra no es vegi saltar; el temps de debo el marca
     // instantFinal, no pas el nombre de tics (com a la Partida de motor.js).
+    clearInterval(sessio.temporitzador);
     sessio.temporitzador = setInterval(tic, 100);
 }
 
@@ -739,16 +846,31 @@ function aturarSessio() {
 // (o no ho deixa, amb la bateria baixa), no passa res: es continua igual.
 let bloqueigPantalla = null;
 
+// El navegador contesta tard: la peticio d'abans de la sessio que s'acaba no
+// pot quedar-se amb el bloqueig. Cada peticio porta un numero i deixarAnar
+// l'avanca, de manera que les que encara volten ho saben quan arriben.
+let peticioBloqueig = 0;
+
 async function mantenirPantallaEncesa() {
     if (!('wakeLock' in navigator)) return;
+    const meva = ++peticioBloqueig;
     try {
-        bloqueigPantalla = await navigator.wakeLock.request('screen');
+        const bloqueig = await navigator.wakeLock.request('screen');
+        if (meva !== peticioBloqueig || !sessio.enMarxa) {
+            bloqueig.release().catch(() => {});
+            return;
+        }
+        // Un d'anterior ja el deixa anar, si en quedava (en tornar a la
+        // pestanya, el navegador ja havia treta el seu).
+        deixarAnarPantalla();
+        bloqueigPantalla = bloqueig;
     } catch (error) {
         bloqueigPantalla = null;
     }
 }
 
 function deixarAnarPantalla() {
+    peticioBloqueig++;
     if (!bloqueigPantalla) return;
     bloqueigPantalla.release().catch(() => {});
     bloqueigPantalla = null;
@@ -810,6 +932,10 @@ function pintarParaula({ objectiu, rimes, clau }, posicio) {
         ` ${rimes === 1 ? 'paraula que rima' : 'paraules que rimen'} amb `, transcripcio,
     );
     el.fsRimes.hidden = false;
+    // Per als lectors de pantalla, que anuncien nomes aixo: la paraula i el
+    // compte. El 3, 2, 1 i el rellotge canvien cada segon i no s'han de llegir.
+    el.fsLocutor.textContent = `${objectiu.mostrar}: ${numero(rimes)} `
+        + `${rimes === 1 ? 'paraula que rima' : 'paraules que rimen'}`;
     pintarComptador(posicio + 1);
 }
 
@@ -854,10 +980,26 @@ function quedavaAlPas() {
  * la pausa es per respirar, no per anar-hi pensant amb avantatge.
  */
 function pintarPausa(enPausa) {
+    // Sense aria-pressed: el text ja diu que fara el boto, i amb tots dos un
+    // lector de pantalla llegiria "Continua, premut".
     el.fsPausa.textContent = enPausa ? 'Continua' : 'Pausa';
-    el.fsPausa.setAttribute('aria-pressed', String(enPausa));
     el.fsPausaRotul.hidden = !enPausa;
     el.pantallaGenerador.classList.toggle('generador--pausa', enPausa);
+}
+
+/**
+ * El ritme que has fet de debo. sessio.fet ja compta cada paraula pel que hi
+ * has estat: una de saltada als 5 s en suma 5, no 15, i l'ultima d'una sessio
+ * aturada, el que va durar. Per tant la mitjana es la de l'estona que has
+ * improvisat, i quan no n'has saltat ni aturat cap surt exactament el ritme
+ * triat, que es el que es diu sense "de mitjana".
+ */
+function ritmeReal(quantes, segonsTriats) {
+    if (quantes === 0) return '';
+    const mitjana = Math.round(sessio.fet / 1000 / quantes);
+    return mitjana === segonsTriats
+        ? `, una cada ${segonsTriats} s`
+        : `, de mitjana una cada ${mitjana} s`;
 }
 
 function pintarFi(completa) {
@@ -867,7 +1009,7 @@ function pintarFi(completa) {
     el.fsFiTitol.textContent = completa ? "S'ha acabat!" : 'Sessió aturada';
     el.fsFiTotal.textContent = numero(quantes);
     el.fsFiText.textContent = `${quantes === 1 ? 'paraula' : 'paraules'} en `
-        + `${durada(Math.round(sessio.fet / 1000))}, una cada ${config.segons} s`;
+        + `${durada(Math.round(sessio.fet / 1000))}${ritmeReal(quantes, config.segons)}`;
 
     // Cada paraula, sencera, es un enllac al cercador amb totes les seves rimes:
     // el mateix dialecte i la mateixa mena de rima que la sessio, en una

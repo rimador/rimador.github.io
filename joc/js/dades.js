@@ -33,7 +33,7 @@
 // es demana amb ?v=<resum> i per tant es pot cachejar per sempre.
 
 // Relativa al MODUL i no pas a la pagina: aquest fitxer viu a joc/js/ i les
-// dades a joc/dades/, i el freestyle.html, que el fa servir des de l'arrel del
+// dades a joc/dades/, i el freestyle_beta.html, que el fa servir des de l'arrel del
 // lloc, les demanaria a /dades/ amb una ruta relativa a la pagina. El ?v= de
 // l'adreca del modul no hi arriba: la ruta relativa ja el treu.
 const BASE = new URL('../dades/', import.meta.url).href;

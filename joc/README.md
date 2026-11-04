@@ -168,8 +168,8 @@ bloqueig de la paraula del dia.
 | ajust | marge | per defecte |
 |---|---|---|
 | Rima | assonant o consonant | assonant |
-| Quines paraules | agudes, planes, esdrúixoles (les que vulguis) | totes tres |
-| Quantes rimes | d'1 fins on vulguis, o sense màxim | de 30 a 800 |
+| Quines paraules | agudes, planes, esdrúixoles (les que vulguis) | assonant: agudes i planes · consonant: totes tres |
+| Quantes rimes | d'1 fins on vulguis, o sense màxim | assonant: de 100 a 5.000 · consonant: de 50 a 1.000 |
 | Segons per ronda | 10 a 600 | 60 |
 | Rondes | 1 a 20 | 3 |
 
@@ -253,8 +253,8 @@ rimador.cat/joc/?p=1&d=ca&m=c&t=15&r=2&n=20&x=200&a=123&s=5dawtj
 
 ## El freestyle
 
-Una pàgina a part, `freestyle.html` **a l'arrel del lloc**
-(`rimador.cat/freestyle.html`), que **no és un joc**: és un generador de
+Una pàgina a part, `freestyle_beta.html` **a l'arrel del lloc**
+(`rimador.cat/freestyle_beta.html`), que **no és un joc**: és un generador de
 paraules per a qui fa freestyle. Cada X segons en surt una de nova en gran, amb
 la caixa groga de la partida, i a sota quantes paraules hi rimen. No hi ha cap
 camp de text, ni punts, ni classificació. **Encara no surt al menú** (ni al del
@@ -275,12 +275,12 @@ Abans de començar es tria:
 | Segons per paraula | 2 a 120 | 10 |
 | Paraules | 1 a 200, o **sense límit** | 12 |
 | Rima | assonant o consonant | consonant |
-| Quines paraules | agudes, planes, esdrúixoles | totes tres |
-| Quantes rimes | d'1 fins on vulguis, o sense màxim | de 30 a 800 |
+| Quines paraules | agudes, planes, esdrúixoles | consonant: totes tres · assonant: agudes i planes |
+| Quantes rimes | d'1 fins on vulguis, o sense màxim | consonant: de 50 a 1.000 · assonant: de 100 a 5.000 |
 
 La pantalla diu **quant durarà** (paraules × segons) i quantes paraules hi ha amb
 aquells filtres, com el recompte del personalitzat. Els ajustos es recorden en el
-navegador (`localStorage['rimador.joc.freestyle.v1']`).
+navegador (`localStorage['rimador.joc.freestyle.v3']`).
 
 Durant la sessió, el marcador du **dos rellotges**: quants segons falten perquè
 canviï la paraula (el mateix que diu la barra) i quanta estona fa que
@@ -771,7 +771,7 @@ joc/
     package.json        { "type": "module" }, perquè node carregui els mòduls
     estadistiques.js    percentil, mitjana i el rànquing d'ahir
     personalitzat.js    els ajustos del mode personalitzat, l'enllaç i el codi
-    freestyle.js        tot el freestyle.html de l'arrel (fa servir dades, objectius i ui)
+    freestyle.js        tot el freestyle_beta.html de l'arrel (fa servir dades, objectius i ui)
     motor.js            rellotge, validació i puntuació (no toca el DOM)
     normalitza.js       accents fora; ha de coincidir amb el generador
     ui.js               tot el que toca el DOM

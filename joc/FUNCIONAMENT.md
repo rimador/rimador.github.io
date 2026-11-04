@@ -2016,12 +2016,20 @@ més (apartat 7).
 
 ### El codi: el `?v=` del commit
 
-El `deploy.yml` posa els set primers caràcters del `GITHUB_SHA` a tots els `?v=`
-quan detecta canvis. Ara `joc/` hi entra com l'arrel:
+El `deploy.yml` calcula la versió com un resum (7 caràcters) del **contingut** del
+codi, no pas del SHA del commit, i l'estampa a tots els `?v=`. Això és estable:
+si el codi no ha canviat (un push només d'HTML, o el desplegament encadenat de les
+dades de la nit) surt el mateix valor i no es rebenta la memòria cau de ningú. Ara
+`joc/` hi entra com l'arrel:
 
 ```yaml
-git diff … -- 'css/*.scss' 'js/*.js' 'avis/*.js' 'avis/*.css' 'joc/js/*.js' 'joc/css/*.scss'
+git ls-files -s -- 'css/*.scss' 'js/*.js' 'avis/*.js' 'avis/*.css' 'joc/js/*.js' 'joc/css/*.scss' | sha1sum | cut -c1-7
 ```
+
+**L'estampat només es fa al paquet que es publica; no es comiteja.** Al repositori
+tots els `?v=` valen `dev` per sempre. Abans el workflow els reescrivia a `main` a
+cada push de codi, i qualsevol branca que toqués línies veïnes hi tenia un
+conflicte sense cap valor al fer el merge.
 
 I el `sed` no escriu només als HTML, sinó també **a les importacions entre
 mòduls**:
@@ -2034,8 +2042,8 @@ Això últim fa falta perquè **una importació no hereta el `?v=` de l'etiqueta
 `<script>`**. Abans només `principal.js` i `joc.css` en duien, i els altres vuit
 mòduls s'importaven a pèl: refrescar l'entrada deixava la resta a la memòria cau
 del navegador i es barrejaven versions. El `?v=dev` que hi ha al repositori és el
-valor de treball; el desplegament el substitueix (i al repositori de proves, on el
-pas de *cache busting* no corre, s'hi queda i funciona igual).
+valor de treball (i l'únic que hi haurà mai); el desplegament el substitueix només
+dins del paquet que publica.
 
 Les **dades** del joc no passen per aquí, i no és cap oblit: ja porten el resum
 del seu contingut, que és millor. Un canvi al diccionari no ha de rebentar la
@@ -2324,6 +2332,6 @@ canvia res, no es toca cap fitxer i no hi ha cap commit.
 
 ### El `?v=dev` no és cap error
 
-És el valor de treball de les importacions i de l'HTML del joc. Al desplegament de
-`rimador.cat` el substitueix el commit; al repositori de proves s'hi queda, perquè
-allà el pas de *cache busting* no corre. En tots dos casos funciona.
+És el valor de treball de les importacions i de l'HTML del joc. El
+desplegament el substitueix per un resum del codi dins del paquet publicat; al
+repositori no es toca mai. Funciona igual amb `dev` en local.

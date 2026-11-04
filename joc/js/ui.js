@@ -307,7 +307,7 @@ export function enllacDeRimes(text, { objectiu, dialecte, dificultat, arrel = '.
 
     enllac.className = 'enllac-rimes';
     // L'arrel del lloc vista des de la pagina: "../" des del joc, i "./" des
-    // del freestyle.html, que penja de l'arrel.
+    // del freestyle_beta.html, que penja de l'arrel.
     enllac.href = `${arrel}?${params}`;
     enllac.textContent = text;
     enllac.title = `Mira les rimes de «${objectiu}» al Rimador.cat`;

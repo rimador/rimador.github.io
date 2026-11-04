@@ -1,7 +1,8 @@
 // Fil conductor del joc: enllaça les pantalles amb el motor i amb les dades.
 //
 // EL ?v=dev DE LES IMPORTACIONS no és cap error: el deploy.yml el substitueix
-// pels set primers caràcters del commit, igual que fa amb els ?v= dels HTML.
+// per un resum de 7 caràcters del codi, igual que fa amb els ?v= dels HTML.
+// Només ho fa al paquet que es publica: al repositori es queda ?v=dev.
 // Ha d'anar a cada importació perquè les importacions entre mòduls no hereten
 // res de l'etiqueta <script> que carrega aquest fitxer: sense el ?v=, refrescar
 // principal.js deixava els altres vuit mòduls a la memòria cau del navegador i
@@ -10,35 +11,31 @@
 import {
     carregarVersions, carregarIndex, carregarDialecte,
     grupDeRimes, respostesValides, escoltarProgres,
-    carregarEres, carregarEspecials, resoldreDeLEra, trobarObjectiu,
-} from './dades.js?v=5681007';
+    carregarDiariesManuals, trobarObjectiu,
+} from './dades.js?v=dev';
 import {
-    clauAleatoria, triarParaula,
+    clauAleatoria, paraulaDelDia, manualDelDia, triarParaula,
     marge, rondesPersonalitzades,
-} from './objectius.js?v=5681007';
-import { parellaDelDia, eraDelDia } from './eres.js?v=5681007';
-import { configNativa, triarNativa, triarParaulaNativa } from './illimitat.js?v=5681007';
-import { manualsDelDia } from './especials.js?v=5681007';
-import * as personalitzat from './personalitzat.js?v=5681007';
-import { Partida, RESULTAT, formatarTemps } from './motor.js?v=5681007';
-import * as ui from './ui.js?v=5681007';
-import * as dialecte from './dialecte.js?v=5681007';
+} from './objectius.js?v=dev';
+import * as personalitzat from './personalitzat.js?v=dev';
+import { Partida, RESULTAT, formatarTemps } from './motor.js?v=dev';
+import * as ui from './ui.js?v=dev';
+import * as dialecte from './dialecte.js?v=dev';
 import {
     avui, ahir, horaCatalunya, identificadorRecord, llegirRecord, desarRecord,
     resultatDiari, dificultatsJugades, desarResultatDiari,
     llegirTotsElsRecords, llegirSobrenom, desarSobrenom,
-    usuariID, llegirComptadorIllimitat, desarComptadorIllimitat,
-} from './magatzem.js?v=5681007';
+} from './magatzem.js?v=dev';
 import {
     textPerCompartir, textPersonalitzat, compartirResultat, copiar, enllacDeTwitter,
-} from './compartir.js?v=5681007';
+} from './compartir.js?v=dev';
 import {
     validarSobrenom, enviarPuntuacio, estaConfigurat,
     carregarClassificacio, diaCompilat, nomsOcupats, enviarPendents, quantesPendents,
-} from './classificacio.js?v=5681007';
+} from './classificacio.js?v=dev';
 import {
     estadistiquesDe, estadistiquesDelDia, ranquingDelDia,
-} from './estadistiques.js?v=5681007';
+} from './estadistiques.js?v=dev';
 
 const SEGONS_DIARIA = 60;
 const NOM_DIFICULTAT = { facil: 'fàcil', dificil: 'difícil' };
@@ -211,10 +208,7 @@ async function arrencar() {
 function precarregar(codi) {
     carregarIndex().catch(() => {});
     carregarDialecte(codi).catch(() => {});
-    // Les eres i les manuals de la paraula del dia: sense xarxa es fan servir les
-    // darreres còpies bones (vegeu dades.js).
-    carregarEres().catch(() => {});
-    carregarEspecials().catch(() => {});
+    carregarDiariesManuals().catch(() => {});
     // I la classificació, que fa set quilobytes i és el que la pantalla de
     // final necessita per dir-te el percentil i la mitjana sense fer-te
     // esperar. Es demana un sol cop (la promesa es guarda a classificacio.js).
@@ -293,9 +287,8 @@ const HORA_LIMIT_COMPILACIO = 3;
  * d'AVUI no se'n pot saber res fins l'endemà, mentre que la d'ahir ja hi és
  * sencera (qui la va fer millor i quantes rimes en va treure la gent).
  *
- * La paraula la calculem aquí mateix amb la fórmula de sempre, en comptes de
- * treure-la del rànquing: així hi surt encara que ahir no hi jugués ningú. El dia
- * del canvi d'era, l'era d'ahir és l'anterior, i eres.json la porta per això.
+ * La paraula la calculem aquí mateix amb la mateixa roda de sempre, en comptes
+ * de treure-la del rànquing: així hi surt encara que ahir no hi jugués ningú.
  */
 async function obrirAhir() {
     if (dificultatAhir === null) dificultatAhir = estat.dificultat;
@@ -736,96 +729,35 @@ async function comencarPartida() {
 
 /**
  * La paraula del dia d'una data i dificultat. És la MATEIXA per a tothom; el
- * dialecte només serveix per saber a quina secció del seu fitxer cau. La fa servir
- * la partida diària i també la pantalla d'ahir.
+ * dialecte només serveix per saber a quina secció del seu fitxer cau. La fa
+ * servir la partida diària i també la pantalla d'ahir.
  *
- * Surt de l'era que toca aquell dia (eres.json; vegeu parellaDelDia a eres.js), i la
- * resolució que porta l'índex diu a quina clau i grup cau al dialecte. Si aquell dia
- * té paraula manual (especials.json, xifrada) mana sobre la fórmula: com que no és
- * a l'índex, es busca al fitxer del dialecte. I si allà no hi és com a paraula a
- * rimar -l'script de les manuals no ho deixa passar, però les dades poden haver
- * canviat- es fa servir la de la fórmula d'aquell dia: val més una paraula
- * automàtica que cap paraula.
+ * Primer es mira si aquell dia té paraula triada a mà (dades/diaries_manuals.json,
+ * vegeu manualDelDia a objectius.js); si no en té, o si la que té no és al
+ * fitxer d'aquest dialecte com a paraula a rimar, la roda de sempre.
  */
 async function seleccioDelDia(data, dificultat) {
-    const [eres, especials, index] = await Promise.all([
-        carregarEres(), carregarEspecials(), carregarIndex()]);
-    const dia = parellaDelDia(eres, data, manualsDelDia(especials, data))[dificultat];
-
-    if (dia.manual) {
-        const trobada = await trobarObjectiu(estat.dialecte, dia.objectiu.normalitzada);
+    const manual = manualDelDia(await carregarDiariesManuals(), data, dificultat);
+    if (manual) {
+        const trobada = await trobarObjectiu(estat.dialecte, manual);
         if (trobada) return trobada;
-        console.warn(`La paraula del dia manual «${dia.objectiu.normalitzada}» (${data}, ${dificultat}) `
-            + `no és al fitxer de "${estat.dialecte}" com a paraula a rimar: es fa servir la de la fórmula`);
-        const { clau, grup } = resoldreDeLEra(index, estat.dialecte, dia.formula.era, dia.formula.indexParaula);
-        return { clau, grup, objectiu: dia.formula.objectiu };
+        console.warn(`La paraula del dia manual «${manual}» (${data}, ${dificultat}) `
+            + `no és al fitxer de "${estat.dialecte}" com a paraula a rimar: es fa servir la de la roda`);
     }
-
-    const { clau, grup } = resoldreDeLEra(index, estat.dialecte, dia.era, dia.indexParaula);
-    return { clau, grup, objectiu: dia.objectiu };
-}
-
-/**
- * La rima d'una partida d'il·limitat.
- *
- * Si l'era vigent té bosses (vegeu illimitat.js), és la SEGÜENT DE LA SEQÜÈNCIA d'aquest jugador
- * en aquest dialecte i dificultat, amb les bosses i quotes de l'era aplicades a les rimes del
- * dialecte; i se salta la de la paraula del dia, perquè no la desvetlli. Mentre l'era vigent és
- * la roda (que no té bosses), o si les eres no es poden llegir, és el que sempre: una rima a
- * l'atzar de la finestra de rimes.
- */
-async function seleccioIllimitada() {
-    const index = await carregarIndex();
-    const config = await configNativaDeAra(index);
-    if (!config) return { ...clauAleatoria(index, estat.dialecte, estat.dificultat), natiu: false };
-
-    const comptador = llegirComptadorIllimitat(estat.dialecte, estat.dificultat);
-    let prohibida = null;
-    try {
-        const delDia = await seleccioDelDia(avui(), estat.dificultat);
-        prohibida = estat.dificultat === 'dificil' ? delDia.clau : delDia.grup;
-    } catch (error) {
-        // Sense saber la del dia no es pot saltar, i no val la pena no jugar per això.
-    }
-
-    const triada = triarNativa(config, usuariID(), comptador, prohibida);
-    return {
-        clau: triada.clau, grup: triada.grup, natiu: true,
-        aleatori: triada.aleatori, homografs: config.homografs,
-        comptadorSeguent: comptador + triada.consumides,
-    };
-}
-
-/** Les bosses natives d'avui en aquest dialecte i dificultat, o null si l'era no en té. */
-async function configNativaDeAra(index) {
-    try {
-        const era = eraDelDia(await carregarEres(), avui());
-        return era.algorisme === 1 ? configNativa(index, estat.dialecte, estat.dificultat, era) : null;
-    } catch (error) {
-        return null;   // sense eres.json, o sense cap era que cobreixi avui: com abans
-    }
+    return paraulaDelDia(await carregarIndex(), data, dificultat, estat.dialecte);
 }
 
 async function prepararParaula() {
     const esDiaria = estat.mode === 'diaria';
     const seleccio = esDiaria
         ? await seleccioDelDia(estat.data, estat.dificultat)
-        : await seleccioIllimitada();
+        : clauAleatoria(await carregarIndex(), estat.dialecte, estat.dificultat);
 
     const grup = await grupDeRimes(estat.dialecte, seleccio.grup);
-    // A la diària la paraula ja ve triada (és la de tothom); a l'il·limitat es tria ara,
-    // d'entre les objectiu de la clau que ha sortit.
-    let objectiu = seleccio.objectiu;
-    if (!objectiu) {
-        objectiu = seleccio.natiu
-            ? triarParaulaNativa(grup, seleccio.clau, seleccio.aleatori, seleccio.homografs)
-            : triarParaula(grup, seleccio.clau);
-    }
+    // A la diària la paraula ja ve triada (és la de tothom); a l'il·limitat es
+    // tria ara, a l'atzar, d'entre les objectiu de la clau que ha sortit.
+    const objectiu = seleccio.objectiu || triarParaula(grup, seleccio.clau);
     const respostes = respostesValides(grup, seleccio.clau, estat.dificultat);
-
-    // La partida es compta ARA i no abans: si les rimes no han pogut baixar, el jugador no ha
-    // perdut cap torn de la seva seqüència.
-    if (seleccio.natiu) desarComptadorIllimitat(estat.dialecte, estat.dificultat, seleccio.comptadorSeguent);
 
     return { objectiu, respostes, clau: seleccio.clau };
 }
@@ -995,11 +927,22 @@ function configuracioInicial() {
  * Es crida a cada canvi: és el que impedeix començar una partida impossible.
  */
 async function refrescarPersonalitzat() {
+    // Canviar de mena (consonant/assonant) posa el marge i els accents per
+    // defecte d'aquella mena: no tenen res a veure (vegeu PER_DEFECTE_MENA).
+    const dificultat = opcionsPvpDificultat.valor();
+    if (dificultat !== pvp.config.dificultat) {
+        pvp.config = personalitzat.netejar({
+            ...pvp.config, dificultat, ...personalitzat.PER_DEFECTE_MENA[dificultat],
+        });
+        ui.omplirPersonalitzat(pvp.config, ui.nomDialecte(estat.dialecte));
+        marquesPvpAccents.seleccionar(pvp.config.accents);
+    }
+
     const config = personalitzat.netejar({
         ...pvp.config,
         ...ui.llegirPersonalitzat(),
         dialecte: estat.dialecte,
-        dificultat: opcionsPvpDificultat.valor(),
+        dificultat,
         accents: marquesPvpAccents.valor(),
     });
     pvp.config = config;

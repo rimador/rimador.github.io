@@ -19,8 +19,13 @@
     <!-- Chrome dispara el beforeinstallprompt mentre encara s'analitza l'HTML: aqui es captura, que el instal-lar.js va amb defer i arriba tard. -->
     <script>window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__rimadorPrompt=e;});</script>
     <link rel="manifest" href="manifest.json">
+<<<<<<< Updated upstream
     <script src="dist/js/registrar-sw.min.js?v=7c6003d" defer></script>
     <script src="dist/js/instal-lar.min.js?v=7c6003d" defer></script>
+=======
+    <script src="dist/js/registrar-sw.min.js?v=dev" defer></script>
+    <script src="dist/js/instal-lar.min.js?v=dev" defer></script>
+>>>>>>> Stashed changes
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rimador.cat/freestyle_beta.html">
@@ -35,8 +40,14 @@
     <meta name="twitter:description" content="Una paraula nova cada pocs segons, i a improvisar-hi rimes.">
     <meta name="twitter:image" content="https://rimador.cat/assets/R.webp">
 
+<<<<<<< Updated upstream
     <link rel="stylesheet" href="dist/css/joc.min.css?v=7c6003d">
     <script type="module" src="joc/js/freestyle.js?v=7c6003d"></script>
+=======
+    <link rel="stylesheet" href="dist/css/joc.min.css?v=dev">
+    <script type="module" src="joc/js/components_joc.js?v=dev"></script>
+    <script type="module" src="joc/js/freestyle.js?v=dev"></script>
+>>>>>>> Stashed changes
 </head>
 
 <!-- La pàgina és a l'arrel (rimador.cat/freestyle_beta.html), però tota la resta és

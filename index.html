@@ -19,8 +19,13 @@
     <!-- Chrome dispara el beforeinstallprompt mentre encara s'analitza l'HTML: aqui es captura, que el instal-lar.js va amb defer i arriba tard. -->
     <script>window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();window.__rimadorPrompt=e;});</script>
     <link rel="manifest" href="manifest.json">
+<<<<<<< Updated upstream
     <script src="dist/js/registrar-sw.min.js?v=7c6003d" defer></script>
     <script src="dist/js/instal-lar.min.js?v=7c6003d" defer></script>
+=======
+    <script src="dist/js/registrar-sw.min.js?v=dev" defer></script>
+    <script src="dist/js/instal-lar.min.js?v=dev" defer></script>
+>>>>>>> Stashed changes
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rimador.cat/">
@@ -71,6 +76,7 @@
     }
     </script>
 
+<<<<<<< Updated upstream
     <link rel="stylesheet" href="dist/css/styles.min.css?v=7c6003d">
     <link rel="stylesheet" href="avis/avis.css?v=7c6003d">
     <script src="dist/js/banner.min.js?v=7c6003d" defer></script>
@@ -78,6 +84,15 @@
     <script src="dist/js/menu.min.js?v=7c6003d" defer></script>
     <script src="avis/avis.js?v=7c6003d" defer></script>
     <script src="dist/js/script.min.js?v=7c6003d" defer></script>
+=======
+    <link rel="stylesheet" href="dist/css/styles.min.css?v=dev">
+    <link rel="stylesheet" href="avis/avis.css?v=dev">
+    <script src="dist/js/banner.min.js?v=dev" defer></script>
+    <script src="dist/js/components.min.js?v=dev" defer></script>
+    <script src="dist/js/menu.min.js?v=dev" defer></script>
+    <script src="avis/avis.js?v=dev" defer></script>
+    <script src="dist/js/script.min.js?v=dev" defer></script>
+>>>>>>> Stashed changes
 </head>
 
 

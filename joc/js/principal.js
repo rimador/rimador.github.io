@@ -1,7 +1,8 @@
 // Fil conductor del joc: enllaça les pantalles amb el motor i amb les dades.
 //
 // EL ?v=dev DE LES IMPORTACIONS no és cap error: el deploy.yml el substitueix
-// pels set primers caràcters del commit, igual que fa amb els ?v= dels HTML.
+// per un resum de 7 caràcters del codi, igual que fa amb els ?v= dels HTML.
+// Només ho fa al paquet que es publica: al repositori es queda ?v=dev.
 // Ha d'anar a cada importació perquè les importacions entre mòduls no hereten
 // res de l'etiqueta <script> que carrega aquest fitxer: sense el ?v=, refrescar
 // principal.js deixava els altres vuit mòduls a la memòria cau del navegador i
@@ -11,6 +12,7 @@ import {
     carregarVersions, carregarIndex, carregarDialecte,
     grupDeRimes, respostesValides, escoltarProgres,
     carregarDiariesManuals, trobarObjectiu,
+<<<<<<< Updated upstream
 } from './dades.js?v=7c6003d';
 import {
     clauAleatoria, paraulaDelDia, manualDelDia, triarParaula,
@@ -20,10 +22,22 @@ import * as personalitzat from './personalitzat.js?v=7c6003d';
 import { Partida, RESULTAT, formatarTemps } from './motor.js?v=7c6003d';
 import * as ui from './ui.js?v=7c6003d';
 import * as dialecte from './dialecte.js?v=7c6003d';
+=======
+} from './dades.js?v=dev';
+import {
+    clauAleatoria, paraulaDelDia, manualDelDia, triarParaula,
+    marge, rondesPersonalitzades,
+} from './objectius.js?v=dev';
+import * as personalitzat from './personalitzat.js?v=dev';
+import { Partida, RESULTAT, formatarTemps } from './motor.js?v=dev';
+import * as ui from './ui.js?v=dev';
+import * as dialecte from './dialecte.js?v=dev';
+>>>>>>> Stashed changes
 import {
     avui, ahir, horaCatalunya, identificadorRecord, llegirRecord, desarRecord,
     resultatDiari, dificultatsJugades, desarResultatDiari,
     llegirTotsElsRecords, llegirSobrenom, desarSobrenom,
+<<<<<<< Updated upstream
 } from './magatzem.js?v=7c6003d';
 import {
     textPerCompartir, textPersonalitzat, compartirResultat, copiar, enllacDeTwitter,
@@ -35,6 +49,19 @@ import {
 import {
     estadistiquesDe, estadistiquesDelDia, ranquingDelDia,
 } from './estadistiques.js?v=7c6003d';
+=======
+} from './magatzem.js?v=dev';
+import {
+    textPerCompartir, textPersonalitzat, compartirResultat, copiar, enllacDeTwitter,
+} from './compartir.js?v=dev';
+import {
+    validarSobrenom, enviarPuntuacio, estaConfigurat,
+    carregarClassificacio, diaCompilat, nomsOcupats, enviarPendents, quantesPendents,
+} from './classificacio.js?v=dev';
+import {
+    estadistiquesDe, estadistiquesDelDia, ranquingDelDia,
+} from './estadistiques.js?v=dev';
+>>>>>>> Stashed changes
 
 const SEGONS_DIARIA = 60;
 const NOM_DIFICULTAT = { facil: 'fàcil', dificil: 'difícil' };

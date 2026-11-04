@@ -56,3 +56,70 @@
   font-size: 10px;
 }
 }
+
+// --- Peu: crèdits + "Amb el suport de" ---------------------------------
+// Per defecte (mòbil i pantalles estretes) tot va apilat i centrat: primer
+// els crèdits i, a sota, el suport, separat per un filet. A partir de 700px
+// els dos blocs es posen un al costat de l'altre.
+#footer .footer_peu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+#footer .footer_suport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    width: 70%;
+    max-width: 260px;
+}
+
+#footer .footer_suport_titol {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+// El PNG fa 560x454 i abans sortia a mida natural (i es menjava el peu al
+// mòbil). El logo és negre sobre transparent: es llegeix bé sobre el rosa i
+// sobre el gris del tema sober.
+#footer .cor_carxofa {
+    display: block;
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.15s ease;
+}
+
+#footer a:hover .cor_carxofa,
+#footer a:focus-visible .cor_carxofa {
+    transform: scale(1.06);
+}
+
+@media screen and (min-width: 700px) {
+    #footer .footer_peu {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+    }
+
+    #footer .footer_suport {
+        width: auto;
+        max-width: none;
+        padding-top: 0;
+        border-top: 0;
+        padding-left: 48px;
+        border-left: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    #footer .cor_carxofa {
+        width: 140px;
+    }
+}

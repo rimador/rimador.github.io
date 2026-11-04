@@ -414,14 +414,21 @@ const checkboxContainerHTML = document.getElementById('checkboxContainer');
 if (checkboxContainerHTML) { checkboxContainerHTML.innerHTML = checkboxContainer; }
 
 const footer = /*html*/`
-<br>v.6.0 &copy; Marc i Ferran. Uns quants drets reservats.
-<br><br>
-<br>Si has trobat una errada o tens una suggerència, ens pots enviar un correu a:
-<br><br><a href="mailto:hola@rimador.cat">hola@rimador.cat</a>
+<div class="footer_peu">
+    <div class="footer_bloc footer_credits">
+        v.6.0 &copy; Marc i Ferran. Uns quants drets reservats.
+        <br><br>
+        Si has trobat una errada o tens una suggerència, ens pots enviar un correu a:
+        <br><br><a href="mailto:hola@rimador.cat">hola@rimador.cat</a>
+    </div>
 
-<br><br><br>Amb el suport de:
-<br><br><a href="https://cordecarxofa.cat/"><img class="cor_carxofa" id="cor_carxofa" src="assets/logo-web-cordecarxofa-ok.png" alt="Logo de Cor de carxofa" target="_blank"></a>
-
+    <div class="footer_bloc footer_suport">
+        <span class="footer_suport_titol">Amb el suport de</span>
+        <a href="https://cordecarxofa.cat/" target="_blank" rel="noopener">
+            <img class="cor_carxofa" id="cor_carxofa" src="assets/logo-web-cordecarxofa-ok.png" alt="Logo de Cor de carxofa, associació de foment del glosat" width="560" height="454" loading="lazy">
+        </a>
+    </div>
+</div>
 
 <button id="botoNetejarCache" style="display:none;position:fixed;bottom:70px;right:15px;" onclick="netejarIndexedDB()">🗑 Esborrar memòria cau</button>
 <br><br><br><br><br><br>

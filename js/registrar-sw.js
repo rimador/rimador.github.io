@@ -22,7 +22,7 @@
     const arrel = new URL('../../', jo.src);
 
     // La versió surt del nostre propi ?v=, que el desplegament ja estampa amb
-    // el SHA del commit (vegeu "Rebentar Memòria Cau" a deploy.yml). Se li
+    // un resum del codi (vegeu "Calcular la versió del codi" a deploy.yml). Se li
     // passa al service worker per l'adreça, i ell la fa servir per anomenar el
     // seu cache: així cada desplegament de codi n'estrena un i esborra el vell,
     // sense haver de tocar el workflow ni mantenir cap número a mà.

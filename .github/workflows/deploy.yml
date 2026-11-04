@@ -40,13 +40,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 # Un sol desplegament a la vegada. Sense això, dos push seguits fan córrer dos
 # deploys en paral·lel: l'actions/deploy-pages peta si en troba un altre en
-# marxa, i els dos jobs es barallen pel git push del cache busting.
+# marxa. (Abans, a més, es barallaven pel git push del cache busting; ara
+# aquest job ja no comiteja res.)
 #
 # cancel-in-progress: false i no pas true: aquest job fa commits, i cancel·lar-lo
 # a mig push deixaria el repositori a mitges. Encuant-los, a més, hi ha l'ordre
@@ -88,46 +89,34 @@ jobs:
           # el workflow d'abans, que són justament els que hem de publicar.
           ref: main
 
-      - name: Detectar canvis en CSS o JS
-        id: canvis
+      - name: Calcular la versió del codi (per al ?v=)
+        id: versio
         run: |
-          # Els workflows encadenats només toquen dades (estadístiques, columnes
-          # del diccionari, llistes), mai css ni js. Aquí no hi ha cap push de
-          # codi al darrere per comparar, i el github.event.before ni tan sols
-          # existeix: si ho deixéssim caure a la branca de sota, cada nit
-          # rebentaríem la memòria cau del css i el js de tots els visitants
-          # sense que hagués canviat res.
-          if [ "${{ github.event_name }}" = "workflow_run" ]; then
-            echo "Ve d'un workflow encadenat (només dades): no cal refrescar les versions."
-            echo "any_changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          ABANS="${{ github.event.before }}"
-          # El workflow_dispatch no té cap "abans" i cau aquí a posta: engegar-lo
-          # a mà vol dir justament demanar un refresc complet de les versions.
-          if [ -z "$ABANS" ] || [ "$ABANS" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "$ABANS^{commit}" 2>/dev/null; then
-            echo "No hi ha commit anterior per comparar; refresquem les versions per si de cas."
-            echo "any_changed=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          # avis/ no passa pel gulp (és un mòdul a part, vegeu avis/README.md),
-          # però els HTML hi apunten amb ?v=, o sigui que també ha de refrescar
-          # les versions. El missatges.json no hi és a posta: el llegeix el
-          # navegador en temps real i canviar-ne un text no ha de tocar cap HTML.
+          # La versió és un resum del CONTINGUT del codi que el navegador
+          # cacheja, no pas el SHA del commit. Així:
           #
-          # Del joc/, el CSS SÍ que passa pel gulp (joc/css/joc.scss -> la tasca
-          # styles-joc -> dist/css/joc.min.css, compartint el _variables.scss amb
-          # el full del lloc) i el JS no: són mòduls ES que se serveixen tal com
-          # són. Tots dos juguen amb les mateixes regles que l'arrel: el seu HTML
-          # i els seus mòduls porten ?v= i s'han de refrescar quan canvien. Les
-          # DADES del joc no hi són perquè no en necessiten: van amb el resum del
-          # seu contingut, que escriu joc/eines/generar_dades.py al
-          # joc/dades/versions.json.
-          if git diff --name-only "$ABANS" "${{ github.sha }}" -- 'css/*.scss' 'js/*.js' 'avis/*.js' 'avis/*.css' 'joc/js/*.js' 'joc/css/*.scss' | grep -q .; then
-            echo "any_changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "any_changed=false" >> "$GITHUB_OUTPUT"
-          fi
+          #   - Si el codi no ha canviat (un push de només HTML o text, o el
+          #     desplegament encadenat de les dades de la nit), surt el mateix
+          #     valor de sempre i no es rebenta la memòria cau de ningú.
+          #   - Si el codi ha canviat, surt un valor nou.
+          #   - Funciona igual amb push, workflow_run i workflow_dispatch: no
+          #     cal comparar amb cap "abans" ni recordar res entre execucions.
+          #
+          # Per això NO cal comitejar-la enlloc. Abans el workflow reescrivia
+          # el ?v= de tots els HTML a main a cada push de codi, i qualsevol
+          # branca que toqués línies veïnes hi tenia conflicte al fer el merge.
+          # Ara al repositori hi ha un valor fix (?v=dev) i l'estampat només
+          # existeix dins del paquet que es publica.
+          #
+          # Les fonts són les mateixes que abans (css/js que passen pel gulp,
+          # més avis/ i els mòduls del joc). El missatges.json d'avis/ no hi
+          # és a posta: el llegeix el navegador en temps real. Les DADES del
+          # joc tampoc: van amb el resum propi del joc/dades/versions.json.
+          # Es resumeixen sha i ruta de cada fitxer de l'índex, o sigui que no
+          # depèn de la data ni de l'historial.
+          VERSIO=$(git ls-files -s -- 'css/*.scss' 'js/*.js' 'avis/*.js' 'avis/*.css' 'joc/js/*.js' 'joc/css/*.scss' | sha1sum | cut -c1-7)
+          echo "Versió del codi: $VERSIO"
+          echo "versio=$VERSIO" >> "$GITHUB_OUTPUT"
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -144,12 +133,12 @@ jobs:
       - name: Run Gulp
         run: npx gulp
 
-      - name: Rebentar Memòria Cau (Actualitzar versions HTML) 
-        if: steps.canvis.outputs.any_changed == 'true'
+      - name: Estampar la versió als HTML i als mòduls del joc (només al paquet)
+        env:
+          NOVA_VERSIO: ${{ steps.versio.outputs.versio }}
         run: |
-          NOVA_VERSIO=${GITHUB_SHA::7}
-          echo "S'han detectat canvis al codi! Aplicant la versió $NOVA_VERSIO als HTML..."
-          
+          echo "Aplicant la versió $NOVA_VERSIO als HTML..."
+
           find . -type f -name "*.html" -exec sed -i -E "s/(\.js\?v=)[^\"]*/\1$NOVA_VERSIO/g" {} +
           find . -type f -name "*.html" -exec sed -i -E "s/(\.css\?v=)[^\"]*/\1$NOVA_VERSIO/g" {} +
 
@@ -161,18 +150,10 @@ jobs:
           #
           # Van amb cometes simples perquè són codi JS ("from './ui.js?v=...'"),
           # no atributs d'HTML.
-          find joc/js -type f -name "*.js" -exec sed -i -E "s/(\.js\?v=)[^']*/\1$NOVA_VERSIO/g" {} +
+          find joc/js -type f -name "*.js" -exec sed -i -E "/^[[:space:]]*\/\//!s/(\.js\?v=)[^']*/\1$NOVA_VERSIO/g" {} +
 
-      - name: Guardar els HTML actualitzats al repositori
-        if: steps.canvis.outputs.any_changed == 'true'
-        uses: ./.github/actions/comitejar
-        with:
-          missatge: 'Cache busting: versions actualitzades als HTML i als mòduls del joc'
-          # Només els HTML i els mòduls del joc, que són els dos llocs on el
-          # pas de sobre ha escrit el ?v=. En aquest job també s'hi ha compilat
-          # el gulp i, més avall, s'hi esborren carpetes senceres per aprimar el
-          # paquet: amb un "git add ." tot allò també entraria al commit.
-          fitxers: "*.html joc/js/*.js"
+          # Això NO es comiteja: el paquet es puja tal com és a l'arbre de
+          # treball (upload-pages-artifact amb path '.'). Vegeu el pas anterior.
 
       - name: Ajustar el 404.html quan el lloc no penja de l'arrel del domini
         if: github.repository != 'rimador/rimador.github.io'
@@ -191,10 +172,9 @@ jobs:
           sed -i -E "s|=\"/|=\"$PREFIX/|g" 404.html
           grep -oE '(src|href)="[^"]*"' 404.html | grep -v 'https\?://'
 
-      # Va aquí i no abans per la mateixa raó que el pas de sota: després de
-      # tots els git push. Així el sitemap.xml regenerat entra al paquet que es
-      # publica però no s'acosta mai a cap commit, i el que hi ha al repositori
-      # es queda tal com el vam escriure a mà.
+      # El sitemap.xml regenerat entra al paquet que es publica però no
+      # s'acosta mai a cap commit (aquest job no en fa cap), i el que hi ha al
+      # repositori es queda tal com el vam escriure a mà.
       - name: Regenerar el sitemap.xml
         run: |
           python3 - <<'PY'
@@ -244,9 +224,9 @@ jobs:
               raise SystemExit('ERROR: el sitemap ha quedat buit.')
           PY
 
-      # Va DESPRÉS de tots els git push d'aquest job, a posta: aquí esborrem
-      # fitxers que sí que són al repositori, i si quedés cap "git add" per
-      # sota, comitejaríem les esborrades.
+      # Aquí esborrem fitxers que sí que són al repositori. Aquest job no
+      # comiteja res, i no s'hi ha d'afegir mai cap "git add"/"git push": si
+      # hi fos, comitejaríem les esborrades.
       - name: Aprimar el paquet abans de publicar
         run: |
           # El paquet de Pages es puja sencer a cada desplegament. Tot això és

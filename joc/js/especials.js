@@ -23,7 +23,7 @@
 // Es xifra amb node, amb aquestes mateixes funcions (vegeu joc/eines/manuals.mjs):
 // no hi ha cap port a Python que pugui discrepar.
 
-import { llavor, generador } from './objectius.js?v=5681007';
+import { llavor, generador } from './objectius.js?v=dev';
 
 // Dues sals diferents: la del resum de la data i la de la seqüència que barreja el
 // contingut. Si fossin la mateixa, el resum donaria la llavor del XOR.

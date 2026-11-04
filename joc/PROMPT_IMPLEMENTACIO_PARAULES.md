@@ -62,8 +62,9 @@ del dia i del mode il·limitat, tal com el descriu
   mateix to que el fitxer on escrius. Explica el *perquè* de les coses no òbvies,
   com fan els fitxers actuals.
 - **Mòduls ES natius**, sense bundler. Els imports entre mòduls del joc porten un
-  sufix `?v=…` (per exemple `./normalitza.js?v=5681007`): als imports nous, fes
-  servir el mateix sufix que els imports veïns.
+  sufix `?v=dev` (per exemple `./normalitza.js?v=dev`): als imports nous, posa-hi
+  sempre `?v=dev`. No és cap error ni cal posar-hi cap SHA: el desplegament el
+  substitueix per un resum del codi, només al paquet que es publica.
 - **Python 3**, scripts a `joc/eines/`. Les rutes surten de `camins.py`, com a la
   resta d'scripts.
 - **A la paraula del dia, només aritmètica entera i les funcions `llavor` i

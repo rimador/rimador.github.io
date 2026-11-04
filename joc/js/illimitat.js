@@ -28,8 +28,8 @@
 // Tot són funcions pures, sense DOM ni localStorage (el comptador el porta qui les
 // crida; vegeu magatzem.js): només enters i llavor/generador, com la paraula del dia.
 
-import { llavor, generador } from './objectius.js?v=5681007';
-import { patroDeBosses, bossaDelDia, crearBaralles } from './bosses.js?v=5681007';
+import { llavor, generador } from './objectius.js?v=dev';
+import { patroDeBosses, bossaDelDia, crearBaralles } from './bosses.js?v=dev';
 
 // Cada entrada de "claus" és [clau, grup, objectius, rimes, objectiusArreu, natius?];
 // vegeu dades.js i generar_dades.py.

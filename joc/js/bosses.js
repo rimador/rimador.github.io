@@ -13,7 +13,7 @@
 // node amb aquest mateix fitxer. Així no hi ha cap còpia en Python que s'hagi de
 // mantenir igual.
 
-import { llavor, generador } from './objectius.js?v=5681007';
+import { llavor, generador } from './objectius.js?v=dev';
 
 const MS_PER_DIA = 86400000;
 

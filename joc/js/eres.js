@@ -43,11 +43,11 @@
 // no es poden moure, i per això la roda es manté tal com era, també sense la
 // regla de «el fàcil no repeteix el difícil», que no hi era.
 
-import { rodaDelDia, ordreDeLaRoda } from './objectius.js?v=5681007';
-import { normalitza } from './normalitza.js?v=5681007';
+import { rodaDelDia, ordreDeLaRoda } from './objectius.js?v=dev';
+import { normalitza } from './normalitza.js?v=dev';
 import {
     diesEntre, patroDeBosses, quantesVegades, bossaDelDia, crearBaralles,
-} from './bosses.js?v=5681007';
+} from './bosses.js?v=dev';
 
 /** Els dos carrils, en l'ordre en què es calculen: el difícil primer. */
 export const CARRILS = ['dificil', 'facil'];

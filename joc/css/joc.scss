@@ -376,6 +376,68 @@ main {
     font-weight: bold;
 }
 
+/* Peu: crèdits + "Amb el suport de" (Cor de carxofa). Al mòbil, apilat i
+   centrat, amb un filet entre els dos blocs; a partir de 700px, un al costat
+   de l'altre amb un filet vertical. El logo és negre sobre transparent, i
+   damunt del cian es llegeix bé. Fa ~96px: més petit, el subtítol ja no es
+   pot llegir. */
+.peu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.peu__credits {
+    text-align: center;
+}
+
+.peu__suport {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    width: 70%;
+    max-width: 240px;
+}
+
+.peu__suport-titol {
+    font-size: 0.75rem;
+    font-weight: normal;
+}
+
+.peu__logo {
+    display: block;
+    width: 96px;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.15s ease;
+}
+
+.peu__suport a:hover .peu__logo,
+.peu__suport a:focus-visible .peu__logo {
+    transform: scale(1.06);
+}
+
+@media (min-width: 700px) {
+    .peu {
+        flex-direction: row;
+        justify-content: center;
+        gap: 40px;
+    }
+
+    .peu__suport {
+        width: auto;
+        max-width: none;
+        padding-top: 0;
+        border-top: 0;
+        padding-left: 40px;
+        border-left: 1px solid rgba(0, 0, 0, 0.25);
+    }
+}
+
 /* ------------------------------------------------------ Tira de dialectes */
 
 /* La germana de la tira del cercador (vegeu css/dialectes.scss), i ara vestida

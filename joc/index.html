@@ -36,40 +36,19 @@
     <meta name="twitter:image" content="https://rimador.cat/assets/R.webp">
 
     <link rel="stylesheet" href="../dist/css/joc.min.css?v=73ae680">
+    <script type="module" src="js/components_joc.js?v=73ae680"></script>
     <script type="module" src="js/principal.js?v=73ae680"></script>
 </head>
 
 <body id="joc">
 
-<a class="salta" href="#principal">Vés al contingut</a>
-
-<!-- Els enllaços al Rimador.cat van amb ../ i no pas amb /: el joc penja de
-     joc/, i per tant ../ és l'arrel del lloc, sigui on sigui el lloc. Amb /
-     només funcionarien a rimador.cat i es trencarien al repositori de proves,
-     que GitHub Pages publica dins /NOM-DEL-REPOSITORI/. És la regla de tot el
-     lloc: rutes relatives als HTML, i el JS que es calcula l'arrel tot sol
-     (vegeu ARREL a js/components.js). L'única excepció és el 404.html, que se
-     serveix sota qualsevol URL i que el desplegament ja reescriu (vegeu
-     .github/workflows/deploy.yml). -->
-
-<header class="capcalera">
-    <!-- La marca va a la PORTADA DEL JOC i la pastilla de la dreta al
-         Rimador.cat, igual que al cercador, on el logo va a l'arrel del lloc
-         (vegeu el header de js/components.js). Amb "./" i no pas "/joc/":
-         d'aquesta manera funciona tant a rimador.cat/joc/ com al repositori de
-         proves, que GitHub Pages publica dins /NOM-DEL-REPOSITORI/joc/. El
-         principal.js hi enganxa el ?d= del dialecte que s'esta jugant, perque
-         tornar a la portada no te per que canviar-te'l. -->
-    <a class="capcalera__marca" id="capcalera-marca" href="./">
-        <img src="../assets/peixet.webp" alt="" width="46" height="46">
-        <span class="capcalera__nom">El joc del Rimador.cat</span>
-    </a>
-    <a class="capcalera__estrella" href="../">← Al Rimador.cat</a>
-</header>
-
-<div class="marquesina" id="separador">
-    <p>Benvinguts al joc de rimes del <a href="../">Rimador.cat</a>! · Cerca rimes, bat el teu rècord i puja a la classificació ·</p>
-</div>
+<!-- Capçalera, loader, tira de dialectes i peu: els posa js/components_joc.js
+     (compartit amb el freestyle), que també calcula les rutes cap a l'arrel
+     del lloc. Aquí només hi ha els buits i el que és propi d'aquesta pàgina. -->
+<div data-capcalera
+     data-nom="El joc del Rimador.cat"
+     data-marca="joc/"
+     data-marquesina="Benvinguts al joc de rimes del {Rimador.cat}! · Cerca rimes, bat el teu rècord i puja a la classificació ·"></div>
 
 <main id="principal">
 
@@ -80,14 +59,9 @@
             Una paraula ......  un rellotge que corre ......  i un objectiu: RIMAR!
         </p>
 
-        <!-- La mateixa tira que el cercador, rètol inclòs: allà el "Dialecte:"
-             és un enllaç a dialectes.html (vegeu la tira de js/components.js) i
-             aquí també, que la pregunta de per què les rimes canvien la té
-             tothom i la resposta és la mateixa pàgina. -->
-        <div class="tira" id="tira-dialectes-inici">
-            <a class="tira__rotul" href="../dialectes.html">Dialecte:</a>
-            <div class="tira__tria" id="tira-dialectes" role="radiogroup" aria-label="Dialecte"></div>
-        </div>
+        <!-- La mateixa tira que el cercador: el rètol i els botons els posa
+             js/components_joc.js. -->
+        <div class="tira" id="tira-dialectes-inici"></div>
 
         <div class="menu">
             <button class="targeta targeta--mode" type="button" data-mode="diaria">
@@ -487,22 +461,11 @@
     </section>
 
     <!-- ------------------------------------------------------ Carregant -->
-    <div class="carregant" id="carregant" hidden>
-        <div class="carregant__cercle"></div>
-        <p id="carregant-text">Preparant la partida…</p>
-        <div class="carregant__barra" id="carregant-barra" hidden>
-            <div class="carregant__barra-interior" id="carregant-progres"></div>
-        </div>
-        <p class="carregant__nota" id="carregant-nota" hidden>
-            Les rimes d'aquest dialecte es baixen un sol cop.
-        </p>
-    </div>
+    <div class="carregant" id="carregant" hidden data-text="Preparant la partida…"></div>
 
 </main>
 
-<footer class="peu">
-    <a href="../">Rimador.cat</a> · Marc i Ferran · Uns quants drets reservats
-</footer>
+<footer class="peu"></footer>
 
 </body>
 </html>

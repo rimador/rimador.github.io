@@ -27,8 +27,8 @@ const ATURAT = false;
 // -------------------------------------------------------------------------
 // VERSIONS
 // -------------------------------------------------------------------------
-// El desplegament ja estampa un resum del codi a tots els ?v= dels HTML
-// (vegeu "Calcular la versió del codi" a .github/workflows/deploy.yml). El
+// El desplegament ja estampa el SHA del commit a tots els ?v= dels HTML
+// (vegeu "Rebentar Memòria Cau" a .github/workflows/deploy.yml). El
 // registrar-sw.js llegeix el seu propi ?v= i ens el passa aquí, de manera que
 // cada desplegament de codi estrena cache i esborra el d'abans. Sense tocar
 // el workflow: la versió surt de la que ja hi havia.

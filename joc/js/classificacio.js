@@ -6,11 +6,7 @@
 // publicat en CSV, en fa el rànquing i escriu joc/dades/classificacio.json, que
 // es el que es veu a la pantalla de classificacio.
 
-<<<<<<< Updated upstream
 import { ahir } from './magatzem.js?v=7c6003d';
-=======
-import { ahir } from './magatzem.js?v=dev';
->>>>>>> Stashed changes
 
 // PER POSAR-HO EN MARXA cal omplir aquestes dues constants (mira el README i
 // joc/eines/apps_script_classificacio.gs):

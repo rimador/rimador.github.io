@@ -9,10 +9,10 @@
 
   Quan s'hi afegeixi una pàgina nova, s'ha d'afegir aquí i al menú (js/menu.js).
 
-  No hi ha <lastmod> enlloc, i és volgut. El pas del deploy que estampa el ?v=
+  No hi ha <lastmod> enlloc, i és volgut. El pas de cache busting del deploy
   reescriu el ?v= de TOTS els HTML cada vegada que es toca el css o el js, o
-  sigui que la data del fitxer publicat diria que totes les pàgines han
-  canviat quan en realitat no n'ha canviat ni una lletra del contingut. Google només fa cas del
+  sigui que la data del fitxer diria que totes les pàgines han canviat quan en
+  realitat no n'ha canviat ni una lletra del contingut. Google només fa cas del
   lastmod si se'l pot creure sempre; val més no posar-n'hi cap que no pas
   posar-n'hi un que menteix cada desplegament.
 

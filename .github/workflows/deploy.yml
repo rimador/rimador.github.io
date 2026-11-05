@@ -38,7 +38,12 @@ on:
     types:
       - completed
   workflow_dispatch:
-
+    inputs:
+      branca:
+        description: 'Branca a publicar'
+        required: true
+        default: 'main'
+        
 permissions:
   contents: read
   pages: write
@@ -87,7 +92,7 @@ jobs:
           # Sempre la punta de main, no pas el SHA de l'esdeveniment. En els
           # workflow_run, el SHA pot ser anterior als commits que acaba de fer
           # el workflow d'abans, que són justament els que hem de publicar.
-          ref: main
+          ref: ${{ inputs.branca || 'main' }}
 
       - name: Calcular la versió del codi (per al ?v=)
         id: versio

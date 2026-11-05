@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#FF91FF">
     <meta name="robots" content="index, follow">
 
-    <title>Freestyle – paraules per improvisar rimes en català | Rimador.cat</title>
+    <title>Freestyle – paraules per improvisar rimes en català | Rimador.cat (beta)</title>
     <meta name="description" content="Generador de paraules per a freestylers: tria cada quants segons en vols una de nova, quantes en vols i de quina mena, i a rimar. Amb el nombre de rimes de cada paraula, en quatre dialectes.">
     <meta name="author" content="Marc i Ferran">
     <link rel="canonical" href="https://rimador.cat/freestyle_beta.html">
@@ -24,19 +24,18 @@
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rimador.cat/freestyle_beta.html">
-    <meta property="og:title" content="Freestyle del Rimador.cat">
+    <meta property="og:title" content="Freestyle del Rimador.cat (beta)">
     <meta property="og:description" content="Una paraula nova cada pocs segons, i a improvisar-hi rimes.">
     <meta property="og:image" content="https://rimador.cat/assets/R.webp">
     <meta property="og:locale" content="ca_ES">
     <meta property="og:site_name" content="El Rimador.cat">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Freestyle del Rimador.cat">
+    <meta name="twitter:title" content="Freestyle del Rimador.cat (beta)">
     <meta name="twitter:description" content="Una paraula nova cada pocs segons, i a improvisar-hi rimes.">
     <meta name="twitter:image" content="https://rimador.cat/assets/R.webp">
 
     <link rel="stylesheet" href="dist/css/joc.min.css?v=dev">
-    <script type="module" src="joc/js/components_joc.js?v=dev"></script>
     <script type="module" src="joc/js/freestyle.js?v=dev"></script>
 </head>
 
@@ -52,13 +51,22 @@
      el lloc (vegeu el comentari del joc/index.html). -->
 <body id="freestyle">
 
-<!-- Capçalera, loader, tira de dialectes i peu: els posa joc/js/components_joc.js
-     (compartit amb el joc). La marca torna a la pantalla d'ajustos, amb el ?d=
-     del dialecte que s'està fent servir (l'hi posa joc/js/freestyle.js). -->
-<div data-capcalera
-     data-nom="Freestyle del Rimador.cat"
-     data-marca="freestyle_beta.html"
-     data-marquesina="Paraules per improvisar · Tria el ritme i a rimar! · Les rimes surten del diccionari fonètic del {Rimador.cat} ·"></div>
+<a class="salta" href="#principal">Vés al contingut</a>
+
+<!-- La mateixa capçalera que el joc, amb el nom d'aquí: la marca torna a la
+     pantalla d'ajustos, amb el ?d= del dialecte que s'està fent servir (l'hi
+     posa joc/js/freestyle.js), i la pastilla porta al Rimador.cat. -->
+<header class="capcalera">
+    <a class="capcalera__marca" id="capcalera-marca" href="freestyle_beta.html">
+        <img src="assets/peixet.webp" alt="" width="46" height="46">
+        <span class="capcalera__nom">Freestyle  (beta)</span>
+    </a>
+    <a class="capcalera__estrella" href="./">← Al Rimador.cat</a>
+</header>
+
+<div class="marquesina" id="separador">
+    <p>Paraules per improvisar · Tria el ritme i a rimar! · Les rimes surten del diccionari fonètic del <a href="./">Rimador.cat</a> ·</p>
+</div>
 
 <main id="principal">
 
@@ -77,9 +85,11 @@
         </p>
 
         <!-- La mateixa tira que el joc i el cercador, i amb la mateixa memòria:
-             el dialecte canvia quantes rimes té cada paraula. El rètol i els
-             botons els posa joc/js/components_joc.js. -->
-        <div class="tira" id="tira-dialectes-inici"></div>
+             el dialecte canvia quantes rimes té cada paraula. -->
+        <div class="tira" id="tira-dialectes-inici">
+            <a class="tira__rotul" href="dialectes.html">Dialecte:</a>
+            <div class="tira__tria" id="tira-dialectes" role="radiogroup" aria-label="Dialecte"></div>
+        </div>
 
         <fieldset class="grup">
             <legend>El ritme</legend>
@@ -232,11 +242,24 @@
     </section>
 
     <!-- ------------------------------------------------------ Carregant -->
-    <div class="carregant" id="carregant" hidden data-text="Preparant les paraules…"></div>
+    <!-- El mateix loader que el joc, amb els mateixos ids: el pinten
+         mostrarCarregant de joc/js/ui.js i pintarProgres de joc/js/freestyle.js. -->
+    <div class="carregant" id="carregant" hidden>
+        <div class="carregant__cercle"></div>
+        <p id="carregant-text">Preparant les paraules…</p>
+        <div class="carregant__barra" id="carregant-barra" hidden>
+            <div class="carregant__barra-interior" id="carregant-progres"></div>
+        </div>
+        <p class="carregant__nota" id="carregant-nota" hidden>
+            Les rimes d'aquest dialecte es baixen un sol cop.
+        </p>
+    </div>
 
 </main>
 
-<footer class="peu"></footer>
+<footer class="peu">
+    <a href="./">Rimador.cat</a> · Marc i Ferran · Uns quants drets reservats
+</footer>
 
 </body>
 </html>

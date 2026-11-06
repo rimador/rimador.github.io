@@ -1,0 +1,11 @@
+{
+  "banners": [
+    {
+      "id": "aniversari-marc",
+      "dies": ["11-07"],
+      "titol": "Avui és l'aniversari d'en Marc!",
+      "text": "Un dels desenvolupadors del Rimador.cat, en Marc, fa anys avui. Segur que li faria molta il·lusió que li omplim la safata d'entrada del correu de felicitacions, oi? I si poden ser amb rima, millor! ;)",
+      "enllac": { "text": "Felicita en Marc (marc@rimador.cat)", "url": "mailto:marc@rimador.cat" }
+    }
+  ]
+}

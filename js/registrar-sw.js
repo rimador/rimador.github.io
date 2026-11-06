@@ -7,7 +7,24 @@
 // entrés pel joc no tindria mai el service worker.
 //
 // Es carrega amb defer des de totes les pàgines.
+//
+// Per la mateixa raó (és l'únic script que tenen TOTES les pàgines, joc i
+// 404 inclosos), des d'aquí s'enganxa també el baner de dies concrets
+// (baner-dies.js): així no cal tocar cap HTML per tenir-lo arreu.
 (function () {
+    // El baner no depèn del service worker: va abans del return de sota, que
+    // surt als navegadors que no en tenen. Hereta el ?v= d'aquest fitxer perquè
+    // el desplegament l'estampa als HTML i, si no, quedaria a la memòria cau.
+    (function carregarBaner() {
+        const jo = document.currentScript;
+        if (!jo || !jo.src) return;
+        const adreca = new URL('baner-dies.min.js', jo.src);
+        adreca.search = new URL(jo.src).search;
+        const s = document.createElement('script');
+        s.src = adreca.href;
+        document.head.appendChild(s);
+    })();
+
     if (!('serviceWorker' in navigator)) return;
 
     // On és l'arrel del lloc, calculat des d'aquest mateix fitxer: a

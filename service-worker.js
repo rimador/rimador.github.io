@@ -69,6 +69,7 @@ const NOMES_XARXA = [
     'stats/versions_stats.json',
     'joc/dades/versions.json',
     'avis/missatges.json',
+    'baner/dies.json',
 ];
 
 // Ni tocar-ho. El diccionari i la rima dels dialectes ja viuen a IndexedDB

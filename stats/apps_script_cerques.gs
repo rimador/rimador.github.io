@@ -84,10 +84,19 @@ var VALORS_PERMESOS = {
 var COLUMNES_DE_TEXT = [3, 4, 5];
 
 // La pestanya on van les notes dels visitants automàtics, i els seus títols.
+// Es creen en aquest ordre si la pestanya és nova; si ja existeix, mana el que
+// digui la fila 1 i només s'hi afegeixen al final els títols que faltin.
+//
+// "Hora client" és l'hora que diu el rellotge del navegador del visitant, TAL
+// COM VE (sense validar: que sigui falsa o congelada és justament la pista).
+// "Hora arribada" és la de Google. La diferència en segons, a la tercera: si és
+// de 0 o 1 és un rellotge normal; si és de minuts o hores, el visitant no és el
+// que sembla (o ha esperat a una cua).
 var NOM_FULL_TRAMPES = 'Trampes';
-var CAPCALERES_TRAMPES = ['Data', 'Marcador', 'Usuari', 'User-Agent', 'Marques',
-  'Webdriver', 'Referrer', 'URL', 'Idioma', 'Idiomes', 'Fus', 'Pantalla',
-  'Finestra', 'Nuclis', 'Plugins'];
+var CAPCALERES_TRAMPES = ['Hora client', 'Hora arribada', 'Diferència (s)',
+  'Marcador', 'Usuari', 'User-Agent', 'Marques', 'Webdriver', 'Referrer', 'URL',
+  'Idioma', 'Idiomes', 'Fus', 'Pantalla', 'Finestra', 'Nuclis', 'Plugins'];
+var COLUMNA_NUMERICA_TRAMPES = 'Diferència (s)';
 
 function doPost(e) {
   try {
@@ -216,23 +225,32 @@ function rebreTrampa(p) {
   var marcador = net(p.marcador, 60);
   if (!/^\{[^{}]*\}$/.test(marcador)) return resposta('Rebutjat: marcador');
 
-  var fila = [
-    araFormatada(),
-    marcador,
-    net(p.usuari, 48),
-    net(p.userAgent, 300),
-    net(p.marques, 200),
-    net(p.webdriver, 10),
-    net(p.referrer, 300),
-    net(p.url, 300),
-    net(p.idioma, 20),
-    net(p.idiomes, 100),
-    net(p.fus, 60),
-    net(p.pantalla, 20),
-    net(p.finestra, 20),
-    net(p.nuclis, 10),
-    net(p.plugins, 10)
-  ];
+  var ara = araFormatada();
+  var horaClient = net(p.horaReal, 30);
+  var quan = milisDeData(horaClient);
+  var diferencia = (quan === null) ? '' : Math.round((milisDeData(ara) - quan) / 1000);
+
+  var valors = {
+    'Hora client': horaClient,
+    'Hora arribada': ara,
+    'Diferència (s)': diferencia,
+    // El títol que tenien les pestanyes creades abans de separar les dues hores.
+    'Data': ara,
+    'Marcador': marcador,
+    'Usuari': net(p.usuari, 48),
+    'User-Agent': net(p.userAgent, 300),
+    'Marques': net(p.marques, 200),
+    'Webdriver': net(p.webdriver, 10),
+    'Referrer': net(p.referrer, 300),
+    'URL': net(p.url, 300),
+    'Idioma': net(p.idioma, 20),
+    'Idiomes': net(p.idiomes, 100),
+    'Fus': net(p.fus, 60),
+    'Pantalla': net(p.pantalla, 20),
+    'Finestra': net(p.finestra, 20),
+    'Nuclis': net(p.nuclis, 10),
+    'Plugins': net(p.plugins, 10)
+  };
 
   var pany = LockService.getScriptLock();
   if (!pany.tryLock(10000)) {
@@ -245,16 +263,40 @@ function rebreTrampa(p) {
       // Al final de tot: la primera pestanya ha de continuar sent la de les
       // cerques (getSheets()[0]).
       full = llibre.insertSheet(NOM_FULL_TRAMPES, llibre.getSheets().length);
-      full.getRange(1, 1, 1, CAPCALERES_TRAMPES.length).setValues([CAPCALERES_TRAMPES]);
-      full.setFrozenRows(1);
     }
-    var totes = [];
-    for (var i = 1; i <= fila.length; i++) totes.push(i);
-    escriureFila(full, fila, totes);
+    var capcalera = capcaleraDeTrampes(full);
+
+    var fila = [];
+    var text = [];
+    for (var i = 0; i < capcalera.length; i++) {
+      fila.push(valors.hasOwnProperty(capcalera[i]) ? valors[capcalera[i]] : '');
+      if (capcalera[i] !== COLUMNA_NUMERICA_TRAMPES) text.push(i + 1);
+    }
+    escriureFila(full, fila, text);
   } finally {
     pany.releaseLock();
   }
   return resposta('OK');
+}
+
+/** Els títols de la fila 1 de Trampes, amb els que faltin ja afegits al final. */
+function capcaleraDeTrampes(full) {
+  var columnes = full.getLastColumn();
+  var capcalera = [];
+  if (columnes > 0) {
+    capcalera = full.getRange(1, 1, 1, columnes).getValues()[0]
+      .map(function (casella) { return String(casella).trim(); });
+  }
+  var afegides = [];
+  for (var i = 0; i < CAPCALERES_TRAMPES.length; i++) {
+    if (capcalera.indexOf(CAPCALERES_TRAMPES[i]) === -1) afegides.push(CAPCALERES_TRAMPES[i]);
+  }
+  if (afegides.length > 0) {
+    full.getRange(1, capcalera.length + 1, 1, afegides.length).setValues([afegides]);
+    if (columnes === 0) full.setFrozenRows(1);
+    capcalera = capcalera.concat(afegides);
+  }
+  return capcalera;
 }
 
 // Quant enrere es dóna per bona l'hora que diu el navegador: una cerca que va

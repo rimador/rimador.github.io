@@ -73,6 +73,13 @@ NOM_DIFICULTAT = {"facil": "Fàcil", "dificil": "Difícil"}
 # Un rellotge que no sigui cap d'aquests es titula amb els segons i prou.
 NOM_TEMPS = {"30": "Llampec", "60": "Estàndard", "120": "Lent"}
 
+# Quines partides son possibles. Han de dir el mateix que apps_script_classificacio.gs:
+# l'Apps Script ja ho filtra al rebre-les, pero l'adreca on s'envien es publica i
+# hi pot haver files d'abans de les comprovacions (o escrites a ma al full).
+SEGONS_PERMESOS = {30, 60, 120}
+SEGONS_DIARIA = 60
+MAX_PUNTS_PER_SEGON = 1.5
+
 # Les columnes que ha de dur el full. 
 COLUMNES = ["Data", "Sobrenom", "Mode", "Dificultat", "Segons", "Punts",
             "Paraula", "Usuari", "Dialecte", "DataPartida"]
@@ -189,6 +196,15 @@ def main():
     for columna in ["Sobrenom", "Mode", "Dificultat", "Segons", "Paraula",
                     "Usuari", "Dialecte", "DataPartida"]:
         df[columna] = df[columna].fillna("").astype(str)
+
+    # Nomes passen les partides que el joc pot haver jugat de veritat: un mode,
+    # una dificultat i un rellotge que existeixen, i uns punts que caben en el
+    # temps que dura la partida.
+    segons_num = pd.to_numeric(df["Segons"], errors="coerce")
+    segons_ok = segons_num.isin(SEGONS_PERMESOS)
+    segons_ok &= (df["Mode"] != "diaria") | (segons_num == SEGONS_DIARIA)
+    df = df[df["Mode"].isin(NOM_MODE) & df["Dificultat"].isin(NOM_DIFICULTAT)
+            & segons_ok & (df["Punts"] <= segons_num * MAX_PUNTS_PER_SEGON)]
 
     # Nomes es valida la DataPartida (ignorem la de recepcio)
     dia_partida = df["DataPartida"].str.strip()

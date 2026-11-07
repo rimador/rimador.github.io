@@ -44,6 +44,40 @@ df['Comença per'] = df['Comença per'].astype(str)
 df['Incloure NP'] = df['Incloure NP'].astype(str)
 df['Incloure pl.'] = df['Incloure pl.'].astype(str)
 
+# Si pandas ha llegit la columna com a decimals (passa quan hi ha una casella
+# buida), el "3" arriba com a "3.0". Es normalitza abans de comprovar-lo.
+df['Num. síl·'] = df['Num. síl·'].str.strip().str.replace(r'\.0$', '', regex=True)
+
+# ------ Només entren les files que el web de veritat pot haver enviat.
+#
+# L'adreça de l'Apps Script que apunta les cerques és pública (és al js/script.js)
+# i, abans de validar-hi res, qualsevol podia escriure-hi el que volgués. Aquests
+# cinc camps acaben sent les etiquetes de les barres de dades.html: un valor com
+# "<img onerror=...>" era codi que s'executava al navegador de qui obria la pàgina.
+#
+# Aquest filtre és la SEGONA línia de defensa (la primera és l'Apps Script) i és
+# la que importa per a tot el que ja hi hagi al full d'abans de blindar-lo. Una
+# fila amb un sol valor estrany es descarta sencera: no hi ha cap raó per fiar-se
+# de la resta de camps d'aquella fila.
+VALORS_PERMESOS = {
+    'Tipus de rima': {'r.consonant', 'r.assonant'},
+    'Num. síl·':     {str(n) for n in range(10)},
+    'Comença per':   {'indiferent', 'consonant', 'vocal+h'},
+    'Incloure NP':   {'si', 'no'},
+    'Incloure pl.':  {'si', 'no'},
+}
+files_abans = len(df)
+for columna, permesos in VALORS_PERMESOS.items():
+    df = df[df[columna].isin(permesos)]
+# Un marcador de plantilla sense substituir, com "{search_term_string}", no és
+# cap paraula cercada: ve d'un visitant automàtic que ha agafat al peu de la
+# lletra el SearchAction de l'index.html. El web ja no l'envia com a cerca (va
+# a la pestanya "Trampes"), però n'hi ha d'anteriors al full.
+df = df[~df['Paraula'].str.fullmatch(r'\{[^{}]*\}')]
+df = df.copy()
+if len(df) < files_abans:
+    print(f"  AVÍS: {files_abans - len(df)} files descartades per tenir valors que el web no envia.")
+
 # El dialecte de cada cerca. El web l'envia des que hi ha la tira de dialectes
 # (vegeu registrarCerca a js/script.js) i qui l'apunta al full és
 # stats/apps_script_cerques.gs.

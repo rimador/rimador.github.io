@@ -107,7 +107,9 @@ function pintarFiltresHTML(dadesSempre) {
             segment.style.backgroundColor = colorTros;
             segment.title = `${nomMostrar}: ${percentatge}%`;
             // es pinta sempre, l'amaga depurarPercentatges() si no hi cap
-            segment.innerHTML = `<span>${percentatge}%</span>`;
+            const textSegment = document.createElement('span');
+            textSegment.textContent = `${percentatge}%`;
+            segment.appendChild(textSegment);
 
             barraApilada.appendChild(segment);
 
@@ -116,10 +118,18 @@ function pintarFiltresHTML(dadesSempre) {
             itemLlegenda.style.width = `${percentatge}%`;
             itemLlegenda.dataset.pes = percentatge;
 
-            itemLlegenda.innerHTML = `
-                <div class="color-box" style="background-color: ${colorTros}"></div>
-                <span>${nomMostrar}</span>
-            `;
+            // nomMostrar pot sortir directament d'un valor del full de les
+            // cerques (vegeu nomsTraduïts de sobre), que ho pot haver escrit
+            // qualsevol persona: per això va amb textContent i no pas amb
+            // innerHTML, que l'interpretaria com a HTML.
+            const caixaColor = document.createElement('div');
+            caixaColor.className = 'color-box';
+            caixaColor.style.backgroundColor = colorTros;
+
+            const textLlegenda = document.createElement('span');
+            textLlegenda.textContent = nomMostrar;
+
+            itemLlegenda.append(caixaColor, textLlegenda);
             llegenda.appendChild(itemLlegenda);
         });
 
@@ -279,13 +289,23 @@ function omplirPodiHTML(idElement, arrayDades, etiqueta) {
         li.className = `podi-lloc podi-lloc-${lloc} podi-medalla-${medalla}`;
         li.title = `${item.data}: ${item.total} ${etiqueta}`;
 
-        li.innerHTML = `
-            <div class="podi-placa">
-                <span class="podi-xifra">${item.total}</span>
-                <span class="podi-data">${item.data}</span>
-            </div>
-            <div class="podi-bloc"><span class="podi-numero">${medalla}</span></div>
-        `;
+        const crear = (etiqueta, classe, text) => {
+            const element = document.createElement(etiqueta);
+            element.className = classe;
+            if (text !== undefined) element.textContent = String(text);
+            return element;
+        };
+
+        const placa = crear('div', 'podi-placa');
+        placa.append(
+            crear('span', 'podi-xifra', item.total),
+            crear('span', 'podi-data', item.data)
+        );
+
+        const bloc = crear('div', 'podi-bloc');
+        bloc.appendChild(crear('span', 'podi-numero', medalla));
+
+        li.append(placa, bloc);
         contenidor.appendChild(li);
     });
 }

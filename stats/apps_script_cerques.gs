@@ -11,7 +11,14 @@
 // LES COLUMNES DEL FULL, a la fila 1 i en aquest ordre:
 //
 //   Data | Usuari | Paraula | Codi | Rima | Tipus de rima | Num. síl· |
-//   Comença per | Incloure NP | Incloure pl. | Dialecte
+//   Comença per | Incloure NP | Incloure pl. | Dialecte | Hora arribada
+//
+// Hi ha DUES hores a posta:
+//   Data          quan l'usuari ha fet la cerca, pel rellotge del seu navegador
+//                 (horaReal, en horari de Catalunya). És la que fa servir stats.py.
+//   Hora arribada quan ha arribat aquí, pel rellotge de Google. Les dues difereixen
+//                 si la cerca ha esperat a la cua sense connexió, i és la que
+//                 delata un rellotge d'un navegador que menteix.
 //
 // Els noms han de ser EXACTAMENT aquests: l'stats.py hi busca les columnes pel
 // nom, accents i punt de "Incloure pl." inclosos.
@@ -163,6 +170,8 @@ function validar(p) {
   var dialecte = String(p.dialecte || '');
   if (dialecte !== '' && !/^[a-z]{2,3}$/.test(dialecte)) return { motiu: 'dialecte' };
 
+  var ara = araFormatada();
+
   return {
     usuari: usuari,
     fila: [
@@ -179,7 +188,7 @@ function validar(p) {
       // La zona horària també la diem aquí: el servidor de Google no corre a
       // Barcelona, i les dades es tallen per dies (vegeu tz_espanya a
       // stats/stats.py).
-      araFormatada(),
+      dataDeLaCerca(p.horaReal, ara),
       usuari,
       paraula,
       codi,
@@ -189,7 +198,9 @@ function validar(p) {
       p.comencaPer,
       p.inclourePropis,
       p.inclourePlurals,
-      dialecte
+      dialecte,
+      // La hora d'arribada, la del servidor (vegeu la capçalera del fitxer).
+      ara
     ]
   };
 }
@@ -246,6 +257,45 @@ function rebreTrampa(p) {
   return resposta('OK');
 }
 
+// Quant enrere es dóna per bona l'hora que diu el navegador: una cerca que va
+// quedar a la cua sense connexió (MAX_CERQUES_PENDENTS a js/script.js) pot
+// arribar dies tard. Cap al futur, un dia, per si el rellotge va avançat.
+var MAX_DIES_ENRERE = 30;
+
+/**
+ * Els mil·lisegons (comptats com a UTC, només per poder comparar) d'un text
+ * "d/m/aaaa h:mm:ss", o null si no és una data que existeixi. És el format que
+ * fabrica registrarCerca() amb toLocaleString('es-ES'): els dies, mesos i hores
+ * poden venir sense el zero del davant.
+ */
+function milisDeData(text) {
+  var t = /^(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2}):(\d{2})$/.exec(String(text || '').trim());
+  if (!t) return null;
+  var dia = +t[1], mes = +t[2], any = +t[3], h = +t[4], mi = +t[5], s = +t[6];
+  var d = new Date(Date.UTC(any, mes - 1, dia, h, mi, s));
+  if (h > 23 || mi > 59 || s > 59 ||
+      d.getUTCFullYear() !== any || d.getUTCMonth() !== mes - 1 || d.getUTCDate() !== dia) {
+    return null;
+  }
+  return d.getTime();
+}
+
+/**
+ * L'hora de la cerca per a la columna Data: la que diu el navegador (horaReal) si
+ * és una data que existeix i raonable (d'ara a fa MAX_DIES_ENRERE dies, i com a
+ * molt un dia endavant); si no, la del servidor. Així un navegador amb el
+ * rellotge boig o un enviament a mà no poden posar una cerca a l'any 2099 ni al
+ * 1970, i que arribi tard per la cua no es perd.
+ */
+function dataDeLaCerca(horaReal, ara) {
+  var quan = milisDeData(horaReal);
+  var araMs = milisDeData(ara);
+  if (quan === null || quan < araMs - MAX_DIES_ENRERE * 86400000 || quan > araMs + 86400000) {
+    return ara;
+  }
+  return Utilities.formatDate(new Date(quan), 'UTC', 'dd/MM/yyyy HH:mm:ss');
+}
+
 function araFormatada() {
   return Utilities.formatDate(new Date(), 'Europe/Madrid', 'dd/MM/yyyy HH:mm:ss');
 }
@@ -294,4 +344,58 @@ function escriureFila(full, fila, columnesDeText) {
 
 function resposta(text) {
   return ContentService.createTextOutput(text);
+}
+
+// -------------------------------------------------------------------------
+// Dispara el workflow de GitHub que recompila la classificació del joc.
+//
+// No és part del doPost: es crida des d'un ACTIVADOR de l'Apps Script (rellotge,
+// o el que hi hagi posat), per això està en aquest fitxer. Si s'enganxa aquest
+// codi sobre el del full i aquesta funció no hi és, l'activador falla sense dir
+// res i la classificació deixa de recompilar-se.
+//
+// El token NO és al codi: es desa a Configuració del projecte > Propietats de
+// l'script, amb el nom GITHUB_TOKEN. Millor un token que només pugui disparar
+// esdeveniments d'aquest repositori.
+// -------------------------------------------------------------------------
+function dispararGitHubAction() {
+  // Canvia això pel teu usuari i el nom del repositori on tens el joc
+  var usuari = "rimador";
+  var repo = "rimador.github.io";
+
+  // Agafem el token de les propietats de l'script per no deixar-lo visible al codi
+  var token = PropertiesService.getScriptProperties().getProperty("GITHUB_TOKEN");
+
+  if (!token) {
+    Logger.log("Error: No s'ha trobat el GITHUB_TOKEN a les propietats de l'script.");
+    return;
+  }
+
+  var url = "https://api.github.com/repos/" + usuari + "/" + repo + "/dispatches";
+
+  // El tipus d'esdeveniment ha de coincidir amb el que has posat al YAML
+  // (repository_dispatch.types a .github/workflows/dades_nocturnes.yml)
+  var payload = {
+    "event_type": "compilar_classificacio"
+  };
+
+  var options = {
+    "method": "post",
+    "headers": {
+      "Authorization": "Bearer " + token,
+      "Accept": "application/vnd.github.v3+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    },
+    "contentType": "application/json",
+    "payload": JSON.stringify(payload),
+    "muteHttpExceptions": true
+  };
+
+  try {
+    var resposta = UrlFetchApp.fetch(url, options);
+    Logger.log("Codi de resposta: " + resposta.getResponseCode());
+    Logger.log("Resposta: " + resposta.getContentText());
+  } catch (e) {
+    Logger.log("Error en fer la petició: " + e.message);
+  }
 }

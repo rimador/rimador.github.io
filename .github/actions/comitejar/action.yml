@@ -40,5 +40,27 @@ runs:
 
         git commit -m "$MISSATGE" || echo "No s'han detectat canvis nous per guardar"
 
-        git pull --rebase origin main
-        git push
+        # El pull i el push es reintenten, esperant una estona entre intent i
+        # intent, perquè GitHub de tant en tant respon amb un "Internal Server
+        # Error" passatger (la nit del 6 al 7 de novembre de 2026 va fer perdre
+        # l'actualització de dades: el commit era fet però no va arribar a pujar).
+        # Només es dóna el pas per fallit si fallen tots els intents.
+        #
+        # El pull va dins del bucle (i no pas només el push) perquè si el push
+        # és rebutjat perquè main s'ha mogut, cal tornar a baixar-la i refer el
+        # rebase abans de pujar.
+        ESPERES=(30 60 120 240)
+        intent=1
+        until git pull --rebase origin main && git push; do
+          if [ "$intent" -gt "${#ESPERES[@]}" ]; then
+            echo "::error::No s'ha pogut pujar el commit després de $intent intents."
+            exit 1
+          fi
+          espera=${ESPERES[$((intent - 1))]}
+          echo "::warning::Intent $intent fallit; torno a provar d'aquí a ${espera} s."
+          # Si el pull ha petat a mig rebase, es deixa l'arbre net abans de
+          # tornar-hi (el commit local no es perd).
+          git rebase --abort 2>/dev/null || true
+          sleep "$espera"
+          intent=$((intent + 1))
+        done

@@ -1,5 +1,5 @@
 {
-    "actualitzacio": "07/11/2026 11:20:55",
+    "actualitzacio": "07/11/2026 18:28:01",
     "setmana": {
         "text_dies": "31/10 > 6/11",
         "top_10_paraules": [
@@ -137,9 +137,9 @@
                 ]
             }
         ],
-        "total_cerques": 1463,
+        "total_cerques": 1461,
         "paraules_cercades_uniques": 898,
-        "numero_usuaris": 256
+        "numero_usuaris": 254
     },
     "sempre": {
         "top_10_paraules": [
@@ -288,11 +288,11 @@
                 ]
             }
         ],
-        "total_cerques": 15175,
+        "total_cerques": 15168,
         "paraules_cercades_uniques": 6170,
-        "numero_usuaris": 1919,
+        "numero_usuaris": 1912,
         "recompte_tipus_rima": {
-            "r.consonant": 14068,
+            "r.consonant": 14061,
             "r.assonant": 1107
         },
         "top_10_naufragues": [
@@ -397,21 +397,21 @@
                 "cerques": 7
             },
             {
-                "paraula": "{search_term_string}",
-                "cerques": 7
-            },
-            {
                 "paraula": "im",
                 "cerques": 7
             },
             {
                 "paraula": "ent",
                 "cerques": 6
+            },
+            {
+                "paraula": "ia",
+                "cerques": 6
             }
         ],
         "total_noms_propis": 230,
         "recompte_num_sil": {
-            "0": 14329,
+            "0": 14322,
             "2": 349,
             "3": 264,
             "1": 114,
@@ -420,20 +420,20 @@
             "5": 14
         },
         "recompte_comenca_per": {
-            "indiferent": 15007,
+            "indiferent": 15000,
             "consonant": 115,
             "vocal+h": 53
         },
         "recompte_incloure_np": {
-            "no": 14677,
+            "no": 14670,
             "si": 498
         },
         "recompte_incloure_pl": {
-            "si": 14679,
+            "si": 14672,
             "no": 496
         },
         "recompte_dialecte": {
-            "ca": 10163,
+            "ca": 10156,
             "va": 675,
             "ba": 659,
             "nw": 112
@@ -442,7 +442,7 @@
             "top_cerques": [
                 {
                     "data": "15/10/2026",
-                    "total": 451
+                    "total": 450
                 },
                 {
                     "data": "21/10/2026",
@@ -464,7 +464,7 @@
                 },
                 {
                     "data": "15/10/2026",
-                    "total": 78
+                    "total": 77
                 }
             ],
             "anti_top_cerques": [
@@ -483,11 +483,11 @@
             ],
             "anti_top_usuaris": [
                 {
-                    "data": "31/10/2026",
-                    "total": 22
+                    "data": "11/10/2026",
+                    "total": 21
                 },
                 {
-                    "data": "11/10/2026",
+                    "data": "31/10/2026",
                     "total": 22
                 },
                 {
@@ -511,13 +511,13 @@
             },
             {
                 "data": "10/10",
-                "cerques": 112,
-                "usuaris": 25
+                "cerques": 111,
+                "usuaris": 24
             },
             {
                 "data": "11/10",
-                "cerques": 129,
-                "usuaris": 22
+                "cerques": 128,
+                "usuaris": 21
             },
             {
                 "data": "12/10",
@@ -536,8 +536,8 @@
             },
             {
                 "data": "15/10",
-                "cerques": 451,
-                "usuaris": 78
+                "cerques": 450,
+                "usuaris": 77
             },
             {
                 "data": "16/10",
@@ -606,8 +606,8 @@
             },
             {
                 "data": "29/10",
-                "cerques": 179,
-                "usuaris": 41
+                "cerques": 178,
+                "usuaris": 40
             },
             {
                 "data": "30/10",
@@ -626,13 +626,13 @@
             },
             {
                 "data": "02/11",
-                "cerques": 233,
-                "usuaris": 59
+                "cerques": 232,
+                "usuaris": 58
             },
             {
                 "data": "03/11",
-                "cerques": 255,
-                "usuaris": 71
+                "cerques": 254,
+                "usuaris": 70
             },
             {
                 "data": "04/11",
@@ -661,7 +661,7 @@
             },
             {
                 "hora": "01:00",
-                "percentatge": 1.13
+                "percentatge": 1.11
             },
             {
                 "hora": "01:30",
@@ -669,7 +669,7 @@
             },
             {
                 "hora": "02:00",
-                "percentatge": 0.44
+                "percentatge": 0.42
             },
             {
                 "hora": "02:30",
@@ -721,7 +721,7 @@
             },
             {
                 "hora": "08:30",
-                "percentatge": 2.81
+                "percentatge": 2.82
             },
             {
                 "hora": "09:00",
@@ -729,7 +729,7 @@
             },
             {
                 "hora": "09:30",
-                "percentatge": 3.6
+                "percentatge": 3.61
             },
             {
                 "hora": "10:00",
@@ -785,7 +785,7 @@
             },
             {
                 "hora": "16:30",
-                "percentatge": 2.77
+                "percentatge": 2.78
             },
             {
                 "hora": "17:00",
@@ -797,7 +797,7 @@
             },
             {
                 "hora": "18:00",
-                "percentatge": 3.0
+                "percentatge": 3.01
             },
             {
                 "hora": "18:30",
@@ -813,7 +813,7 @@
             },
             {
                 "hora": "20:00",
-                "percentatge": 2.48
+                "percentatge": 2.49
             },
             {
                 "hora": "20:30",
@@ -837,7 +837,7 @@
             },
             {
                 "hora": "23:00",
-                "percentatge": 1.92
+                "percentatge": 1.91
             },
             {
                 "hora": "23:30",

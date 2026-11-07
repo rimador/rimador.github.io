@@ -12,8 +12,9 @@
 // Vegeu baner/LLEGEIX.md per al format.
 //
 // Tot passa al navegador de cada visitant. L'únic que es desa és, a
-// localStorage, quin baner ha tancat i quin dia, perquè no el torni a
-// veure fins al dia següent.
+// localStorage, quan ha tancat cada baner. Qui el tanca no el veu durant
+// 10 hores; passat aquest temps, si encara és el dia del baner, torna a
+// sortir (i cada cop que el tanqui, el mateix).
 //
 // Per provar-lo sense esperar el dia: afegeix ?baner=ID-DEL-BANER a
 // l'adreça de qualsevol pàgina.
@@ -26,6 +27,9 @@
     const CLAU = 'rimador_baner_tancat';
     const PARAM_PROVA = 'baner';
     const RETARD = 600;
+
+    // Quant de temps descansa un baner un cop tancat.
+    const ESPERA_MS = 10 * 60 * 60 * 1000;
 
     // L'arrel del lloc, deduïda de la URL d'aquest mateix <script>, que sempre
     // se serveix des de dist/js/ (mateix truc que js/components.js).
@@ -86,17 +90,21 @@
         }
     }
 
-    // Tancat "avui" vol dir que a la pestanya següent no hi torna fins demà.
-    function jaTancat(id, ara) {
-        return llegirTancats()[id] === ara.complet;
+    // Es desa el moment (en ms) en què s'ha tancat. Els valors que no són un
+    // número (el format d'una versió anterior) compten com a "no tancat".
+    function jaTancat(id) {
+        const quan = Number(llegirTancats()[id]);
+        return Number.isFinite(quan) && quan > 0 && Date.now() - quan < ESPERA_MS;
     }
 
-    function recordarTancat(id, ara) {
+    function recordarTancat(id) {
         try {
             const tancats = llegirTancats();
-            tancats[id] = ara.complet;
-            // Es netegen els d'altres dies per no anar acumulant claus.
-            Object.keys(tancats).forEach(k => { if (tancats[k] !== ara.complet) delete tancats[k]; });
+            tancats[id] = Date.now();
+            // Es netegen els que ja han caducat per no anar acumulant claus.
+            Object.keys(tancats).forEach(k => {
+                if (!(Date.now() - Number(tancats[k]) < ESPERA_MS)) delete tancats[k];
+            });
             localStorage.setItem(CLAU, JSON.stringify(tancats));
         } catch (e) { /* sense localStorage, simplement tornarà a sortir */ }
     }
@@ -289,7 +297,12 @@
         let interval = null;
         const tancaDeVeres = () => {
             if (tanca.disabled) return;
-            if (!prova) recordarTancat(baner.id, ara);
+            if (!prova) {
+                recordarTancat(baner.id);
+                // Si la pestanya queda oberta tantes hores, que torni igualment.
+                // arrencar() torna a mirar si encara és el dia del baner.
+                setTimeout(arrencar, ESPERA_MS + 1000);
+            }
             if (dialeg.open) dialeg.close();
             dialeg.remove();
         };
@@ -364,9 +377,9 @@
             triat = llista.find(b => b && b.id === forcat) || null;
         } else {
             // Si en toquen dos el mateix dia, surt el primer del fitxer, i un
-            // cop tancat no en surt cap altre fins demà.
+            // cop tancat no en surt cap altre fins que passin les 10 hores.
             triat = llista.find(b => b && b.id && toca(b, ara)) || null;
-            if (triat && jaTancat(triat.id, ara)) return;
+            if (triat && jaTancat(triat.id)) return;
         }
         if (!triat) return;
 

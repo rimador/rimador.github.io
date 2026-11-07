@@ -2,7 +2,8 @@
 
 Cada dia que triïs, un quadre al mig de la pantalla (igual que el de "nova
 actualització") a totes les pàgines, també el joc, amb el missatge que vulguis.
-El visitant el pot tancar i no el torna a veure fins al dia següent. Té el codi a `js/baner-dies.js`; això és només el contingut.
+Si el visitant el tanca, no el veu durant 10 hores; passat aquest temps, si encara és
+un dels dies del baner, torna a sortir (i cada cop que el tanqui, el mateix). Té el codi a `js/baner-dies.js`; això és només el contingut.
 
 Els textos i els dies són a `baner/dies.json`. Es llegeix en temps real: canviar-lo
 i desplegar és suficient, no cal recompilar res.

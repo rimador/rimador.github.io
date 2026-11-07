@@ -1394,6 +1394,23 @@ async function enviarCerquesPendents() {
 window.addEventListener('online', () => enviarCerquesPendents());
 enviarCerquesPendents();
 
+// L'hora que té el navegador ARA, escrita en horari de Catalunya i com
+// "dd/mm/aaaa h:mm:ss" (l'hora, sense zero al davant). És la que va a la columna
+// Data del full de les cerques i a "Hora client" de la pestanya Trampes: la
+// d'aquest rellotge, no la de Google (vegeu apps_script_cerques.gs).
+function horaRealMadrid() {
+  return new Date().toLocaleString('es-ES', {
+    timeZone: 'Europe/Madrid',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: 'numeric',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).replace(',', '');
+}
+
 function registrarCerca(paraulaBuscada, rimaTrobada, tipusRima, codiParaula, numeroSeleccionat, comenca, inclourePropis, inclourePlurals) {
   // Aquesta comprovació va la primera de totes. Abans era al final, just
   // abans del fetch, i per tant el web de proves i el navegador en local
@@ -1414,16 +1431,7 @@ function registrarCerca(paraulaBuscada, rimaTrobada, tipusRima, codiParaula, num
     tipusRima: tipusRima,
     dialecte: dialecteActiu,
     usuari: getUsuariID(),
-horaReal: new Date().toLocaleString('es-ES', {
-      timeZone: 'Europe/Madrid',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: 'numeric',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
-    }).replace(',', '') 
+horaReal: horaRealMadrid()
   };
 
   if (navigator.onLine === false) {
@@ -1466,6 +1474,7 @@ function registrarTrampa(marcador) {
     tipus: 'trampa',
     marcador: marcador,
     usuari: llegeix(getUsuariID),
+    horaReal: llegeix(horaRealMadrid),
     userAgent: llegeix(() => navigator.userAgent),
     marques: llegeix(() => navigator.userAgentData.brands.map((b) => b.brand + ' ' + b.version).join(', ')),
     webdriver: llegeix(() => navigator.webdriver),

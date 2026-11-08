@@ -85,9 +85,6 @@ export function validarSobrenom(text, { ocupats, elMeu } = {}) {
     //     return { ok: false, motiu: `Ja hi ha un «${net}» a la classificació. Tria'n un altre.` };
     // }
 
-    // La validacio de debo (les paraules vetades, la desduplicacio) la fa
-    // joc/eines/compilar_classificacio.py: aixo d'aqui nomes es per dir-ho de
-    // seguida a qui escriu, i no es cap garantia de res.
     return { ok: true, sobrenom: net };
 }
 

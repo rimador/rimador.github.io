@@ -840,8 +840,7 @@ al full `joc.min.css`, i les `@font-face` a `../../joc/fonts/`. No hi ha res mé
   hi hagués d'abans dels dialectes es migren al central el primer cop que s'obre
   el joc.
 - **La classificació** s'envia sola en acabar qualsevol partida amb almenys una
-  rima; la validació de veritat (les paraules vetades, la desduplicació) la fa el
-  compilador de Python.
+  rima; la desduplicació la fa el compilador de Python.
 - **Els rellotges de l'il·limitat** són 30 s, 1 min i 2 min. Abans eren 45 s,
   1 min 30 s i 3 min; una modalitat que no sigui cap de les tres d'ara es titula
   amb els segons i prou.

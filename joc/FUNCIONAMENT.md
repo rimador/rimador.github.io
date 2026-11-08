@@ -1333,8 +1333,7 @@ python joc/eines/compilar_classificacio.py
 2. **Es planta si falten les columnes de sempre**, però **no si falten les noves**
    (`DataPartida`, `Dialecte`): les files d'abans dels dialectes es donen per
    centrals i pel dia que van arribar, i no es perden.
-3. **Revalida els sobrenoms** i aplica la llista `PARAULES_VETADES`, comparant
-   sense accents i en minúscules.
+3. **Treu les files amb el sobrenom en blanc.**
 4. **Desdupla per persona**: la clau és l'`usr_…` si hi és, i si no el sobrenom
    sense accents. De cada persona i modalitat, només la millor puntuació, i si
    n'hi ha dues d'empatades, **la més nova** (canviar-se el sobrenom a la

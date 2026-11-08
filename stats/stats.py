@@ -1,11 +1,20 @@
 import hashlib
 import io
+import os
+import sys
 import pandas as pd
 import json
+from collections import Counter
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from llegir_full import baixar_full
+
+# El diccionari de cada dialecte es llegeix amb el mateix llistes/fonts.py que
+# fa les llistes i les nàufragues: així "el diccionari del valencià" vol dir el
+# mateix aquí que allà (vegeu cobertura_del_diccionari).
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'llistes'))
+import fonts as fonts_del_diccionari  # noqa: E402
 
 # hora no utc
 tz_espanya = ZoneInfo("Europe/Madrid") 
@@ -361,6 +370,135 @@ def formatar_top_per_json(dades):
     return df_temp.to_dict(orient='records')
 
 
+# ------ Cobertura del diccionari, per dialecte
+#
+# Quina part del diccionari de cada dialecte ha tocat la gent amb les cerques.
+# Són sis mesures i totes tenen la mateixa forma: quantes coses s'han trobat
+# ("fet"), quantes n'hi ha ("total") i com ha anat creixent el "fet", dia a dia
+# i acumulat ("evolucio", un número per a cada dia de "dies").
+#
+#   paraules          paraules diferents cercades, de totes les del diccionari
+#   lemes             el mateix, comptant lemes: "cantàvem" i "canto" són "cantar"
+#   rimes_consonants  rimes consonants de dues paraules o més on hi ha alguna
+#                     paraula cercada en consonant
+#   rimes_assonants   el mateix, en assonant
+#   naufragues        paraules sense cap rima consonant, cercades en consonant
+#                     (les mateixes llistes i el mateix criteri que el seu top)
+#   abast             paraules que han pogut sortir com a resultat: les que
+#                     rimen en consonant amb alguna paraula cercada en consonant.
+#                     No té en compte els filtres (síl·labes, noms propis...),
+#                     o sigui que és un sostre i no pas el que s'ha vist de debò.
+#
+# EL DICCIONARI DE CADA DIALECTE és el de tothom més el seu apèndix, llegit amb
+# llistes/fonts.py, que és el que fan servir les llistes i les nàufragues.
+#
+# LA RIMA DE CADA PARAULA CERCADA ES TREU DEL DICCIONARI D'ARA i no pas de la
+# columna Rima del full: si una transcripció s'ha corregit, la cerca compta per
+# a la rima que hi ha ara, que és la del diccionari que es compara.
+#
+# LES CERQUES SENSE DIALECTE (les d'abans que es pogués triar) compten com a
+# central, que era l'únic que hi havia: el mateix que a les nàufragues.
+
+MESURES_COBERTURA = ('paraules', 'lemes', 'rimes_consonants', 'rimes_assonants', 'naufragues', 'abast')
+
+
+def cobertura_del_diccionari(cerques):
+    cerques = cerques.assign(
+        paraula=cerques['Paraula'].str.strip().str.lower(),
+        dialecte=cerques['Dialecte'].where(cerques['Dialecte'].isin(ORDRE_DIALECTES), DIALECTE_ANTIC),
+    )
+    dies = [dia.date() for dia in pd.date_range(cerques['Dia'].min(), ahir, freq='D')]
+
+    def primer_dia(files):
+        """De cada paraula, el primer dia que algú la va cercar."""
+        return files.groupby('paraula')['Dia'].min().to_dict()
+
+    def anotar(trobats, clau, dia):
+        if dia is not None and (clau not in trobats or dia < trobats[clau]):
+            trobats[clau] = dia
+
+    def mesura(trobats, total, pes=None):
+        """El fet, el total i el fet acumulat de cada dia. Amb "pes", cada cosa
+        trobada no suma 1 sinó el que li toca (a l'abast, les paraules de la rima)."""
+        per_dia = Counter()
+        for clau, dia in trobats.items():
+            per_dia[dia] += pes[clau] if pes else 1
+        acumulat, evolucio = 0, []
+        for dia in dies:
+            acumulat += per_dia.get(dia, 0)
+            evolucio.append(acumulat)
+        return {'fet': acumulat, 'total': total, 'evolucio': evolucio}
+
+    resultat = {}
+    for codi in ORDRE_DIALECTES:
+        del_dialecte = cerques[cerques['dialecte'] == codi]
+        cercada = primer_dia(del_dialecte)
+        en_consonant = primer_dia(del_dialecte[del_dialecte['Tipus de rima'] == 'r.consonant'])
+        en_assonant = primer_dia(del_dialecte[del_dialecte['Tipus de rima'] == 'r.assonant'])
+
+        paraules, lemes = set(), set()
+        # (rima, paraula) i no pas files: una rima amb tres files de la mateixa
+        # paraula (homògrafes) té una paraula, com a generar_naufragues.py.
+        parells_cons, parells_ass = set(), set()
+        paraules_trobades, lemes_trobats = {}, {}
+        rimes_cons_trobades, rimes_ass_trobades = {}, {}
+
+        for _, (tal_qual, lema, rima_cons, rima_ass) in fonts_del_diccionari.files_del_dialecte(codi, (0, 1, 3, 4)):
+            # Les cerques es comparen en minúscules, però les paraules de cada
+            # rima es compten tal com són: "Pau" i "pau" són dues paraules i la
+            # seva rima no és nàufraga, el mateix que diu generar_naufragues.py.
+            paraula, lema = tal_qual.lower(), lema.lower()
+            paraules.add(paraula)
+            lemes.add(lema)
+            if rima_cons:
+                parells_cons.add((rima_cons, tal_qual))
+                anotar(rimes_cons_trobades, rima_cons, en_consonant.get(paraula))
+            if rima_ass:
+                parells_ass.add((rima_ass, tal_qual))
+                anotar(rimes_ass_trobades, rima_ass, en_assonant.get(paraula))
+            anotar(paraules_trobades, paraula, cercada.get(paraula))
+            anotar(lemes_trobats, lema, cercada.get(paraula))
+
+        paraules_per_rima_cons = Counter(rima for rima, _ in parells_cons)
+        paraules_per_rima_ass = Counter(rima for rima, _ in parells_ass)
+        # Una rima d'una sola paraula no és cap rima: és una nàufraga, i aquestes
+        # ja tenen la seva mesura.
+        rimes_cons = {rima for rima, quantes in paraules_per_rima_cons.items() if quantes >= 2}
+        rimes_ass = {rima for rima, quantes in paraules_per_rima_ass.items() if quantes >= 2}
+        naufragues = naufragues_per_dialecte[codi]
+
+        resultat[codi] = {
+            # Les cerques que hi ha al darrere, perquè un percentatge baix pot
+            # voler dir que el dialecte gairebé no es tria. Al central hi van
+            # també les d'abans dels dialectes.
+            'cerques': int(len(del_dialecte)),
+            'paraules': mesura(paraules_trobades, len(paraules)),
+            'lemes': mesura(lemes_trobats, len(lemes)),
+            'rimes_consonants': mesura({r: d for r, d in rimes_cons_trobades.items() if r in rimes_cons}, len(rimes_cons)),
+            'rimes_assonants': mesura({r: d for r, d in rimes_ass_trobades.items() if r in rimes_ass}, len(rimes_ass)),
+            'naufragues': mesura({p: d for p, d in en_consonant.items() if p in naufragues}, len(naufragues)),
+            'abast': mesura(rimes_cons_trobades, len(parells_cons), pes=paraules_per_rima_cons),
+        }
+
+    return {
+        "dies": [dia.strftime("%d/%m") for dia in dies],
+        "dialectes": resultat,
+    }
+
+
+def cobertura_si_es_pot(cerques):
+    """La cobertura, o None si no s'ha pogut calcular.
+
+    Una cobertura que no surt no ha d'endur-se la resta d'estadístiques: la
+    pàgina dirà que no n'hi ha i prou. L'avís queda al registre del workflow.
+    """
+    try:
+        return cobertura_del_diccionari(cerques)
+    except Exception as error:
+        print(f"  AVÍS: no s'ha pogut calcular la cobertura del diccionari ({type(error).__name__}: {error}).")
+        return None
+
+
 #execució
 dades_json = {
     "actualitzacio": datetime.now(tz_espanya).strftime("%d/%m/%Y %H:%M:%S"),
@@ -397,7 +535,8 @@ dades_json = {
         "grafic_linia_hores": dades_grafic_hores(cerques_totals), 
         "grafic_formatge_exit_assonant": dades_grafic_formatge_totes(rimes_usuaris_diferents, "r.assonant"),
         "grafic_formatge_exit_consonant": dades_grafic_formatge_totes(rimes_usuaris_diferents, "r.consonant"),
-    }
+    },
+    "cobertura": cobertura_si_es_pot(cerques_totals),
 }
 
 ruta_json = 'stats/estadistiques_rimador.json'

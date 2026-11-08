@@ -287,6 +287,28 @@
     color: $blau-grafic;
 }
 
+/* La mitjana del gràfic de partides és la de les dues línies sumades: no és de
+   cap de les dues, i per això té color propi (vegeu colorsGraficLinia() a
+   js/script_dades.js). */
+.mitjana-partides {
+    color: $lila-grafic;
+}
+
+/* Quan no han arribat les dades del joc (vegeu carregarEstadistiquesJoc a
+   js/script_dades.js): la caixa de les partides amaga el dibuix i la mitjana, i
+   en deixa només l'avís. La de les hores dibuixa igualment les cerques. */
+.grafic-caixa.sense-dades .grafic-cos,
+.grafic-caixa.sense-dades .mitjanes-grafic {
+    display: none;
+}
+
+.grafic-avis {
+    margin: 12px 12px 0px 12px;
+    font-family: var(--font-divertida);
+    font-size: 13px;
+    text-align: center;
+}
+
 .grafic-caixa.formatge .grafic-cos {
     height: 500px;
     width: 100%;

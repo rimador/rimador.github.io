@@ -1764,7 +1764,7 @@ el `display` i, sense això, guanyarien i les pantalles amagades es veurien.
 | `dialectes_col/<codi>/apendix/` | les paraules pròpies del dialecte | tu |
 | `dades/classificacio.json` | el rànquing publicat | `.github/workflows/dades_nocturnes.yml` (automàtic) |
 | `eines/generar_dades.py` | diccionari + rima → `dades/` | tu |
-| `eines/compilar_classificacio.py` | full CSV → `classificacio.json` | tu |
+| `eines/compilar_classificacio.py` | full CSV → `classificacio.json` i `stats/estadistiques_joc.json` (gràfics de `dades.html`) | tu |
 | `eines/apps_script_classificacio.gs` | codi que viu a Google, no aquí | tu |
 
 ---

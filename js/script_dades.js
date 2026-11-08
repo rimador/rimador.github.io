@@ -310,31 +310,262 @@ function omplirPodiHTML(idElement, arrayDades, etiqueta) {
     });
 }
 
+// Els tres gràfics de línies fan servir els mateixos dos colors, el vermell i
+// el blau, i cadascun hi posa el que li toca:
+//
+//   evolució de cerques               cerques (vermell) i usuaris únics (blau)
+//   evolució de partides del joc      il·limitat (vermell) i paraula del dia (blau)
+//   cerques i partides durant el dia  cerques (vermell) i partides (blau)
+//
+// Als dos de 30 dies, el vermell és per a la línia que va més amunt: el seu
+// farcit rosa queda a sota del blau i fa de fons, i el tros on es trepitgen
+// surt lila. Al revés, el blau quedaria sol damunt del groc i es veuria gris.
+//
+// El lila és el de la mitjana de partides, que suma les dues línies del seu
+// gràfic i, per tant, no és de cap de les dues.
+//
+// Cada dataset diu de quin color és (colorLinia) i pintarColorsLinia() hi posa
+// el to que va amb el tema: així, canviar de tema no ha d'anar a buscar els
+// datasets per la posició que ocupen. Les mostres de color de les mitjanes,
+// que són a l'HTML, van amb els mateixos tons: $vermell-principal,
+// $blau-grafic i $lila-grafic a css/_variables.scss, i els de css/sober.scss.
 function colorsGraficLinia(temaSober) {
     return {
-        cerques: {
+        vermell: {
             linia: temaSober ? '#aa0000' : '#d30505',
             fons: temaSober ? 'rgba(170, 0, 0, 0.2)' : 'rgba(255, 145, 255, 0.55)'
         },
-        usuaris: {
+        blau: {
             linia: temaSober ? '#555555' : '#0055ff',
             fons: temaSober ? 'rgba(85, 85, 85, 0.2)' : 'rgba(0, 85, 255, 0.2)'
+        },
+        lila: {
+            linia: temaSober ? '#222222' : '#7a00ff',
+            fons: temaSober ? 'rgba(34, 34, 34, 0.2)' : 'rgba(122, 0, 255, 0.2)'
         }
     };
 }
 
-function calcularMitjanesDiaries(dadesLinia) {
-    // La mitjana és la del que es veu dibuixat: tots els dies de la finestra,
-    // hi hagi hagut cerques o no. Els dies a zero també hi compten.
-    if (dadesLinia.length === 0) return { cerques: 0, usuaris: 0, dies: 0 };
+function pintarColorsLinia(datasets, temaSober) {
+    const colors = colorsGraficLinia(temaSober);
+    datasets.forEach(dataset => {
+        const color = colors[dataset.colorLinia];
+        if (!color) return;
+        dataset.borderColor = color.linia;
+        // Les mitjanes van del color de la seva línia, farcit inclòs: així el
+        // quadradet de la llegenda no queda de l'altre color.
+        dataset.backgroundColor = dataset.esMitjana ? color.linia : color.fons;
+    });
+    return datasets;
+}
 
-    const mitjana = clau => dadesLinia.reduce((suma, item) => suma + item[clau], 0) / dadesLinia.length;
+// Una línia de dades, farcida fins a baix.
+function liniaDeDades(etiqueta, valors, colorLinia, extra = {}) {
+    return { label: etiqueta, data: valors, colorLinia, borderWidth: 2, fill: true, tension: 0.3, ...extra };
+}
 
-    return { cerques: mitjana('cerques'), usuaris: mitjana('usuaris'), dies: dadesLinia.length };
+// Les mitjanes són ratlles horitzontals: Chart.js no en fa sense el plugin
+// d'anotacions, o sigui que les dibuixem com un dataset més amb el mateix valor
+// a tots els dies i sense punts.
+function ratllaDeMitjana(etiqueta, valor, dies, colorLinia) {
+    return {
+        label: etiqueta,
+        data: Array(dies).fill(valor),
+        colorLinia,
+        borderWidth: 2,
+        borderDash: [6, 5],
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        fill: false,
+        tension: 0,
+        esMitjana: true
+    };
+}
+
+// Les mitjanes no van a la llegenda: ja tenen el seu peu de text a sobre del
+// gràfic, amb el color i tot, i posar-les aquí fa créixer la llegenda fins a
+// menjar-se l'alçada del dibuix (al mòbil, sobretot).
+const LLEGENDA_SENSE_MITJANES = {
+    display: true,
+    labels: { filter: (item, dades) => !dades.datasets[item.datasetIndex].esMitjana }
+};
+
+// I tampoc al tooltip: la mitjana val el mateix tots els dies i ja surt
+// escrita sobre el gràfic.
+function noEsMitjana(context) {
+    return !context.dataset.esMitjana;
+}
+
+// La mitjana és la del que es veu dibuixat: tots els dies de la finestra, hi
+// hagi hagut cerques (o partides) o no. Els dies a zero també hi compten.
+function mitjanaDiaria(dies, valorDelDia) {
+    if (dies.length === 0) return 0;
+    return dies.reduce((suma, dia) => suma + valorDelDia(dia), 0) / dies.length;
 }
 
 function formatarMitjana(valor) {
     return valor.toFixed(1).replace('.', ',');
+}
+
+// "5,33%": amb la coma dels decimals i sense zeros de més.
+function formatarPercentatge(valor) {
+    return `${Number(valor).toLocaleString('ca-ES', { maximumFractionDigits: 2 })}%`;
+}
+
+// Cada punt del gràfic per hores compta tota la mitja hora que comença a la
+// seva hora: el de les "11:30" és "11:30–11:59".
+function tramSencer(tram) {
+    const [hores, minuts] = tram.split(':').map(Number);
+    return `${tram}–${String(hores).padStart(2, '0')}:${String(minuts + 29).padStart(2, '0')}`;
+}
+
+// Les dades del joc les escriu el compilador de la classificació
+// (joc/eines/compilar_classificacio.py) en un fitxer a part, cada nit just
+// després de les de les cerques. Es baixen amb ?t= i prou, sense IndexedDB: el
+// fitxer fa quatre kB, i qui hauria de dir si la còpia desada encara val és el
+// versions_stats.json, que l'escriu stats/stats.py ABANS que passi el
+// compilador del joc.
+//
+// No peta mai: si el fitxer no arriba (sense xarxa, per exemple) torna null, i
+// els dos gràfics del joc ho diuen sense endur-se la resta de la pàgina.
+async function carregarEstadistiquesJoc() {
+    try {
+        const resposta = await fetch(`${ARREL}stats/estadistiques_joc.json?t=${Date.now()}`);
+        if (!resposta.ok) throw new Error(`estadistiques_joc.json: ${resposta.status}`);
+        const dades = await resposta.json();
+        return dades.grafics || null;
+    } catch (error) {
+        console.warn('[dades] no s\'han pogut carregar les dades del joc', error);
+        return null;
+    }
+}
+
+// GRÀFIC DE PARTIDES: el bessó del de cerques dels darrers 30 dies, amb les
+// partides del joc. Una línia per modalitat i una sola mitjana, la de totes
+// dues sumades.
+//
+// Sense dades (el fitxer que hi ha al repositori fins que el compilador hi
+// passa per primer cop no en porta cap), la caixa diu que no n'hi ha.
+function dibuixarGraficPartides(dadesPartides, temaSober) {
+    const caixa = document.getElementById('caixa-partides');
+
+    if (!Array.isArray(dadesPartides) || dadesPartides.length === 0) {
+        caixa.classList.add('sense-dades');
+        caixa.querySelector('.grafic-avis').hidden = false;
+        return null;
+    }
+
+    const mitjana = mitjanaDiaria(dadesPartides, dia => dia.diaria + dia.illimitat);
+    document.getElementById('mitjana-partides').textContent = formatarMitjana(mitjana);
+
+    // L'il·limitat va en vermell perquè és el que fa més partides: de la
+    // paraula del dia, el joc només en deixa jugar dues al dia, la fàcil i la
+    // difícil (vegeu la nota de colorsGraficLinia).
+    const datasets = pintarColorsLinia([
+        liniaDeDades('Il·limitat', dadesPartides.map(dia => dia.illimitat), 'vermell'),
+        liniaDeDades('Paraula del dia', dadesPartides.map(dia => dia.diaria), 'blau'),
+        ratllaDeMitjana('Mitjana de partides', mitjana, dadesPartides.length, 'lila')
+    ], temaSober);
+
+    return new Chart(document.getElementById('graficPartides').getContext('2d'), {
+        type: 'line',
+        data: { labels: dadesPartides.map(dia => dia.data), datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            // Tot el dia alhora: les dues modalitats i, a sota, el total, que
+            // és la xifra que es compara amb la mitjana.
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 }
+                }
+            },
+            plugins: {
+                legend: LLEGENDA_SENSE_MITJANES,
+                tooltip: {
+                    filter: noEsMitjana,
+                    callbacks: {
+                        footer: items => {
+                            const total = items.reduce((suma, item) => suma + item.raw, 0);
+                            return `Total: ${total} ${total === 1 ? 'partida' : 'partides'}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// GRÀFIC PER HORES: quin tant per cent de les cerques, i de les partides del
+// joc, cau a cada mitja hora del dia. Cada línia suma el 100% per separat: no
+// compara quantes n'hi ha, sinó com es reparteixen al llarg del dia.
+//
+// Si les partides no han arribat, hi surten les cerques soles i la caixa ho diu.
+function dibuixarGraficHores(dadesCerques, dadesPartides, temaSober) {
+    const datasets = [
+        liniaDeDades('Cerques', dadesCerques.map(tram => tram.percentatge), 'vermell', { queCompta: 'de les cerques' })
+    ];
+
+    // Un full sense cap partida dona totes les mitges hores a zero: això no és
+    // cap línia, és que no hi ha res a dibuixar.
+    const hiHaPartides = Array.isArray(dadesPartides) && dadesPartides.some(tram => tram.percentatge > 0);
+
+    if (hiHaPartides) {
+        // Es casen per l'hora i no per la posició: els dos fitxers fan els
+        // mateixos 48 trams, però els escriuen dos programes diferents.
+        const perTram = new Map(dadesPartides.map(tram => [tram.hora, tram.percentatge]));
+        datasets.push(liniaDeDades('Partides del joc', dadesCerques.map(tram => perTram.get(tram.hora) || 0), 'blau', { queCompta: 'de les partides' }));
+    } else {
+        document.querySelector('#caixa-hores .grafic-avis').hidden = false;
+    }
+
+    return new Chart(document.getElementById('graficHores').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: dadesCerques.map(tram => tram.hora), // "00:00", "00:30"...
+            datasets: pintarColorsLinia(datasets, temaSober)
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            // La mateixa mitja hora de les dues línies alhora, que és com es
+            // comparen.
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+                x: {
+                    ticks: {
+                        // A les pantalles estretes, només les hores en punt: si
+                        // no, quan Chart.js se'n salta algunes per fer-hi lloc
+                        // en poden quedar de soltes a i mitja.
+                        callback: function (valor) {
+                            const etiqueta = this.getLabelForValue(valor);
+                            if (window.innerWidth < 800) {
+                                return etiqueta.endsWith(':00') ? etiqueta : '';
+                            }
+                            return etiqueta;
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: { callback: valor => formatarPercentatge(valor) }
+                }
+            },
+            plugins: {
+                // Amb una sola línia, la llegenda no diria res que no digui el
+                // títol de la caixa.
+                legend: { display: datasets.length > 1 },
+                tooltip: {
+                    callbacks: {
+                        title: items => tramSencer(items[0].label),
+                        label: context => ` ${formatarPercentatge(context.raw)} ${context.dataset.queCompta}`
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Gestió de versions igual que el diccionari i les llistes (vegeu
@@ -359,6 +590,10 @@ async function carregarVersionsStats() {
 async function carregarEstadistiques(arxiuJson) {
     const loaderText2 = document.getElementById('loader-text2');
     const loader = document.getElementById('loader');
+
+    // Les del joc es demanen ja, i en paral·lel: no depenen de cap versió i,
+    // mentre arriben, es van pintant les de les cerques.
+    const promesaJoc = carregarEstadistiquesJoc();
 
     try {
         if (loaderText2) loaderText2.textContent = "Descarregant estadístiques (0/2)";
@@ -411,148 +646,50 @@ async function carregarEstadistiques(arxiuJson) {
 
         const temaSober = document.documentElement.getAttribute('data-theme') === 'sober' || document.body.getAttribute('data-theme') === 'sober';
         const dadesLinia = dades.grafics.grafic_linia_diaria;
-        const colorsLinia = colorsGraficLinia(temaSober);
-        const mitjanes = calcularMitjanesDiaries(dadesLinia);
+        const mitjanaCerques = mitjanaDiaria(dadesLinia, dia => dia.cerques);
+        const mitjanaUsuaris = mitjanaDiaria(dadesLinia, dia => dia.usuaris);
         const ctxLinia = document.getElementById('graficLinia').getContext('2d');
 
-        document.getElementById('mitjana-cerques').textContent = formatarMitjana(mitjanes.cerques);
-        document.getElementById('mitjana-usuaris').textContent = formatarMitjana(mitjanes.usuaris);
+        document.getElementById('mitjana-cerques').textContent = formatarMitjana(mitjanaCerques);
+        document.getElementById('mitjana-usuaris').textContent = formatarMitjana(mitjanaUsuaris);
 
         window.graficLiniaObj = new Chart(ctxLinia, {
             type: 'line',
             data: {
                 labels: dadesLinia.map(item => item.data),
-                datasets: [{
-                    label: 'Cerques',
-                    data: dadesLinia.map(item => item.cerques),
-                    borderColor: colorsLinia.cerques.linia,
-                    backgroundColor: colorsLinia.cerques.fons,
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3
-                },
-                {
-                    label: 'Usuaris únics',
-                    data: dadesLinia.map(item => item.usuaris),
-                    borderColor: colorsLinia.usuaris.linia,
-                    backgroundColor: colorsLinia.usuaris.fons,
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3
-                },
-                // Les mitjanes són ratlles horitzontals: Chart.js no en fa sense
-                // el plugin d'anotacions, o sigui que les dibuixem com un dataset
-                // més amb el mateix valor a tots els dies i sense punts.
-                {
-                    label: 'Mitjana de cerques',
-                    data: dadesLinia.map(() => mitjanes.cerques),
-                    borderColor: colorsLinia.cerques.linia,
-                    backgroundColor: colorsLinia.cerques.linia,
-                    borderWidth: 2,
-                    borderDash: [6, 5],
-                    pointRadius: 0,
-                    pointHoverRadius: 0,
-                    fill: false,
-                    tension: 0,
-                    esMitjana: true
-                },
-                {
-                    label: 'Mitjana d\'usuaris únics',
-                    data: dadesLinia.map(() => mitjanes.usuaris),
-                    borderColor: colorsLinia.usuaris.linia,
-                    backgroundColor: colorsLinia.usuaris.linia,
-                    borderWidth: 2,
-                    borderDash: [6, 5],
-                    pointRadius: 0,
-                    pointHoverRadius: 0,
-                    fill: false,
-                    tension: 0,
-                    esMitjana: true
-                }]
+                datasets: pintarColorsLinia([
+                    liniaDeDades('Cerques', dadesLinia.map(item => item.cerques), 'vermell'),
+                    liniaDeDades('Usuaris únics', dadesLinia.map(item => item.usuaris), 'blau'),
+                    ratllaDeMitjana('Mitjana de cerques', mitjanaCerques, dadesLinia.length, 'vermell'),
+                    ratllaDeMitjana('Mitjana d\'usuaris únics', mitjanaUsuaris, dadesLinia.length, 'blau')
+                ], temaSober)
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                // L'eix de sota es deixa a Chart.js, que ja se salta dies quan
+                // no hi caben. Abans hi havia el filtre de les hores en punt del
+                // gràfic per hores, que aquí, amb dates i no hores, deixava
+                // l'eix en blanc a totes les pantalles estretes.
                 scales: {
-                    x: {
-                        ticks: {
-                            callback: function(val, index) {
-                                const etiqueta = this.getLabelForValue(val);
-                                if (window.innerWidth < 800) {
-                                    return etiqueta.endsWith(':00') ? etiqueta : '';
-                                }
-                                return etiqueta;
-                            }
-                        }
-                    },
                     y: {
                         beginAtZero: true,
                         ticks: { stepSize: 1 }
                     }
                 },
                 plugins: {
-                    // Les mitjanes no van a la llegenda: ja tenen el seu peu de
-                    // text a sobre del gràfic, amb el color i tot, i posar-les
-                    // aquí fa créixer la llegenda fins a menjar-se l'alçada del
-                    // dibuix (al mòbil, sobretot).
-                    legend: {
-                        display: true,
-                        labels: { filter: item => !item.text.startsWith('Mitjana') }
-                    },
-                    // La mitjana val el mateix tots els dies i ja surt escrita
-                    // sobre el gràfic: al tooltip només faria nosa.
-                    tooltip: { filter: context => !context.dataset.esMitjana }
+                    legend: LLEGENDA_SENSE_MITJANES,
+                    tooltip: { filter: noEsMitjana }
                 }
             }
         });
 
-        // GRÀFIC PER HORES
-        const dadesHores = dades.grafics.grafic_linia_hores;
-        const ctxHores = document.getElementById('graficHores').getContext('2d');
+        // Els dos gràfics que porten partides del joc. Si aquelles dades no han
+        // arribat, els dos ho diuen i el de les hores pinta les cerques soles.
+        const grafsJoc = await promesaJoc;
 
-        window.graficHoresObj = new Chart(ctxHores, {
-            type: 'line',
-            data: {
-                labels: dadesHores.map(item => item.hora), // L'eix de sota: "00:00", "01:00"...
-                datasets: [{
-                    label: 'Percentatge de cerques',
-                    data: dadesHores.map(item => item.percentatge), // L'eix vertical (0 a 100)
-                    borderColor: colorsLinia.cerques.linia, // L'identic color vermell de la línia diària
-                    backgroundColor: colorsLinia.cerques.fons, // L'identic fons rosa semi-transparent                    
-                    borderWidth: 2,
-                    fill: true,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        // Afegim el símbol % als números de l'eix vertical
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false // Amaguem la llegenda si només hi ha una línia
-                    },
-                    tooltip: {
-                        callbacks: {
-                            // Que al posar-hi el ratolí a sobre digui "X%" i no només el número
-                            label: function(context) {
-                                return ` ${context.raw}% de les cerques`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        window.graficPartidesObj = dibuixarGraficPartides(grafsJoc && grafsJoc.grafic_linia_diaria, temaSober);
+        window.graficHoresObj = dibuixarGraficHores(dades.grafics.grafic_linia_hores, grafsJoc && grafsJoc.grafic_linia_hores, temaSober);
 
         
         const PALETA = temaSober 
@@ -687,36 +824,12 @@ function actualitzarColorsGrafics() {
         pintarFiltresHTML(window.dadesSempre);
     }
 
-    if (window.graficLiniaObj) {
-        const colorsLinia = colorsGraficLinia(temaSober);
-        const datasets = window.graficLiniaObj.data.datasets;
-
-        datasets[0].borderColor = colorsLinia.cerques.linia;
-        datasets[0].backgroundColor = colorsLinia.cerques.fons;
-
-        datasets[1].borderColor = colorsLinia.usuaris.linia;
-        datasets[1].backgroundColor = colorsLinia.usuaris.fons;
-
-        // Les mitjanes van del color de la seva línia, farcit inclòs: així el
-        // quadradet de la llegenda no queda de l'altre color.
-        if (datasets[2]) {
-            datasets[2].borderColor = colorsLinia.cerques.linia;
-            datasets[2].backgroundColor = colorsLinia.cerques.linia;
-        }
-
-        if (datasets[3]) {
-            datasets[3].borderColor = colorsLinia.usuaris.linia;
-            datasets[3].backgroundColor = colorsLinia.usuaris.linia;
-        }
-
-        window.graficLiniaObj.update();
-
-        if (window.graficHoresObj) {
-        window.graficHoresObj.data.datasets[0].borderColor = colorsLinia.cerques.linia;
-        window.graficHoresObj.data.datasets[0].backgroundColor = colorsLinia.cerques.fons;
-        window.graficHoresObj.update();
-    }
-    }
+    // Cada dataset ja diu de quin color és (vegeu colorsGraficLinia).
+    [window.graficLiniaObj, window.graficPartidesObj, window.graficHoresObj].forEach(grafic => {
+        if (!grafic) return;
+        pintarColorsLinia(grafic.data.datasets, temaSober);
+        grafic.update();
+    });
 
     const PALETA = temaSober 
         ? ['#222222', '#4d4d4d', '#737373', '#999999', '#bfbfbf', '#aa0000', '#800000', '#555555'] 

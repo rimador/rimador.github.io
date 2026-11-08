@@ -463,7 +463,8 @@
   border-top: 1px solid var(--sober-border);
 }
 
-[data-theme="sober"] .mitjanes-grafic {
+[data-theme="sober"] .mitjanes-grafic,
+[data-theme="sober"] .grafic-avis {
   font-family: var(--sober-font);
 }
 
@@ -475,6 +476,10 @@
 
 [data-theme="sober"] .mitjana-usuaris {
   color: var(--sober-muted);
+}
+
+[data-theme="sober"] .mitjana-partides {
+  color: var(--sober-text);
 }
 
 [data-theme="sober"] ::-webkit-scrollbar-thumb:vertical {

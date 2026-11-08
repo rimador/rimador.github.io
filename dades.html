@@ -7,7 +7,7 @@
     <meta name="robots" content="index, follow">
 
     <title>Estadístiques del diccionari de rimes | Rimador.cat</title>
-    <meta name="description" content="Estadístiques d'ús del Rimador.cat: les paraules i les rimes més cercades dels últims set dies i de tot l'històric, amb cerques i usuaris únics.">
+    <meta name="description" content="Estadístiques d'ús del Rimador.cat: les paraules i les rimes més cercades dels últims set dies i de tot l'històric, amb cerques i usuaris únics, i les partides del joc.">
     <meta name="author" content="Marc i Ferran">
     <link rel="canonical" href="https://rimador.cat/dades.html">
 
@@ -155,11 +155,23 @@
             </div>
         </div>
 
-        <div class="grafic-caixa">
-            <h3>Evolució de cerques durant el dia</h3>
-            <div class="contenidor-grafic">
+        <div class="grafic-caixa" id="caixa-partides">
+            <h3>Evolució de partides del joc (darrers 30 dies)</h3>
+            <p class="mitjanes-grafic">
+                <span class="mitjana-item mitjana-partides"><i></i>Mitjana de <b>partides</b> (il·limitat + paraula del dia) dels darrers 30&nbsp;dies:&nbsp;<b id="mitjana-partides">0</b></span>
+            </p>
+            <div class="grafic-cos">
+                <canvas id="graficPartides"></canvas>
+            </div>
+            <p class="grafic-avis" hidden>Ara mateix no hi ha dades del joc per dibuixar aquest gràfic.</p>
+        </div>
+
+        <div class="grafic-caixa" id="caixa-hores">
+            <h3>Evolució de cerques i partides durant el dia</h3>
+            <div class="grafic-cos">
                 <canvas id="graficHores"></canvas>
             </div>
+            <p class="grafic-avis" hidden>Ara mateix no hi ha dades de les partides del joc: només hi surten les cerques.</p>
         </div>
 
 
@@ -248,15 +260,38 @@
                 <h4>Com es compten els noms propis?</h4>
                 <p>El diccionari té categoritzada cada paraula amb un codi gramatical. En fer la cerca, filtrem les que consten com a nom propi, i les cataloguem seguint el mateix criteri que les "paraules úniques". El número no és de cerques, sinó de <b>noms propis diferents</b> que algú ha buscat alguna vegada. En cas de coincidir un nom propi i un nom comú o alguna altra categoria ('Esperança', per exemple), es compta sempre com a l'altra categoria, i es restringeix el nom propi a aquells mots que només són noms propis.</p>
 
-                <h4>Què són el nombre de cerques dels podis? I el del gràfic de línies?</h4>
+                <h4>Què són el nombre de cerques dels podis? I el del gràfic d'evolució de cerques?</h4>
                 <p>Són el nombre de "cerques úniques" d'aquell dia. El dia present queda fora.
                 Els dies amb més/menys usuaris es refereix al dia amb més/menys usuaris diferents, sense tenir en compte si havien fet cerques anteriorment o no. Si hi ha empat, queda primer el dia més recent.</p>
                 <p>Els podis de <b>més</b> cerques i usuaris miren l'històric sencer, però els de <b>menys</b> només tenen en compte els <b>darrers 60 dies</b>: si no, s'hi quedarien per sempre els dies del començament, quan el Rimador encara era poc conegut, i no dirien res de com va ara.</p>
 
-                <h4>Què són les dues ratlles horitzontals del gràfic de línies?</h4>
+                <h4>Què són les dues ratlles horitzontals del gràfic d'evolució de cerques?</h4>
                 <p>Són les mitjanes diàries de cerques i d'usuaris únics, cadascuna del color de la seva línia. Es calculen sobre els 30 dies
                     del gràfic, exactament els mateixos que hi ha dibuixats: els dies a zero també hi compten. El dia present queda fora, com a la resta
                     del gràfic.</p>
+
+                <h4>Què compta com a partida?</h4>
+                <p>Cada partida del joc que s'acaba amb algun punt. En acabar, el joc envia la puntuació automàticament, i aquestes són les partides que comptem:
+                    les de la <b>paraula del dia</b> (la fàcil i la difícil, sumades) i les del mode <b>il·limitat</b> (totes les dificultats i tots els rellotges).
+                    Les partides de zero punts no s'envien i, per tant, no hi surten. Tampoc no hi surten les del mode per jugar contra algú ni les del freestyle,
+                    que no pugen a la classificació.</p>
+                <p>Cada partida compta el dia que es va jugar, encara que la puntuació arribés més tard perquè no hi havia connexió. Com a tota la resta,
+                    el dia present queda fora.</p>
+
+                <h4>Què és la ratlla horitzontal del gràfic de partides?</h4>
+                <p>És la mitjana de partides al dia <b>sumant les dues modalitats</b>: totes les partides dels 30 dies del gràfic, de paraula del dia i d'il·limitat,
+                    dividides entre 30. Per això va per sobre de les dues línies, que compten cada modalitat per separat. Si passes el ratolí (o el dit) per un dia,
+                    a sota de les dues xifres hi surt el total d'aquell dia, que és el que es compara amb la mitjana. Com a les mitjanes de cerques,
+                    els dies a zero també hi compten.</p>
+
+                <h4>Què diu el gràfic de cerques i partides durant el dia?</h4>
+                <p>A quines hores es fa servir el Rimador. El dia està partit en 48 trams de mitja hora, i cada punt diu quin percentatge de totes les cerques,
+                    o de totes les partides, de l'històric s'ha fet en aquell tram: el punt de les 11:30 compta tot el que s'ha fet entre les 11:30 i les 11:59,
+                    de tots els dies junts. Cada línia suma el 100%, o sigui que el gràfic no compara quantes cerques i quantes partides hi ha,
+                    sinó com es reparteixen les unes i les altres al llarg del dia.</p>
+                <p>Les hores són les de Catalunya. A les cerques, és l'hora en què es va fer la cerca. A les partides, és l'hora en què va arribar la puntuació,
+                    que és en acabar la partida. Les que van arribar un altre dia que no pas el que es van jugar (perquè no hi havia connexió) no compten
+                    en aquest gràfic, perquè no sabem a quina hora es van jugar; al de partides dels darrers 30 dies, sí.</p>
 
                 <h4>Què és el percentatge d'ús dels filtres?</h4>
                 <p>Ens referim a com els usuaris tenen configurats els filtres en el moment de cercar, sobre el total de cerques de l'històric. 

@@ -631,7 +631,9 @@ Fitxers:
 joc/js/classificacio.js                  enviar la puntuació + llegir el rànquing
 joc/eines/apps_script_classificacio.gs   codi per enganxar a Google Apps Script
 joc/eines/compilar_classificacio.py      full CSV -> joc/dades/classificacio.json
+                                                 i stats/estadistiques_joc.json
 joc/dades/classificacio.json             el rànquing que mostra el joc
+stats/estadistiques_joc.json             les partides per dia i per hora (dades.html)
 ```
 
 ### Posar-la en marxa (un sol cop)
@@ -699,6 +701,11 @@ les dues pestanyes de la pantalla de classificació: la d'**Il·limitat** només
 ensenya les modalitats `illimitat|…`, i la de **Paraula del dia**, les altres
 dues taules. Les estadístiques no es veuen enlloc d'allà: són per a la pantalla
 de final (vegeu més avall).
+
+A més, escriu `stats/estadistiques_joc.json`, que no és del joc sinó de la
+pàgina d'estadístiques del lloc (`dades.html`): les partides de cada modalitat
+dels darrers 30 dies i el percentatge de partides de cada mitja hora. Va en un
+fitxer a part perquè el joc no s'hagi de baixar uns números que no fa servir.
 
 ### Les estadístiques de la pantalla de final
 
@@ -772,7 +779,7 @@ joc/
     classificacio.json    el rànquing publicat
   eines/
     generar_dades.py            diccionari + rima -> dades/
-    compilar_classificacio.py   full CSV -> classificacio.json
+    compilar_classificacio.py   full CSV -> classificacio.json (i stats/estadistiques_joc.json)
     apps_script_classificacio.gs  backend per a Google Apps Script
 ```
 

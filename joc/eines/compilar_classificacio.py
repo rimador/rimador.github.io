@@ -21,6 +21,11 @@
 # Els tres es veuen al joc, a les dues pestanyes de la pantalla de classificacio
 # (vegeu pintarDiaria i pintarModalitats a joc/js/).
 #
+# I, EN UN FITXER A PART, stats/estadistiques_joc.json: les partides de cada
+# dia i les de cada mitja hora, per als gràfics del joc de dades.html (vegeu
+# grafics_de_dades). Va a part i no dins del classificacio.json perquè aquell se
+# l'ha de baixar el joc i aquests números només els vol la pàgina d'estadístiques.
+#
 # EL DIALECTE NO PARTEIX EL RANQUING. Es guarda al full i viatja amb cada
 # entrada, i el joc el posa entre parentesis a cada fila, pero no fa taules a
 # part: quatre classificacions de quatre persones cadascuna no son cap
@@ -34,7 +39,7 @@ import json
 import os
 import sys
 import unicodedata
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 #zone info
@@ -69,6 +74,14 @@ DIES_DIARIA = 30
 
 DIR_JOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUTA_JSON = os.path.join(DIR_JOC, "dades", "classificacio.json")
+
+# Els gràfics del joc de dades.html, al costat de les estadístiques de les
+# cerques (stats/estadistiques_rimador.json), que és on les busca la pàgina.
+RUTA_GRAFICS = os.path.join(os.path.dirname(DIR_JOC), "stats", "estadistiques_joc.json")
+
+# Quants dies dibuixa el gràfic de partides de dades.html: els mateixos que el
+# de cerques (vegeu dades_grafic_linia a stats/stats.py), que va just a sobre.
+DIES_GRAFIC = 30
 
 NOM_MODE = {"illimitat": "Il·limitat", "diaria": "Paraula del dia"}
 NOM_DIFICULTAT = {"facil": "Fàcil", "dificil": "Difícil"}
@@ -163,6 +176,78 @@ def estadistiques(df, diaria, dies):
     return {"modalitats": per_modalitat, "diaria": per_dia, "diaria_totals": totals}
 
 
+# --- Grafics de dades.html --------------------------------------------------
+#
+# Compten les mateixes PARTIDES que les estadistiques de sobre: les que han
+# passat les comprovacions del main(). Les partides de zero punts no hi son
+# perque el joc no les envia (vegeu enviarResultat a joc/js/principal.js), ni
+# les del mode personalitzat o del freestyle, que no pugen enlloc.
+
+def grafic_partides_per_dia(df):
+    """Les partides de cada modalitat, dia per dia, dels darrers DIES_GRAFIC dies.
+
+    Els mateixos dies que el grafic de cerques: d'avui menys 30 fins a ahir, i
+    els dies sense cap partida hi surten a zero. El dia es el de la partida
+    (DataPartida) i no pas el d'arribada: una puntuacio que va pujar l'endema
+    perque no hi havia connexio compta el dia que es va jugar.
+    """
+    avui = datetime.now(tz_espanya).date()
+    recompte = df.groupby(["dia", "Mode"]).size()
+
+    resultat = []
+    for enrere in range(DIES_GRAFIC, 0, -1):
+        dia = avui - timedelta(days=enrere)
+        clau = dia.strftime("%Y-%m-%d")
+        resultat.append({
+            "data": dia.strftime("%d/%m"),
+            "diaria": int(recompte.get((clau, "diaria"), 0)),
+            "illimitat": int(recompte.get((clau, "illimitat"), 0)),
+        })
+    return resultat
+
+
+def grafic_partides_per_hora(df):
+    """Quin tant per cent de les partides cau a cada mitja hora del dia.
+
+    El mateix calcul que dades_grafic_hores de stats/stats.py, perque les dues
+    linies van al mateix grafic: 48 trams de mitja hora i, a cadascun, el
+    percentatge de totes les partides de l'historic que hi han caigut.
+
+    L'hora que hi ha al full es la d'arribada (la columna Data), que es la de
+    final de partida... llevat que la puntuacio hagi esperat a la cua sense
+    connexio. Les que han arribat un altre dia que no pas el de la partida es
+    deixen fora: d'aquestes no sabem a quina hora es van jugar.
+    """
+    arribada = df["Data"]
+    mateix_dia = arribada.dt.strftime("%Y-%m-%d") == df["dia"]
+    trams = arribada[mateix_dia].dt.floor("30min").dt.strftime("%H:%M")
+    recompte = trams.value_counts()
+    total = len(trams)
+
+    resultat = []
+    for hora in range(24):
+        for minut in ("00", "30"):
+            tram = f"{hora:02d}:{minut}"
+            percentatge = recompte.get(tram, 0) / total * 100 if total else 0
+            resultat.append({"hora": tram, "percentatge": round(float(percentatge), 2)})
+    return resultat
+
+
+def grafics_de_dades(df):
+    """El contingut de stats/estadistiques_joc.json.
+
+    Amb la mateixa forma que el bloc "grafics" de stats/estadistiques_rimador.json,
+    perque dades.html llegeix tots dos fitxers de la mateixa manera.
+    """
+    return {
+        "actualitzacio": datetime.now(tz_espanya).strftime("%d/%m/%Y %H:%M:%S"),
+        "grafics": {
+            "grafic_linia_diaria": grafic_partides_per_dia(df),
+            "grafic_linia_hores": grafic_partides_per_hora(df),
+        },
+    }
+
+
 # --- Proces -----------------------------------------------------------------
 
 def classificacio_buida():
@@ -254,21 +339,26 @@ def main():
             for dificultat, grup in grup_dia.groupby("Dificultat"):
                 entrada[dificultat] = top_entrades(grup)
 
-    desar(resultat)
-    
+    # Es calcula abans de desar res: si peta, no queda escrit un fitxer sí i
+    # l'altre no.
+    grafics = grafics_de_dades(df)
+
+    desar(resultat, RUTA_JSON)
+    desar(grafics, RUTA_GRAFICS)
+
     n = sum(len(m["top"]) for m in resultat["modalitats"].values())
     millors = sum(len(v) for v in resultat["diaria_millors"].values())
     partides = sum(m["partides"] for m in resultat["estadistiques"]["modalitats"].values())
-    
+
     print(f"Fet: {len(resultat['modalitats'])} modalitats, {n} puntuacions publicades, "
           f"{len(resultat['diaria'])} dies de paraula del dia, {millors} als millors "
-          f"de sempre, {partides} partides comptades a les estadístiques "
+          f"de sempre, {partides} partides comptades a les estadístiques i als gràfics "
           f"(hora: {datetime.now(tz_espanya).strftime('%H:%M:%S')}).")
 
 
-def desar(dades):
-    os.makedirs(os.path.dirname(RUTA_JSON), exist_ok=True)
-    with open(RUTA_JSON, "w", encoding="utf-8", newline="\n") as f:
+def desar(dades, ruta):
+    os.makedirs(os.path.dirname(ruta), exist_ok=True)
+    with open(ruta, "w", encoding="utf-8", newline="\n") as f:
         json.dump(dades, f, ensure_ascii=False, indent=2)
 
 

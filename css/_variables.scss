@@ -88,7 +88,8 @@ $blau-actiu: #3399ff;       // resplendor en :active, compartida per #enllaç i 
 $groc-clar: #ffe680;       // files senars / fons de caixa del podi
 $groc-palid: #ffffcc;      // fons de caixes de dades
 $verd-comptador: #00ff00;  // xifres del comptador
-$blau-grafic: #0055ff;     // línia d'usuaris únics del gràfic d'evolució (també a script_dades.js)
+$blau-grafic: #0055ff;     // línia blava dels gràfics de línies: usuaris únics, paraula del dia, partides per hores (també a script_dades.js)
+$lila-grafic: #7a00ff;     // mitjana de partides del gràfic del joc, que suma la línia vermella i la blava (també a script_dades.js)
 $blau-podi: #0077aa;       // podi: vora del 3r i 4t lloc
 $blau-podi-fosc: #005580;  // podi: títol del 3r i 4t lloc
 $blau-podi-clar: #e0f7ff;  // podi: fons del 3r i 4t lloc

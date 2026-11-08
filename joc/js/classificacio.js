@@ -2,8 +2,8 @@
 //
 // Funciona igual que el registre de cerques de la web (js/registre.js): el
 // navegador fa un POST "no-cors" a un Google Apps Script, que apunta la fila a un
-// full de calcul. Despres, joc/eines/compilar_classificacio.py llegeix el full
-// publicat en CSV, en fa el rànquing i escriu joc/dades/classificacio.json, que
+// full de calcul. Despres, joc/eines/compilar_classificacio.py demana el full
+// amb una clau, en fa el rànquing i escriu joc/dades/classificacio.json, que
 // es el que es veu a la pantalla de classificacio.
 
 import { ahir } from './magatzem.js?v=dev';

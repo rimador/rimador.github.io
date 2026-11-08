@@ -1328,7 +1328,8 @@ Aquí és on es decideix de debò què es publica. Necessita `pandas`:
 python joc/eines/compilar_classificacio.py
 ```
 
-1. Llegeix el full publicat en CSV.
+1. Demana el full al seu Apps Script amb la clau `CLAU_LECTURA_FULLS` (vegeu
+   `stats/llegir_full.py`).
 2. **Es planta si falten les columnes de sempre**, però **no si falten les noves**
    (`DataPartida`, `Dialecte`): les files d'abans dels dialectes es donen per
    centrals i pel dia que van arribar, i no es perden.
@@ -1779,7 +1780,7 @@ que arriben **perden el dialecte i el dia de la partida**.
 El codi que corre a Google és una **còpia** enganxada a mà, no el fitxer del
 repositori, i la que hi ha desplegada és d'abans que existissin ni la
 `DataPartida` ni el `Dialecte`: escriu vuit valors en un ordre fix. Es veu al
-full publicat, que ara mateix diu això:
+full, que ara mateix diu això:
 
 ```
 Data | Sobrenom | Mode | Dificultat | Segons | Punts | Paraula | Usuari | Dialecte

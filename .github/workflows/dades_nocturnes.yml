@@ -1,7 +1,9 @@
 name: Actualització nocturna de dades (estadístiques i classificació)
 
-# Les dues coses que cada nit es refan soles llegint un full de càlcul de Google
-# publicat en CSV:
+# Les dues coses que cada nit es refan soles llegint un full de càlcul de Google.
+# Els fulls són privats: es demanen al seu Apps Script amb el secret
+# CLAU_LECTURA_FULLS (vegeu stats/llegir_full.py). Sense el secret, els dos passos
+# peten i el job acaba vermell:
 #
 #   stats/stats.py                      -> stats/estadistiques_rimador.json
 #                                          stats/versions_stats.json
@@ -68,6 +70,8 @@ jobs:
       - name: Estadístiques
         id: estadistiques
         continue-on-error: true
+        env:
+          CLAU_LECTURA_FULLS: ${{ secrets.CLAU_LECTURA_FULLS }}
         run: python stats/stats.py
 
       # Si l'script ha petat a mig escriure, al disc hi ha un JSON truncat. Amb
@@ -81,6 +85,8 @@ jobs:
       - name: Classificació del joc
         id: classificacio
         continue-on-error: true
+        env:
+          CLAU_LECTURA_FULLS: ${{ secrets.CLAU_LECTURA_FULLS }}
         run: python joc/eines/compilar_classificacio.py
 
       - name: Descartar la classificació si l'script ha petat

@@ -5,8 +5,12 @@
 // /exec va a URL_GOOGLE_SCRIPT de js/script.js, que és qui l'envia (vegeu
 // registrarCerca).
 //
-// Després, stats/stats.py llegeix aquell full publicat en CSV cada nit i
-// n'escriu stats/estadistiques_rimador.json, que és el que veu dades.html.
+// Després, stats/stats.py demana el full a aquest mateix script cada nit (vegeu
+// llegirFull) i n'escriu stats/estadistiques_rimador.json, que és el que veu
+// dades.html. EL FULL NO HA D'ESTAR PUBLICAT AL WEB: duu el que ha cercat cada
+// usuari. Per llegir-lo cal la clau CLAU_LECTURA de les Propietats de l'script
+// (Configuració del projecte), la mateixa que el secret CLAU_LECTURA_FULLS de
+// GitHub.
 //
 // LES COLUMNES DEL FULL, a la fila 1 i en aquest ordre:
 //
@@ -58,7 +62,7 @@
 // res i envia aquí el que el seu navegador diu de si mateix (el User-Agent, si
 // és un navegador automatitzat, d'on ve...). S'apunta a una pestanya a part,
 // que es crea sola; la primera pestanya, la de les cerques, no es toca, i és
-// la que publica el CSV per a stats.py (el gid=0 de l'adreça).
+// l'única que llegeix stats.py (vegeu llegirFull).
 //
 // El que NO es pot evitar des d'aquí: algú que respecti tots els formats pot
 // continuar enviant cerques que semblin de veritat. Per això
@@ -104,6 +108,9 @@ function doPost(e) {
 
     if (p.tipus === 'trampa') {
       return rebreTrampa(p);
+    }
+    if (p.tipus === 'llegir') {
+      return llegirFull(p);
     }
 
     var cerca = validar(p);
@@ -186,7 +193,7 @@ function validar(p) {
     fila: [
       // La data com a TEXT amb un format fixat, i no pas un new Date().
       //
-      // Amb un objecte Date, el que surt al CSV publicat és com el full
+      // Amb un objecte Date, el que surt al CSV és com el full
       // decideixi ENSENYAR la data, i l'stats.py el llegeix amb un format
       // clavat ('%d/%m/%Y %H:%M:%S'). Si algú toca el format de la columna A,
       // el pd.to_datetime no reconeix res, l'errors='coerce' ho torna tot buit
@@ -382,6 +389,34 @@ function escriureFila(full, fila, columnesDeText) {
     full.getRange(numFila, columnesDeText[i]).setNumberFormat('@');
   }
   full.getRange(numFila, 1, 1, fila.length).setValues([fila]);
+}
+
+/**
+ * Torna el full sencer en CSV a qui dugui la clau (stats/llegir_full.py).
+ *
+ * La clau no és al codi, que és públic: és a les Propietats de l'script, amb el
+ * nom CLAU_LECTURA. Si no n'hi ha cap, o és curta, no es deixa llegir a ningú.
+ * getDisplayValues() dóna cada cel·la tal com es veu, que és el mateix que
+ * sortia quan el full estava publicat al web.
+ */
+function llegirFull(p) {
+  var bona = PropertiesService.getScriptProperties().getProperty('CLAU_LECTURA');
+  if (!bona || bona.length < 32 || String(p.clau || '') !== bona) {
+    return resposta('Rebutjat: clau');
+  }
+  var full = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  var files = full.getDataRange().getDisplayValues();
+  var linies = [];
+  for (var i = 0; i < files.length; i++) {
+    linies.push(files[i].map(casellaCsv).join(','));
+  }
+  return ContentService.createTextOutput(linies.join('\n') + '\n')
+    .setMimeType(ContentService.MimeType.CSV);
+}
+
+function casellaCsv(valor) {
+  var text = String(valor);
+  return /[",\r\n]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text;
 }
 
 function resposta(text) {

@@ -15,3 +15,6 @@ dist/
 diccionaris/python/grafic_rimes.html
 joc/eines/finestra_rimes.html
 joc/eines/bosses_rimes.html
+
+# Còpies del full de cerques: duen dades reals dels usuaris (vegeu stats/prova_dialectes.py)
+stats/proves/*.csv

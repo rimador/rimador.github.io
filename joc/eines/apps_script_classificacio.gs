@@ -4,6 +4,12 @@
 // aplicació web (executa com: jo; accés: qualsevol). L'URL /exec va a
 // URL_ENVIAMENT de joc/js/classificacio.js.
 //
+// EL FULL NO HA D'ESTAR PUBLICAT AL WEB: lliga cada sobrenom amb l'identificador
+// de l'usuari. compilar_classificacio.py el demana a aquest mateix script amb
+// una clau (vegeu llegirFull), que és a Configuració del projecte > Propietats
+// de l'script, amb el nom CLAU_LECTURA. És la mateixa que el secret
+// CLAU_LECTURA_FULLS de GitHub.
+//
 // I RECORDA DESPLEGAR: l'aplicació web serveix la versió DESPLEGADA, no pas la
 // que tens desada a l'editor. Cal Desplega > Gestiona els desplegaments >
 // editar el desplegament > versió nova.
@@ -101,6 +107,10 @@ var MAX_PARAULA = 40;
 function doPost(e) {
   try {
     var p = (e && e.parameter) ? e.parameter : {};
+
+    if (p.tipus === 'llegir') {
+      return llegirFull(p);
+    }
 
     var partida = validar(p);
     if (partida.motiu) {
@@ -292,6 +302,34 @@ function capcaleraDelFull(full) {
   }
 
   return capcalera;
+}
+
+/**
+ * Torna el full sencer en CSV a qui dugui la clau (stats/llegir_full.py).
+ *
+ * La clau no és al codi, que és públic: és a les Propietats de l'script, amb el
+ * nom CLAU_LECTURA. Si no n'hi ha cap, o és curta, no es deixa llegir a ningú.
+ * getDisplayValues() dóna cada cel·la tal com es veu, que és el mateix que
+ * sortia quan el full estava publicat al web.
+ */
+function llegirFull(p) {
+  var bona = PropertiesService.getScriptProperties().getProperty('CLAU_LECTURA');
+  if (!bona || bona.length < 32 || String(p.clau || '') !== bona) {
+    return resposta({ ok: false, motiu: 'clau' });
+  }
+  var full = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  var files = full.getDataRange().getDisplayValues();
+  var linies = [];
+  for (var i = 0; i < files.length; i++) {
+    linies.push(files[i].map(casellaCsv).join(','));
+  }
+  return ContentService.createTextOutput(linies.join('\n') + '\n')
+    .setMimeType(ContentService.MimeType.CSV);
+}
+
+function casellaCsv(valor) {
+  var text = String(valor);
+  return /[",\r\n]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text;
 }
 
 function resposta(obj) {

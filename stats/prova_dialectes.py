@@ -11,13 +11,15 @@
 # prova no és, doncs, una imitació de l'stats.py: és l'stats.py, amb l'única
 # diferència que llegeix un altre CSV i escriu a un altre lloc.
 #
-# NO TOCA CAP FITXER DE VERITAT. El JSON de sortida va a stats/proves/, que és
-# fora del git: stats/estadistiques_rimador.json i stats/versions_stats.json es
-# queden exactament com estaven.
+# NO TOCA CAP FITXER DE VERITAT. La sortida va a stats/proves/:
+# stats/estadistiques_rimador.json i stats/versions_stats.json es queden
+# exactament com estaven. EL CSV D'ALLÀ DUU CERQUES REALS: està al .gitignore i
+# no s'ha de pujar mai.
 #
 # COM S'USA
 #
-#   python3 stats/prova_dialectes.py                 (baixa el full publicat)
+#   python3 stats/prova_dialectes.py                 (baixa el full; cal la clau,
+#                                                     vegeu stats/llegir_full.py)
 #   python3 stats/prova_dialectes.py un_full.csv     (un CSV que ja tinguis)
 #
 # i després, per veure-ho a la pàgina, el que el mateix guió t'escriu en acabat.
@@ -44,9 +46,9 @@ import io
 import json
 import os
 import random
-import ssl
 import sys
-import urllib.request
+
+from llegir_full import baixar_full
 
 ARREL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUTA_STATS = os.path.join(ARREL, 'stats', 'stats.py')
@@ -74,21 +76,18 @@ def llegir_full(origen):
         with io.open(origen, encoding='utf-8') as fitxer:
             return list(csv.reader(fitxer))
 
-    # La mateixa adreça i el mateix pedaç d'SSL que stats.py: es treu d'allà i
-    # no es reescriu aquí, que si algun dia canvia el full no hi hagi dos llocs
-    # per recordar.
+    # La mateixa adreça que stats.py: es treu d'allà i no es reescriu aquí, que
+    # si algun dia canvia el full no hi hagi dos llocs per recordar.
     codi = io.open(RUTA_STATS, encoding='utf-8').read()
-    marca = 'url_google_sheet = "'
+    marca = 'url_apps_script = "'
     if marca not in codi:
         raise SystemExit(
-            "No trobo l'url_google_sheet dins de stats/stats.py. Si l'has canviat de nom, "
+            "No trobo l'url_apps_script dins de stats/stats.py. Si l'has canviat de nom, "
             "passa-li el CSV a mà: python3 stats/prova_dialectes.py un_full.csv")
     url = codi.split(marca, 1)[1].split('"', 1)[0]
 
-    print("Baixant el full publicat...")
-    context = ssl._create_unverified_context()
-    with urllib.request.urlopen(url, context=context) as resposta:
-        text = resposta.read().decode('utf-8')
+    print("Baixant el full...")
+    text = baixar_full(url, ['Data', 'Usuari', 'Paraula'])
     return list(csv.reader(io.StringIO(text)))
 
 
@@ -143,7 +142,8 @@ def executar_stats(cami_csv, cami_json, cami_versions):
     codi = io.open(RUTA_STATS, encoding='utf-8').read()
 
     canvis = [
-        ('df = pd.read_csv(url_google_sheet)', f'df = pd.read_csv({cami_csv!r})'),
+        ("text_full = baixar_full(url_apps_script, ['Data', 'Usuari', 'Paraula'])\n"
+         "df = pd.read_csv(io.StringIO(text_full))", f'df = pd.read_csv({cami_csv!r})'),
         ("ruta_json = 'stats/estadistiques_rimador.json'", f'ruta_json = {cami_json!r}'),
         ("ruta_versions = 'stats/versions_stats.json'", f'ruta_versions = {cami_versions!r}'),
     ]

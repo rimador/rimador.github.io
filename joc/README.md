@@ -598,7 +598,8 @@ valor de treball: el desplegament el substitueix.
 
 Funciona igual que el registre de cerques de la web: el navegador envia la
 puntuació a un Google Apps Script, que l'apunta a un full de càlcul; un script de
-Python llegeix el full publicat en CSV i en fa el rànquing que es veu al joc.
+Python demana el full a l'Apps Script amb una clau i en fa el rànquing que es veu
+al joc.
 
 **El nom es tria ABANS de la partida, i només el primer cop.** A la pantalla on
 tries dificultat i rellotge hi ha un bloc «Qui juga»: si el joc encara no sap com
@@ -655,8 +656,10 @@ joc/dades/classificacio.json             el rànquing que mostra el joc
 2. Extensions → Apps Script → enganxa-hi `eines/apps_script_classificacio.gs`.
    Desplega'l com a aplicació web (accés: qualsevol) i copia l'URL `/exec`.
 3. Posa aquell URL a `URL_ENVIAMENT` de `joc/js/classificacio.js`.
-4. Publica el full en CSV (Fitxer → Comparteix → Publica a la web → CSV) i posa
-   aquell URL a `URL_FULL_CSV` de `joc/eines/compilar_classificacio.py`.
+4. Posa el mateix URL a `URL_APPS_SCRIPT` de `joc/eines/compilar_classificacio.py`.
+5. **No publiquis el full al web**: lliga sobrenoms amb identificadors d'usuari.
+   Crea una clau llarga i desa-la a Configuració del projecte → Propietats de
+   l'script (`CLAU_LECTURA`) i als secrets de GitHub (`CLAU_LECTURA_FULLS`).
 
 > El compilador no perd les files velles: les que no duguin `DataPartida` o
 > `Dialecte` es donen per centrals i pel dia que van arribar.

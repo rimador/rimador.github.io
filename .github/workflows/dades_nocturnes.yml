@@ -8,6 +8,10 @@ name: Actualització nocturna de dades (estadístiques i classificació)
 #   stats/stats.py                      -> stats/estadistiques_rimador.json
 #                                          stats/versions_stats.json
 #   joc/eines/compilar_classificacio.py -> joc/dades/classificacio.json
+#                                          stats/estadistiques_joc.json
+#
+# (L'estadistiques_joc.json són els gràfics del joc de dades.html: el fa el
+# compilador del joc perquè és qui llegeix el full de les partides.)
 #
 # (La classificació es fa en dues fases: el navegador envia cada puntuació a un
 # Google Apps Script que l'apunta al full -això va sol-, i el compilador en treu
@@ -91,7 +95,7 @@ jobs:
 
       - name: Descartar la classificació si l'script ha petat
         if: steps.classificacio.outcome == 'failure'
-        run: git checkout -- joc/dades/classificacio.json
+        run: git checkout -- joc/dades/classificacio.json stats/estadistiques_joc.json
 
       - name: Guardar els canvis als JSON (Commit & Push)
         uses: ./.github/actions/comitejar
@@ -99,11 +103,15 @@ jobs:
           missatge: 'Actualització automàtica: estadístiques i classificació del joc'
           # Els fitxers dits pel seu nom i no pas "." : el repositori es pot
           # trobar amb canvis d'un altre workflow a mig fer. Només han de sortir
-          # aquestes tres dades. (Del commit només hi entra el que hagi canviat
+          # aquestes quatre dades. (Del commit només hi entra el que hagi canviat
           # de debò, o sigui que si una de les dues feines no ha tocat res, o ha
           # petat i s'ha descartat, el missatge sobra però no hi ha cap mentida
           # a dins.)
-          fitxers: stats/estadistiques_rimador.json stats/versions_stats.json joc/dades/classificacio.json
+          #
+          # L'estadistiques_joc.json ha d'existir ja al repositori, encara que
+          # sigui buit: si no, el "git checkout" de sobre i el "git add" d'aquí
+          # petarien la nit que el compilador fallés abans d'escriure'l.
+          fitxers: stats/estadistiques_rimador.json stats/versions_stats.json joc/dades/classificacio.json stats/estadistiques_joc.json
 
       # Va l'últim, després del commit: el que s'hagi pogut fer bé es guarda i es
       # publica igualment, però el job ha d'acabar vermell perquè el correu

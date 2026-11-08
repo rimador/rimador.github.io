@@ -2,14 +2,22 @@
 <!--
   Mapa del lloc del Rimador.cat — totes les pàgines que es poden indexar.
 
-  Hi són totes les que hi ha, i només aquestes: el 404.html en queda fora a
-  posta, perquè va marcat amb noindex i no és una pàgina del lloc sinó la
-  resposta a una adreça que no existeix. Les de html/ tampoc no hi són: aquella
+  COMPTE: AQUEST FITXER NO ÉS EL QUE ES PUBLICA. El pas «Regenerar el
+  sitemap.xml» de .github/workflows/deploy.yml el reescriu sencer a cada
+  desplegament a partir del <link rel="canonical"> de cada pàgina. El que
+  s'editi aquí no arriba mai a rimador.cat, i aquesta llista pot anar
+  endarrerida. La de debò és la de https://rimador.cat/sitemap.xml, i el
+  registre d'aquell pas del deploy també n'imprimeix les adreces.
+
+  Per tant, una pàgina nova hi entra sola sempre que dugui canonical i no dugui
+  noindex. A mà només cal afegir-la al menú (js/menu.js), si hi ha d'anar.
+  En queden fora les noindex: el 404.html, que no és una pàgina del lloc sinó
+  la resposta a una adreça que no existeix, i les eines internes de
+  diccionaris/python/ i joc/eines/. Les de html/ tampoc no hi són: aquella
   carpeta és al .gitignore i no arriba mai a publicar-se.
 
-  Quan s'hi afegeixi una pàgina nova, s'ha d'afegir aquí i al menú (js/menu.js).
-
-  No hi ha <lastmod> enlloc, i és volgut. El pas del deploy que estampa el ?v=
+  No hi ha <lastmod> enlloc, i és volgut (el generador del deploy tampoc no
+  n'escriu). El pas del deploy que estampa el ?v=
   reescriu el ?v= de TOTS els HTML cada vegada que es toca el css o el js, o
   sigui que la data del fitxer publicat diria que totes les pàgines han
   canviat quan en realitat no n'ha canviat ni una lletra del contingut. Google només fa cas del

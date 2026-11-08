@@ -1,12 +1,7 @@
 {
-  "actualitzacio": "08/11/2026 18:57:06",
+  "actualitzacio": "09/11/2026 00:45:37",
   "grafics": {
     "grafic_linia_diaria": [
-      {
-        "data": "09/10",
-        "diaria": 11,
-        "illimitat": 70
-      },
       {
         "data": "10/10",
         "diaria": 16,
@@ -151,32 +146,37 @@
         "data": "07/11",
         "diaria": 7,
         "illimitat": 48
+      },
+      {
+        "data": "08/11",
+        "diaria": 7,
+        "illimitat": 76
       }
     ],
     "grafic_linia_hores": [
       {
         "hora": "00:00",
-        "percentatge": 6.17
+        "percentatge": 6.07
       },
       {
         "hora": "00:30",
-        "percentatge": 4.95
+        "percentatge": 4.88
       },
       {
         "hora": "01:00",
-        "percentatge": 2.01
+        "percentatge": 1.98
       },
       {
         "hora": "01:30",
-        "percentatge": 1.23
+        "percentatge": 1.21
       },
       {
         "hora": "02:00",
-        "percentatge": 0.61
+        "percentatge": 0.64
       },
       {
         "hora": "02:30",
-        "percentatge": 0.23
+        "percentatge": 0.22
       },
       {
         "hora": "03:00",
@@ -216,135 +216,135 @@
       },
       {
         "hora": "07:30",
-        "percentatge": 1.18
+        "percentatge": 1.16
       },
       {
         "hora": "08:00",
-        "percentatge": 1.21
+        "percentatge": 1.2
       },
       {
         "hora": "08:30",
-        "percentatge": 2.07
+        "percentatge": 2.04
       },
       {
         "hora": "09:00",
-        "percentatge": 3.06
+        "percentatge": 3.01
       },
       {
         "hora": "09:30",
-        "percentatge": 1.8
+        "percentatge": 1.79
       },
       {
         "hora": "10:00",
-        "percentatge": 1.88
+        "percentatge": 1.85
       },
       {
         "hora": "10:30",
-        "percentatge": 1.35
+        "percentatge": 1.33
       },
       {
         "hora": "11:00",
-        "percentatge": 1.75
+        "percentatge": 1.85
       },
       {
         "hora": "11:30",
-        "percentatge": 1.92
+        "percentatge": 2.3
       },
       {
         "hora": "12:00",
-        "percentatge": 1.92
+        "percentatge": 1.89
       },
       {
         "hora": "12:30",
-        "percentatge": 1.01
+        "percentatge": 0.99
       },
       {
         "hora": "13:00",
-        "percentatge": 1.9
+        "percentatge": 1.87
       },
       {
         "hora": "13:30",
-        "percentatge": 0.97
+        "percentatge": 0.95
       },
       {
         "hora": "14:00",
-        "percentatge": 0.93
+        "percentatge": 0.92
       },
       {
         "hora": "14:30",
-        "percentatge": 2.43
-      },
-      {
-        "hora": "15:00",
-        "percentatge": 3.76
-      },
-      {
-        "hora": "15:30",
-        "percentatge": 3.49
-      },
-      {
-        "hora": "16:00",
-        "percentatge": 3.42
-      },
-      {
-        "hora": "16:30",
-        "percentatge": 3.51
-      },
-      {
-        "hora": "17:00",
-        "percentatge": 2.68
-      },
-      {
-        "hora": "17:30",
-        "percentatge": 2.01
-      },
-      {
-        "hora": "18:00",
-        "percentatge": 2.77
-      },
-      {
-        "hora": "18:30",
-        "percentatge": 2.45
-      },
-      {
-        "hora": "19:00",
-        "percentatge": 1.97
-      },
-      {
-        "hora": "19:30",
-        "percentatge": 2.54
-      },
-      {
-        "hora": "20:00",
         "percentatge": 2.39
       },
       {
+        "hora": "15:00",
+        "percentatge": 3.7
+      },
+      {
+        "hora": "15:30",
+        "percentatge": 3.44
+      },
+      {
+        "hora": "16:00",
+        "percentatge": 3.36
+      },
+      {
+        "hora": "16:30",
+        "percentatge": 3.48
+      },
+      {
+        "hora": "17:00",
+        "percentatge": 2.63
+      },
+      {
+        "hora": "17:30",
+        "percentatge": 1.98
+      },
+      {
+        "hora": "18:00",
+        "percentatge": 2.73
+      },
+      {
+        "hora": "18:30",
+        "percentatge": 2.41
+      },
+      {
+        "hora": "19:00",
+        "percentatge": 1.94
+      },
+      {
+        "hora": "19:30",
+        "percentatge": 2.5
+      },
+      {
+        "hora": "20:00",
+        "percentatge": 2.35
+      },
+      {
         "hora": "20:30",
-        "percentatge": 1.9
+        "percentatge": 1.87
       },
       {
         "hora": "21:00",
-        "percentatge": 2.03
+        "percentatge": 2.39
       },
       {
         "hora": "21:30",
-        "percentatge": 3.13
+        "percentatge": 3.38
       },
       {
         "hora": "22:00",
-        "percentatge": 4.12
+        "percentatge": 4.26
       },
       {
         "hora": "22:30",
-        "percentatge": 4.95
+        "percentatge": 4.88
       },
       {
         "hora": "23:00",
-        "percentatge": 4.63
+        "percentatge": 4.56
       },
       {
         "hora": "23:30",
-        "percentatge": 6.49
+        "percentatge": 6.43
       }
     ]
   }

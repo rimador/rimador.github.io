@@ -155,7 +155,7 @@ function validar(p) {
   if (paraula.length < 2) return { motiu: 'paraula' };
 
   // usr_<temps en base 36>_<cinc lletres>, que és com el fabrica getUsuariID().
-  // També hi ha identificadors del format antic ("usuari_72383") desats al
+  // També hi ha identificadors del format antic ("usuari_12345") desats al
   // localStorage de qui va entrar fa temps: només es miren els caràcters.
   var usuari = String(p.usuari || '');
   if (!/^[a-z0-9_]{3,48}$/.test(usuari)) return { motiu: 'usuari' };

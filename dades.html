@@ -40,7 +40,8 @@
     <script src="dist/js/menu.min.js?v=dev" defer></script>
     <script src="dist/js/script.min.js?v=dev" defer></script>
     <script src="dist/js/script_dades.min.js?v=dev" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Chart.js (el dist/chart.umd.js del paquet npm, sense tocar, amb la llicència al costat) se serveix des del nostre domini i no pas d'un CDN: així el navegador no es connecta a cap tercer, i el service worker el guarda amb la resta del shell (assets/). -->
+    <script src="assets/vendor/chart.js-4.4.1/chart.umd.js"></script>
 </head>
 
 <body id="dades">

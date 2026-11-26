@@ -1,5 +1,5 @@
 {
-  "actualitzacio": "26/11/2026 00:45:32",
+  "actualitzacio": "27/11/2026 00:45:33",
   "modalitats": {
     "diaria|dificil|60": {
       "titol": "Paraula del dia · Difícil",
@@ -68,6 +68,13 @@
           "data": "16/09/2026"
         },
         {
+          "sobrenom": "Gispert",
+          "punts": 12,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
           "sobrenom": "Martacs",
           "punts": 12,
           "paraula": "policresta",
@@ -101,13 +108,6 @@
           "paraula": "galiassa",
           "dialecte": "ca",
           "data": "19/09/2026"
-        },
-        {
-          "sobrenom": "bernat_tvt",
-          "punts": 12,
-          "paraula": "corcollanes",
-          "dialecte": "ca",
-          "data": "16/09/2026"
         }
       ]
     },
@@ -123,10 +123,10 @@
         },
         {
           "sobrenom": "Yaguito",
-          "punts": 31,
-          "paraula": "peany",
+          "punts": 32,
+          "paraula": "aresblanc",
           "dialecte": "ca",
-          "data": "20/11/2026"
+          "data": "26/11/2026"
         },
         {
           "sobrenom": "joanc",
@@ -239,18 +239,18 @@
           "data": "09/11/2026"
         },
         {
+          "sobrenom": "Gispert",
+          "punts": 22,
+          "paraula": "escafarlata",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
           "sobrenom": "Fredolic",
           "punts": 21,
           "paraula": "lemniscata",
           "dialecte": "ca",
           "data": "19/11/2026"
-        },
-        {
-          "sobrenom": "Gispert",
-          "punts": 20,
-          "paraula": "panissalla",
-          "dialecte": "ca",
-          "data": "24/11/2026"
         },
         {
           "sobrenom": "Trull",
@@ -335,18 +335,18 @@
       "titol": "Il·limitat · Difícil · Llampec",
       "top": [
         {
+          "sobrenom": "Gispert",
+          "punts": 14,
+          "paraula": "encetall",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
           "sobrenom": "Ferran MB",
           "punts": 14,
           "paraula": "tumefacta",
           "dialecte": "ca",
           "data": "06/10/2026"
-        },
-        {
-          "sobrenom": "Gispert",
-          "punts": 13,
-          "paraula": "fullaca",
-          "dialecte": "ca",
-          "data": "25/11/2026"
         },
         {
           "sobrenom": "Yaguito",
@@ -379,9 +379,9 @@
         {
           "sobrenom": "maraki",
           "punts": 9,
-          "paraula": "sortint",
+          "paraula": "rossegall",
           "dialecte": "ca",
-          "data": "15/11/2026"
+          "data": "26/11/2026"
         },
         {
           "sobrenom": "PutaSpanya",
@@ -883,54 +883,6 @@
     }
   },
   "diaria": {
-    "2026-10-27": {
-      "dificil": [
-        {
-          "sobrenom": "Trull",
-          "punts": 4,
-          "paraula": "pedofíliques",
-          "dialecte": "ca",
-          "data": "27/10/2026"
-        },
-        {
-          "sobrenom": "Melicaco",
-          "punts": 1,
-          "paraula": "pedofíliques",
-          "dialecte": "ca",
-          "data": "27/10/2026"
-        },
-        {
-          "sobrenom": "maraki",
-          "punts": 1,
-          "paraula": "pedofíliques",
-          "dialecte": "ca",
-          "data": "27/10/2026"
-        }
-      ],
-      "facil": [
-        {
-          "sobrenom": "Ferran MB",
-          "punts": 34,
-          "paraula": "prociònids",
-          "dialecte": "ca",
-          "data": "27/10/2026"
-        },
-        {
-          "sobrenom": "Melicaco",
-          "punts": 6,
-          "paraula": "prociònids",
-          "dialecte": "ca",
-          "data": "27/10/2026"
-        },
-        {
-          "sobrenom": "Trull",
-          "punts": 4,
-          "paraula": "prociònids",
-          "dialecte": "ca",
-          "data": "27/10/2026"
-        }
-      ]
-    },
     "2026-10-28": {
       "dificil": [
         {
@@ -3274,6 +3226,103 @@
           "data": "25/11/2026"
         }
       ]
+    },
+    "2026-11-26": {
+      "dificil": [
+        {
+          "sobrenom": "Gispert",
+          "punts": 12,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Yaguito",
+          "punts": 12,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Ferran MB",
+          "punts": 11,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Trull",
+          "punts": 7,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "maraki",
+          "punts": 5,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Josep Veciana",
+          "punts": 4,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Fredolic",
+          "punts": 4,
+          "paraula": "talla-rajoles",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        }
+      ],
+      "facil": [
+        {
+          "sobrenom": "Ferran MB",
+          "punts": 38,
+          "paraula": "aresblanc",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Yaguito",
+          "punts": 32,
+          "paraula": "aresblanc",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Trull",
+          "punts": 24,
+          "paraula": "aresblanc",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Lau",
+          "punts": 10,
+          "paraula": "aresblanc",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Genís",
+          "punts": 7,
+          "paraula": "aresblanc",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        },
+        {
+          "sobrenom": "Josep Veciana",
+          "punts": 5,
+          "paraula": "aresblanc",
+          "dialecte": "ca",
+          "data": "26/11/2026"
+        }
+      ]
     }
   },
   "diaria_millors": {
@@ -3340,6 +3389,13 @@
         "paraula": "corcollanes",
         "dialecte": "ca",
         "data": "16/09/2026"
+      },
+      {
+        "sobrenom": "Gispert",
+        "punts": 12,
+        "paraula": "talla-rajoles",
+        "dialecte": "ca",
+        "data": "26/11/2026"
       },
       {
         "sobrenom": "Martacs",
@@ -3480,13 +3536,6 @@
         "paraula": "estanques",
         "dialecte": "ca",
         "data": "26/09/2026"
-      },
-      {
-        "sobrenom": "Cami",
-        "punts": 9,
-        "paraula": "corcollanes",
-        "dialecte": "ca",
-        "data": "16/09/2026"
       }
     ],
     "facil": [
@@ -3499,10 +3548,10 @@
       },
       {
         "sobrenom": "Yaguito",
-        "punts": 31,
-        "paraula": "peany",
+        "punts": 32,
+        "paraula": "aresblanc",
         "dialecte": "ca",
-        "data": "20/11/2026"
+        "data": "26/11/2026"
       },
       {
         "sobrenom": "joanc",
@@ -3652,14 +3701,14 @@
         "data": "13/09/2026"
       },
       {
-        "sobrenom": "Marta",
+        "sobrenom": "Lau",
         "punts": 10,
-        "paraula": "desconfort",
+        "paraula": "aresblanc",
         "dialecte": "ca",
-        "data": "24/11/2026"
+        "data": "26/11/2026"
       },
       {
-        "sobrenom": "Lau",
+        "sobrenom": "Marta",
         "punts": 10,
         "paraula": "desconfort",
         "dialecte": "ca",
@@ -3705,21 +3754,21 @@
   "estadistiques": {
     "modalitats": {
       "diaria|dificil|60": {
-        "partides": 751,
+        "partides": 758,
         "mitjana": 5.1,
         "histograma": {
           "1": 68,
           "2": 98,
           "3": 113,
-          "4": 98,
-          "5": 97,
+          "4": 100,
+          "5": 98,
           "6": 68,
-          "7": 53,
+          "7": 54,
           "8": 41,
           "9": 35,
           "10": 28,
-          "11": 14,
-          "12": 17,
+          "11": 15,
+          "12": 19,
           "13": 10,
           "14": 7,
           "15": 1,
@@ -3727,19 +3776,19 @@
         }
       },
       "diaria|facil|60": {
-        "partides": 582,
-        "mitjana": 9.8,
+        "partides": 588,
+        "mitjana": 9.9,
         "histograma": {
           "1": 31,
           "2": 44,
           "3": 51,
           "4": 54,
-          "5": 53,
+          "5": 54,
           "6": 63,
-          "7": 33,
+          "7": 34,
           "8": 39,
           "9": 30,
-          "10": 29,
+          "10": 30,
           "11": 16,
           "12": 10,
           "13": 11,
@@ -3753,7 +3802,7 @@
           "21": 3,
           "22": 5,
           "23": 5,
-          "24": 2,
+          "24": 3,
           "25": 5,
           "26": 1,
           "27": 2,
@@ -3761,12 +3810,12 @@
           "29": 1,
           "30": 2,
           "31": 4,
-          "32": 5,
+          "32": 6,
           "33": 3,
           "34": 1,
           "35": 3,
           "36": 1,
-          "38": 2,
+          "38": 3,
           "39": 1,
           "40": 4,
           "41": 4,
@@ -3781,8 +3830,8 @@
         }
       },
       "illimitat|dificil|120": {
-        "partides": 792,
-        "mitjana": 7.6,
+        "partides": 811,
+        "mitjana": 7.7,
         "histograma": {
           "1": 25,
           "2": 43,
@@ -3791,46 +3840,47 @@
           "5": 76,
           "6": 73,
           "7": 63,
-          "8": 75,
-          "9": 57,
-          "10": 55,
-          "11": 50,
-          "12": 46,
-          "13": 27,
-          "14": 19,
-          "15": 11,
-          "16": 10,
+          "8": 77,
+          "9": 59,
+          "10": 57,
+          "11": 54,
+          "12": 47,
+          "13": 30,
+          "14": 20,
+          "15": 13,
+          "16": 11,
           "17": 9,
           "18": 2,
           "19": 4,
           "20": 3,
           "21": 2,
+          "22": 1,
           "23": 1,
           "30": 1
         }
       },
       "illimitat|dificil|30": {
-        "partides": 902,
-        "mitjana": 3.9,
+        "partides": 1097,
+        "mitjana": 4.4,
         "histograma": {
-          "1": 111,
-          "2": 170,
-          "3": 165,
-          "4": 140,
-          "5": 127,
-          "6": 71,
-          "7": 52,
-          "8": 26,
-          "9": 15,
-          "10": 11,
-          "11": 8,
-          "12": 3,
-          "13": 2,
-          "14": 1
+          "1": 114,
+          "2": 176,
+          "3": 174,
+          "4": 164,
+          "5": 149,
+          "6": 102,
+          "7": 78,
+          "8": 55,
+          "9": 30,
+          "10": 25,
+          "11": 14,
+          "12": 6,
+          "13": 6,
+          "14": 4
         }
       },
       "illimitat|dificil|60": {
-        "partides": 1868,
+        "partides": 1874,
         "mitjana": 5.4,
         "histograma": {
           "0": 2,
@@ -3838,13 +3888,13 @@
           "2": 215,
           "3": 234,
           "4": 250,
-          "5": 238,
-          "6": 199,
+          "5": 239,
+          "6": 201,
           "7": 154,
-          "8": 145,
+          "8": 147,
           "9": 92,
           "10": 78,
-          "11": 52,
+          "11": 53,
           "12": 27,
           "13": 19,
           "14": 8,
@@ -3916,15 +3966,15 @@
         }
       },
       "illimitat|facil|60": {
-        "partides": 818,
-        "mitjana": 6.7,
+        "partides": 822,
+        "mitjana": 6.6,
         "histograma": {
           "1": 41,
-          "2": 68,
-          "3": 88,
+          "2": 70,
+          "3": 89,
           "4": 81,
           "5": 72,
-          "6": 86,
+          "6": 87,
           "7": 94,
           "8": 70,
           "9": 56,
@@ -3946,25 +3996,6 @@
       }
     },
     "diaria": {
-      "2026-10-27": {
-        "dificil": {
-          "partides": 3,
-          "mitjana": 2.0,
-          "histograma": {
-            "1": 2,
-            "4": 1
-          }
-        },
-        "facil": {
-          "partides": 3,
-          "mitjana": 14.7,
-          "histograma": {
-            "4": 1,
-            "6": 1,
-            "34": 1
-          }
-        }
-      },
       "2026-10-28": {
         "dificil": {
           "partides": 5,
@@ -4605,25 +4636,50 @@
             "39": 1
           }
         }
+      },
+      "2026-11-26": {
+        "dificil": {
+          "partides": 7,
+          "mitjana": 7.9,
+          "histograma": {
+            "4": 2,
+            "5": 1,
+            "7": 1,
+            "11": 1,
+            "12": 2
+          }
+        },
+        "facil": {
+          "partides": 6,
+          "mitjana": 19.3,
+          "histograma": {
+            "5": 1,
+            "7": 1,
+            "10": 1,
+            "24": 1,
+            "32": 1,
+            "38": 1
+          }
+        }
       }
     },
     "diaria_totals": {
       "dificil": {
-        "partides": 751,
+        "partides": 758,
         "mitjana": 5.1,
         "histograma": {
           "1": 68,
           "2": 98,
           "3": 113,
-          "4": 98,
-          "5": 97,
+          "4": 100,
+          "5": 98,
           "6": 68,
-          "7": 53,
+          "7": 54,
           "8": 41,
           "9": 35,
           "10": 28,
-          "11": 14,
-          "12": 17,
+          "11": 15,
+          "12": 19,
           "13": 10,
           "14": 7,
           "15": 1,
@@ -4631,19 +4687,19 @@
         }
       },
       "facil": {
-        "partides": 582,
-        "mitjana": 9.8,
+        "partides": 588,
+        "mitjana": 9.9,
         "histograma": {
           "1": 31,
           "2": 44,
           "3": 51,
           "4": 54,
-          "5": 53,
+          "5": 54,
           "6": 63,
-          "7": 33,
+          "7": 34,
           "8": 39,
           "9": 30,
-          "10": 29,
+          "10": 30,
           "11": 16,
           "12": 10,
           "13": 11,
@@ -4657,7 +4713,7 @@
           "21": 3,
           "22": 5,
           "23": 5,
-          "24": 2,
+          "24": 3,
           "25": 5,
           "26": 1,
           "27": 2,
@@ -4665,12 +4721,12 @@
           "29": 1,
           "30": 2,
           "31": 4,
-          "32": 5,
+          "32": 6,
           "33": 3,
           "34": 1,
           "35": 3,
           "36": 1,
-          "38": 2,
+          "38": 3,
           "39": 1,
           "40": 4,
           "41": 4,
